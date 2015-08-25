@@ -44,4 +44,11 @@ ratios <- data.frame(antibodyNames=nAb, ratios=ratios)
 
 write.table(ratios, file="inst/dataInst/a2058_skmel133_ctrlRatios.txt", sep="\t", col.names=TRUE, row.names=FALSE, quote=FALSE)
 
+normCoef <- ratios[, "ratios"] %*% t(tpl_n[, "tpl_norm_const"])
+
+for(i in 1:ncol(normCoef)) {
+    for(j in 1:nrow(normCoef)) {
+        a2058[, "readout"]
+    }
+}
 ```
