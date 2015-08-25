@@ -1,0 +1,1 @@
+data<-read.table("skmel_475_a_n_tp.txt",header=T)
