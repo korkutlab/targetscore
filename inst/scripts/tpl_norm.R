@@ -11,4 +11,5 @@ tpl_n <- cbind(tpl_1[,1],tpl_1[,2],tpl_c)
 print(tpl_n)
 colnames(tpl_n) <- c("sample_ID","sample_name","tpl_norm_const")
 
-write.table(tpl_n,file="inst/dataInst/tpl_norm.txt",quote=F,row.names=F)
+write.table(tpl_n,file="inst/dataInst/tpl_norm.txt",quote=F,row.names=F, sep="\t")
+rm(list=ls())
