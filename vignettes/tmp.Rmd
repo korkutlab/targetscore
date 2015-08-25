@@ -40,7 +40,7 @@ for(i in 1:length(nAb)) {
     ratios <- c(ratios, t1/t2)
 }
 
-ratios <- data.frame(ratios=ratios)
+ratios <- data.frame(antibodyNames=nAb, ratios=ratios)
 
 write.table(ratios, file="inst/dataInst/a2058_skmel133_ctrlRatios.txt", sep="\t", col.names=TRUE, row.names=FALSE, quote=FALSE)
 
