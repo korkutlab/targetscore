@@ -16,6 +16,11 @@ opts_chunk$set(fig.align="center", fig.width=6, fig.height=6, dpi=300)
 ## Setup 
 ```{r loadLibraries, message=FALSE, warning=FALSE}
 library(xlsx)
+library(zeptosensPkg)
 ```
 
-## 
+##
+```{r}
+library(xlsx)
+readZeptosensExport()
+```
