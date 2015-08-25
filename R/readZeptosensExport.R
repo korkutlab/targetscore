@@ -66,7 +66,7 @@ tmp <- readZeptosensExport(inputFile="inst/data/R006_RFI_Export_Table.xls",
 #' 
 #' @concept zeptosensPkg
 #' @export 
-readIntermediateExport <- function(inputFile=NULL, outputFile=NULL, nrep=NULL, ncond=NULL, ntime=NULL, nab=NULL) {
+readIntermediateExport <- function(data, outputFile=NULL, nrep=NULL, ncond=NULL, ntime=NULL, nab=NULL) {
     options("digits"=3)
     
     nrep=2
@@ -77,8 +77,9 @@ readIntermediateExport <- function(inputFile=NULL, outputFile=NULL, nrep=NULL, n
     ctr=ncond*ntime*nrep
     ct=ncond*ntime
     
-    data <- read.table("a2058.txt")
-    annot <- read.table("ab_index.txt")
+    #data <- read.table("a2058.txt")
+    annot <- read.table("ab_index.txt") antibodyName geneName postTranslationModification activityState
+
     normal <- read.table("cellmix.txt")
     
     for (i in 1:length(data[,1])) {
