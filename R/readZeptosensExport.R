@@ -50,7 +50,6 @@ readZeptosensExport <- function(nrep=NULL, ncond=NULL, ntime=NULL, nab=NULL, out
             datar[ct*(ab-1)+k,6]=data[ctr*(ab-1)+k,4]#/(normal[ab,4])
             datar[ct*(ab-1)+k,7]=data[ctr*(ab-1)+ct+k,4]#/(normal[ab,4])
         }
-        
     }
     
     write.table(datar, file="a2058_replicates_nn.txt", col.names=F, row.names=F, sep = "	",quote=FALSE)
