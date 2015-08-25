@@ -3,12 +3,11 @@
     install.packages("devtools")
     
     library(devtools)
-    install_bitbucket("cbio_mskcc/kirc_immune_project",
+    install_bitbucket("cbio_mskcc/zeptosensPkg",
         auth_user="discoverUser",
         password="discoverUserPassword",
         build_vignette=TRUE,
         dependencies=TRUE,
         args="--no-multiarch")
         
-    library(kircImmuneProject)
-    runShinyApp()
+    library(zeptosensPkg)
