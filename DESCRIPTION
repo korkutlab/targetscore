@@ -3,7 +3,7 @@ Type: Package
 Title: zeptosensPkg
 Version: 0.99.1
 Date: 2015-08-25
-Author: Augustin Luna, Anil Korkut, Superman
+Author: Augustin Luna, Anil Korkut
 Maintainer: Augustin Luna <lunaa@cbio.mskcc.org>
 Description: TBA
 License: LGPL-3
