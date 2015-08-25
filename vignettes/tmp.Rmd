@@ -21,6 +21,27 @@ library(zeptosensPkg)
 
 ##
 ```{r}
-library(xlsx)
-readZeptosensExport()
+tpl_n <- read.table("inst/dataInst/tpl_norm.txt", header=TRUE, sep="\t", comment.char='')
+
+a2058 <- readZeptosensExport("inst/dataInst/R022_A2058_RFI_Export_Table.xls", c("sampleName", "treatment", "time"))
+skmel133 <- readZeptosensExport("inst/dataInst/R023_Mel133_RFI_Export_Table.xls", c("sampleName", "treatment", "time"))
+
+orgCtrlIdx <- 64
+nAb <- unique(a2058[, "antibody"])
+
+ratios <- NULL
+    
+for(i in 1:length(nAb)) {
+    ctrlIdx <- orgCtrlIdx*i
+    
+    t1 <- sum(a2058[c(ctrlIdx, ctrlIdx+1), "readout"])
+    t2 <- sum(skmel133[c(ctrlIdx, ctrlIdx+1), "readout"])
+    
+    ratios <- c(ratios, t1/t2)
+}
+
+ratios <- data.frame(ratios=ratios)
+
+write.table(ratios, file="inst/dataInst/a2058_skmel133_ctrlRatios.txt", sep="\t", col.names=TRUE, row.names=FALSE, quote=FALSE)
+
 ```
