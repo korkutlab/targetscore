@@ -3,11 +3,11 @@ Type: Package
 Title: zeptosensPkg
 Version: 0.99.1
 Date: 2015-08-25
-Author: Augustin Luna, Anil Korkut
+Author: Augustin Luna
 Maintainer: Augustin Luna <lunaa@cbio.mskcc.org>
 Description: TBA
 License: LGPL-3
-LazyData: true
+LazyData: false
 Depends:
     R (>= 3.1.1),
     xlsx
