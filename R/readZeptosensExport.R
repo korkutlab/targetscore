@@ -3,6 +3,10 @@
 #' @param inputFile TBA
 #' @param sampleNameEntries TBA
 #' 
+#' @examples 
+#' tmp <- readZeptosensExport("inst/dataInst/R006_RFI_Export_Table.xls", c("sampleNameNumber", "NA", "NA", "sampleName", "treatment", "time", "replicate"))
+#' 
+#' @concept zeptosensPkg
 #' @export 
 readZeptosensExport <- function(inputFile=NULL, sampleNameEntries=NULL) {
     message("NOTE: Sample Name in *_RFI_Export_Table.xls is assumed to be in the format sampleNumber_sampleName_drug_time_dose_replicateNumber. Use 'samplenNameEntries' parameter to modify as described in documentation.")
