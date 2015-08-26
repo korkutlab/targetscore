@@ -26,13 +26,13 @@ tpl_n <- read.table("inst/dataInst/tpl_norm.txt", header=TRUE, sep="\t", comment
 a2058 <- readZeptosensExport("inst/dataInst/R022_A2058_RFI_Export_Table.xls", c("sampleName", "treatment", "time"))
 skmel133 <- readZeptosensExport("inst/dataInst/R023_Mel133_RFI_Export_Table.xls", c("sampleName", "treatment", "time"))
 
-orgCtrlIdx <- 64
+orgCtrlIdx <- 65
 nAb <- unique(a2058[, "antibody"])
 
 ratios <- NULL
     
 for(i in 1:length(nAb)) {
-    ctrlIdx <- orgCtrlIdx*i
+    ctrlIdx <- (orgCtrlIdx*i)-1
     
     t1 <- sum(a2058[c(ctrlIdx, ctrlIdx+1), "readout"])
     t2 <- sum(skmel133[c(ctrlIdx, ctrlIdx+1), "readout"])
@@ -50,8 +50,8 @@ tmpDf <- NULL
 
 for(i in 1:nrow(normCoef)) {
     for(j in 1:ncol(normCoef)) {
-        t1 <- a2058[i*j, "readout"] / normCoef[i,j]
-        t2 <- skmel133[i*j, "readout"] / normCoef[i,j]
+        t1 <- a2058[(i-1)*ncol(normCoef)+j, "readout"] / normCoef[i,j]
+        t2 <- skmel133[(i-1)*ncol(normCoef)+j, "readout"] / normCoef[i,j]
         
         tmpDf <- rbind(tmpDf, data.frame(a2058=t1, skmel133=t2))
     }
@@ -80,16 +80,17 @@ ctrlTime <- "5min"
 # idx <- c(t0, c(1, 9, 17, 25, 33, 41, 49))
 # nab <- 36
 allDrugs <- unique(normA2058[, "treatment"])
-tmpDrugs <- drugs[!(unique(normA2058[, "treatment"]) %in% excludeDrugs)]
+tmpDrugs <- allDrugs[!(unique(normA2058[, "treatment"]) %in% excludeDrugs)]
 
 curDrug <- tmpDrugs[1]
 
-par(mfrow=c(sqrt(length(antibodies)), sqrt(length(antibodies))))
-par(mar=c(1,1,1,1))
-
-#for(curDrug in tmpDrugs) {
 
 
+for(curDrug in tmpDrugs) {
+
+    pdf(paste0("inst/dataInst/", curDrug, ".pdf"), width=20, height=14)
+    par(mfrow=c(sqrt(length(antibodies)), sqrt(length(antibodies))))
+    par(mar=c(1.5,2,1.5,1), oma=c(0,0,2,0))
     for(curAntibody in antibodies) {
         tmpAEntries <- normA2058[which(normA2058[, "antibody"] == curAntibody), ]
         tmpBEntries <- normSkmel133[which(normSkmel133[, "antibody"] == curAntibody), ]
@@ -99,13 +100,16 @@ par(mar=c(1,1,1,1))
         t0Idx <- intersect(which(tmpAEntries[, "treatment"] == ctrlDrug), which(tmpAEntries[, "time"] == ctrlTime))
         allIdx <- c(t0Idx, idx)
         
-        entriesWithCtrl <- cbind(tmpAEntries[allIdx, "readout"], tmpBEntries[allIdx, "readout"])
+        entriesWithCtrl <- cbind(tmpAEntries[allIdx, "normReadout"], tmpBEntries[allIdx, "readout"])
         colnames(entriesWithCtrl) <- c("A2058", "SkMel133")
-        rownames(entriesWithCtrl) <- c("0min", "5min", "15min", "30min", "1hr", "12hr", "24hr", "48hr")
+        rownames(entriesWithCtrl) <- c("0m", "5m", "15m", "30m", "1h", "12h", "24h", "48h")
         tmpMat <- t(entriesWithCtrl)
         
-        barplot(tmpMat, main=curAntibody, beside=TRUE, col=c("darkblue","red"))
+        barplot(tmpMat, main=curAntibody, beside=TRUE, col=c("darkblue","red"), cex.main=0.7, cex.axis=0.7)
     }
-#}
+    title(main=curDrug, outer=T)
 
+    dev.off()
+}
+   
 ```
