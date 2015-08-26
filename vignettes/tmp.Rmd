@@ -46,9 +46,66 @@ write.table(ratios, file="inst/dataInst/a2058_skmel133_ctrlRatios.txt", sep="\t"
 
 normCoef <- ratios[, "ratios"] %*% t(tpl_n[, "tpl_norm_const"])
 
-for(i in 1:ncol(normCoef)) {
-    for(j in 1:nrow(normCoef)) {
-        a2058[, "readout"]
+tmpDf <- NULL
+
+for(i in 1:nrow(normCoef)) {
+    for(j in 1:ncol(normCoef)) {
+        t1 <- a2058[i*j, "readout"] / normCoef[i,j]
+        t2 <- skmel133[i*j, "readout"] / normCoef[i,j]
+        
+        tmpDf <- rbind(tmpDf, data.frame(a2058=t1, skmel133=t2))
     }
 }
+
+normA2058 <- cbind(a2058, normReadout=tmpDf[,"a2058"]) 
+normSkmel133 <- cbind(skmel133, normReadout=tmpDf[,"skmel133"]) 
+
+write.table(normA2058, file="inst/dataInst/normA2058.txt", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+write.table(normSkmel133, file="inst/dataInst/normSkmel133.txt", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+```
+
+```{r}
+
+normA2058
+normSkmel133
+
+antibodies <- unique(normA2058[, "antibody"])
+
+excludeDrugs <- c("DMSO", "DMSO-2")
+ctrlDrug <- "DMSO"
+ctrlTime <- "5min"
+
+# period <- 65
+# t0 <- 57
+# idx <- c(t0, c(1, 9, 17, 25, 33, 41, 49))
+# nab <- 36
+allDrugs <- unique(normA2058[, "treatment"])
+tmpDrugs <- drugs[!(unique(normA2058[, "treatment"]) %in% excludeDrugs)]
+
+curDrug <- tmpDrugs[1]
+
+par(mfrow=c(sqrt(length(antibodies)), sqrt(length(antibodies))))
+par(mar=c(1,1,1,1))
+
+#for(curDrug in tmpDrugs) {
+
+
+    for(curAntibody in antibodies) {
+        tmpAEntries <- normA2058[which(normA2058[, "antibody"] == curAntibody), ]
+        tmpBEntries <- normSkmel133[which(normSkmel133[, "antibody"] == curAntibody), ]
+        
+        idx <- intersect(which(tmpAEntries[, "antibody"] == curAntibody), which(tmpAEntries[, "treatment"] == curDrug))
+        
+        t0Idx <- intersect(which(tmpAEntries[, "treatment"] == ctrlDrug), which(tmpAEntries[, "time"] == ctrlTime))
+        allIdx <- c(t0Idx, idx)
+        
+        entriesWithCtrl <- cbind(tmpAEntries[allIdx, "readout"], tmpBEntries[allIdx, "readout"])
+        colnames(entriesWithCtrl) <- c("A2058", "SkMel133")
+        rownames(entriesWithCtrl) <- c("0min", "5min", "15min", "30min", "1hr", "12hr", "24hr", "48hr")
+        tmpMat <- t(entriesWithCtrl)
+        
+        barplot(tmpMat, main=curAntibody, beside=TRUE, col=c("darkblue","red"))
+    }
+#}
+
 ```
