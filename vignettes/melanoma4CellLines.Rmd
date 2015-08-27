@@ -32,6 +32,34 @@ tmp <- data06[which(grepl("melanoma", data06[, "Sample.Name"], ignore.case=TRUE)
 
 array06 <- readZeptosensExport(tmp, c("sampleNameNumber", "NA", "NA", "sampleName", "treatment", "time", "replicate"))
 write.table(array06,file="inst/dataInst/R006_RFI_Export_Int.txt", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+
+array06
+
+replicateLabels <- unique(array06[,"replicate"])
+
+array06[, c("sampleName", "treatment", "time", "antibody")]
+
+which(duplicated(array06[, c("sampleName", "treatment", "time", "antibody")]))
+
+rep1 <- array06[which(array06$replicate == "rep1"), ]
+idx1 <- with(rep1, order(sampleName, treatment, time, antibody))
+rep1 <- rep1[idx1,]
+
+rep2 <- array06[which(array06$replicate == "rep2"), ]
+idx2 <- with(rep2, order(sampleName, treatment, time, antibody))
+
+# tmp1 <- rep1[, c("sampleName", "treatment", "time", "antibody")]
+# res1 <- apply(tmp1, 1, function(x) {
+#     paste(x[, c("sampleName", "treatment", "time", "antibody")], collapse="-")
+# })
+# 
+# tmp1 <- rep2[, c("sampleName", "treatment", "time", "antibody")]
+# res1 <- apply(tmp1, 1, function(x) {
+#     paste(x[, c("sampleName", "treatment", "time", "antibody")], collapse="-")
+# })
+# 
+# 
+# paste(array06[, c("sampleName", "treatment", "time", "antibody")])
 ```
 
 ```{r}
