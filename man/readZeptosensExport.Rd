@@ -14,4 +14,10 @@ readZeptosensExport(inputFile = NULL, sampleNameEntries = NULL)
 \description{
 Read Zeptosens Export File
 }
+\examples{
+tmp <- readZeptosensExport("inst/dataInst/R006_RFI_Export_Table.xls", c("sampleNameNumber", "NA", "NA", "sampleName", "treatment", "time", "replicate"))
+}
+\concept{
+zeptosensPkg
+}
 
