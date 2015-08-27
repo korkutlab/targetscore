@@ -1,5 +1,5 @@
 ---
-title: "Zeptosens"
+title: "4 Cell Lines"
 output: 
   html_document:
     toc: true
@@ -23,10 +23,18 @@ library(zeptosensPkg)
 
 ## Normalization
 ```{r}
-# Unused
-#tpl_n <- read.table("inst/dataInst/tpl_norm.txt", header=TRUE, sep="\t", comment.char='')
+inputFile <- "inst/dataInst/R006_RFI_Export_Table.xls"
+data <- readZeptosensXls(inputFile)
+
+tmp <- data[which(grepl("melanoma", data[, "Sample.Name"], ignore.case=TRUE)),]
+
+# Example Sample Name: S001_cell line_Melanoma_A2058 _DMSO_1hr_rep1
+
+array1 <- readZeptosensExport(tmp, c("sampleNameNumber", "NA", "NA", "sampleName", "treatment", "time", "replicate"))
 
 colClasses <- c("character","character","numeric")
+
+
         
 tpl_1 <- read.xlsx2("inst/dataInst/R022_A2058_sample_conc_EZQ.xlsx", colClasses=colClasses, stringsAsFactors=F, sheetIndex=1)
 tpl_2 <- read.xlsx2("inst/dataInst/R023_Mel133_sample_conc_EZQ.xlsx", colClasses=colClasses, stringsAsFactors=F, sheetIndex=1)
