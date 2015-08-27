@@ -40,7 +40,8 @@ readZeptosensExport <- function(inputFile=NULL, sampleNameEntries=NULL) {
             antibody=data[i, "Analyte"],
             readout=data[i, "RFI"],
             cv=data[i, "RFI.CV"],
-            quality=data[i, "Class."]
+            quality=data[i, "Class."],
+            stringsAsFactors=FALSE
         )
             
         df <- rbind(df, tmpDf)
