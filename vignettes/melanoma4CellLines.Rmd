@@ -47,6 +47,20 @@ rep1 <- rep1[idx1,]
 
 rep2 <- array06[which(array06$replicate == "rep2"), ]
 idx2 <- with(rep2, order(sampleName, treatment, time, antibody))
+rep2 <- rep1[idx2,]
+
+tmp <- cbind(rep1$readout, rep2$readout)
+
+sdVals <- apply(tmp, 1, sd)
+
+# SD 
+#avgRepVals <- srowMeans(tmp)
+
+avgRep <- rep1
+avgRep[, "readout"] <- avgRepVals
+avgRep[, "cv"] <- sdVals
+
+write.table(avgRep,file="inst/dataInst/R006_RFI_Export_Avg.txt", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 
 # tmp1 <- rep1[, c("sampleName", "treatment", "time", "antibody")]
 # res1 <- apply(tmp1, 1, function(x) {
