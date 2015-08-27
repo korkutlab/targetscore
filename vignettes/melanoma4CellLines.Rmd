@@ -24,14 +24,17 @@ library(zeptosensPkg)
 ## Normalization
 ```{r}
 inputFile <- "inst/dataInst/R006_RFI_Export_Table.xls"
-data <- readZeptosensXls(inputFile)
+data06 <- readZeptosensXls(inputFile)
 
-tmp <- data[which(grepl("melanoma", data[, "Sample.Name"], ignore.case=TRUE)),]
+tmp <- data06[which(grepl("melanoma", data06[, "Sample.Name"], ignore.case=TRUE)),]
 
 # Example Sample Name: S001_cell line_Melanoma_A2058 _DMSO_1hr_rep1
 
-array1 <- readZeptosensExport(tmp, c("sampleNameNumber", "NA", "NA", "sampleName", "treatment", "time", "replicate"))
+array06 <- readZeptosensExport(tmp, c("sampleNameNumber", "NA", "NA", "sampleName", "treatment", "time", "replicate"))
+write.table(array06,file="inst/dataInst/R006_RFI_Export_Int.txt", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+```
 
+```{r}
 colClasses <- c("character","character","numeric")
 
 
