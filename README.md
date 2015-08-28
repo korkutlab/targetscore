@@ -1,22 +1,55 @@
 # Data Formats
-Zeptosens output file:
+# Format 
 
-sampleno_sample_treatment_dose_time_replicate_date_notes
-e.g., S001_skmel133-melanoma_RAFi:MEKi_2000nM:50nM_1000min:1000min_rep1_08272015_this-is-my-note
-rules: no space/no punctuation no special characters. Just use letters and numbers. Put all information relating to cell line name, organism name etc. in "sample"" (use "-" as word seperator). Dose in nM (unit “nM"), time in minutes (unit “min”). replicate as "repX” ( rep1 ,rep 2,rep3) .time format month/day/year.
+sampleNumber_sample_treatment_dose_time_replicate_date_notes
 
-For combos use “:”
-time: the drug incubation time.
-If delayed experiment time becomes:
-t1:t2
+# Complete Example
+S001_skmel133-melanoma_RAFi:MEKi_2000nM:50nM_1000min:1000min_rep1_20150827_this-is-my-note
 
-_5min:200min_
+# Sample Rules
 
-If you do not have any of these info types, then type “NA”. If you do not have a note
-S001_skmel133-melanoma_RAFi:MEKi_2000nM:50nM_1000min:1000min_rep1_08272015_NA
+Put all information relating to cell line name, organism name etc in "sample" 
+
+* No spaces
+* No punctuation 
+* No special characters 
+
+* Use only use numbers [0-9], letters [A-Za-z]
+* Use dashes [-] between words
+
+## Unit Rule 
+
+* Dose in nM (unit "nM")
+* Time in minutes (unit "min"); time is the drug incubation time 
+** Example: 10min, 360min (6 hours), 1440min (24 hours) 
+
+## Date Format Rule 
+
+* Year, Month, Day: YYYYMMDD
+** Example: 20150828
+
+## Replicate Rule 
+
+* Replicate as "repX" 
+** Example: rep1 ,rep2, rep3
+
+## Drug Combination Rule
+
+* Use colon [:] between multiple drugs, times, doses 
+* Provide information for each drug even if the same
+** Example: RAFi:MEKi, 2000nM:50nM, 1000min:1000min
+
+### Delayed Experiment Time 
+
+* Delayed experiment time becomes: t1:t2
+** Example: 5min:200min
+
+## Missing Information
+
+* If you do not have any of these info types, then type "NA". 
+* Example without note: S001_skmel133-melanoma_RAFi:MEKi_2000nM:50nM_1000min:1000min_rep1_20150827_NA
 
 # Total Protein Levels Format 
-Sample ID
 Sample Name
 Protein Concentration 
 
