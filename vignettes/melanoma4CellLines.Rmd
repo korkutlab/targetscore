@@ -30,10 +30,9 @@ tmp <- data06[which(grepl("melanoma", data06[, "Sample.Name"], ignore.case=TRUE)
 
 # Example Sample Name: S001_cell line_Melanoma_A2058 _DMSO_1hr_rep1
 
-array06 <- readZeptosensExport(tmp, c("sampleNameNumber", "NA", "NA", "sampleName", "treatment", "time", "replicate"))
-write.table(array06,file="inst/dataInst/R006_RFI_Export_Int.txt", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
-
-array06
+sampleNameEntries <- c("sampleNameNumber", "NA", "NA", "sampleName", "treatment", "time", "replicate")
+array06 <- readZeptosensExport(tmp, sampleNameEntries)
+write.table(array06, file="inst/dataInst/R006_RFI_Export_Int.txt", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 
 replicateLabels <- unique(array06[,"replicate"])
 
@@ -47,69 +46,126 @@ rep1 <- rep1[idx1,]
 
 rep2 <- array06[which(array06$replicate == "rep2"), ]
 idx2 <- with(rep2, order(sampleName, treatment, time, antibody))
-rep2 <- rep1[idx2,]
+rep2 <- rep2[idx2,]
 
 tmp <- cbind(rep1$readout, rep2$readout)
+avgRepVals <- rowMeans(tmp)
 
 sdVals <- apply(tmp, 1, sd)
-
-# SD 
-#avgRepVals <- srowMeans(tmp)
 
 avgRep <- rep1
 avgRep[, "readout"] <- avgRepVals
 avgRep[, "cv"] <- sdVals
 
 write.table(avgRep,file="inst/dataInst/R006_RFI_Export_Avg.txt", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
-
-# tmp1 <- rep1[, c("sampleName", "treatment", "time", "antibody")]
-# res1 <- apply(tmp1, 1, function(x) {
-#     paste(x[, c("sampleName", "treatment", "time", "antibody")], collapse="-")
-# })
-# 
-# tmp1 <- rep2[, c("sampleName", "treatment", "time", "antibody")]
-# res1 <- apply(tmp1, 1, function(x) {
-#     paste(x[, c("sampleName", "treatment", "time", "antibody")], collapse="-")
-# })
-# 
-# 
-# paste(array06[, c("sampleName", "treatment", "time", "antibody")])
 ```
 
-```{r}
+```{r normalization}
 colClasses <- c("character","character","numeric")
 
+tpl <- read.xlsx2("inst/dataInst/R006_TPL_Export_Table.xlsx", colClasses=colClasses, stringsAsFactors=FALSE, sheetIndex=1, endRow=65)
+colnames(tpl) <- c("sampleNumber", "fullSampleName", "readout")
 
-        
-tpl_1 <- read.xlsx2("inst/dataInst/R022_A2058_sample_conc_EZQ.xlsx", colClasses=colClasses, stringsAsFactors=F, sheetIndex=1)
-tpl_2 <- read.xlsx2("inst/dataInst/R023_Mel133_sample_conc_EZQ.xlsx", colClasses=colClasses, stringsAsFactors=F, sheetIndex=1)
-print(tpl_1)
+idx <- which(grepl("melanoma", tpl[, "fullSampleName"], ignore.case=TRUE))
 
-array1 <- readZeptosensExport("inst/dataInst/R022_A2058_RFI_Export_Table.xls", c("sampleName", "treatment", "time"))
-array2 <- readZeptosensExport("inst/dataInst/R023_Mel133_RFI_Export_Table.xls", c("sampleName", "treatment", "time"))
+splitNames <- splitSampleNames(tpl[idx, "fullSampleName"], sampleNameEntries)
+tplSplit <- cbind(splitNames, tpl[idx,])
 
-controlProbeIndex <- 65
-antibodyNum <- unique(array1[, "antibody"])
+rep1 <- tplSplit[which(tplSplit$replicate == "rep1"), ]
+idx1 <- with(rep1, order(sampleName, treatment, time))
+rep1 <- rep1[idx1,]
 
-results <- normalizeZeptosensData(tpl_1, tpl_2, controlProbeIndex, antibodyNum)
+rep2 <- tplSplit[which(tplSplit$replicate == "rep2"), ]
+idx2 <- with(rep2, order(sampleName, treatment, time))
+rep2 <- rep2[idx2,]
 
-write.table(results$normArray1, file="inst/dataInst/normA2058.txt", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
-write.table(results$normArray2, file="inst/dataInst/normSkmel133.txt", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+tmp <- cbind(rep1[, "readout"], rep2[, "readout"])
+avgRepVals <- rowMeans(tmp)
+
+sdVals <- apply(tmp, 1, sd)
+
+avgRep <- rep1
+avgRep[, "replicate"] <- rep("avg", nrow(avgRep))
+avgRep[, "readout"] <- avgRepVals
+avgRep[, "cv"] <- sdVals
 ```
 
-## Plotting 
 ```{r}
-normA2058 <- results$normArray1
-normSkmel133 <- results$normArray2
-    
-antibodies <- unique(normA2058[, "antibody"])
-excludeTreatments <- c("DMSO", "DMSO-2")
-ctrlTreatment <- "DMSO"
-ctrlTime <- "5min"
-plotColNames <- c("A2058", "SkMel133")
-plotRowNames <- c("0m", "5m", "15m", "30m", "1h", "12h", "24h", "48h")
-plotColors <- c("darkblue","red")
-plotDir <- "inst/tmp/"
+avgRepNames <- sapply(1:nrow(avgRep), function(i) {
+    paste(avgRep[i, c("sampleName", "treatment", "time")], collapse="_")
+})
 
-plotZeptosensData(normA2058, normSkmel133, antibodies, excludeTreatments, ctrlTreatment, ctrlTime, plotColNames, plotRowNames, plotColors, plotDir)
+array06Names <- sapply(1:nrow(array06), function(i) {
+    paste(array06[i, c("sampleName", "treatment", "time")], collapse="_")
+})
+
+tmpArray06 <- cbind(tmpName=array06Names, array06)
+tmpAvgRep <- cbind(tmpName=avgRepNames, avgRep)
+
+normReadout <- NULL 
+
+for(i in 1:nrow(tmpArray06)) {
+    for(j in 1:nrow(tmpAvgRep)) {
+        if(tmpArray06[i, "tmpName"] == tmpAvgRep[j, "tmpName"]) {
+           normReadout <- c(normReadout, tmpArray06[i, "readout"] / tmpAvgRep[j, "readout"])
+        }
+    }
+}
+
+tmpArray06 <- cbind(tmpArray06, normReadout=normReadout)
+```
+
+## Normalization
+
+* Data has a duplication in antibody AKT-Thr308 that needs resoultion
+* Cell Sample Mix Sample Name needs correction
+
+```{r}
+tmp <- data06[which(grepl("mix", data06[, "Sample.Name"], ignore.case=TRUE)),]
+
+normReadoutMix <- NULL
+
+for(i in 1:nrow(tmpArray06)) {
+    flag <- 0
+    for(j in 1:nrow(tmp)) {
+        if(tmpArray06[i, "antibody"] == tmp[j, "Analyte"]) {
+           flag <- flag+1
+           if(flag > 1) {
+               cat("A: ", tmpArray06[i, "antibody"], " B: ", tmp[j, "Analyte"], flag, "\n")
+           } else {
+              normReadoutMix <- c(normReadoutMix, tmpArray06[i, "normReadout"] / tmp[j, "RFI"])
+           }
+        }
+    }
+}
+
+tmpArray06 <- cbind(tmpArray06, normReadoutMix=normReadoutMix)
+```
+
+## 
+```{r}
+rep1 <- tmpArray06[which(tmpArray06$replicate == "rep1"), ]
+idx1 <- with(rep1, order(sampleName, treatment, time, antibody))
+rep1 <- rep1[idx1,]
+
+rep2 <- tmpArray06[which(tmpArray06$replicate == "rep2"), ]
+idx2 <- with(rep2, order(sampleName, treatment, time, antibody))
+rep2 <- rep2[idx2,]
+
+tmp <- cbind(rep1[, "readout"], rep2[, "readout"])
+avgRepVals <- rowMeans(tmp)
+
+sdVals <- apply(tmp, 1, sd)
+
+avgRep <- rep1
+avgRep[, "replicate"] <- rep("normAvg", nrow(avgRep))
+avgRep[, "readout"] <- avgRepVals
+avgRep[, "cv"] <- sdVals
+
+write.table(avgRep, file="inst/dataInst/R006_RFI_Export_Int_Avg_Norm.txt", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+
+for(sampleName in unique(avgRep[, "sampleName"])) {
+    idx <- which(avgRep[, "sampleName"] == sampleName)
+    write.table(avgRep[idx, ], file=file.path("inst/dataInst/", paste(sampleName, "R006_RFI_Export_Int_Avg_Norm.txt", sep="_")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+}
 ```
