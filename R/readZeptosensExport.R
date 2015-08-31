@@ -1,47 +1,131 @@
 #' Read Zeptosens Export File 
 #' 
-#' @param inputFile TBA
-#' @param sampleNameEntries TBA
+#' @param data Zeptosens data read in by readZeptosensXls
+#' @param sampleNameEntries FIXME
+#' 
+#' @details 
+#' 
+#' Format: sampleNumber_sample_treatment_dose_time_replicate_date_notes
 #' 
 #' @examples 
-#' tmp <- readZeptosensExport("inst/dataInst/R006_RFI_Export_Table.xls", c("sampleNameNumber", "NA", "NA", "sampleName", "treatment", "time", "replicate"))
+#' tmp <- readZeptosensExport(tmp, c("sampleNumber", "NA", "NA", "sample", "treatment", "time", "replicate"))
 #' 
 #' @concept zeptosensPkg
-#' @export 
+#' @export
 readZeptosensExport <- function(data, sampleNameEntries=NULL) {
-    message("NOTE: Sample Name in *_RFI_Export_Table.xls is assumed to be in the format sampleNumber_sampleName_drug_time_dose_replicateNumber. Use 'samplenNameEntries' parameter to modify as described in documentation.")
-
-    splitSampleNames <- strsplit(data[, "Sample.Name"], "_")
+    message("NOTE: Sample Name in *_RFI_Export_Table.xls is assumed to be in the format sampleNumber_sample_treatment_dose_time_replicate_date_notes. Use 'samplenNameEntries' parameter to modify as described in documentation.")
+    
+    splitSampleNames <- splitSampleNames(data[, "Sample.Name"], sampleNameEntries)
     
     df <- NULL
+
+    allCols <- c("sampleNumber", "sample", "treatment", "dose", "time", 
+                 "replicate", "date", "notes", "antibody", "readout", "cv", "quality")
+
     for(i in 1:nrow(data)) {
-        sampleNameNumberIdx <- which(sampleNameEntries == "sampleNameNumber")
-        sampleNameIdx <- which(sampleNameEntries == "sampleName")
-        treatmentIdx <- which(sampleNameEntries == "treatment")
-        timeIdx <- which(sampleNameEntries == "time")
-        replicateIdx <- which(sampleNameEntries == "replicate")
+        tmpRow <- NULL
         
-        # TODO: More generalized 
-        tmpDf <- data.frame(
-            sampleNumber=data[i, "Sample."],
-            sampleNameNumber=splitSampleNames[[i]][sampleNameNumberIdx],
-            sampleName=splitSampleNames[[i]][sampleNameIdx],
-            treatment=splitSampleNames[[i]][treatmentIdx],
-            time=splitSampleNames[[i]][timeIdx],
-            replicate=splitSampleNames[[i]][replicateIdx],
-            antibody=data[i, "Analyte"],
-            readout=data[i, "RFI"],
-            cv=data[i, "RFI.CV"],
-            quality=data[i, "Class."],
-            stringsAsFactors=FALSE
-        )
+        for(col in allCols) {
+            if(col == "sampleNumber") {
+                tmpRow <- c(tmpRow, sampleNumber=data[i, "Sample."])
+            }
             
-        df <- rbind(df, tmpDf)
+            if(col == "sample") {
+                tmpRow <- c(tmpRow, sample=splitSampleNames[i, col])
+            }
+            
+            if(col == "treatment") {
+                tmpRow <- c(tmpRow, treatment=splitSampleNames[i, col])
+            }
+            
+            if(col == "dose") {
+                tmpRow <- c(tmpRow, dose=splitSampleNames[i, col])
+            }
+            
+            if(col == "time") {
+                tmpRow <- c(tmpRow, time=splitSampleNames[i, col])
+            }
+            
+            if(col == "replicate") {
+                tmpRow <- c(tmpRow, replicate=splitSampleNames[i, col])
+            }
+            
+            if(col == "notes") {
+                tmpRow <- c(tmpRow, notes=splitSampleNames[i, col])
+            }
+            
+            if(col == "antibody") {
+                tmpRow <- c(tmpRow, antibody=data[i, "Analyte"])
+            }
+            
+            if(col == "readout") {
+                tmpRow <- c(tmpRow, readout=data[i, "RFI"])
+            }
+            
+            if(col == "cv") {
+                tmpRow <- c(tmpRow, cv=data[i, "RFI.CV"])
+            }
+            
+            if(col == "quality") {
+                tmpRow <- c(tmpRow, quality=data[i, "Class."])
+            }
+        }
+        
+        df <- rbind(df, tmpRow)
     }
+    
+    df <- as.data.frame(df, stringsAsFactors=FALSE, row.names=1:nrow(data))
+    
+    # Convert appropriate columns to numeric
+    numCols <- c("readout", "cv")
+    df[numCols] <- sapply(df[numCols], as.numeric)
     
     return(df)
 }
 
+# #' Read Zeptosens Export File 
+# #' 
+# #' @param inputFile TBA
+# #' @param sampleNameEntries TBA
+# #' 
+# #' @examples 
+# #' tmp <- readZeptosensExport("inst/dataInst/R006_RFI_Export_Table.xls", c("sampleNameNumber", "NA", "NA", "sampleName", "treatment", "time", "replicate"))
+# #' 
+# #' @concept zeptosensPkg
+# readZeptosensExportDEPRECATED <- function(data, sampleNameEntries=NULL) {
+#     message("NOTE: Sample Name in *_RFI_Export_Table.xls is assumed to be in the format sampleNumber_sampleName_drug_time_dose_replicateNumber. Use 'samplenNameEntries' parameter to modify as described in documentation.")
+# 
+#     splitSampleNames <- strsplit(data[, "Sample.Name"], "_")
+#     
+#     df <- NULL
+#     for(i in 1:nrow(data)) {
+#         sampleNameNumberIdx <- which(sampleNameEntries == "sampleNameNumber")
+#         sampleNameIdx <- which(sampleNameEntries == "sampleName")
+#         treatmentIdx <- which(sampleNameEntries == "treatment")
+#         timeIdx <- which(sampleNameEntries == "time")
+#         replicateIdx <- which(sampleNameEntries == "replicate")
+#         
+#         # TODO: More generalized 
+#         tmpDf <- data.frame(
+#             sampleNumber=data[i, "Sample."],
+#             sampleNameNumber=splitSampleNames[[i]][sampleNameNumberIdx],
+#             sampleName=splitSampleNames[[i]][sampleNameIdx],
+#             treatment=splitSampleNames[[i]][treatmentIdx],
+#             time=splitSampleNames[[i]][timeIdx],
+#             replicate=splitSampleNames[[i]][replicateIdx],
+#             antibody=data[i, "Analyte"],
+#             readout=data[i, "RFI"],
+#             cv=data[i, "RFI.CV"],
+#             quality=data[i, "Class."],
+#             stringsAsFactors=FALSE
+#         )
+#             
+#         df <- rbind(df, tmpDf)
+#     }
+#     
+#     return(df)
+# }
+# 
 # #' Read Intermediate Export File 
 # #' 
 # #' @param nrep number of replicates

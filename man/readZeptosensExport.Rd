@@ -7,15 +7,18 @@
 readZeptosensExport(data, sampleNameEntries = NULL)
 }
 \arguments{
-\item{sampleNameEntries}{TBA}
+\item{data}{Zeptosens data read in by readZeptosensXls}
 
-\item{inputFile}{TBA}
+\item{sampleNameEntries}{FIXME}
 }
 \description{
 Read Zeptosens Export File
 }
+\details{
+Format: sampleNumber_sample_treatment_dose_time_replicate_date_notes
+}
 \examples{
-tmp <- readZeptosensExport("inst/dataInst/R006_RFI_Export_Table.xls", c("sampleNameNumber", "NA", "NA", "sampleName", "treatment", "time", "replicate"))
+tmp <- readZeptosensExport(tmp, c("sampleNumber", "NA", "NA", "sample", "treatment", "time", "replicate"))
 }
 \concept{
 zeptosensPkg

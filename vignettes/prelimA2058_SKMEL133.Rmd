@@ -32,13 +32,18 @@ tpl_1 <- read.xlsx2("inst/dataInst/R022_A2058_sample_conc_EZQ.xlsx", colClasses=
 tpl_2 <- read.xlsx2("inst/dataInst/R023_Mel133_sample_conc_EZQ.xlsx", colClasses=colClasses, stringsAsFactors=F, sheetIndex=1)
 print(tpl_1)
 
-array1 <- readZeptosensExport("inst/dataInst/R022_A2058_RFI_Export_Table.xls", c("sampleName", "treatment", "time"))
-array2 <- readZeptosensExport("inst/dataInst/R023_Mel133_RFI_Export_Table.xls", c("sampleName", "treatment", "time"))
+dataA2058 <- readZeptosensXls("inst/dataInst/R022_A2058_RFI_Export_Table.xls")
+dataMel133 <- readZeptosensXls("inst/dataInst/R022_A2058_RFI_Export_Table.xls")
+
+sampleNameEntries <- c("sample", "treatment", "time")
+
+array1 <- readZeptosensExport(dataA2058, sampleNameEntries)
+array2 <- readZeptosensExport(dataMel133, sampleNameEntries)
 
 controlProbeIndex <- 65
-antibodyNum <- unique(array1[, "antibody"])
+antibodyNum <- length(unique(array1[, "antibody"]))
 
-results <- normalizeZeptosensData(tpl_1, tpl_2, controlProbeIndex, antibodyNum)
+results <- normalizeZeptosensData(array1, array2, tpl_1, tpl_2, controlProbeIndex, antibodyNum)
 
 write.table(results$normArray1, file="inst/dataInst/normA2058.txt", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 write.table(results$normArray2, file="inst/dataInst/normSkmel133.txt", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
@@ -59,4 +64,20 @@ plotColors <- c("darkblue","red")
 plotDir <- "inst/tmp/"
 
 plotZeptosensData(normA2058, normSkmel133, antibodies, excludeTreatments, ctrlTreatment, ctrlTime, plotColNames, plotRowNames, plotColors, plotDir)
+```
+
+```{r}
+normA2058 <- results$normArray1
+normSkmel133 <- results$normArray2
+    
+antibodies <- unique(normA2058[, "antibody"])
+excludeTreatments <- c("DMSO", "DMSO-2")
+ctrlTreatment <- "DMSO"
+ctrlTime <- "5min"
+plotColNames <- c("A2058")
+plotRowNames <- c("0m", "5m", "15m", "30m", "1h", "12h", "24h", "48h")
+plotColors <- rainbow(8)
+plotDir <- "inst/tmp/ab_"
+
+plotZeptosensDataSingleAntibodyAllDrugs(normA2058, normSkmel133, antibodies, excludeTreatments, ctrlTreatment, ctrlTime, plotColNames, plotRowNames, plotColors, plotDir)
 ```

@@ -169,3 +169,14 @@ for(sampleName in unique(avgRep[, "sampleName"])) {
     write.table(avgRep[idx, ], file=file.path("inst/dataInst/", paste(sampleName, "R006_RFI_Export_Int_Avg_Norm.txt", sep="_")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 }
 ```
+
+```{r, eval=FALSE}
+tmp <- read.table("inst/dataInst/R006_RFI_Export_Int_Avg_Norm.txt", sep="\t", header=TRUE, stringsAsFactors=FALSE)
+abMap <- read.table("inst/extdata/antibodyMap.txt", sep="\t", header=TRUE, stringsAsFactors=FALSE)
+
+dataAb <- unique(tmp[,"antibody"])
+abMap[, "ZeptosensLabel"]
+
+setdiff(dataAb, abMap[, "ZeptosensLabel"])
+
+```

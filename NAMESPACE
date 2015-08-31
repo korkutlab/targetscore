@@ -3,6 +3,7 @@
 export(convertIntermediateFormatToMatrix)
 export(normalizeZeptosensData)
 export(plotZeptosensData)
+export(plotZeptosensDataSingleAntibodyAllDrugs)
 export(readZeptosensExport)
 export(readZeptosensXls)
 export(splitSampleNames)

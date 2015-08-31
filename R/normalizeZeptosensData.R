@@ -1,5 +1,7 @@
 #' Normalize Zeptosens Data
 #' 
+#' @param array1 FIXME
+#' @param array2 FIXME
 #' @param totalProteinLevels1 total protein levels for array 1 (use readZeptosensData format)
 #' @param totalProteinLevels2 total protein levels for array 2 (use readZeptosensData format)
 #' @param controlProbeIndex row number that that contains the first control probe
@@ -9,7 +11,7 @@
 #' 
 #' @concept zeptosensPkg
 #' @export
-normalizeZeptosensData <- function(totalProteinLevels1, totalProteinLevels2, controlProbeIndex, antibodyNum) {
+normalizeZeptosensData <- function(array1, array2, totalProteinLevels1, totalProteinLevels2, controlProbeIndex, antibodyNum) {
     ratios <- NULL
     
     for(i in 1:length(antibodyNum)) {

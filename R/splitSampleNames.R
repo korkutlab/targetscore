@@ -10,25 +10,59 @@ splitSampleNames <- function(sampleNames, sampleNameEntries) {
     splitSampleNames <- strsplit(sampleNames, "_")
     
     df <- NULL
-    for(i in 1:length(splitSampleNames)) {
-        sampleNameNumberIdx <- which(sampleNameEntries == "sampleNameNumber")
-        sampleNameIdx <- which(sampleNameEntries == "sampleName")
+    
+    for(i in 1:nrow(data)) {
+        sampleNumberIdx <- which(sampleNameEntries == "sampleNumber")
+        sampleIdx <- which(sampleNameEntries == "sample")
         treatmentIdx <- which(sampleNameEntries == "treatment")
+        doseIdx <- which(sampleNameEntries == "dose")
         timeIdx <- which(sampleNameEntries == "time")
         replicateIdx <- which(sampleNameEntries == "replicate")
+        dateIdx <- which(sampleNameEntries == "date")
+        notesIdx <- which(sampleNameEntries == "notes")
         
-        # TODO: More generalized 
-        tmpDf <- data.frame(
-            sampleNameNumber=splitSampleNames[[i]][sampleNameNumberIdx],
-            sampleName=splitSampleNames[[i]][sampleNameIdx],
-            treatment=splitSampleNames[[i]][treatmentIdx],
-            time=splitSampleNames[[i]][timeIdx],
-            replicate=splitSampleNames[[i]][replicateIdx],
-            stringsAsFactors=FALSE
-        )
+        availableCols <- c("sampleNumber"=sampleNumberIdx, 
+                           "sample"=sampleIdx,
+                           "treatment"=treatmentIdx,
+                           "dose"=doseIdx,
+                           "time"=timeIdx,
+                           "replicate"=replicateIdx,
+                           "date"=dateIdx,
+                           "notes"=notesIdx)
         
-        df <- rbind(df, tmpDf)
+        tmpRow <- NULL
+        
+        for(col in names(availableCols)) {
+            if(col == "sample") {
+                tmpRow <- c(tmpRow, splitSampleNames[[i]][sampleIdx])
+            }
+            
+            if(col == "treatment") {
+                tmpRow <- c(tmpRow, splitSampleNames[[i]][treatmentIdx])
+            }
+            
+            if(col == "dose") {
+                tmpRow <- c(tmpRow, splitSampleNames[[i]][doseIdx])
+            }
+            
+            if(col == "time") {
+                tmpRow <- c(tmpRow, splitSampleNames[[i]][timeIdx])
+            }
+            
+            if(col == "replicate") {
+                tmpRow <- c(tmpRow, splitSampleNames[[i]][replicateIdx])
+            }
+            
+            if(col == "notes") {
+                tmpRow <- c(tmpRow, splitSampleNames[[i]][notesIdx])
+            }
+        }
+        
+        df <- rbind(df, tmpRow)
     }
     
+    df <- as.data.frame(df, stringsAsFactors=FALSE, row.names=1:nrow(data))
+    colnames(df) <- sampleNameEntries
+
     return(df)
 }

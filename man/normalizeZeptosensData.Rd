@@ -4,10 +4,14 @@
 \alias{normalizeZeptosensData}
 \title{Normalize Zeptosens Data}
 \usage{
-normalizeZeptosensData(totalProteinLevels1, totalProteinLevels2,
+normalizeZeptosensData(array1, array2, totalProteinLevels1, totalProteinLevels2,
   controlProbeIndex, antibodyNum)
 }
 \arguments{
+\item{array1}{FIXME}
+
+\item{array2}{FIXME}
+
 \item{totalProteinLevels1}{total protein levels for array 1 (use readZeptosensData format)}
 
 \item{totalProteinLevels2}{total protein levels for array 2 (use readZeptosensData format)}
