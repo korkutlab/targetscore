@@ -18,7 +18,7 @@ plotZeptosensDataSingleAntibodyAllDrugs <- function(normArray1, normArray2,
                                                     ctrlTreatment, ctrlTime, 
                                                     plotColNames, plotRowNames, 
                                                     plotColors, plotDir, 
-                                                    asPdf=TRUE) {
+                                                    asPdf=TRUE, plotPrefix=NULL) {
     allDrugs <- unique(normArray1[, "treatment"])
     tmpDrugs <- allDrugs[!(unique(normArray1[, "treatment"]) %in% excludeTreatments)]
 
@@ -41,7 +41,14 @@ plotZeptosensDataSingleAntibodyAllDrugs <- function(normArray1, normArray2,
         rownames(tmpMat) <- plotRowNames
 
         tmpAntibody <- gsub("[[:punct:]]", "-", curAntibody)
-        pdf(paste0(plotDir, tmpAntibody, ".pdf"), width=9, height=7)
+        
+        if(!is.null(plotPrefix)) {
+            fileName <- paste0(plotDir, plotPrefix, "_", tmpAntibody, ".pdf")
+        } else {
+            fileName <- paste0(plotDir, tmpAntibody, ".pdf")
+        }
+        
+        pdf(fileName, width=9, height=7)
         
         # par(mfrow=c(plotRows, plotCols))
         # par(mar=c(2,2,1.5,1), oma=c(0,0,2,0))
@@ -64,7 +71,8 @@ plotZeptosensDataSingleAntibodyAllDrugs <- function(normArray1, normArray2,
         #title(main=curAntibody, outer=TRUE)
         legend("topright", # Position
                legend=tmpDrugs, # Text
-               lty=rep(1, length(tmpDrugs)), # Legend symbols
+               lty=rep(1, length(tmpDrugs)), # Legend line
+               pch=plotChar, # Legend symbol
                lwd=rep(2.4, length(tmpDrugs)), # Symbol width
                col=plotColors, # Colors
                inset=c(-0.2, 0),
