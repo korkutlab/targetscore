@@ -8,7 +8,7 @@
 #' Format: sampleNumber_sample_treatment_dose_time_replicate_date_notes
 #' 
 #' @examples 
-#' tmp <- readZeptosensExport(tmp, c("sampleNumber", "NA", "NA", "sample", "treatment", "time", "replicate"))
+#' tmp <- readZeptosensExport(tmp, c("sampleNumber", NA, NA, "sample", "treatment", "time", "replicate"))
 #' 
 #' @concept zeptosensPkg
 #' @export
@@ -74,11 +74,13 @@ readZeptosensExport <- function(data, sampleNameEntries=NULL) {
         df <- rbind(df, tmpRow)
     }
     
-    df <- as.data.frame(df, stringsAsFactors=FALSE, row.names=1:nrow(data))
+    df <- as.data.frame(df, stringsAsFactors=FALSE)
     
     # Convert appropriate columns to numeric
     numCols <- c("readout", "cv")
     df[numCols] <- sapply(df[numCols], as.numeric)
+    
+    rownames(df) <- 1:nrow(df)
     
     return(df)
 }

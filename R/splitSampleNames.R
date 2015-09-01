@@ -11,7 +11,7 @@ splitSampleNames <- function(sampleNames, sampleNameEntries) {
     
     df <- NULL
     
-    for(i in 1:nrow(data)) {
+    for(i in 1:length(splitSampleNames)) {
         sampleNumberIdx <- which(sampleNameEntries == "sampleNumber")
         sampleIdx <- which(sampleNameEntries == "sample")
         treatmentIdx <- which(sampleNameEntries == "treatment")
@@ -33,6 +33,10 @@ splitSampleNames <- function(sampleNames, sampleNameEntries) {
         tmpRow <- NULL
         
         for(col in names(availableCols)) {
+            if(col == "sampleNumber") {
+                tmpRow <- c(tmpRow, splitSampleNames[[i]][sampleIdx])
+            }
+            
             if(col == "sample") {
                 tmpRow <- c(tmpRow, splitSampleNames[[i]][sampleIdx])
             }
@@ -61,8 +65,8 @@ splitSampleNames <- function(sampleNames, sampleNameEntries) {
         df <- rbind(df, tmpRow)
     }
     
-    df <- as.data.frame(df, stringsAsFactors=FALSE, row.names=1:nrow(data))
-    colnames(df) <- sampleNameEntries
+    df <- as.data.frame(df, stringsAsFactors=FALSE, row.names=1:length(sampleNames))
+    colnames(df) <- sampleNameEntries[which(!is.na(sampleNameEntries))]
 
     return(df)
 }

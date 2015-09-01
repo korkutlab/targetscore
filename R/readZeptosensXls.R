@@ -14,6 +14,7 @@ readZeptosensXls <- function(inputFile) {
                     "character", "character", "numeric")
 
     data <- read.xlsx2(inputFile, sheetIndex=1, colClasses=colClasses, stringsAsFactors=FALSE)
+    rownames(data) <- 1:nrow(data)
     
     return(data)
 }
