@@ -6,7 +6,7 @@
 \usage{
 plotZeptosensDataSingleAntibodyAllDrugs(normArray1, normArray2, antibodies,
   excludeTreatments, ctrlTreatment, ctrlTime, plotColNames, plotRowNames,
-  plotColors, plotDir)
+  plotColors, plotDir, asPdf = TRUE, plotPrefix = NULL)
 }
 \arguments{
 \item{normArray1}{normalized data from array 1}

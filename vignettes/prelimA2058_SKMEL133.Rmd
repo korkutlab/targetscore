@@ -23,14 +23,10 @@ library(zeptosensPkg)
 
 ## Normalization
 ```{r}
-# Unused
-#tpl_n <- read.table("inst/dataInst/tpl_norm.txt", header=TRUE, sep="\t", comment.char='')
-
 colClasses <- c("character","character","numeric")
         
 tpl_1 <- read.xlsx2("inst/dataInst/R022_A2058_sample_conc_EZQ.xlsx", colClasses=colClasses, stringsAsFactors=F, sheetIndex=1)
 tpl_2 <- read.xlsx2("inst/dataInst/R023_Mel133_sample_conc_EZQ.xlsx", colClasses=colClasses, stringsAsFactors=F, sheetIndex=1)
-print(tpl_1)
 
 dataA2058 <- readZeptosensXls("inst/dataInst/R022_A2058_RFI_Export_Table.xls")
 dataMel133 <- readZeptosensXls("inst/dataInst/R023_Mel133_RFI_Export_Table.xls")
@@ -100,4 +96,10 @@ plotDir <- "inst/tmp/skmel133_ab_"
 asPdf <- FALSE
 
 plotZeptosensDataSingleAntibodyAllDrugs(normSkmel133, NULL, antibodies, excludeTreatments, ctrlTreatment, ctrlTime, plotColNames, plotRowNames, plotColors, plotDir, asPdf)
+```
+
+## Produce ChiBE Input File 
+```{r}
+antibodies <- unique(normSkmel133[, "antibody"])
+genChibeExport(antibodies, chibeFilename="inst/tmp/abChibe.txt")
 ```

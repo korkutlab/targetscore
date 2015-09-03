@@ -18,7 +18,7 @@ Read Zeptosens Export File
 Format: sampleNumber_sample_treatment_dose_time_replicate_date_notes
 }
 \examples{
-tmp <- readZeptosensExport(tmp, c("sampleNumber", "NA", "NA", "sample", "treatment", "time", "replicate"))
+tmp <- readZeptosensExport(tmp, c("sampleNumber", NA, NA, "sample", "treatment", "time", "replicate"))
 }
 \concept{
 zeptosensPkg
