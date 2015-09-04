@@ -2,10 +2,13 @@
 
 export(convertIntermediateFormatToMatrix)
 export(genChibeExport)
+export(generateRPPAGraphs)
 export(normalizeZeptosensData)
 export(plotZeptosensData)
 export(plotZeptosensDataSingleAntibodyAllDrugs)
 export(readZeptosensExport)
 export(readZeptosensXls)
 export(searchListOfVectors)
+export(skip_on_bioc)
 export(splitSampleNames)
+import(rJava)

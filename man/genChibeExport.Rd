@@ -8,7 +8,9 @@ genChibeExport(antibodies, antibodyMapFilename = NULL,
   chibeFilename = "abChibe.txt")
 }
 \arguments{
-\item{antibodies}{FIXME}
+\item{antibodies}{a vector of strings of antibody names}
+
+\item{chibeFilename}{a string, the name of the file with gene/site information needed for ChiBE}
 
 \item{antibodyMap}{a string, antibody map file name (default: NULL, if NULL then use zentosensPkg internal antibody map)}
 }

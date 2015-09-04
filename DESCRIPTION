@@ -10,7 +10,8 @@ License: LGPL-3
 LazyData: false
 Depends:
     R (>= 3.1.1),
-    xlsx
+    xlsx,
+    rJava
 Suggests:
     knitr
 VignetteBuilder: knitr
