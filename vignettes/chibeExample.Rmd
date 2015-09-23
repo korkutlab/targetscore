@@ -26,21 +26,42 @@ library(igraph)
 
 ## Generate SIF File
 ```{r}
-results <- generateRPPAGraphs("inst/chibeExample/abdata-chibe.txt", 
-                              "ID1", 
-                              "Symbols", 
-                              "Sites",
-                              "Effect", 
-                              "inst/chibeExample/ovcar4_dif_drug_sig.txt", 
-                              "change", 
-                              0.001,
-                              "compatible", 
-                              "inst/chibeExample/ovcar4_dif_drug_sig")
+graphType <- "compatible"
+results <- generateRPPAGraphs(platformFile = "inst/chibeExample/abdata-chibe.txt", 
+                              idColumn = "ID1", 
+                              symbolsColumn = "Symbols",  
+                              sitesColumn = "Sites",
+                              effectColumn = "Effect", 
+                              valuesFile = "inst/chibeExample/ovcar4_dif_drug_sig.txt", 
+                              valueColumn = "change", 
+                              valueThreshold = 0.001,
+                              graphType = graphType, 
+                              outputFilePrefix = "inst/chibeExample/ovcar4_dif_drug_sig_compatible")
+
+compatibleSif <- results$sif
+compatibleSif[, "graphType"] <- rep(graphType,  nrow(results$sif))
+
+graphType <- "conflicting"
+results <- generateRPPAGraphs(platformFile = "inst/chibeExample/abdata-chibe.txt", 
+                              idColumn = "ID1", 
+                              symbolsColumn = "Symbols",  
+                              sitesColumn = "Sites",
+                              effectColumn = "Effect", 
+                              valuesFile = "inst/chibeExample/ovcar4_dif_drug_sig.txt", 
+                              valueColumn = "change", 
+                              valueThreshold = 0.001,
+                              graphType = graphType, 
+                              outputFilePrefix = "inst/chibeExample/ovcar4_dif_drug_sig_conflicting")
+
+conflictingSif <- results$sif
+conflictingSif[, "graphType"] <- rep(graphType,  nrow(results$sif))
+
+overallSif <- rbind(conflictingSif, compatibleSif)
 ```
 
 ## Parse SIF 
 ```{r}
-t1 <- results$sif[, c("PARTICIPANT_A", "INTERACTION_TYPE", "PARTICIPANT_B")]
+t1 <- conflictingSif[, c("PARTICIPANT_A", "INTERACTION_TYPE", "PARTICIPANT_B")]
 t2 <- t1[t1$INTERACTION_TYPE != "",]
 g <- loadSifInIgraph(t2)
 

@@ -103,3 +103,21 @@ plotZeptosensDataSingleAntibodyAllDrugs(normSkmel133, NULL, antibodies, excludeT
 antibodies <- unique(normSkmel133[, "antibody"])
 genChibeExport(antibodies, chibeFilename="inst/tmp/abChibe.txt")
 ```
+
+## Convert to Data Matrix
+```{r}
+times <- c("5min", "15min", "30min", "1hr", "12hr", "24hr", "48hr")
+antibodies <- unique(normA2058[, "antibody"])
+
+i <- 1
+curAntibody <- antibodies[1]
+curTreatment <- "901"
+
+t1 <- normA2058[which(normA2058$time == times[i] & normA2058$treatment == curTreatment), ]
+t2 <- normA2058[which(normA2058$time == times[i+1] & normA2058$treatment == curTreatment), ]
+tDiff <- t1
+tDiff$readout <- t2$readout - t1$readout
+tDiff$time <- rep(paste0(times[i+1], "-", times[i]), length(tDiff$readout))
+
+datMat <- convertIntermediateFormatToMatrix(normA2058, c("sample", "treatment", "time", "antibody"))
+```
