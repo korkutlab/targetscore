@@ -9,7 +9,11 @@
 #' @param valueColumn Name of the values column in the measurements file
 #' @param valueThreshold The value threshold to be considered as significant
 #' @param graphType Either "compatible" or "conflicting"
+#' @param siteMatchStrict boolean option to enforce matching a phosphorylation site in the network with
+#'   the annotation of antibody
 #' @param outputFilePrefix If the user provides xxx, then xxx.sif and xxx.format are generated
+#' @param customNetworkDirectory The directory that the network will be downloaded and SignedPC
+#'   directory will be created in. Pass null to use default.
 #' 
 #' @concept zeptosensPkg
 #' @export
@@ -22,7 +26,9 @@ generateRPPAGraphs <- function(platformFile,
                                valueColumn="Value", 
                                valueThreshold, 
                                graphType="compatible", 
-                               outputFilePrefix) {
+                               siteMatchStrict=TRUE,
+                               outputFilePrefix,
+                               customNetworkDirectory=tempdir()) {
     
     command <- "generateRPPAGraphs"
     commandJStr <- .jnew("java/lang/String", command)
@@ -34,23 +40,10 @@ generateRPPAGraphs <- function(platformFile,
     effectColumnJStr <- .jnew("java/lang/String", effectColumn)
     valuesFileJStr <- .jnew("java/lang/String", valuesFile)
     valueColumnJStr <- .jnew("java/lang/String", valueColumn)
-    
-    valueThresholdJStr <- .jnew("java/lang/Double", valueThreshold)
     graphTypeJStr <- .jnew("java/lang/String", graphType)
     outputFilePrefixJStr <- .jnew("java/lang/String", outputFilePrefix)
+    customNetworkDirectoryJStr <- .jnew("java/lang/String", customNetworkDirectory)
     
-    argsList <- list(commandJStr, 
-                     platformFileJStr, 
-                     idColumnJStr, 
-                     symbolsColumnJStr, 
-                     sitesColumnJStr, 
-                     effectColumnJStr,
-                     valuesFileJStr,
-                     valueColumnJStr,
-                     valueThresholdJStr,
-                     graphTypeJStr, 
-                     outputFilePrefixJStr) 
-
     .jcall("org/cbio/causality/rppa/RPPAFrontFace","V", command,
            platformFileJStr, 
            idColumnJStr, 
@@ -61,7 +54,9 @@ generateRPPAGraphs <- function(platformFile,
            valueColumnJStr,
            valueThreshold,
            graphTypeJStr, 
-           outputFilePrefixJStr)
+           siteMatchStrict,
+           outputFilePrefixJStr,
+           customNetworkDirectoryJStr)
     .jcheck()
     
     sifFile <- paste0(outputFilePrefix, ".sif")

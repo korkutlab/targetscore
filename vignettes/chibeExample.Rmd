@@ -27,6 +27,7 @@ library(igraph)
 ## Generate SIF File
 ```{r}
 graphType <- "compatible"
+signedPcDir <- tempdir()
 results <- generateRPPAGraphs(platformFile = "inst/chibeExample/abdata-chibe.txt", 
                               idColumn = "ID1", 
                               symbolsColumn = "Symbols",  
@@ -36,7 +37,9 @@ results <- generateRPPAGraphs(platformFile = "inst/chibeExample/abdata-chibe.txt
                               valueColumn = "change", 
                               valueThreshold = 0.001,
                               graphType = graphType, 
-                              outputFilePrefix = "inst/chibeExample/ovcar4_dif_drug_sig_compatible")
+                              siteMatchStrict=TRUE,
+                              outputFilePrefix = "inst/chibeExample/ovcar4_dif_drug_sig_compatible",
+                              customNetworkDirectory=signedPcDir)
 
 compatibleSif <- results$sif
 compatibleSif[, "graphType"] <- rep(graphType,  nrow(results$sif))
@@ -51,7 +54,9 @@ results <- generateRPPAGraphs(platformFile = "inst/chibeExample/abdata-chibe.txt
                               valueColumn = "change", 
                               valueThreshold = 0.001,
                               graphType = graphType, 
-                              outputFilePrefix = "inst/chibeExample/ovcar4_dif_drug_sig_conflicting")
+                              siteMatchStrict=TRUE,
+                              outputFilePrefix = "inst/chibeExample/ovcar4_dif_drug_sig_conflicting",
+                              customNetworkDirectory=signedPcDir)
 
 conflictingSif <- results$sif
 conflictingSif[, "graphType"] <- rep(graphType,  nrow(results$sif))
