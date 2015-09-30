@@ -55,13 +55,46 @@ results <- generateRPPAGraphs(platformFile = "inst/chibeExample/abdata-chibe.txt
                               valueThreshold = 0.001,
                               graphType = graphType, 
                               siteMatchStrict=TRUE,
-                              outputFilePrefix = "inst/chibeExample/ovcar4_dif_drug_sig_conflicting",
+                              outputFilePrefix = "inst/ovcarProject/ovcar3_dif_drug_sig_conflicting",
                               customNetworkDirectory=signedPcDir)
 
 conflictingSif <- results$sif
 conflictingSif[, "graphType"] <- rep(graphType,  nrow(results$sif))
 
 overallSif <- rbind(conflictingSif, compatibleSif)
+write.table(overallSif, file="inst/ovcarProject/ovcar3_dif_drug_sig_overall.si", sep="\t", row.names=FALSE, quote=FALSE)
+```
+
+## Combine SIF
+```{r}
+#cat ovcar3_dif_drug_sig_compatible.sif ovcar3_dif_drug_sig_conflicting.sif > ovcar3_dif_drug_sig_overall.sif
+#cat ovcar3_dif_drug_sig_compatible.format ovcar3_dif_drug_sig_conflicting.format > ovcar3_dif_drug_sig_overall.format
+
+conflictingSif <- read.table("inst/ovcarProject/ovcar3_dif_drug_sig_conflicting.sif", sep="\t", fill=TRUE)
+compatibleSif <- read.table("inst/ovcarProject/ovcar3_dif_drug_sig_compatible.sif", sep="\t", fill=TRUE)
+
+if(ncol(compatibleSif) == 4) {
+    compatibleSif <- cbind(compatibleSif, "V5"=rep(NA, nrow(compatibleSif)))
+}
+
+if(ncol(conflictingSif) == 4) {
+    conflictingSif <- cbind(conflictingSif, "V5"=rep(NA, nrow(conflictingSif)))    
+}
+
+overallSif <- rbind(compatibleSif, conflictingSif)
+
+write.table(overallSif, file="inst/ovcarProject/ovcar3_dif_drug_sig_overall.sif", 
+            sep="\t", quote=FALSE, col.names=FALSE, row.names=FALSE)
+
+conflictingFormat <- read.table("inst/ovcarProject/ovcar3_dif_drug_sig_conflicting.format", sep="\t")
+compatibleFormat <- read.table("inst/ovcarProject/ovcar3_dif_drug_sig_compatible.format", sep="\t")
+
+conflictingFormat$V4 <- sub("0 100 0", "0 255 255", conflictingFormat$V4)
+conflictingFormat$V4 <- sub("100 0 0", "255 0 255", conflictingFormat$V4)
+
+overallFormat <- rbind(compatibleFormat, conflictingFormat)
+write.table(overallFormat, file="inst/ovcarProject/ovcar3_dif_drug_sig_overall.format", 
+            sep="\t", quote=FALSE, col.names=FALSE, row.names=FALSE)
 ```
 
 ## Parse SIF 
