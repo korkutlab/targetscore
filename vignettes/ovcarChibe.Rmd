@@ -28,6 +28,8 @@ library(igraph)
 ```{r}
 graphType <- "compatible"
 signedPcDir <- tempdir()
+siteMatchStrict <- FALSE
+
 results <- generateRPPAGraphs(platformFile = "inst/chibeExample/abdata-chibe.txt", 
                               idColumn = "ID1", 
                               symbolsColumn = "Symbols",  
@@ -37,7 +39,7 @@ results <- generateRPPAGraphs(platformFile = "inst/chibeExample/abdata-chibe.txt
                               valueColumn = "change", 
                               valueThreshold = 0.001,
                               graphType = graphType, 
-                              siteMatchStrict=TRUE,
+                              siteMatchStrict=siteMatchStrict,
                               outputFilePrefix = "inst/ovcarProject/ovcar3_dif_drug_sig_compatible",
                               customNetworkDirectory=signedPcDir)
 
@@ -54,7 +56,7 @@ results <- generateRPPAGraphs(platformFile = "inst/chibeExample/abdata-chibe.txt
                               valueColumn = "change", 
                               valueThreshold = 0.001,
                               graphType = graphType, 
-                              siteMatchStrict=TRUE,
+                              siteMatchStrict=siteMatchStrict,
                               outputFilePrefix = "inst/ovcarProject/ovcar3_dif_drug_sig_conflicting",
                               customNetworkDirectory=signedPcDir)
 
@@ -62,7 +64,7 @@ conflictingSif <- results$sif
 conflictingSif[, "graphType"] <- rep(graphType,  nrow(results$sif))
 
 overallSif <- rbind(conflictingSif, compatibleSif)
-write.table(overallSif, file="inst/ovcarProject/ovcar3_dif_drug_sig_overall.si", sep="\t", row.names=FALSE, quote=FALSE)
+write.table(overallSif, file="inst/ovcarProject/ovcar3_dif_drug_sig_overall.sif", sep="\t", row.names=FALSE, quote=FALSE)
 ```
 
 ## Combine SIF
@@ -70,8 +72,8 @@ write.table(overallSif, file="inst/ovcarProject/ovcar3_dif_drug_sig_overall.si",
 #cat ovcar3_dif_drug_sig_compatible.sif ovcar3_dif_drug_sig_conflicting.sif > ovcar3_dif_drug_sig_overall.sif
 #cat ovcar3_dif_drug_sig_compatible.format ovcar3_dif_drug_sig_conflicting.format > ovcar3_dif_drug_sig_overall.format
 
-conflictingSif <- read.table("inst/ovcarProject/ovcar3_dif_drug_sig_conflicting.sif", sep="\t", fill=TRUE)
-compatibleSif <- read.table("inst/ovcarProject/ovcar3_dif_drug_sig_compatible.sif", sep="\t", fill=TRUE)
+conflictingSif <- read.table("inst/ovcarProject/ovcar3_dif_drug_sig_conflicting.sif", sep="\t", fill=TRUE, row.names=NULL)
+compatibleSif <- read.table("inst/ovcarProject/ovcar3_dif_drug_sig_compatible.sif", sep="\t", fill=TRUE, row.names=NULL)
 
 if(ncol(compatibleSif) == 4) {
     compatibleSif <- cbind(compatibleSif, "V5"=rep(NA, nrow(compatibleSif)))

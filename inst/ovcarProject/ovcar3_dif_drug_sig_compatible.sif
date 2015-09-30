@@ -1,4 +1,6 @@
 NOTCH1	upregulates-expression	CDKN1A	http://purl.org/pc2/7/TemplateReactionRegulation_2c90151ef53217511e5b441fffe56aa5 http://purl.org/pc2/7/TemplateReaction_8e9daa3d3250c85efafc3649e8119d81
+PDPK1	phosphorylates	PRKCA	http://identifiers.org/reactome/REACT_228132.2 http://purl.org/pc2/7/Catalysis_ca2488b0cb893a3b1a95b4c02745d783	T497
+AKT1	phosphorylates	CHEK1	http://purl.org/pc2/7/BiochemicalReaction_f34490a317b713ceb8f42ad18b44843d http://purl.org/pc2/7/Catalysis_c4968be13404903a4426aee88b843dde	S280
 ACACA
 AKT1
 AKT2

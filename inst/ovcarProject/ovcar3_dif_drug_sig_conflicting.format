@@ -7,6 +7,7 @@ edge	TP53 upregulates-expression MET	color	0 100 0
 edge	TP53 upregulates-expression CDKN1A	color	0 100 0
 edge	TP53 upregulates-expression PCNA	color	0 100 0
 edge	RPS6KB1 phosphorylates RPS6	color	0 100 0
+edge	SRC phosphorylates PDPK1	color	0 100 0
 edge	SRC phosphorylates PRKCA	color	0 100 0
 node	YWHAE	color	250 250 250
 node	YWHAE	tooltip	14.3.3_epsilon.M.C_GBL9026348(0)

@@ -1,5 +1,7 @@
 node	all-nodes	color	255 255 255
+edge	AKT1 phosphorylates CHEK1	color	0 100 0
 edge	NOTCH1 upregulates-expression CDKN1A	color	0 100 0
+edge	PDPK1 phosphorylates PRKCA	color	0 100 0
 node	YWHAE	color	250 250 250
 node	YWHAE	tooltip	14.3.3_epsilon.M.C_GBL9026348(0)
 node	EIF4EBP1	color	250 250 250
@@ -282,6 +284,7 @@ edge	TP53 upregulates-expression MET	color	0 255 255
 edge	TP53 upregulates-expression CDKN1A	color	0 255 255
 edge	TP53 upregulates-expression PCNA	color	0 255 255
 edge	RPS6KB1 phosphorylates RPS6	color	0 255 255
+edge	SRC phosphorylates PDPK1	color	0 255 255
 edge	SRC phosphorylates PRKCA	color	0 255 255
 node	YWHAE	color	250 250 250
 node	YWHAE	tooltip	14.3.3_epsilon.M.C_GBL9026348(0)
