@@ -83,7 +83,7 @@ if(ncol(conflictingSif) == 4) {
     conflictingSif <- cbind(conflictingSif, "V5"=rep(NA, nrow(conflictingSif)))    
 }
 
-overallSif <- rbind(compatibleSif, conflictingSif)
+overallSif <- rbind(as.matrix(compatibleSif), as.matrix(conflictingSif))
 
 write.table(overallSif, file="inst/ovcarProject/ovcar3_dif_drug_sig_overall.sif", 
             sep="\t", quote=FALSE, col.names=FALSE, row.names=FALSE)
