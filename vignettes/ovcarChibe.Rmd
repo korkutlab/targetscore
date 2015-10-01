@@ -28,7 +28,7 @@ library(igraph)
 ```{r}
 graphType <- "compatible"
 signedPcDir <- tempdir()
-siteMatchStrict <- FALSE
+siteMatchStrict <- TRUE
 resultPrefix <- "inst/ovcarProject/ovcar3_dif_drug_sig_"
 platformFile <- "inst/chibeExample/abdata-chibe.txt"
 valuesFile <- file.path(.googleDrive, "ovcar_project/ozgun_data/ozgun_data/dif_drug_sig/ovcar3_dif_drug_sig.txt")
@@ -69,7 +69,7 @@ conflictingSif[, "graphType"] <- rep(graphType,  nrow(results$sif))
 overallSif <- rbind(conflictingSif, compatibleSif)
 overallSif <- unique(overallSif)
 
-write.table(overallSif, file=paste0(resultPrefix, "overall.sif"), sep="\t", row.names=FALSE, quote=FALSE)
+write.table(overallSif, file=paste0(resultPrefix, "overall.sif"), sep="\t", row.names=FALSE, quote=FALSE, na="")
 ```
 
 ## Combine SIF
@@ -92,7 +92,7 @@ overallSif <- rbind(as.matrix(compatibleSif), as.matrix(conflictingSif))
 overallSif <- unique(overallSif)
 
 write.table(overallSif, file=paste0(resultPrefix, "overall.sif"), 
-            sep="\t", quote=FALSE, col.names=FALSE, row.names=FALSE)
+            sep="\t", quote=FALSE, col.names=FALSE, row.names=FALSE, na="")
 
 conflictingFormat <- read.table(paste0(resultPrefix, "conflicting.format"), sep="\t")
 compatibleFormat <- read.table(paste0(resultPrefix, "compatible.format"), sep="\t")
@@ -103,7 +103,7 @@ conflictingFormat$V4 <- sub("100 0 0", "255 0 255", conflictingFormat$V4)
 # Only merge edge data
 overallFormat <- rbind(compatibleFormat, conflictingFormat[conflictingFormat$V1 == "edge", ])
 write.table(overallFormat, file=paste0(resultPrefix, "overall.format"), 
-            sep="\t", quote=FALSE, col.names=FALSE, row.names=FALSE)
+            sep="\t", quote=FALSE, col.names=FALSE, row.names=FALSE, na="")
 ```
 
 ## Parse SIF 
