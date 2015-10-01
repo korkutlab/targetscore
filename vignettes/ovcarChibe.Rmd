@@ -32,6 +32,7 @@ siteMatchStrict <- TRUE
 resultPrefix <- "inst/ovcarProject/ovcar3_dif_drug_sig_"
 platformFile <- "inst/chibeExample/abdata-chibe.txt"
 valuesFile <- file.path(.googleDrive, "ovcar_project/ozgun_data/ozgun_data/dif_drug_sig/ovcar3_dif_drug_sig.txt")
+geneCentric <- FALSE
 
 results <- generateRPPAGraphs(platformFile = platformFile, 
                               idColumn = "ID1", 
@@ -43,6 +44,7 @@ results <- generateRPPAGraphs(platformFile = platformFile,
                               valueThreshold = 0.001,
                               graphType = graphType, 
                               siteMatchStrict=siteMatchStrict,
+                              geneCentric=geneCentric,
                               outputFilePrefix = paste0(resultPrefix, "compatible"),
                               customNetworkDirectory=signedPcDir)
 
@@ -60,6 +62,7 @@ results <- generateRPPAGraphs(platformFile = platformFile,
                               valueThreshold = 0.001,
                               graphType = graphType, 
                               siteMatchStrict=siteMatchStrict,
+                              geneCentric=geneCentric,
                               outputFilePrefix = paste0(resultPrefix, "conflicting"),
                               customNetworkDirectory=signedPcDir)
 

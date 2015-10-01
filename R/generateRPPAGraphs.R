@@ -11,6 +11,7 @@
 #' @param graphType Either "compatible" or "conflicting"
 #' @param siteMatchStrict boolean option to enforce matching a phosphorylation site in the network with
 #'   the annotation of antibody
+#' @param geneCentric A boolean option to produce a gene-centric (TRUE) or an antibody-centric (FALSE) graph
 #' @param outputFilePrefix If the user provides xxx, then xxx.sif and xxx.format are generated
 #' @param customNetworkDirectory The directory that the network will be downloaded and SignedPC
 #'   directory will be created in. Pass null to use default.
@@ -27,6 +28,7 @@ generateRPPAGraphs <- function(platformFile,
                                valueThreshold, 
                                graphType="compatible", 
                                siteMatchStrict=TRUE,
+                               geneCentric=TRUE, 
                                outputFilePrefix,
                                customNetworkDirectory=tempdir()) {
     
@@ -55,6 +57,7 @@ generateRPPAGraphs <- function(platformFile,
            valueThreshold,
            graphTypeJStr, 
            siteMatchStrict,
+           geneCentric, 
            outputFilePrefixJStr,
            customNetworkDirectoryJStr)
     .jcheck()
