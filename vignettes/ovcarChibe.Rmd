@@ -77,8 +77,8 @@ write.table(overallSif, file=paste0(resultPrefix, "overall.sif"), sep="\t", row.
 #cat ovcar3_dif_drug_sig_compatible.sif ovcar3_dif_drug_sig_conflicting.sif > ovcar3_dif_drug_sig_overall.sif
 #cat ovcar3_dif_drug_sig_compatible.format ovcar3_dif_drug_sig_conflicting.format > ovcar3_dif_drug_sig_overall.format
 
-conflictingSif <- read.table(paste0(resultPrefix, "conflicting.sif"), sep="\t", fill=TRUE, row.names=NULL)
-compatibleSif <- read.table(paste0(resultPrefix, "compatible.sif"), sep="\t", fill=TRUE, row.names=NULL)
+conflictingSif <- read.table(paste0(resultPrefix, "conflicting.sif"), sep="\t", fill=TRUE, row.names=NULL, header=FALSE)
+compatibleSif <- read.table(paste0(resultPrefix, "compatible.sif"), sep="\t", fill=TRUE, row.names=NULL, header=FALSE)
 
 if(ncol(compatibleSif) == 4) {
     compatibleSif <- cbind(compatibleSif, "V5"=rep(NA, nrow(compatibleSif)))
