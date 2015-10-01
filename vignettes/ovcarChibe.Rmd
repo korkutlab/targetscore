@@ -29,42 +29,47 @@ library(igraph)
 graphType <- "compatible"
 signedPcDir <- tempdir()
 siteMatchStrict <- FALSE
+resultPrefix <- "inst/ovcarProject/ovcar3_dif_drug_sig_"
+platformFile <- "inst/chibeExample/abdata-chibe.txt"
+valuesFile <- file.path(.googleDrive, "ovcar_project/ozgun_data/ozgun_data/dif_drug_sig/ovcar3_dif_drug_sig.txt")
 
-results <- generateRPPAGraphs(platformFile = "inst/chibeExample/abdata-chibe.txt", 
+results <- generateRPPAGraphs(platformFile = platformFile, 
                               idColumn = "ID1", 
                               symbolsColumn = "Symbols",  
                               sitesColumn = "Sites",
                               effectColumn = "Effect", 
-                              valuesFile = file.path(.googleDrive, "ovcar_project/ozgun_data/ozgun_data/dif_drug_sig/ovcar3_dif_drug_sig.txt"), 
+                              valuesFile = valuesFile, 
                               valueColumn = "change", 
                               valueThreshold = 0.001,
                               graphType = graphType, 
                               siteMatchStrict=siteMatchStrict,
-                              outputFilePrefix = "inst/ovcarProject/ovcar3_dif_drug_sig_compatible",
+                              outputFilePrefix = paste0(resultPrefix, "compatible"),
                               customNetworkDirectory=signedPcDir)
 
 compatibleSif <- results$sif
 compatibleSif[, "graphType"] <- rep(graphType,  nrow(results$sif))
 
 graphType <- "conflicting"
-results <- generateRPPAGraphs(platformFile = "inst/chibeExample/abdata-chibe.txt", 
+results <- generateRPPAGraphs(platformFile = platformFile, 
                               idColumn = "ID1", 
                               symbolsColumn = "Symbols",  
                               sitesColumn = "Sites",
                               effectColumn = "Effect", 
-                              valuesFile = file.path(.googleDrive, "ovcar_project/ozgun_data/ozgun_data/dif_drug_sig/ovcar3_dif_drug_sig.txt"), 
+                              valuesFile = valuesFile, 
                               valueColumn = "change", 
                               valueThreshold = 0.001,
                               graphType = graphType, 
                               siteMatchStrict=siteMatchStrict,
-                              outputFilePrefix = "inst/ovcarProject/ovcar3_dif_drug_sig_conflicting",
+                              outputFilePrefix = paste0(resultPrefix, "conflicting"),
                               customNetworkDirectory=signedPcDir)
 
 conflictingSif <- results$sif
 conflictingSif[, "graphType"] <- rep(graphType,  nrow(results$sif))
 
 overallSif <- rbind(conflictingSif, compatibleSif)
-write.table(overallSif, file="inst/ovcarProject/ovcar3_dif_drug_sig_overall.sif", sep="\t", row.names=FALSE, quote=FALSE)
+overallSif <- unique(overallSif)
+
+write.table(overallSif, file=paste0(resultPrefix, "overall.sif"), sep="\t", row.names=FALSE, quote=FALSE)
 ```
 
 ## Combine SIF
@@ -72,8 +77,8 @@ write.table(overallSif, file="inst/ovcarProject/ovcar3_dif_drug_sig_overall.sif"
 #cat ovcar3_dif_drug_sig_compatible.sif ovcar3_dif_drug_sig_conflicting.sif > ovcar3_dif_drug_sig_overall.sif
 #cat ovcar3_dif_drug_sig_compatible.format ovcar3_dif_drug_sig_conflicting.format > ovcar3_dif_drug_sig_overall.format
 
-conflictingSif <- read.table("inst/ovcarProject/ovcar3_dif_drug_sig_conflicting.sif", sep="\t", fill=TRUE, row.names=NULL)
-compatibleSif <- read.table("inst/ovcarProject/ovcar3_dif_drug_sig_compatible.sif", sep="\t", fill=TRUE, row.names=NULL)
+conflictingSif <- read.table(paste0(resultPrefix, "conflicting.sif"), sep="\t", fill=TRUE, row.names=NULL)
+compatibleSif <- read.table(paste0(resultPrefix, "compatible.sif"), sep="\t", fill=TRUE, row.names=NULL)
 
 if(ncol(compatibleSif) == 4) {
     compatibleSif <- cbind(compatibleSif, "V5"=rep(NA, nrow(compatibleSif)))
@@ -84,18 +89,20 @@ if(ncol(conflictingSif) == 4) {
 }
 
 overallSif <- rbind(as.matrix(compatibleSif), as.matrix(conflictingSif))
+overallSif <- unique(overallSif)
 
-write.table(overallSif, file="inst/ovcarProject/ovcar3_dif_drug_sig_overall.sif", 
+write.table(overallSif, file=paste0(resultPrefix, "overall.sif"), 
             sep="\t", quote=FALSE, col.names=FALSE, row.names=FALSE)
 
-conflictingFormat <- read.table("inst/ovcarProject/ovcar3_dif_drug_sig_conflicting.format", sep="\t")
-compatibleFormat <- read.table("inst/ovcarProject/ovcar3_dif_drug_sig_compatible.format", sep="\t")
+conflictingFormat <- read.table(paste0(resultPrefix, "conflicting.format"), sep="\t")
+compatibleFormat <- read.table(paste0(resultPrefix, "compatible.format"), sep="\t")
 
 conflictingFormat$V4 <- sub("0 100 0", "0 255 255", conflictingFormat$V4)
 conflictingFormat$V4 <- sub("100 0 0", "255 0 255", conflictingFormat$V4)
 
-overallFormat <- rbind(compatibleFormat, conflictingFormat)
-write.table(overallFormat, file="inst/ovcarProject/ovcar3_dif_drug_sig_overall.format", 
+# Only merge edge data
+overallFormat <- rbind(compatibleFormat, conflictingFormat[conflictingFormat$V1 == "edge", ])
+write.table(overallFormat, file=paste0(resultPrefix, "overall.format"), 
             sep="\t", quote=FALSE, col.names=FALSE, row.names=FALSE)
 ```
 
@@ -167,7 +174,7 @@ plot(g, layout=layout.fruchterman.reingold,
 
 ## Session Info
 
-```{r}
+```{r, eval=FALSE}
 sessionInfo()
 ```
 

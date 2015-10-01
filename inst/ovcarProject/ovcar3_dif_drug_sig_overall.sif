@@ -19,7 +19,6 @@ RPS6KB1
 PCNA				
 PDPK1				
 PRKCA				
-PRKCA				
 AKT1S1				
 RPS6				
 SRC				
@@ -34,27 +33,3 @@ TP53	upregulates-expression	PCNA	http://purl.org/pc2/7/TemplateReactionRegulatio
 TP53	upregulates-expression	AKT2	http://purl.org/pc2/7/TemplateReactionRegulation_8e0e87ff0c3f95588df30b9d08f60df3 http://purl.org/pc2/7/TemplateReaction_9d2751c27e8cc39e0722788f9f81d3f0	
 AKT2	phosphorylates	AKT1S1	http://identifiers.org/reactome/REACT_12383.5 http://purl.org/pc2/7/Catalysis_5616c2055913e16e55eb2d8396952b0c http://purl.org/pc2/7/Catalysis_0ad7a49aaf2dc0d237cbb2be0d316ec2 http://purl.org/pc2/7/ComplexAssembly_2222280511579cf975c0f215456e7140	S183;T246
 AKT3	phosphorylates	AKT1S1	http://identifiers.org/reactome/REACT_12383.5 http://purl.org/pc2/7/Catalysis_0ad7a49aaf2dc0d237cbb2be0d316ec2	S183;T246
-ACACA				
-AKT1				
-AKT2				
-AKT3				
-PRKAA1				
-MET				
-CASP7				
-CHEK1				
-CCNE1				
-MAP2K1				
-NOTCH1				
-NOTCH3				
-CDKN1A				
-MAPK14				
-TP53				
-RPS6KB1				
-PCNA				
-PDPK1				
-PRKCA				
-PRKCA				
-AKT1S1				
-RPS6				
-SRC				
-C12ORF5				
