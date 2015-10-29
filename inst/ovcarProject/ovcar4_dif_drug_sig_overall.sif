@@ -1,0 +1,150 @@
+AKT1	phosphorylates	YAP1	http://purl.org/pc2/7/Catalysis_651a5eb352b738114256d454b514a06c http://purl.org/pc2/7/BiochemicalReaction_50600832ebcaed5aabb847e471e7e79b	S127
+KIT	phosphorylates	STAT3	http://purl.org/pc2/7/Catalysis_d65d159a51eb4c6effdc6580cacd4c9a http://identifiers.org/reactome/REACT_111244.2	Y705
+NOTCH1	upregulates-expression	CCND1	http://purl.org/pc2/7/TemplateReactionRegulation_4a006af110e7cf09f610d489484c7f2b http://purl.org/pc2/7/TemplateReaction_879ae88eec6dfca2d0460b330f877907	
+RB1	upregulates-expression	STMN1	http://purl.org/pc2/7/TemplateReaction_24e30640c8eb0423f2a51918e19dc416 http://purl.org/pc2/7/TemplateReactionRegulation_2d27ba5d5c3c160edbe753c3c7320813	
+STAT3	upregulates-expression	CCND1	http://purl.org/pc2/7/TemplateReactionRegulation_2e823c7b2ee90a7088e68417a997b7a5 http://purl.org/pc2/7/TemplateReaction_96e06ebe588e978dd4c310e9be530b44	
+AR	upregulates-expression	STMN1	http://purl.org/pc2/7/TemplateReactionRegulation_5f1dde8c98d1e540c2945504f350b16c http://purl.org/pc2/7/TemplateReaction_e99ba07a3ddcabaae5641b1d2119ebe4	
+RB1	downregulates-expression	MYC	http://purl.org/pc2/7/TemplateReaction_15c866ad460c154d07aa61052361c258 http://purl.org/pc2/7/TemplateReactionRegulation_d9dc039353e103bda3052778aed88ba2	
+AKT1	upregulates-expression	MYC	http://purl.org/pc2/7/TemplateReactionRegulation_e744b9753f0d8cdaa5320ca6d1a37d68 http://purl.org/pc2/7/TemplateReaction_b21e0ddbbdeaf0ace0c0defec4cbdd56	
+NOTCH1	upregulates-expression	CDKN1A	http://purl.org/pc2/7/TemplateReactionRegulation_2c90151ef53217511e5b441fffe56aa5 http://purl.org/pc2/7/TemplateReaction_8e9daa3d3250c85efafc3649e8119d81	
+MYC	upregulates-expression	CCNB1	http://purl.org/pc2/7/TemplateReaction_4d4c43f1dfdeef5e05f5ccf6ecfb9039 http://purl.org/pc2/7/TemplateReactionRegulation_26662609bb96d96a502f25fb157ea8a7	
+AR	upregulates-expression	YAP1	http://purl.org/pc2/7/TemplateReactionRegulation_fd3307c8dd4ec38ad72c361de48d116c http://purl.org/pc2/7/TemplateReaction_ce3c3314d094951debdf746987924b45	
+CCNE1	phosphorylates	RB1	http://identifiers.org/reactome/REACT_8993.2 http://purl.org/pc2/7/BiochemicalReaction_238ac2cc2db6d988f76677c9419edf7a http://purl.org/pc2/7/Catalysis_2e258ea9ed597dd1f9ec2100aba83671 http://purl.org/pc2/7/Catalysis_0972c529bdf7ad93630ec0ec55ae28a2 http://purl.org/pc2/7/Catalysis_1b7861ce0ac51fb42834d281597381e9 http://purl.org/pc2/7/ComplexAssembly_d5f0b2fdcac6fdbdc61faf20c2e1334c	S567;T821;S788;T826;S795
+SRC	phosphorylates	AKT3	http://purl.org/pc2/7/Catalysis_31951cf57908ccb7fe2c31f2d4db6f64 http://purl.org/pc2/7/BiochemicalReaction_4d2161cf32a459c2994011f2d4ff530c http://purl.org/pc2/7/SmallMolecule_0bb95c42194fbd929e4be28f856ed765 http://purl.org/pc2/7/Catalysis_ff1312af7727629391ae1fc17c4acd6a http://purl.org/pc2/7/BiochemicalReaction_26e56bf8a6330cffd72b59f24401b0b2	T305
+AR	upregulates-expression	CDKN1A	http://purl.org/pc2/7/TemplateReaction_713656c2b2146041ad119c0fbd7bce8e http://purl.org/pc2/7/TemplateReactionRegulation_4ef4185e9dc2b3285b2c05f375041d34	
+AKT3	phosphorylates	AKT1S1	http://identifiers.org/reactome/REACT_12383.5 http://purl.org/pc2/7/Catalysis_0ad7a49aaf2dc0d237cbb2be0d316ec2	S183;T246
+CTNNA1	phosphorylates	SRC	http://purl.org/pc2/7/Catalysis_334f2093e40921b8bd649df404d2b11d http://purl.org/pc2/7/BiochemicalReaction_32787dc54bd47812767149fb57817e70	Y419
+SRC	phosphorylates	AKT1	http://purl.org/pc2/7/TransportWithBiochemicalReaction_a3e0bc019f561f77a302d0eb1586c82a http://purl.org/pc2/7/BiochemicalReaction_8354177ee421968fa69b8da10a90a15b http://purl.org/pc2/7/TransportWithBiochemicalReaction_0cb0d93f6f74401757f275650fd4105b http://purl.org/pc2/7/BiochemicalReaction_bb70e5f4acb6c8a99b6fb5ae6b2c0b9a http://purl.org/pc2/7/TransportWithBiochemicalReaction_cab1f361e68c982166f4e52f839239a8 http://purl.org/pc2/7/Catalysis_db05a50ed7aeb6d66d009a23af6ecb19 http://purl.org/pc2/7/Catalysis_ff1312af7727629391ae1fc17c4acd6a http://purl.org/pc2/7/Catalysis_aee22305ae045967e9b17ced5b69d5b2 http://purl.org/pc2/7/TransportWithBiochemicalReaction_dd63c03853542631ecbc055fe9cd386a http://purl.org/pc2/7/TransportWithBiochemicalReaction_8281187fc0ca504979cfcb602dcabc20 http://purl.org/pc2/7/Catalysis_4d9423982a4261ee3d6c27814072a862 http://purl.org/pc2/7/TransportWithBiochemicalReaction_e5c54466789021c047cb85327d06e6ed http://purl.org/pc2/7/Catalysis_17badbd752d6e339874e0df459e18466 http://purl.org/pc2/7/Catalysis_cf434e0b0825c662b07bd5956af303df http://purl.org/pc2/7/BiochemicalReaction_2ded8f7c64d7f0c2f93f1b37d0e29696 http://purl.org/pc2/7/Catalysis_90b804f44f9477ea8e6d591b3cf27c8a http://purl.org/pc2/7/SmallMolecule_0bb95c42194fbd929e4be28f856ed765 http://purl.org/pc2/7/TransportWithBiochemicalReaction_e62512b233e6b370b222b66c0d4a5573 http://purl.org/pc2/7/Catalysis_bf6f57f77d452b0351df49ce7f97a793 http://purl.org/pc2/7/Catalysis_1e78b7c54623fb81980d0d4530cb7abb http://purl.org/pc2/7/TransportWithBiochemicalReaction_5be2671dbac5dfd762737ea21fd4c552 http://purl.org/pc2/7/BiochemicalReaction_69cebb96ea1352cf190aa6cc3cc6e871 http://purl.org/pc2/7/BiochemicalReaction_31da448302a88b72e11b8fd199338165 http://purl.org/pc2/7/Catalysis_4dfa88e92f2c29e517e9f7799dca9404 http://purl.org/pc2/7/BiochemicalReaction_1bf722a50d17efd9b2bb1e8587b635cd http://purl.org/pc2/7/TransportWithBiochemicalReaction_e41a654ead5236a1641ec20ff23d2000 http://purl.org/pc2/7/Catalysis_486c838ba14fedf005700a3400846bbb http://purl.org/pc2/7/TransportWithBiochemicalReaction_1a716b32e314f667bbc65a61d455df53 http://purl.org/pc2/7/Catalysis_a2120f0916411dbd562ce88fbdb2b709 http://purl.org/pc2/7/TransportWithBiochemicalReaction_78a61c59bd71350b26b51207857bc27f http://purl.org/pc2/7/BiochemicalReaction_88d5ba8a8a3d50718584ee1d71288580 http://purl.org/pc2/7/Catalysis_eae6af0f6a7656549dd2f942f4149cc2 http://purl.org/pc2/7/Catalysis_ffe941e20b0486424af4c5009165f910 http://purl.org/pc2/7/Catalysis_4a20d8c6eb4a61c651e97d083b3352ea http://purl.org/pc2/7/Catalysis_d50c90050bbbb80943c9997e11dcb5d9 http://purl.org/pc2/7/Catalysis_b9611fe5ef002b0e5895868c3b78660a http://purl.org/pc2/7/Catalysis_61b4a4600f9a84e9ba4f09d5fe5a2fc6 http://purl.org/pc2/7/TransportWithBiochemicalReaction_63c394dfafd0c8d54eac3971a60e8ba3 http://purl.org/pc2/7/Catalysis_23f2d559171095be1ab0868de0cb5bec http://purl.org/pc2/7/Catalysis_3f99aa665f0ae831d3f3efb80d2bafb0 http://purl.org/pc2/7/BiochemicalReaction_4d2161cf32a459c2994011f2d4ff530c http://purl.org/pc2/7/TransportWithBiochemicalReaction_b1cc46c820e5ff34340e3bbb4c6f8540 http://purl.org/pc2/7/Catalysis_1d1dadba7b8b2bd5361061f372b91f79 http://purl.org/pc2/7/Catalysis_8f9cebdf533de14573e383496deaced9	S473;Y474;T308
+NCOA3	upregulates-expression	MYC	http://purl.org/pc2/7/TemplateReaction_b8b59b52dee453afd21d7f86556b1cbe http://purl.org/pc2/7/TemplateReactionRegulation_eb48fe1bb7a45dfc5f977d234a65a863	
+MYC	downregulates-expression	CDKN1A	http://purl.org/pc2/7/TemplateReactionRegulation_d424084954e5fe5481b596521775d6eb http://purl.org/pc2/7/TemplateReactionRegulation_b075c9a557559f836970df24e0a09c5d http://purl.org/pc2/7/TemplateReaction_7a015fcc10a8db4e1f14c893776d5875 http://purl.org/pc2/7/TemplateReaction_e85fae9e92679238b8b726f3b5c2b035	
+AKT2	phosphorylates	BAD	http://purl.org/pc2/7/Catalysis_e032859db805771557937971ca2ba98f http://identifiers.org/reactome/REACT_12565.5 http://purl.org/pc2/7/BiochemicalReaction_82bb941f5b0ddc94b6cd6196a222dd3f http://purl.org/pc2/7/Catalysis_80784fbc0fcb819ef0f3b65edf632f73	S112;S136;S99
+SRC	phosphorylates	AKT2	http://purl.org/pc2/7/BiochemicalReaction_143aea939914b82beb45dfe73b04ddfa http://purl.org/pc2/7/BiochemicalReaction_4d2161cf32a459c2994011f2d4ff530c http://purl.org/pc2/7/SmallMolecule_0bb95c42194fbd929e4be28f856ed765 http://purl.org/pc2/7/Catalysis_ff1312af7727629391ae1fc17c4acd6a http://purl.org/pc2/7/Catalysis_a6d5cc80714faf4b174c2eb397901e9b	T309
+AKT1	phosphorylates	AKT1S1	http://purl.org/pc2/7/Catalysis_4f8c1949c1ac5b29a16be8efd02670e7 http://identifiers.org/reactome/REACT_12383.5 http://purl.org/pc2/7/Catalysis_5616c2055913e16e55eb2d8396952b0c http://purl.org/pc2/7/Catalysis_e39635467f14fe975453c170a944c829 http://purl.org/pc2/7/Catalysis_0ad7a49aaf2dc0d237cbb2be0d316ec2 http://purl.org/pc2/7/ComplexAssembly_2222280511579cf975c0f215456e7140 http://purl.org/pc2/7/BiochemicalReaction_5ae38392dc68b621bd1f0a9ff8cae743 http://purl.org/pc2/7/ComplexAssembly_997c20a9ce5aa0fae9495e58e73226a5 http://purl.org/pc2/7/Catalysis_226d3f88f4455d30c9b7360a0ef701ef http://identifiers.org/reactome/REACT_147737.4	S183;T246
+RB1	upregulates-expression	CDKN1A	http://purl.org/pc2/7/TemplateReaction_db1442acfe2572742266e3d47a0ac326 http://purl.org/pc2/7/TemplateReactionRegulation_02809743666c9f3e1cd9163640b83e25	
+AR	upregulates-expression	PTCH1	http://purl.org/pc2/7/TemplateReactionRegulation_bc94534fa1794ff35c8634924b67d073 http://purl.org/pc2/7/TemplateReaction_f662f355f1e4ddecb8845f219ec2d859	
+AKT3	phosphorylates	BAD	http://identifiers.org/reactome/REACT_12565.5 http://purl.org/pc2/7/Catalysis_80784fbc0fcb819ef0f3b65edf632f73	S99
+CDH1	phosphorylates	SRC	http://purl.org/pc2/7/Catalysis_334f2093e40921b8bd649df404d2b11d http://purl.org/pc2/7/BiochemicalReaction_32787dc54bd47812767149fb57817e70	Y419
+AKT2	phosphorylates	AKT1S1	http://identifiers.org/reactome/REACT_12383.5 http://purl.org/pc2/7/Catalysis_5616c2055913e16e55eb2d8396952b0c http://purl.org/pc2/7/Catalysis_0ad7a49aaf2dc0d237cbb2be0d316ec2 http://purl.org/pc2/7/ComplexAssembly_2222280511579cf975c0f215456e7140	S183;T246
+AKT1	phosphorylates	BAD	http://purl.org/pc2/7/Catalysis_24f019470331246d2fb4592a9ebb41c1 http://purl.org/pc2/7/Catalysis_cb6571a542feb160b529a42bf10b1a46 http://purl.org/pc2/7/BiochemicalReaction_a8887c55c73fc02a6cfa3c778ec06a16 http://purl.org/pc2/7/Catalysis_d264abc07adb24d56159ab6de5110525 http://purl.org/pc2/7/BiochemicalReaction_e37c438910bf21795a0b6b45a4a84359 http://purl.org/pc2/7/BiochemicalReaction_b407f918746cb4df53a8284cf7bdad55 http://purl.org/pc2/7/BiochemicalReaction_3df6d750a5309972a3e94c843494c2c2 http://identifiers.org/reactome/REACT_12565.5 http://purl.org/pc2/7/Catalysis_4b00b63c9ca54133fe9406af464c1fc9 http://purl.org/pc2/7/Catalysis_aa84dab109fed99d11222b24587036bd http://purl.org/pc2/7/Catalysis_fff477e40dee9dbb22ba4726dfc7f0a1 http://purl.org/pc2/7/Catalysis_80784fbc0fcb819ef0f3b65edf632f73 http://purl.org/pc2/7/BiochemicalReaction_edd3b3c66af6bdf2d0948a53a50cbd75 http://purl.org/pc2/7/Catalysis_d784f8591155656d997a33fbf4ad6a9f http://purl.org/pc2/7/BiochemicalReaction_57003117b3b93c9fee1e36c69ef17322 http://purl.org/pc2/7/Catalysis_e032859db805771557937971ca2ba98f http://purl.org/pc2/7/ComplexAssembly_2549ca439715dc76c7aa640fc4115fdc http://identifiers.org/reactome/REACT_147775.3 http://purl.org/pc2/7/Catalysis_3d21ea14e558ef8e4c1714139aa026d2 http://purl.org/pc2/7/Catalysis_889a718b2d44ee7fe77e99e5ad72d330 http://purl.org/pc2/7/BiochemicalReaction_aeab6126a02b96a16f48291793296773 http://purl.org/pc2/7/BiochemicalReaction_82bb941f5b0ddc94b6cd6196a222dd3f	S112;S136;S99;S134
+NCOA3				
+AKT1				
+AKT2				
+AKT3				
+CTNNA1				
+PRKAA1				
+AR				
+BAD				
+BECN1				
+BID				
+BCL2L11				
+KIT				
+MYC				
+CASP7				
+CCNB1				
+CCND1				
+CCNE1				
+CDH1				
+ERBB3				
+IRS1				
+MRE11A				
+MSH2				
+MSH6				
+NF2				
+NOTCH1				
+NOTCH3				
+CDKN1A				
+CDKN1B				
+PDPK1				
+AKT1S1				
+PTCH1				
+RB1				
+DIABLO				
+SNAI2				
+SRC				
+STAT3				
+STMN1				
+WWTR1				
+C12ORF5				
+VASP				
+XIAP				
+XRCC1				
+YAP1				
+YAP1				
+YBX1				
+SRC	phosphorylates	PDPK1	http://purl.org/pc2/7/BiochemicalReaction_05f87a322e0b9a54086ba504fa81b6e5 http://purl.org/pc2/7/Catalysis_8c965b786eeb076a061ce298ee64fe37 http://purl.org/pc2/7/Catalysis_b20ba0da59a9cec59014726449c64dc7 http://purl.org/pc2/7/BiochemicalReaction_63549cee9e5d1843f7d345c43cd77c8d	Y376;Y373
+CCNE1	phosphorylates	CDKN1B	http://purl.org/pc2/7/Catalysis_79005fb56d67f0a224854ba0595c2061 http://identifiers.org/reactome/REACT_8998.2	T187
+ERBB3	phosphorylates	AKT2	http://purl.org/pc2/7/Catalysis_9906600b2d7c922ead0ccf9dd7b911a7 http://purl.org/pc2/7/BiochemicalReaction_b401ab320157c0fb074ff4785d47fc04	
+PDPK1	phosphorylates	AKT1	http://purl.org/pc2/7/Catalysis_ba5a00c6e82bc3da24c4163357eacb91 http://purl.org/pc2/7/BiochemicalReaction_fc5894b4eb9624344bcc0502c7e826bb http://purl.org/pc2/7/TransportWithBiochemicalReaction_0cb0d93f6f74401757f275650fd4105b http://purl.org/pc2/7/BiochemicalReaction_e4f6f435c6e35fa122d6e8dcb2dc99b9 http://purl.org/pc2/7/Catalysis_155386d42d21849ef79e179a0ff44246 http://purl.org/pc2/7/BiochemicalReaction_b3db36f7378d1c344b414b3b30061a27 http://purl.org/pc2/7/Catalysis_79fcca1ae43361c493519e94f9d94f6e http://purl.org/pc2/7/TransportWithBiochemicalReaction_dd63c03853542631ecbc055fe9cd386a http://purl.org/pc2/7/Catalysis_bf3c7dc58dc51b95871cd816218a846c http://purl.org/pc2/7/TransportWithBiochemicalReaction_8281187fc0ca504979cfcb602dcabc20 http://purl.org/pc2/7/TransportWithBiochemicalReaction_e5c54466789021c047cb85327d06e6ed http://purl.org/pc2/7/Catalysis_326e96e5eb8c49ae913a10e7a0ee782b http://purl.org/pc2/7/Catalysis_9201db90b43351bd0a054317734306d9 http://purl.org/pc2/7/Catalysis_ea75a7cd50ac1bcb69edd5d56a596df5 http://purl.org/pc2/7/TransportWithBiochemicalReaction_e62512b233e6b370b222b66c0d4a5573 http://purl.org/pc2/7/Catalysis_278ba2e30edaa14c47526371b64078cb http://purl.org/pc2/7/BiochemicalReaction_69cebb96ea1352cf190aa6cc3cc6e871 http://purl.org/pc2/7/Catalysis_4ce8a0b91dc438b2f2e8e723735f03e9 http://purl.org/pc2/7/BiochemicalReaction_267203c4e34f6745a74c08c63d911798 http://purl.org/pc2/7/TransportWithBiochemicalReaction_e41a654ead5236a1641ec20ff23d2000 http://purl.org/pc2/7/Catalysis_ec9c71faa6450cb189c2109e8b0e69f2 http://identifiers.org/reactome/REACT_12584.4 http://purl.org/pc2/7/Catalysis_26028197e3ca68d74de1555497bcda86 http://purl.org/pc2/7/Catalysis_1319c3e03f55ceda8c0407c88f823a52 http://purl.org/pc2/7/TransportWithBiochemicalReaction_da561bd456a9b3ee09e6e039a142a418 http://purl.org/pc2/7/TransportWithBiochemicalReaction_63c394dfafd0c8d54eac3971a60e8ba3 http://purl.org/pc2/7/Catalysis_024c3738d9b876a8296d24a347eab1d0 http://purl.org/pc2/7/BiochemicalReaction_ce40d3d4e8563a9b6d1ee550bf50db4e http://purl.org/pc2/7/TransportWithBiochemicalReaction_b1cc46c820e5ff34340e3bbb4c6f8540 http://purl.org/pc2/7/Catalysis_5bde7f3ea576435e8dd1ec01068b1f31 http://purl.org/pc2/7/BiochemicalReaction_768de6053a868d54c326f68a36481cb7 http://purl.org/pc2/7/Catalysis_7e5bf3ea6cc2d045e714fedf603cb28c http://purl.org/pc2/7/BiochemicalReaction_460fb334ec26bb447c6ebfa8ca8ab1a9 http://purl.org/pc2/7/TransportWithBiochemicalReaction_cab1f361e68c982166f4e52f839239a8 http://purl.org/pc2/7/Catalysis_ee622a5ea4750e7d0f645de3a075ad09 http://purl.org/pc2/7/Catalysis_ec3c071bb386ccd25c239aacffbdfd2d http://purl.org/pc2/7/BiochemicalReaction_f77da2224d2ff6c2a7c1d2e6cfa849e9 http://purl.org/pc2/7/Catalysis_08b33cdd85b18acdff7e74e4edfa2569 http://purl.org/pc2/7/Catalysis_a7fa8b8de71114b521008753b8570824 http://purl.org/pc2/7/Catalysis_b32a4ef3df7e02f5b540fd442947d9ba http://purl.org/pc2/7/Catalysis_cf434e0b0825c662b07bd5956af303df http://purl.org/pc2/7/BiochemicalReaction_2ded8f7c64d7f0c2f93f1b37d0e29696 http://identifiers.org/reactome/REACT_147862.3 http://purl.org/pc2/7/Catalysis_ddbcd4099a9f01a3abb304f61b04113b http://purl.org/pc2/7/Catalysis_132aedeead40c97b199e92f79224efb2 http://purl.org/pc2/7/BiochemicalReaction_31da448302a88b72e11b8fd199338165 http://purl.org/pc2/7/Catalysis_018a62d2389c95a41b7e358d4449fd9b http://purl.org/pc2/7/TransportWithBiochemicalReaction_78a61c59bd71350b26b51207857bc27f http://purl.org/pc2/7/TransportWithBiochemicalReaction_b1c95990dd1d7d6fdf10bbab7e591372 http://purl.org/pc2/7/Catalysis_5f7b99949d4e2db6a344f2e42b3f3ea7 http://purl.org/pc2/7/Catalysis_ffe941e20b0486424af4c5009165f910 http://purl.org/pc2/7/BiochemicalReaction_e346f05ad9030e9a42f8aa7766edb8ab http://purl.org/pc2/7/BiochemicalReaction_f420a9938d93520b0e4492472d85aa78 http://purl.org/pc2/7/Catalysis_292966e2d1ae9902e1952cb62e9ba511	S473;Y474;T308
+AKT1	phosphorylates	YBX1	http://purl.org/pc2/7/BiochemicalReaction_805b37c45213d858a46d72304ed73f9d http://purl.org/pc2/7/Catalysis_94c3813d4a3b2fc4f529ea9aca1ec04a	S102
+PDPK1	phosphorylates	AKT3	http://purl.org/pc2/7/Catalysis_ba5a00c6e82bc3da24c4163357eacb91 http://purl.org/pc2/7/Catalysis_018a62d2389c95a41b7e358d4449fd9b http://purl.org/pc2/7/BiochemicalReaction_768de6053a868d54c326f68a36481cb7 http://purl.org/pc2/7/BiochemicalReaction_460fb334ec26bb447c6ebfa8ca8ab1a9 http://purl.org/pc2/7/BiochemicalReaction_b3db36f7378d1c344b414b3b30061a27 http://identifiers.org/reactome/REACT_12584.4 http://purl.org/pc2/7/Catalysis_ec3c071bb386ccd25c239aacffbdfd2d http://purl.org/pc2/7/BiochemicalReaction_e346f05ad9030e9a42f8aa7766edb8ab http://purl.org/pc2/7/BiochemicalReaction_26e56bf8a6330cffd72b59f24401b0b2 http://purl.org/pc2/7/Catalysis_08b33cdd85b18acdff7e74e4edfa2569 http://purl.org/pc2/7/Catalysis_db8b4dfd6aa2c16801bd3ff3fd73ae75 http://purl.org/pc2/7/Catalysis_dc7dcf06b0aa9375d661a88c35f8fabb http://purl.org/pc2/7/Catalysis_326e96e5eb8c49ae913a10e7a0ee782b http://purl.org/pc2/7/BiochemicalReaction_ce40d3d4e8563a9b6d1ee550bf50db4e http://purl.org/pc2/7/BiochemicalReaction_be40fcb6e4b69cf2b0a2f5ee6fbd93a0 http://purl.org/pc2/7/Catalysis_ddbcd4099a9f01a3abb304f61b04113b	T305
+MYC	upregulates-expression	NOTCH1	http://purl.org/pc2/7/TemplateReaction_f07f0cd0899accc28ac41d850e535acf http://purl.org/pc2/7/TemplateReactionRegulation_1298ca76aa4a7e94143854aa3c2cdbaf	
+PRKAA1	phosphorylates	CDKN1B	http://purl.org/pc2/7/Catalysis_fafb57600ce334a97cd5e71fbce2c0b7 http://purl.org/pc2/7/BiochemicalReaction_e3726765b68706479b4e00395bbb811d	T198
+RB1	upregulates-expression	MSH2	http://purl.org/pc2/7/TemplateReaction_c084d70b807b4ed47e070c91d66433b7 http://purl.org/pc2/7/TemplateReaction_be77a80414936f89f406d45e2a01cec8 http://purl.org/pc2/7/TemplateReactionRegulation_3ee802943c3bd210dde544209dbdeab1 http://purl.org/pc2/7/TemplateReactionRegulation_b867846cd7bb7c0c3c101a7dd6128c13	
+MYC	upregulates-expression	DIABLO	http://purl.org/pc2/7/TemplateReaction_7b4141cd96d8685cce9330372a1c672e http://purl.org/pc2/7/TemplateReactionRegulation_100a4a193a14dbd2b3aa6023aec63e6a	
+SRC	phosphorylates	STAT3	http://purl.org/pc2/7/Catalysis_e68471d6c7045ccba2089a6f9efa7a54 http://purl.org/pc2/7/BiochemicalReaction_f3d20a55600dd085de86da5eddd702d3 http://purl.org/pc2/7/BiochemicalReaction_d7bd3430e22a50b42403c065486d5030 http://purl.org/pc2/7/Catalysis_7394e14e13f4e76900f3625a0823e51b http://purl.org/pc2/7/Catalysis_d65d159a51eb4c6effdc6580cacd4c9a http://identifiers.org/reactome/REACT_111244.2	Y705;Y727
+STAT3	phosphorylates	AKT1	http://purl.org/pc2/7/Catalysis_9906600b2d7c922ead0ccf9dd7b911a7 http://purl.org/pc2/7/BiochemicalReaction_b401ab320157c0fb074ff4785d47fc04	
+ERBB3	phosphorylates	AKT1	http://purl.org/pc2/7/Catalysis_427ff1e50a59752142564255690dba0e http://purl.org/pc2/7/TransportWithBiochemicalReaction_6b84bfd27bcbaf38f8745e275586a4f9 http://purl.org/pc2/7/Catalysis_9906600b2d7c922ead0ccf9dd7b911a7 http://purl.org/pc2/7/BiochemicalReaction_b401ab320157c0fb074ff4785d47fc04	S473;T308
+STAT3	upregulates-expression	MYC	http://purl.org/pc2/7/TemplateReactionRegulation_bd6958b3de2c2c5772ce3f571dd9c891 http://purl.org/pc2/7/TemplateReaction_97551b3254d2ca3b0f3ec6f043f650b0	
+STAT3	phosphorylates	AKT2	http://purl.org/pc2/7/Catalysis_9906600b2d7c922ead0ccf9dd7b911a7 http://purl.org/pc2/7/BiochemicalReaction_b401ab320157c0fb074ff4785d47fc04	
+RB1	downregulates-expression	CASP7	http://purl.org/pc2/7/TemplateReaction_0e70f02151bf1344ddc71133a2e71f71 http://purl.org/pc2/7/TemplateReactionRegulation_cf2a99e074d99e562c282d724ba3144d	
+AKT3	phosphorylates	CDKN1B	http://purl.org/pc2/7/Catalysis_04e4cfa2bd6c064a5cee2c99fa0d2a1a http://purl.org/pc2/7/BiochemicalReaction_866746b0dd30808b9ee4e95c151edef6 http://identifiers.org/reactome/REACT_12420.4 http://purl.org/pc2/7/Catalysis_7f7933180de9cbaecd3cfa5c5da908ab	T157
+AKT2	phosphorylates	CDKN1B	http://purl.org/pc2/7/Catalysis_04e4cfa2bd6c064a5cee2c99fa0d2a1a http://purl.org/pc2/7/BiochemicalReaction_866746b0dd30808b9ee4e95c151edef6 http://identifiers.org/reactome/REACT_12420.4 http://purl.org/pc2/7/Catalysis_7f7933180de9cbaecd3cfa5c5da908ab	T157
+NCOA3	upregulates-expression	CCND1	http://purl.org/pc2/7/TemplateReaction_a99b93e2cf0f80fed9b941d2a10677ed http://purl.org/pc2/7/TemplateReactionRegulation_c92bb498b881061588f99c0aa1f9dbbc	
+STAT3	phosphorylates	AKT3	http://purl.org/pc2/7/Catalysis_9906600b2d7c922ead0ccf9dd7b911a7 http://purl.org/pc2/7/BiochemicalReaction_b401ab320157c0fb074ff4785d47fc04	
+MYC	upregulates-expression	STMN1	http://purl.org/pc2/7/TemplateReaction_67c9551a96f297a0214cdd11228fd288 http://purl.org/pc2/7/TemplateReactionRegulation_a3cf0c01d9644eeaa4fbd7b74bfb6fc5 http://purl.org/pc2/7/TemplateReactionRegulation_e73ea1e7583b62fddaf4af0527c15aae http://purl.org/pc2/7/TemplateReaction_b9aa6cf540739b8ea7c63248fc51dc37	
+RB1	upregulates-expression	MYC	http://purl.org/pc2/7/TemplateReactionRegulation_405a93ab9e4a20be36b319048aebd586 http://purl.org/pc2/7/TemplateReaction_1395eea47f8c71b88c145e6894267a7e	
+CDKN1B	phosphorylates	RB1	http://identifiers.org/reactome/REACT_1882.7 http://purl.org/pc2/7/Catalysis_c1b24062261e9329e76253634779b287	S795
+NOTCH1	upregulates-expression	MYC	http://identifiers.org/reactome/REACT_118596.4 http://purl.org/pc2/7/TemplateReactionRegulation_b7f43399079190d702cf2adab067df9e http://identifiers.org/reactome/REACT_120351.3 http://identifiers.org/reactome/REACT_160179.2 http://identifiers.org/reactome/REACT_161585.2 http://purl.org/pc2/7/TemplateReaction_de003e3bd5acf19588fbbe7687b8eea5	
+ERBB3	phosphorylates	AKT3	http://purl.org/pc2/7/Catalysis_9906600b2d7c922ead0ccf9dd7b911a7 http://purl.org/pc2/7/BiochemicalReaction_b401ab320157c0fb074ff4785d47fc04	
+CDKN1A	phosphorylates	RB1	http://identifiers.org/reactome/REACT_1882.7 http://purl.org/pc2/7/Catalysis_c1b24062261e9329e76253634779b287 http://purl.org/pc2/7/Control_fbaef4b6955866e4288e01963a5dc042 http://purl.org/pc2/7/ComplexAssembly_d5f0b2fdcac6fdbdc61faf20c2e1334c	S795
+CCNE1	dephosphorylates	RB1	http://purl.org/pc2/7/Catalysis_0972c529bdf7ad93630ec0ec55ae28a2 http://purl.org/pc2/7/ComplexAssembly_d5f0b2fdcac6fdbdc61faf20c2e1334c	S788;S795
+MYC	upregulates-expression	PTCH1	http://purl.org/pc2/7/TemplateReaction_f71a867f46af0df0eef16379ec0c33ca http://purl.org/pc2/7/TemplateReactionRegulation_f9b04685b38547af56ee0904f93b5b05	
+CCND1	phosphorylates	RB1	http://identifiers.org/reactome/REACT_1882.7 http://purl.org/pc2/7/ComplexAssembly_9e5d39bf3aa568275f55f1178b161265 http://purl.org/pc2/7/Catalysis_c1b24062261e9329e76253634779b287 http://purl.org/pc2/7/Catalysis_ffb83612f88a1e5bc24824e56e0a13ec http://purl.org/pc2/7/ComplexAssembly_dccdfb63bfca8d88e5b55d3c07344af3 http://purl.org/pc2/7/Catalysis_87e559b80aba94526a2d95d64d51e0ff	S788;S795
+AKT1	phosphorylates	CDKN1B	http://purl.org/pc2/7/Catalysis_291dd30d9b5dcd053c81ba4b043bf12a http://identifiers.org/reactome/REACT_12420.4 http://purl.org/pc2/7/Catalysis_ab84a85544f7c35e1edb31d371e9a806 http://purl.org/pc2/7/Catalysis_7f7933180de9cbaecd3cfa5c5da908ab http://purl.org/pc2/7/BiochemicalReaction_03c4e2e305c59dab77b599a2b417fb98 http://identifiers.org/reactome/REACT_147868.4 http://purl.org/pc2/7/BiochemicalReaction_6decf523810749f96079b3eaddf4201b http://purl.org/pc2/7/Catalysis_ffbef36da06437b1f64c560a13c74be4 http://purl.org/pc2/7/Catalysis_04e4cfa2bd6c064a5cee2c99fa0d2a1a http://purl.org/pc2/7/BiochemicalReaction_866746b0dd30808b9ee4e95c151edef6 http://purl.org/pc2/7/BiochemicalReaction_438c44f873faa37cf58cb7401e2a78ca http://purl.org/pc2/7/Catalysis_847c0ad46946b913d9256bde6183145f http://purl.org/pc2/7/BiochemicalReaction_e3726765b68706479b4e00395bbb811d http://purl.org/pc2/7/Catalysis_d9bd194f914c5871655d06a0471dbc7f	S10;T157;T198
+PDPK1	phosphorylates	AKT2	http://purl.org/pc2/7/Catalysis_ba5a00c6e82bc3da24c4163357eacb91 http://purl.org/pc2/7/BiochemicalReaction_fc5894b4eb9624344bcc0502c7e826bb http://purl.org/pc2/7/BiochemicalReaction_143aea939914b82beb45dfe73b04ddfa http://purl.org/pc2/7/Catalysis_920b08513a19deca48c5d89c23601d19 http://purl.org/pc2/7/BiochemicalReaction_768de6053a868d54c326f68a36481cb7 http://purl.org/pc2/7/Catalysis_018a62d2389c95a41b7e358d4449fd9b http://purl.org/pc2/7/Catalysis_8f32eb69f0978d46953f67c468156187 http://purl.org/pc2/7/TransportWithBiochemicalReaction_436a995c5673019ec28b51b9b570f833 http://purl.org/pc2/7/BiochemicalReaction_460fb334ec26bb447c6ebfa8ca8ab1a9 http://purl.org/pc2/7/BiochemicalReaction_b3db36f7378d1c344b414b3b30061a27 http://identifiers.org/reactome/REACT_12584.4 http://purl.org/pc2/7/Catalysis_22ca55d4a8802ef2927ac1be6051c6b0 http://purl.org/pc2/7/BiochemicalReaction_e346f05ad9030e9a42f8aa7766edb8ab http://purl.org/pc2/7/Catalysis_08b33cdd85b18acdff7e74e4edfa2569 http://purl.org/pc2/7/Catalysis_c378f464228d6e532d8e9be2015b8ccd http://purl.org/pc2/7/BiochemicalReaction_6846e3c8547ba3a11e5f5e5490070c62 http://purl.org/pc2/7/Catalysis_024c3738d9b876a8296d24a347eab1d0 http://purl.org/pc2/7/Catalysis_326e96e5eb8c49ae913a10e7a0ee782b http://purl.org/pc2/7/BiochemicalReaction_700f9c4b7fb301577d5f155fae1b290f http://purl.org/pc2/7/Catalysis_ddbcd4099a9f01a3abb304f61b04113b	S474;T309
+SRC	phosphorylates	CDKN1B	http://purl.org/pc2/7/Catalysis_416ca6c47f04f0a83539b8db9ec20d3f http://purl.org/pc2/7/BiochemicalReaction_de01590dd5e50146d2fbfeb41ad3b82f http://purl.org/pc2/7/Catalysis_a724a30cea44caf519c0d65787f74f46 http://purl.org/pc2/7/BiochemicalReaction_8e1652ac843a64cf9d90271fb0f768c0 http://purl.org/pc2/7/Catalysis_11d52451d1dc709de59a7f1842068bcf http://purl.org/pc2/7/BiochemicalReaction_d261ac88db28c111a6667de968279355	Y74;Y89;Y88
+NCOA3				
+AKT1				
+AKT2				
+AKT3				
+CTNNA1				
+PRKAA1				
+AR				
+BAD				
+BECN1				
+BID				
+BCL2L11				
+KIT				
+MYC				
+CASP7				
+CCNB1				
+CCND1				
+CCNE1				
+CDH1				
+ERBB3				
+IRS1				
+MRE11A				
+MSH2				
+MSH6				
+NF2				
+NOTCH1				
+NOTCH3				
+CDKN1A				
+CDKN1B				
+PDPK1				
+AKT1S1				
+PTCH1				
+RB1				
+DIABLO				
+SNAI2				
+SRC				
+STAT3				
+STMN1				
+WWTR1				
+C12ORF5				
+VASP				
+XIAP				
+XRCC1				
+YAP1				
+YAP1				
+YBX1				

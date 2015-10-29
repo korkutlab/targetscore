@@ -32,7 +32,7 @@ siteMatchStrict <- TRUE
 resultPrefix <- "inst/ovcarProject/ovcar3_dif_drug_sig_"
 platformFile <- "inst/chibeExample/abdata-chibe.txt"
 valuesFile <- file.path(.googleDrive, "ovcar_project/ozgun_data/ozgun_data/dif_drug_sig/ovcar3_dif_drug_sig.txt")
-geneCentric <- FALSE
+geneCentric <- TRUE
 
 results <- generateRPPAGraphs(platformFile = platformFile, 
                               idColumn = "ID1", 
