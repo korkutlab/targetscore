@@ -6,21 +6,22 @@
 ndose=11
 nprot=154
 maxdist=1 # changing this value requires additional work to compute product(wk). This is not a priority
-data_dir="~/zeptosenspkg/TS_data/"
+data_dir=file.path("inst", "TS_data")
 cell_line="cov318"
 
 #read proteomic response
-x <- read.table(paste(data_dir,cell_line,"_jq1_ave.txt",sep=""),header=T)
+inputFile <- file.path(data_dir, paste0(cell_line,"_jq1_ave.txt"))
+x <- read.table(inputFile, header=TRUE)
 rownames(x) <- x[,1]
 x <-x[,-1:-2]
 #read function score
-fs <- read.table(paste(data_dir,"fs.txt",sep=""),header=T)
+fs <- read.table(paste(data_dir,"fs.txt",sep=""),header=TRUE)
 print(fs)
 #match Ab names to gene names & posttranslational modifictions
-mab_to_genes <- read.table(paste(data_dir,"antibodyMap.txt",sep=""),sep="\t",header=T)
+mab_to_genes <- read.table(file.path(data_dir, "antibodyMap.txt"),sep="\t",header=TRUE)
 mab_to_genes
 #pathway distance matrix
-dist <- read.table(paste(data_dir,"distances.txt",sep=""),sep="\t",header=T)
+dist <- read.table(file.path(data_dir, "distances.txt"),sep="\t",header=TRUE)
 dist
 measured_genes <- pmatch(colnames(x),mab_to_genes[,1],duplicates.ok = TRUE)
 mab_to_genes[measured_genes,]
@@ -40,13 +41,13 @@ for(i in 1:length(dist_list[,1])){
   }
 ###get the network product###
 
-phosp <- read.csv(paste(data_dir,"phosphorylates.txt",sep=""),sep="\t",header=T,na.strings = c("", " "))
+phosp <- read.csv(file.path(data_dir, "phosphorylates.txt"),sep="\t",header=T,na.strings = c("", " "))
 phosp <- phosp[,-3]
-dephosp <- read.csv(paste(data_dir,"dephosphorylates.txt",sep=""),sep="\t",header=T,na.strings = c("", " "))
+dephosp <- read.csv(file.path(data_dir, "dephosphorylates.txt"),sep="\t",header=T,na.strings = c("", " "))
 dephosp <- dephosp[,-3]
-upexp <- read.csv(paste(data_dir,"upregulates-expression.txt",sep=""),sep="\t",header=T,na.strings = c("", " "))
+upexp <- read.csv(file.path(data_dir, "upregulates-expression.txt"),sep="\t",header=T,na.strings = c("", " "))
 upexp <- upexp[,-3]
-dwnexp <- read.csv(paste(data_dir,"downregulates-expression.txt",sep=""),sep="\t",header=T,na.strings = c("", " "))
+dwnexp <- read.csv(file.path(data_dir, "downregulates-expression.txt"),sep="\t",header=T,na.strings = c("", " "))
 dwnexp <- dwnexp[,-3]
 #only concentration nodes are included in up & downregulation
 mab_to_genes_c <- mab_to_genes[which(mab_to_genes$Effect=='c'),]
@@ -103,7 +104,7 @@ write.table(wk,file="wk.txt")
 #calculate TS for each dose
 TS <- matrix(0,ncol=ndose,nrow=nprot)
 
-for(i in 1:ndose){
+for(i in 1:ndose) {
   for (j in 1:nprot)
     ts[i,j]=fs[i,1]*(x[i,1]+
 }
