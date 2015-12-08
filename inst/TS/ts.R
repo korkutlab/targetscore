@@ -3,15 +3,16 @@
 #data: multiple dose single drug perturbation
 #ts = integral_dose(fs*(xi+sigma_j(2^p*xj*product_k(wk))))
 #missing: For phosp and dephosp based wk, there is no "exact match" between known and measured phospho-sites
-ndose=11
-nprot=154
+ndose=10
+nprot=152
 maxdist=1 # changing this value requires additional work to compute product(wk). This is not a priority
-data_dir=file.path("inst", "TS_data")
+data_dir="~/zeptosenspkg/inst/TS_data/"
 cell_line="cov318"
 
 #read proteomic response
 inputFile <- file.path(data_dir, paste0(cell_line,"_jq1_ave.txt"))
 x <- read.table(inputFile, header=TRUE)
+#x(dose,prot)
 rownames(x) <- x[,1]
 x <-x[,-1:-2]
 #read function score
@@ -30,14 +31,21 @@ dist_gene2 <- pmatch(dist[,2],mab_to_genes[measured_genes,4],duplicates.ok = TRU
 
 #distance framework
 dist_list <- cbind(dist_gene1,dist_gene2,dist[,3])
-dist_list[is.na(dist_list[,1]),1]<-Inf
-dist_list[is.na(dist_list[,2]),2]<-Inf
+dist_list[is.na(dist_list[,1]),1]<-100
+dist_list[is.na(dist_list[,2]),2]<-100
 dist_list[,1]
-dist_ind <- matrix(0,ncol=nprot,nrow=nprot)
+dist_ind <- matrix(Inf,ncol=nprot,nrow=nprot) #dist_ind(upstream,downstream)
 
 for(i in 1:length(dist_list[,1])){
-
+  
   dist_ind[dist_list[i,1],dist_list[i,2]] <- dist[i,3] 
+  
+  if(dist_ind[dist_list[i,1],dist_list[i,2]] > maxdist){
+    dist_ind[dist_list[i,1],dist_list[i,2]] <- Inf
+  }
+  if(dist_ind[dist_list[i,1],dist_list[i,2]]==0){
+    dist_ind[dist_list[i,1],dist_list[i,2]] <- Inf
+  }
   }
 ###get the network product###
 
@@ -52,7 +60,7 @@ dwnexp <- dwnexp[,-3]
 #only concentration nodes are included in up & downregulation
 mab_to_genes_c <- mab_to_genes[which(mab_to_genes$Effect=='c'),]
 #define wk
-wk <- matrix(0,ncol=nprot,nrow=nprot)
+wk <- matrix(0,ncol=nprot,nrow=nprot) #wk(upstr,downstr)
 #upregulation expression, wk=1
 upexp_gene1 <- pmatch(upexp[,1],mab_to_genes_c[measured_genes,4],duplicates.ok = TRUE)
 upexp_gene2 <- pmatch(upexp[,2],mab_to_genes_c[measured_genes,4],duplicates.ok = TRUE)
@@ -84,7 +92,7 @@ phos_gene <- cbind(phos_gene1,phos_gene2)
 
 for(i in 1:length(phos_gene[,1])){
   
-  wk[phos_gene[i,1],phos_gene[i,2]] = 1
+  wk[phos_gene[i,1],phos_gene[i,2]] = 1 
 }
 
 
@@ -102,13 +110,23 @@ for(i in 1:length(dephos_gene[,1])){
 write.table(wk,file="wk.txt")
 #IN PROGRESS!
 #calculate TS for each dose
-TS <- matrix(0,ncol=ndose,nrow=nprot)
-
+ts <- matrix(0,ncol=nprot,nrow=ndose)
+tsp <- array(0:0,dim=c(ndose,nprot,nprot))
 for(i in 1:ndose) {
-  for (j in 1:nprot)
-    ts[i,j]=fs[i,1]*(x[i,1]+
-}
+   #downstream (target)
+  for (j in 1:nprot)  {
+   #upstream
+    for (k in 1:nprot){
 
+      tsp[i,k,j]=(2^-(dist_ind[k,j]))*x[i,k]*wk[k,j]
+      
+    }
+     ts[i,j]=fs[i,2]*(x[i,j]+sum(tsp[i,1:nprot,j]))
+  }
+}
+colnames(ts) <- colnames (x)
+rownames(ts) <- rownames (x)
+write.table(ts,file="ts.txt")
 rm(list = ls()) 
 
 #permutation 
