@@ -31,7 +31,7 @@ getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist=1,
     #mab_to_genes
     
     #pathway distance matrix
-    distFile <- system.file("targetScoreData", "antibodyMap.txt", package="zeptosensPkg")
+    distFile <- system.file("targetScoreData", "distances.txt", package="zeptosensPkg")
     dist <- read.table(distFile, sep="\t", header=TRUE)
     #dist
     
