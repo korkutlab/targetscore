@@ -11,7 +11,8 @@ LazyData: false
 Depends:
     R (>= 3.1.1),
     xlsx,
-    rJava
+    rJava,
+    paxtoolsr
 Suggests:
     knitr
 VignetteBuilder: knitr
