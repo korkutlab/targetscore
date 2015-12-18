@@ -12,7 +12,7 @@ splitSampleNames <- function(sampleNames, sampleNameEntries) {
     df <- NULL
     
     for(i in 1:length(splitSampleNames)) {
-        sampleNumberIdx <- which(sampleNameEntries == "sampleNumber")
+        sampleNumberIdx <- which(sampleNameEntries == "sNumber")
         sampleIdx <- which(sampleNameEntries == "sample")
         treatmentIdx <- which(sampleNameEntries == "treatment")
         doseIdx <- which(sampleNameEntries == "dose")
@@ -21,7 +21,7 @@ splitSampleNames <- function(sampleNames, sampleNameEntries) {
         dateIdx <- which(sampleNameEntries == "date")
         notesIdx <- which(sampleNameEntries == "notes")
         
-        availableCols <- c("sampleNumber"=sampleNumberIdx, 
+        availableCols <- c("sNumber"=sampleNumberIdx, 
                            "sample"=sampleIdx,
                            "treatment"=treatmentIdx,
                            "dose"=doseIdx,
@@ -29,16 +29,19 @@ splitSampleNames <- function(sampleNames, sampleNameEntries) {
                            "replicate"=replicateIdx,
                            "date"=dateIdx,
                            "notes"=notesIdx)
+
+        
         
         tmpRow <- NULL
         
         for(col in names(availableCols)) {
-            if(col == "sampleNumber") {
-                tmpRow <- c(tmpRow, splitSampleNames[[i]][sampleIdx])
+            if(col == "sNumber") {
+                tmpRow <- c(tmpRow, splitSampleNames[[i]][sampleNumberIdx])
             }
             
             if(col == "sample") {
                 tmpRow <- c(tmpRow, splitSampleNames[[i]][sampleIdx])
+                
             }
             
             if(col == "treatment") {

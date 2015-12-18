@@ -19,15 +19,15 @@ readZeptosensExport <- function(data, sampleNameEntries=NULL) {
     
     df <- NULL
 
-    allCols <- c("sampleNumber", "sample", "treatment", "dose", "time", 
+    allCols <- c("sNumber", "sample", "treatment", "dose", "time", 
                  "replicate", "date", "notes", "antibody", "readout", "cv", "quality")
 
     for(i in 1:nrow(data)) {
         tmpRow <- NULL
         
         for(col in allCols) {
-            if(col == "sampleNumber") {
-                tmpRow <- c(tmpRow, sampleNumber=data[i, "Sample."])
+            if(col == "sNumber") {
+                tmpRow <- c(tmpRow, sNumber=splitSampleNames[i, col])
             }
             
             if(col == "sample") {
@@ -35,6 +35,7 @@ readZeptosensExport <- function(data, sampleNameEntries=NULL) {
             }
             
             if(col == "treatment") {
+                
                 tmpRow <- c(tmpRow, treatment=splitSampleNames[i, col])
             }
             
@@ -43,6 +44,7 @@ readZeptosensExport <- function(data, sampleNameEntries=NULL) {
             }
             
             if(col == "time") {
+                
                 tmpRow <- c(tmpRow, time=splitSampleNames[i, col])
             }
             
