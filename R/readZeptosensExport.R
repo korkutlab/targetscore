@@ -5,15 +5,15 @@
 #' 
 #' @details 
 #' 
-#' Format: sampleNumber_sample_treatment_dose_time_replicate_date_notes
+#' Format: sNumber_sample_treatment_dose_time_replicate_date_notes
 #' 
 #' @examples 
-#' tmp <- readZeptosensExport(tmp, c("sampleNumber", NA, NA, "sample", "treatment", "time", "replicate"))
+#' tmp <- readZeptosensExport(tmp, c("sNumber", NA, NA, "sample", "treatment", "time", "replicate"))
 #' 
 #' @concept zeptosensPkg
 #' @export
 readZeptosensExport <- function(data, sampleNameEntries=NULL) {
-    message("NOTE: Sample Name in *_RFI_Export_Table.xls is assumed to be in the format sampleNumber_sample_treatment_dose_time_replicate_date_notes. Use 'samplenNameEntries' parameter to modify as described in documentation.")
+    message("NOTE: Sample Name in *_RFI_Export_Table.xls is assumed to be in the format sNumber_sample_treatment_dose_time_replicate_date_notes. Use 'samplenNameEntries' parameter to modify as described in documentation.")
     
     splitSampleNames <- splitSampleNames(data[, "Sample.Name"], sampleNameEntries)
     
@@ -97,7 +97,7 @@ readZeptosensExport <- function(data, sampleNameEntries=NULL) {
 # #' 
 # #' @concept zeptosensPkg
 # readZeptosensExportDEPRECATED <- function(data, sampleNameEntries=NULL) {
-#     message("NOTE: Sample Name in *_RFI_Export_Table.xls is assumed to be in the format sampleNumber_sampleName_drug_time_dose_replicateNumber. Use 'samplenNameEntries' parameter to modify as described in documentation.")
+#     message("NOTE: Sample Name in *_RFI_Export_Table.xls is assumed to be in the format sNumber_sampleName_drug_time_dose_replicateNumber. Use 'samplenNameEntries' parameter to modify as described in documentation.")
 # 
 #     splitSampleNames <- strsplit(data[, "Sample.Name"], "_")
 #     
@@ -111,7 +111,7 @@ readZeptosensExport <- function(data, sampleNameEntries=NULL) {
 #         
 #         # TODO: More generalized 
 #         tmpDf <- data.frame(
-#             sampleNumber=data[i, "Sample."],
+#             sNumber=data[i, "Sample."],
 #             sampleNameNumber=splitSampleNames[[i]][sampleNameNumberIdx],
 #             sampleName=splitSampleNames[[i]][sampleNameIdx],
 #             treatment=splitSampleNames[[i]][treatmentIdx],

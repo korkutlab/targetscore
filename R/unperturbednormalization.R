@@ -25,6 +25,7 @@ unperturbednormalization <- function(Array1, normal_factor, nsamples, antibodyNu
 
                 norm_coef[i,1] = norm_coef[i,1]+Array1[(i-1)*nsamples+j, "readout"] 
                 nnorm[i,1]=nnorm[i,1]+1
+                print(nnorm[i,1])
             }
         }
         norm_coef[i,1]=norm_coef[i,1]/nnorm[i,1]
