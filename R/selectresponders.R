@@ -9,7 +9,9 @@ selectresponders <- function(arrayData,responsefile,sdctff){
     write(colresponders,file=responsefile)
 for(iter in 1:100){
     dev0 <- dev1
+    print(dev0)
     dev1 <- sd(arrayData$readout,na.rm = T)
+    print(dev1)
 
     if((dev0-dev1) < 0.01){
         break
@@ -17,8 +19,8 @@ for(iter in 1:100){
     responders <- arrayData[which(abs(arrayData$readout) > sdctff*dev1),]$antibody
     respondrdout <-arrayData[which(abs(arrayData$readout) > sdctff*dev1),]$readout
     respcond <- arrayData[which(abs(arrayData$readout) > sdctff*dev1),]$treatment
-    arrayDataR <- arrayData[which(abs(arrayData$readout) < sdctff*dev1),]
-    
+    arrayData <- arrayData[which(abs(arrayData$readout) < sdctff*dev1),]
+#    print(responders)
     response <- cbind(responders)
 
     for (k in 1:length(responders)){
