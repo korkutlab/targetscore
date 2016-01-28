@@ -15,10 +15,10 @@ readZeptosensExport(data, sampleNameEntries = NULL)
 Read Zeptosens Export File
 }
 \details{
-Format: sampleNumber_sample_treatment_dose_time_replicate_date_notes
+Format: sNumber_sample_treatment_dose_time_replicate_date_notes
 }
 \examples{
-tmp <- readZeptosensExport(tmp, c("sampleNumber", NA, NA, "sample", "treatment", "time", "replicate"))
+tmp <- readZeptosensExport(tmp, c("sNumber", NA, NA, "sample", "treatment", "time", "replicate"))
 
 }
 \concept{

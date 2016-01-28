@@ -26,3 +26,4 @@ totalproteinnormalization <- function(Array1, totalProteinLevels1, nsamples, ant
 #    return(tmp)
     return(normArray1)
 }
+
