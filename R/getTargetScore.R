@@ -60,22 +60,28 @@ getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist=1,
     }
     
     ###get the network product###
+#     phospFile <- system.file("SignedPC", "phosphorylates.txt", package="zeptosensPkg")
+#     phosp <- read.csv(phospFile, sep="\t", header=TRUE, na.strings = c("", " "))
+#     phosp <- phosp[,-3]
+#     
+#     dephospFile <- system.file("SignedPC", "dephosphorylates.txt", package="zeptosensPkg")
+#     dephosp <- read.csv(dephospFile, sep="\t", header=TRUE, na.strings = c("", " "))
+#     dephosp <- dephosp[,-3]
+#     
+#     upexpFile <- system.file("SignedPC", "dephosphorylates.txt", package="zeptosensPkg")
+#     upexp <- read.csv(upexpFile, sep="\t", header=TRUE, na.strings = c("", " "))
+#     upexp <- upexp[,-3]
+#     
+#     dwnexpFile <- system.file("SignedPC", "downregulates-expression.txt", package="zeptosensPkg")
+#     dwnexp <- read.csv(dwnexpFile, sep="\t", header=TRUE, na.strings = c("", " "))
+#     dwnexp <- dwnexp[,-3]
     
-    phospFile <- system.file("SignedPC", "phosphorylates.txt", package="zeptosensPkg")
-    phosp <- read.csv(phospFile, sep="\t", header=TRUE, na.strings = c("", " "))
-    phosp <- phosp[,-3]
+    results <- downloadSignedPC()
     
-    dephospFile <- system.file("SignedPC", "dephosphorylates.txt", package="zeptosensPkg")
-    dephosp <- read.csv(dephospFile, sep="\t", header=TRUE, na.strings = c("", " "))
-    dephosp <- dephosp[,-3]
-    
-    upexpFile <- system.file("SignedPC", "dephosphorylates.txt", package="zeptosensPkg")
-    upexp <- read.csv(upexpFile, sep="\t", header=TRUE, na.strings = c("", " "))
-    upexp <- upexp[,-3]
-    
-    dwnexpFile <- system.file("SignedPC", "downregulates-expression.txt", package="zeptosensPkg")
-    dwnexp <- read.csv(dwnexpFile, sep="\t", header=TRUE, na.strings = c("", " "))
-    dwnexp <- dwnexp[,-3]
+    dephosp <- filterSif(results, "dephosphorylates")
+    phosp <- filterSif(results, "phosphorylates")
+    dwnexp <- filterSif(results, "downregulates-expression")
+    upexp <- filterSif(results, "upregulates-expression")
     
     #only concentration nodes are included in up & downregulation
     mab_to_genes_c <- mab_to_genes[which(mab_to_genes$Effect=='c'),]
