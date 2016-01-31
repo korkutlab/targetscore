@@ -12,7 +12,7 @@ Depends:
     R (>= 3.1.1),
     xlsx,
     rJava,
-    paxtoolsr
+    paxtoolsr (>= 1.4.3)
 Suggests:
     knitr
 VignetteBuilder: knitr
