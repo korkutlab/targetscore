@@ -4,8 +4,9 @@
 \alias{getTargetScore}
 \title{Target Score Pilot Run}
 \usage{
-getTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine,
-  targetScoreOutputFile = NULL, matrixWkOutputFile = NULL)
+getTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, nPerm, cellLine,
+  targetScoreOutputFile = NULL, matrixWkOutputFile = NULL,
+  targetScoreQValueFile = NULL, targetScoreDoseFile = NULL)
 }
 \arguments{
 \item{nDose}{TBA}
@@ -16,11 +17,17 @@ getTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine,
 
 \item{maxDist}{TBA (default: 1)}
 
+\item{nPerm}{number of random TS calculations for building the null distribution}
+
 \item{cellLine}{TBA}
 
-\item{targetScoreOutputFile}{a filename to write target score results (default: NULL)}
+\item{targetScoreOutputFile}{a filename to write total target score results (default: NULL)}
 
 \item{matrixWkOutputFile}{TBA}
+
+\item{targetScoreQValueFile}{a file namme to write statistical significance levels (default: NULL)}
+
+\item{targetScoreDoseFile}{a filename to write dose dependent target score results (default: NULL)}
 }
 \description{
 Target Score Pilot Run
