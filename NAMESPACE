@@ -2,6 +2,7 @@
 
 export(convertIntermediateFormatToMatrix)
 export(genChibeExport)
+export(generateCausalityIgraph)
 export(generateRPPAGraphs)
 export(getTargetScore)
 export(normalizeZeptosensData)

@@ -34,7 +34,7 @@ platformFile <- "inst/chibeExample/abdata-chibe.txt"
 valuesFile <- file.path(.googleDrive, "ovcar_project/ozgun_data/ozgun_data/dif_drug_sig/ovcar3_dif_drug_sig.txt")
 geneCentric <- TRUE
 
-results <- generateRPPAGraphs(platformFile = platformFile, 
+compatibleResults <- generateRPPAGraphs(platformFile = platformFile, 
                               idColumn = "ID1", 
                               symbolsColumn = "Symbols",  
                               sitesColumn = "Sites",
@@ -48,11 +48,11 @@ results <- generateRPPAGraphs(platformFile = platformFile,
                               outputFilePrefix = paste0(resultPrefix, "compatible"),
                               customNetworkDirectory=signedPcDir)
 
-compatibleSif <- results$sif
-compatibleSif[, "graphType"] <- rep(graphType,  nrow(results$sif))
+compatibleSif <- compatibleResults$sif
+compatibleSif[, "graphType"] <- rep(graphType,  nrow(compatibleResults$sif))
 
 graphType <- "conflicting"
-results <- generateRPPAGraphs(platformFile = platformFile, 
+conflictingResults <- generateRPPAGraphs(platformFile = platformFile, 
                               idColumn = "ID1", 
                               symbolsColumn = "Symbols",  
                               sitesColumn = "Sites",
@@ -66,8 +66,8 @@ results <- generateRPPAGraphs(platformFile = platformFile,
                               outputFilePrefix = paste0(resultPrefix, "conflicting"),
                               customNetworkDirectory=signedPcDir)
 
-conflictingSif <- results$sif
-conflictingSif[, "graphType"] <- rep(graphType,  nrow(results$sif))
+conflictingSif <- conflictingResults$sif
+conflictingSif[, "graphType"] <- rep(graphType,  nrow(conflictingResults$sif))
 
 overallSif <- rbind(conflictingSif, compatibleSif)
 overallSif <- unique(overallSif)
@@ -80,8 +80,8 @@ write.table(overallSif, file=paste0(resultPrefix, "overall.sif"), sep="\t", row.
 #cat ovcar3_dif_drug_sig_compatible.sif ovcar3_dif_drug_sig_conflicting.sif > ovcar3_dif_drug_sig_overall.sif
 #cat ovcar3_dif_drug_sig_compatible.format ovcar3_dif_drug_sig_conflicting.format > ovcar3_dif_drug_sig_overall.format
 
-conflictingSif <- read.table(paste0(resultPrefix, "conflicting.sif"), sep="\t", fill=TRUE, row.names=NULL, header=FALSE)
-compatibleSif <- read.table(paste0(resultPrefix, "compatible.sif"), sep="\t", fill=TRUE, row.names=NULL, header=FALSE)
+conflictingSif <- read.table(paste0(resultPrefix, "conflicting.sif"), sep="\t", fill=TRUE, row.names=NULL, header=FALSE, stringsAsFactors=FALSE)
+compatibleSif <- read.table(paste0(resultPrefix, "compatible.sif"), sep="\t", fill=TRUE, row.names=NULL, header=FALSE, stringsAsFactors=FALSE)
 
 if(ncol(compatibleSif) == 4) {
     compatibleSif <- cbind(compatibleSif, "V5"=rep(NA, nrow(compatibleSif)))
@@ -109,67 +109,12 @@ write.table(overallFormat, file=paste0(resultPrefix, "overall.format"),
             sep="\t", quote=FALSE, col.names=FALSE, row.names=FALSE, na="")
 ```
 
-## Parse SIF 
-```{r, eval=FALSE}
-t1 <- conflictingSif[, c("PARTICIPANT_A", "INTERACTION_TYPE", "PARTICIPANT_B")]
-t2 <- t1[t1$INTERACTION_TYPE != "",]
-g <- loadSifInIgraph(t2)
+## Parse Causality SIF 
+```{r}
+# Get results to plot
+causalityResults <- conflictingResults
+g <- generateCausalityIgraph(causalityResults)
 
-# Get node colors
-formatTmp <- subset(results$format, componentProperty == "color" & componentType == "node", select = c(componentLabel, rgbColor))
-
-nodeColors <- NULL 
-
-for(i in 1:length(V(g))) {
-    idx <- which(formatTmp[, "componentLabel"] == V(g)$name[i])
-    
-    if(length(idx) == 1) {
-        rgbTmp <- strsplit(formatTmp[idx, "rgbColor"], " ")[[1]]
-        
-        # Values must be between 0 and 1
-        t1 <- as.numeric(rgbTmp) / 255
-        hexColor <- do.call("rgb", as.list(t1))
-        
-        nodeColors <- c(nodeColors, hexColor)
-    } else {
-        nodeColors <- c(nodeColors, "#FFFFFF")
-    }
-}
-
-# Get edge colors 
-formatTmp <- subset(results$format, componentProperty == "color" & componentType == "edge", select = c(componentLabel, rgbColor))
-
-edgeColors <- NULL 
-edgeLty <- NULL
-
-for(i in 1:length(E(g))) {
-    label <- paste(ends(g, E(g)[i])[1], E(g)[i]$edgeType, ends(g, E(g)[i])[2], sep=" ")
-    idx <- which(formatTmp[, "componentLabel"] == label)
-    
-    if(length(idx) == 1) {
-        rgbTmp <- strsplit(formatTmp[idx, "rgbColor"], " ")[[1]]
-        t1 <- as.numeric(rgbTmp) / 255
-        hexColor <- do.call("rgb", as.list(t1))
-        
-        edgeColors <- c(edgeColors, hexColor)
-        
-        if(E(g)[i]$edgeType == "phosphorylates") {
-            edgeLty <- c(edgeLty, 2)            
-        } else {
-            edgeLty <- c(edgeLty, 1) 
-        }
-    } else {
-        edgeColors <- c(edgeColors, "#FFFFFF")
-    }
-}
-
-V(g)$color <- nodeColors
-E(g)$color <- edgeColors
-E(g)$lty <- edgeLty
-```
-
-## Plot SIF
-```{r, eval=FALSE}
 plot(g, layout=layout.fruchterman.reingold, 
      edge.arrow.width=0.5, edge.arrow.size=0.5, edge.color=E(g)$color, edge.lty=E(g)$lty,
      vertex.color=V(g)$color, vertex.label.cex=0.5)
@@ -180,12 +125,3 @@ plot(g, layout=layout.fruchterman.reingold,
 ```{r, eval=FALSE}
 sessionInfo()
 ```
-
-
-
-
-
-
-
-
-
