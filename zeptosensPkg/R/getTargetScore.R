@@ -5,8 +5,11 @@
 #' @param proteomicResponses TBA
 #' @param maxDist TBA (default: 1)
 #' @param cellLine TBA 
-#' @param targetScoreOutputFile a filename to write target score results (default: NULL)
+#' @param targetScoreOutputFile a filename to write total target score results (default: NULL)
 #' @param matrixWkOutputFile TBA 
+#' @param targetScoreQValueFile a file namme to write statistical significance levels (default: NULL)
+#' @param targetScoreDoseFile a filename to write dose dependent target score results (default: NULL) 
+#' @param nPerm number of random TS calculations for building the null distribution
 #' 
 #' @details 
 #' data: multiple dose single drug perturbation
@@ -17,8 +20,9 @@
 #' 
 #' @concept zeptosensPkg
 #' @export
-getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist=1,  
-                           cellLine, targetScoreOutputFile=NULL, matrixWkOutputFile=NULL) {
+getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist=1, nPerm,  
+                           cellLine, targetScoreOutputFile=NULL, matrixWkOutputFile=NULL
+                           ,targetScoreQValueFile=NULL, targetScoreDoseFile=NULL) {
     # LOAD INTERNAL DATA ----
     #read function score
     fsFile <- system.file("targetScoreData", "fs.txt", package="zeptosensPkg")
@@ -90,7 +94,7 @@ getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist=1,
     wk <- matrix(0,ncol=nProt,nrow=nProt) #wk(upstr,downstr)
     #upregulation expression, wk=1
     upexp_gene1 <- pmatch(upexp[,1],mab_to_genes_c[measured_genes,4], duplicates.ok = TRUE)
-    upexp_gene2 <- pmatch(upexp[,2],mab_to_genes_c[measured_genes,4], duplicates.ok = TRUE)
+    upexp_gene2 <- pmatch(upexp[,3],mab_to_genes_c[measured_genes,4], duplicates.ok = TRUE)
     upexp_gene <- cbind(upexp_gene1,upexp_gene2)
     
     for(i in 1:length(upexp[,1])){
@@ -99,7 +103,7 @@ getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist=1,
     
     #downregulation expression, wk=-1
     dwnexp_gene1 <- pmatch(dwnexp[,1],mab_to_genes_c[measured_genes,4],duplicates.ok = TRUE)
-    dwnexp_gene2 <- pmatch(dwnexp[,2],mab_to_genes_c[measured_genes,4],duplicates.ok = TRUE)
+    dwnexp_gene2 <- pmatch(dwnexp[,3],mab_to_genes_c[measured_genes,4],duplicates.ok = TRUE)
     dwnexp_gene <- cbind(dwnexp_gene1,dwnexp_gene2)
     
     for(i in 1:length(dwnexp[,1])){
@@ -111,7 +115,7 @@ getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist=1,
     mab_to_genes_a <- mab_to_genes[which(mab_to_genes$Effect != 'i'),]
     mab_to_genes_d <- mab_to_genes[which(mab_to_genes$Sites != 'c'),]
     phos_gene1 <- pmatch(phosp[,1],mab_to_genes_a[measured_genes,4],duplicates.ok = TRUE) 
-    phos_gene2 <- pmatch(phosp[,2],mab_to_genes_d[measured_genes,4],duplicates.ok = TRUE) 
+    phos_gene2 <- pmatch(phosp[,3],mab_to_genes_d[measured_genes,4],duplicates.ok = TRUE) 
     phos_gene <- cbind(phos_gene1,phos_gene2)
     
     for(i in 1:length(phos_gene[,1])){
@@ -123,7 +127,7 @@ getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist=1,
     mab_to_genes_a <- mab_to_genes[which(mab_to_genes$Effect != 'i'),]
     mab_to_genes_d <- mab_to_genes[which(mab_to_genes$Sites != 'c'),]
     dephos_gene1 <- pmatch(dephosp[,1],mab_to_genes_a[measured_genes,4],duplicates.ok = TRUE) 
-    dephos_gene2 <- pmatch(dephosp[,2],mab_to_genes_d[measured_genes,4],duplicates.ok = TRUE) 
+    dephos_gene2 <- pmatch(dephosp[,3],mab_to_genes_d[measured_genes,4],duplicates.ok = TRUE) 
     dephos_gene <- cbind(dephos_gene1,dephos_gene2)
     
     for(i in 1:length(dephos_gene[,1])){
@@ -133,10 +137,13 @@ getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist=1,
     if(!is.null(matrixWkOutputFile)) {
         write.table(wk, file=matrixWkOutputFile)
     }
-    
     #calculate TS for each dose
-    ts <- matrix(0,ncol=nProt,nrow=nDose)
+    tsd <- matrix(0,ncol=nProt,nrow=nDose)
     tsp <- array(0:0,dim=c(nDose,nProt,nProt))
+    randTs <- matrix(0,nrow=nProt,ncol=nPerm)
+    ts <- matrix(0,ncol=1,nrow=nProt)
+    pts <- matrix(0,ncol=1,nrow=nProt)
+    print(randTs)
     for(i in 1:nDose) {
         #downstream (target)
         for (j in 1:nProt)  {
@@ -146,17 +153,47 @@ getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist=1,
                 tsp[i,k,j]=(2^-(dist_ind[k,j]))*proteomicResponses[i,k]*wk[k,j]
                 
             }
-            ts[i,j]=fs[i,2]*(proteomicResponses[i,j]+sum(tsp[i,1:nProt,j]))
+            tsd[i,j] = fs[j,2]*(proteomicResponses[i,j]+sum(tsp[i,1:nProt,j]))
         }
     }
-    colnames(ts) <- colnames(proteomicResponses)
-    rownames(ts) <- rownames(proteomicResponses)
+    ts <- as.matrix(colSums(tsd))
+#    colnames(ts) <- "Target_score" 
+    rownames(ts) <- colnames(proteomicResponses) 
+#    colnames(tsd) <- colnames(proteomicResponses)
+#    rownames(tsd) <- rownames(proteomicResponses)
     
     if(!is.null(targetScoreOutputFile)) {
         write.table(ts, file=targetScoreOutputFile)
     }
+    if(!is.null(targetScoreDoseFile)) {
+        write.table(tsd, file=targetScoreDoseFile)
+    }
+    
+    for (k in 1:nPerm){
+        randTs[,k] <- randTargetScore(nDose, nProt, proteomicResponses, maxDist=1,  
+                                  cellLine)$tsr
+        
+#        randTs[,k] <- as.matrix(rants)
+        #print("resi")
+        #print(resi$ts)
+        #randTs[,k]
+    }
+    write.table(data.frame(randTs),file="randts.txt")
+    for (i in 1:nProt){
+        
+        pts[i] <- pnorm(ts[i],mean=mean(randTs[i,1:nPerm]),sd=sd(randTs[i,1:nPerm]))   
+        print(pts[i])
+            }
+    q <- as.matrix(p.adjust(pts, method = "fdr", n = nProt))
+#    q <- as.matrix(q)
+#    colnames(q) <- colnames(proteomicResponses)
+#    rownames(q) <- "FDR_adjusted_p"
+    if(!is.null(targetScoreQValueFile)) {
+        write.table(q, file=targetScoreQValueFile)
+    }    
 
-    results <- list(ts=ts, wk=wk)
+    results <- list(ts=ts, wk=wk, q=q)
+
     return(results)
 }
   
