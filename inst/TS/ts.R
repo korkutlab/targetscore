@@ -15,11 +15,10 @@ proteomicResponses <- x
 
 targetScoreOutputFile <-"tso.txt"
 matrixWkOutputFile <- "wk.txt"
-nPerm=2
+nPerm=30
 results <- getTargetScore(nDose, nProt, proteomicResponses, 
                           maxDist=1, nPerm,cellLine, 
                           targetScoreOutputFile="~/zeptosenspkg/inst/TS/tso.txt", 
                           matrixWkOutputFile="~/zeptosenspkg/inst/TS/wk.txt",
                           targetScoreQValueFile="~/zeptosenspkg/inst/TS/q.txt", 
                           targetScoreDoseFile="~/zeptosenspkg/inst/TS/tsd.txt")
-results

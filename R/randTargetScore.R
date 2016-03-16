@@ -93,7 +93,7 @@ randTargetScore <- function(nDose, nProt, proteomicResponses, maxDist=1,
     wk <- matrix(0,ncol=nProt,nrow=nProt) #wk(upstr,downstr)
     #upregulation expression, wk=1
     upexp_gene1 <- pmatch(upexp[,1],mab_to_genes_c[measured_genes,4], duplicates.ok = TRUE)
-    upexp_gene2 <- pmatch(upexp[,2],mab_to_genes_c[measured_genes,4], duplicates.ok = TRUE)
+    upexp_gene2 <- pmatch(upexp[,3],mab_to_genes_c[measured_genes,4], duplicates.ok = TRUE)
     upexp_gene <- cbind(upexp_gene1,upexp_gene2)
     
     for(i in 1:length(upexp[,1])){
@@ -102,7 +102,7 @@ randTargetScore <- function(nDose, nProt, proteomicResponses, maxDist=1,
     
     #downregulation expression, wk=-1
     dwnexp_gene1 <- pmatch(dwnexp[,1],mab_to_genes_c[measured_genes,4],duplicates.ok = TRUE)
-    dwnexp_gene2 <- pmatch(dwnexp[,2],mab_to_genes_c[measured_genes,4],duplicates.ok = TRUE)
+    dwnexp_gene2 <- pmatch(dwnexp[,3],mab_to_genes_c[measured_genes,4],duplicates.ok = TRUE)
     dwnexp_gene <- cbind(dwnexp_gene1,dwnexp_gene2)
     
     for(i in 1:length(dwnexp[,1])){
@@ -114,7 +114,7 @@ randTargetScore <- function(nDose, nProt, proteomicResponses, maxDist=1,
     mab_to_genes_a <- mab_to_genes[which(mab_to_genes$Effect != 'i'),]
     mab_to_genes_d <- mab_to_genes[which(mab_to_genes$Sites != 'c'),]
     phos_gene1 <- pmatch(phosp[,1],mab_to_genes_a[measured_genes,4],duplicates.ok = TRUE) 
-    phos_gene2 <- pmatch(phosp[,2],mab_to_genes_d[measured_genes,4],duplicates.ok = TRUE) 
+    phos_gene2 <- pmatch(phosp[,3],mab_to_genes_d[measured_genes,4],duplicates.ok = TRUE) 
     phos_gene <- cbind(phos_gene1,phos_gene2)
     
     for(i in 1:length(phos_gene[,1])){
@@ -126,7 +126,7 @@ randTargetScore <- function(nDose, nProt, proteomicResponses, maxDist=1,
     mab_to_genes_a <- mab_to_genes[which(mab_to_genes$Effect != 'i'),]
     mab_to_genes_d <- mab_to_genes[which(mab_to_genes$Sites != 'c'),]
     dephos_gene1 <- pmatch(dephosp[,1],mab_to_genes_a[measured_genes,4],duplicates.ok = TRUE) 
-    dephos_gene2 <- pmatch(dephosp[,2],mab_to_genes_d[measured_genes,4],duplicates.ok = TRUE) 
+    dephos_gene2 <- pmatch(dephosp[,3],mab_to_genes_d[measured_genes,4],duplicates.ok = TRUE) 
     dephos_gene <- cbind(dephos_gene1,dephos_gene2)
     
     for(i in 1:length(dephos_gene[,1])){
@@ -153,7 +153,6 @@ randTargetScore <- function(nDose, nProt, proteomicResponses, maxDist=1,
     tsr <- colSums(tsd)
 #    colnames(ts) <- colnames(proteomicResponses)
 #    rownames(ts) <- rownames(proteomicResponses)
-
     results <- list(tsr=tsr)
     return(results)
 }
