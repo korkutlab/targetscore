@@ -1,0 +1,18 @@
+Package: zeptosensUtils
+Type: Package
+Title: zeptosensUtils
+Version: 0.99.1
+Date: 2016-02-17
+Author: Augustin Luna, Anil Korkut
+Maintainer: Augustin Luna <lunaa@cbio.mskcc.org>
+Description: Utilities for analyzing Zeptosens RPPA data.
+License: LGPL-3
+LazyData: false
+Depends:
+    R (>= 3.1.1),
+    xlsx,
+    rJava
+Suggests:
+    knitr
+VignetteBuilder: knitr
+RoxygenNote: 5.0.1
