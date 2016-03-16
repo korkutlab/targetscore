@@ -4,7 +4,7 @@
 #' 
 #' @return a data.frame where columns have been classified as "character" or "numeric"
 #' 
-#' @concept zeptosensPkg
+#' @concept zeptosens
 #' @export
 readZeptosensXls <- function(inputFile) {
     colClasses <- c("character", "numeric", "numeric", "character", "character", "character", 

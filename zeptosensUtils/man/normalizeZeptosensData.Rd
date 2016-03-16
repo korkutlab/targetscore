@@ -27,6 +27,6 @@ Normalize Zeptosens Data
 Normalize data using inter-array method
 }
 \concept{
-zeptosensPkg
+zeptosens
 }
 

@@ -19,6 +19,6 @@ a matrix with antibodies as the column names and row names using the user select
 Convert Intermediate Format to Matrix
 }
 \concept{
-zeptosensPkg
+zeptosens
 }
 

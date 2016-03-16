@@ -1,13 +1,13 @@
 #' Normalize Zeptosens Data wrt unperturbed (or any other condition)
 #' 
 #' @param array1 FIXME
-#' @param  normal_factor (treatment_name)
+#' @param normal_factor (treatment_name)
 #' @param nsamples samples/Ab
 #' @param antibodyNum number of antibodies on array
 #' 
 #' @details Normalize wrt ttl prt lvl
 #' 
-#' @concept zeptosensPkg
+#' @concept zeptosens
 #' @export
 unperturbedNormalization <- function(Array1, normal_factor, nsamples, antibodyNum) {
     print(normal_factor)

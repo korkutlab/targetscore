@@ -1,7 +1,18 @@
-#peak selection w/ 6sigm of base
+#' Peak selection w/ 6 sigma of base
+#' 
+#' @param arrayData FIXME
+#' @param baseTreatment FIXME
+#' @param nsamp number of samples 
+#' @param antibodyNum number of antibodies used
+#' @param sixsigname FIXME
+#' 
+#' @return FIXME
+#' 
+#' @concept zeptosens
+#' @export
 sixSigma <-
   function(arrayData,
-           base_treatment,
+           baseTreatment,
            nsamp,
            antibodyNum,
            sixsigname) {
@@ -25,7 +36,7 @@ sixSigma <-
     
     for (i in 1:length(antibodyNum)) {
       for (j in 1:nsamp) {
-        if (arrayData[(i - 1) * nsamp + j, "treatment"] == base_treatment) {
+        if (arrayData[(i - 1) * nsamp + j, "treatment"] == baseTreatment) {
           nnorm[i, 1] <- nnorm[i, 1] + 1
           
           base_read[i, nnorm[i, 1]] <- arrayData[(i - 1) * nsamp + j, "readout"]

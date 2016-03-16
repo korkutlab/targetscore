@@ -16,6 +16,6 @@ a data.frame where columns have been classified as "character" or "numeric"
 Reads the Zeptosens File (.xls) into a Data.Frame
 }
 \concept{
-zeptosensPkg
+zeptosens
 }
 

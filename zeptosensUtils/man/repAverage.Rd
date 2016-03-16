@@ -19,6 +19,6 @@ repAverage(array1)
 average replicates Zeptosens Data
 }
 \concept{
-zeptosensPkg
+zeptosens
 }
 

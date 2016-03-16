@@ -7,7 +7,7 @@
 #' 
 #' @details Normalize wrt ttl prt lvl
 #' 
-#' @concept zeptosensPkg
+#' @concept zeptosens
 #' @export
 totalProteinNormalization <- function(Array1, totalProteinLevels1, nsamples, antibodyNum) {
     #tmpDf <- NULL

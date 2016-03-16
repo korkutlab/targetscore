@@ -11,7 +11,7 @@
 #' @param plotColors vector, colors for the two arrays
 #' @param plotDir string, directory to put plots
 #' 
-#' @concept zeptosensPkg
+#' @concept zeptosens
 #' @export
 plotZeptosensDataSingleAntibodyAllDrugs <- function(normArray1, normArray2, 
                                                     antibodies, excludeTreatments, 

@@ -16,6 +16,6 @@ data.frame a data.frame with the split sample names
 Split Sample Names
 }
 \concept{
-zeptosensPkg
+zeptosens
 }
 

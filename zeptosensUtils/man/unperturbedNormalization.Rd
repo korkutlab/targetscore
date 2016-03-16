@@ -22,6 +22,6 @@ Normalize Zeptosens Data wrt unperturbed (or any other condition)
 Normalize wrt ttl prt lvl
 }
 \concept{
-zeptosensPkg
+zeptosens
 }
 

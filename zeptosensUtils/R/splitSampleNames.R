@@ -4,7 +4,7 @@
 #' 
 #' @return data.frame a data.frame with the split sample names 
 #' 
-#' @concept zeptosensPkg
+#' @concept zeptosens
 #' @export
 splitSampleNames <- function(sampleNames, sampleNameEntries) {
     splitSampleNames <- strsplit(sampleNames, "_")

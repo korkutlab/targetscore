@@ -13,6 +13,6 @@ a data.frame with the built in antibody map
 Get antibody map
 }
 \concept{
-zeptosensPkg
+zeptosens
 }
 

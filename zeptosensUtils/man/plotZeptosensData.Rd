@@ -32,6 +32,6 @@ plotZeptosensData(normArray1, normArray2, antibodies, excludeTreatments,
 Plot Zeptosens Data
 }
 \concept{
-zeptosensPkg
+zeptosens
 }
 

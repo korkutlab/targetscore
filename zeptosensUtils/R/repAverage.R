@@ -5,8 +5,7 @@
 #' @param controlProbeIndex row number that that contains the first control probe
 #' @param antibodyNum number of antibodies on array
 #' 
-#' 
-#' @concept zeptosensPkg
+#' @concept zeptosens
 #' @export
 repAverage <- function(array1) {
 

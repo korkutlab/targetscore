@@ -9,7 +9,7 @@
 #' 
 #' @details Normalize data using inter-array method
 #' 
-#' @concept zeptosensPkg
+#' @concept zeptosens
 #' @export
 normalizeZeptosensData <- function(array1, array2, totalProteinLevels1, 
                                    totalProteinLevels2, controlProbeIndex, antibodyNum) {

@@ -2,7 +2,7 @@
 #' 
 #' @return a data.frame with the built in antibody map
 #' 
-#' @concept zeptosensPkg
+#' @concept zeptosens
 #' @export
 getAntibodyMap <- function() {
     antibodyMapFilename <- system.file("extdata", "antibodyMap.txt", package="zeptosensPkg")

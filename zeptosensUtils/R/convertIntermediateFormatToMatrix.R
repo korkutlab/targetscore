@@ -6,7 +6,7 @@
 #' @return a matrix with antibodies as the column names and row names using the user selected columns 
 #'   separated by underscores 
 #'   
-#' @concept zeptosensPkg  
+#' @concept zeptosens
 #' @export
 convertIntermediateFormatToMatrix <- function(arrayData, colsForRowNames) {
     mat <- matrix(NA, nrow=length(unique(arrayData$sNumber)), ncol=length(unique(arrayData$antibody)))

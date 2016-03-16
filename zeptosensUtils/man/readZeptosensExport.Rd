@@ -22,6 +22,6 @@ tmp <- readZeptosensExport(tmp, c("sNumber", NA, NA, "sample", "treatment", "tim
 
 }
 \concept{
-zeptosensPkg
+zeptosens
 }
 

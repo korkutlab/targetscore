@@ -1,12 +1,21 @@
-#peak selection
-selectResponders <- function(arrayData, responsefile, sdctff) {
+#' Peak selection
+#' 
+#' @param arrayData FIXME
+#' @param responseFile FIXME
+#' @param sdctff FIXME
+#' 
+#' @return FIXME
+#' 
+#' @concept zeptosens
+#' @export
+selectResponders <- function(arrayData, responseFile, sdctff) {
   arrayData$readout <- log2(abs(arrayData$readout))
   print(arrayData$readout)
   
   dev1 <- 100
   
   colresponders <- paste("rank", "antibody", "readout", "stdev", "treatment", sep = "\t")
-  write(colresponders, file = responsefile)
+  write(colresponders, file = responseFile)
   
   for (iter in 1:100) {
     dev0 <- dev1
@@ -27,7 +36,7 @@ selectResponders <- function(arrayData, responsefile, sdctff) {
     for (k in 1:length(responders)) {
       write(
         paste(iter, response[k], respondrdout[k], dev1, respcond[k], sep = "\t"),
-        file = responsefile,
+        file = responseFile,
         append = T
       )
     }

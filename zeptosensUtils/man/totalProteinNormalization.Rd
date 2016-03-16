@@ -22,6 +22,6 @@ Normalize Zeptosens Data wrt ttl protein level
 Normalize wrt ttl prt lvl
 }
 \concept{
-zeptosensPkg
+zeptosens
 }
 
