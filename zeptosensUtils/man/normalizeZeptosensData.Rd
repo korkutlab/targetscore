@@ -2,15 +2,15 @@
 % Please edit documentation in R/normalizeZeptosensData.R
 \name{normalizeZeptosensData}
 \alias{normalizeZeptosensData}
-\title{Normalize Zeptosens Data}
+\title{Normalize Zeptosens Data (#AK# Interrray normalization function )}
 \usage{
 normalizeZeptosensData(array1, array2, totalProteinLevels1, totalProteinLevels2,
   controlProbeIndex, antibodyNum)
 }
 \arguments{
-\item{array1}{FIXME}
+\item{array1}{FIXME data frame, output readZeptosensExport}
 
-\item{array2}{FIXME}
+\item{array2}{FIXME data frame, output readZeptosensExport}
 
 \item{totalProteinLevels1}{total protein levels for array 1 (use readZeptosensData format)}
 
@@ -21,7 +21,7 @@ normalizeZeptosensData(array1, array2, totalProteinLevels1, totalProteinLevels2,
 \item{antibodyNum}{number of antibodies on array}
 }
 \description{
-Normalize Zeptosens Data
+Normalize Zeptosens Data (#AK# Interrray normalization function )
 }
 \details{
 Normalize data using inter-array method

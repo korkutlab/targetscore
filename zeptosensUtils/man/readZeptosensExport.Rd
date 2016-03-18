@@ -9,7 +9,7 @@ readZeptosensExport(data, sampleNameEntries = NULL)
 \arguments{
 \item{data}{Zeptosens data read in by readZeptosensXls}
 
-\item{sampleNameEntries}{FIXME}
+\item{sampleNameEntries}{FIXME, chracter string, perturbation conditions, #cell line etc (sampleNameEntries <- c("sNumber","sample", "treatment", NA,"time",NA,NA,NA))#}
 }
 \description{
 Read Zeptosens Export File

@@ -13,7 +13,7 @@ totalProteinNormalization(Array1, totalProteinLevels1, nsamples, antibodyNum)
 
 \item{antibodyNum}{number of antibodies on array}
 
-\item{array1}{FIXME}
+\item{array1}{dataframe from readZeptosensExport function}
 }
 \description{
 Normalize Zeptosens Data wrt ttl protein level

@@ -13,7 +13,7 @@ unperturbedNormalization(Array1, normal_factor, nsamples, antibodyNum)
 
 \item{antibodyNum}{number of antibodies on array}
 
-\item{array1}{FIXME}
+\item{array1}{data frame from readZeptosensExport function}
 }
 \description{
 Normalize Zeptosens Data wrt unperturbed (or any other condition)

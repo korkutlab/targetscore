@@ -7,7 +7,7 @@
 repAverage(array1)
 }
 \arguments{
-\item{array1}{FIXME}
+\item{array1}{FIXME dataframe from readZeptosensExport}
 
 \item{average_rep}{}
 

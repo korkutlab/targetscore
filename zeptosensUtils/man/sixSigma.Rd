@@ -7,15 +7,15 @@
 sixSigma(arrayData, baseTreatment, nsamp, antibodyNum, sixsigname)
 }
 \arguments{
-\item{arrayData}{FIXME}
+\item{arrayData}{FIXME dataframe from readZeptosensExport}
 
-\item{baseTreatment}{FIXME}
+\item{baseTreatment}{FIXME Real value, user defined value of base readout from experiments}
 
 \item{nsamp}{number of samples}
 
 \item{antibodyNum}{number of antibodies used}
 
-\item{sixsigname}{FIXME}
+\item{sixsigname}{FIXME name of the output file}
 }
 \value{
 FIXME
