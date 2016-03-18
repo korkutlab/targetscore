@@ -1,7 +1,7 @@
-#' Normalize Zeptosens Data
+#' Normalize Zeptosens Data (#AK# Interrray normalization function )
 #' 
-#' @param array1 FIXME
-#' @param array2 FIXME
+#' @param array1 FIXME data frame, output readZeptosensExport
+#' @param array2 FIXME data frame, output readZeptosensExport
 #' @param totalProteinLevels1 total protein levels for array 1 (use readZeptosensData format)
 #' @param totalProteinLevels2 total protein levels for array 2 (use readZeptosensData format)
 #' @param controlProbeIndex row number that that contains the first control probe

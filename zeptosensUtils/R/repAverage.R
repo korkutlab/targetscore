@@ -1,6 +1,6 @@
 #' average replicates Zeptosens Data
 #' 
-#' @param array1 FIXME
+#' @param array1 FIXME dataframe from readZeptosensExport
 #' @param average_rep 
 #' @param controlProbeIndex row number that that contains the first control probe
 #' @param antibodyNum number of antibodies on array

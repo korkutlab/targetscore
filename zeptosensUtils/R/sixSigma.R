@@ -1,10 +1,10 @@
 #' Peak selection w/ 6 sigma of base
 #' 
-#' @param arrayData FIXME
-#' @param baseTreatment FIXME
+#' @param arrayData FIXME dataframe from readZeptosensExport
+#' @param baseTreatment FIXME Real value, user defined value of base readout from experiments 
 #' @param nsamp number of samples 
 #' @param antibodyNum number of antibodies used
-#' @param sixsigname FIXME
+#' @param sixsigname FIXME name of the output file
 #' 
 #' @return FIXME
 #' 

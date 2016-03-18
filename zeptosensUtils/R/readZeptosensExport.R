@@ -1,7 +1,7 @@
 #' Read Zeptosens Export File 
 #' 
 #' @param data Zeptosens data read in by readZeptosensXls
-#' @param sampleNameEntries FIXME
+#' @param sampleNameEntries FIXME, chracter string, perturbation conditions, #cell line etc (sampleNameEntries <- c("sNumber","sample", "treatment", NA,"time",NA,NA,NA))#
 #' 
 #' @details 
 #' 

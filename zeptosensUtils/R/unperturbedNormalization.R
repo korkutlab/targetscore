@@ -1,6 +1,6 @@
 #' Normalize Zeptosens Data wrt unperturbed (or any other condition)
 #' 
-#' @param array1 FIXME
+#' @param array1 data frame from readZeptosensExport function
 #' @param normal_factor (treatment_name)
 #' @param nsamples samples/Ab
 #' @param antibodyNum number of antibodies on array

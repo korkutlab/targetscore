@@ -1,6 +1,6 @@
 #' Normalize Zeptosens Data wrt ttl protein level
 #' 
-#' @param array1 FIXME
+#' @param array1 dataframe from readZeptosensExport function 
 #' @param totalProteinLevels1 total protein levels for array 1 (use readZeptosensData format)
 #' @param nsamples samples/Ab
 #' @param antibodyNum number of antibodies on array

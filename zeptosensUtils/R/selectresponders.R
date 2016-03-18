@@ -1,8 +1,8 @@
 #' Peak selection
 #' 
-#' @param arrayData FIXME
-#' @param responseFile FIXME
-#' @param sdctff FIXME
+#' @param arrayData FIXME dataframe from readZeptosensExport
+#' @param responseFile FIXME character, name of the output file
+#' @param sdctff FIXME standard deviation threshold for selecting responders
 #' 
 #' @return FIXME
 #' 
