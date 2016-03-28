@@ -14,77 +14,69 @@
 #' @details 
 #' data: multiple dose single drug perturbation
 #' ts: integral_dose(fs*(xi+sigma_j(2^p*xj*product_k(wk))))
-#' missing: For phosp and dephosp based wk, there is no "exact match" between known and measured phospho-sites
+#' missing: For phosp and dephosp based wk, there is no 'exact match' between known and measured phospho-sites
 #' 
 #' @examples 
 #' 
 #' @concept zeptosensPkg
 #' @export
-getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist=1, nPerm,  
-                           cellLine, targetScoreOutputFile=NULL, matrixWkOutputFile=NULL, 
-                           targetScoreQValueFile=NULL, targetScoreDoseFile=NULL, 
-                           randomTargetScoreFile=NULL) {
-
+getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, nPerm, cellLine, targetScoreOutputFile = NULL, 
+    matrixWkOutputFile = NULL, targetScoreQValueFile = NULL, targetScoreDoseFile = NULL, randomTargetScoreFile = NULL) {
+    
     # CALCULATE TARGET SCORE ----
-    results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist=1, cellLine)$ts
+    results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine)$ts
     ts <- results$ts
-    wk <- results$wk 
+    wk <- results$wk
     tsd <- results$tsd
-
-    randTs <- matrix(0,nrow=nProt,ncol=nPerm) #random TS for each node over n permutations comes from randTargetScore.R
-    pts <- matrix(0,ncol=1,nrow=nProt) # p value for a given target score computed over the distribution from randTS
+    
+    randTs <- matrix(0, nrow = nProt, ncol = nPerm)  #random TS for each node over n permutations comes from randTargetScore.R
+    pts <- matrix(0, ncol = 1, nrow = nProt)  # p value for a given target score computed over the distribution from randTS
     
     # CREATE Q-VALUES ----
-    for (k in 1:nPerm){
-        #print(fs)
-        #randomize the readouts over proteomic entities
+    for (k in 1:nPerm) {
+        # print(fs) randomize the readouts over proteomic entities
         randProteomicResponses <- proteomicResponses
         
-        #    for(j in 1:ncol(randProteomicResponses))randProteomicResponses[,j] <- sample (proteomicResponses[,j])
-        for(i in 1:nrow(randProteomicResponses))randProteomicResponses[i,] <- sample (proteomicResponses[i,])    
-
-        randTs[,k] <- calcTargetScore(nDose, nProt, randProteomicResponses, maxDist=1,  
-                                  cellLine)$ts
+        # for(j in 1:ncol(randProteomicResponses))randProteomicResponses[,j] <- sample
+        # (proteomicResponses[,j])
+        for (i in 1:nrow(randProteomicResponses)) randProteomicResponses[i, ] <- sample(proteomicResponses[i, 
+            ])
         
-        #randTs[,k] <- as.matrix(rants)
-        #print("resi")
-        #print(resi$ts)
-        #randTs[,k]
+        randTs[, k] <- calcTargetScore(nDose, nProt, randProteomicResponses, maxDist = 1, cellLine)$ts
+        
+        # randTs[,k] <- as.matrix(rants) print('resi') print(resi$ts) randTs[,k]
     }
-
+    
     for (i in 1:nProt) {
-        pts[i] <- pnorm(ts[i],mean=mean(randTs[i,1:nPerm]),sd=sd(randTs[i,1:nPerm]))   
+        pts[i] <- pnorm(ts[i], mean = mean(randTs[i, 1:nPerm]), sd = sd(randTs[i, 1:nPerm]))
         print(pts[i])
     }
     q <- as.matrix(p.adjust(pts, method = "fdr", n = nProt))
-#    q <- as.matrix(q)
-#    colnames(q) <- colnames(proteomicResponses)
-#    rownames(q) <- "FDR_adjusted_p"
+    # q <- as.matrix(q) colnames(q) <- colnames(proteomicResponses) rownames(q) <- 'FDR_adjusted_p'
     
     # WRITE OUTPUTS ----
-    if(!is.null(matrixWkOutputFile)) {
-        write.table(wk, file=matrixWkOutputFile)
+    if (!is.null(matrixWkOutputFile)) {
+        write.table(wk, file = matrixWkOutputFile)
     }
     
-    if(!is.null(targetScoreOutputFile)) {
-        write.table(ts, file=targetScoreOutputFile)
+    if (!is.null(targetScoreOutputFile)) {
+        write.table(ts, file = targetScoreOutputFile)
     }
     
-    if(!is.null(targetScoreDoseFile)) {
-        write.table(tsd, file=targetScoreDoseFile)
+    if (!is.null(targetScoreDoseFile)) {
+        write.table(tsd, file = targetScoreDoseFile)
     }
     
-    if(!is.null(randomTargetScoreFile)) {
-        write.table(data.frame(randTs), file=randomTargetScoreFile)
+    if (!is.null(randomTargetScoreFile)) {
+        write.table(data.frame(randTs), file = randomTargetScoreFile)
     }
     
-    if(!is.null(targetScoreQValueFile)) {
-        write.table(q, file=targetScoreQValueFile)
-    }    
-
+    if (!is.null(targetScoreQValueFile)) {
+        write.table(q, file = targetScoreQValueFile)
+    }
+    
     # RETURN RESULTS ----
-    results <- list(ts=ts, wk=wk, tsd=tsd, q=q)
-
+    results <- list(ts = ts, wk = wk, tsd = tsd, q = q)
+    
     return(results)
-}
-  
+} 

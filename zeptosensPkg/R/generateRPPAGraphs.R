@@ -8,7 +8,7 @@
 #' @param valuesFile Name of the measurements file
 #' @param valueColumn Name of the values column in the measurements file
 #' @param valueThreshold The value threshold to be considered as significant
-#' @param graphType Either "compatible" or "conflicting"
+#' @param graphType Either 'compatible' or 'conflicting'
 #' @param siteMatchStrict boolean option to enforce matching a phosphorylation site in the network with
 #'   the annotation of antibody
 #' @param geneCentric A boolean option to produce a gene-centric (TRUE) or an antibody-centric (FALSE) graph
@@ -18,19 +18,9 @@
 #' 
 #' @concept zeptosensPkg
 #' @export
-generateRPPAGraphs <- function(platformFile, 
-                               idColumn="NodeName", 
-                               symbolsColumn="Symbol", 
-                               sitesColumn="Sites", 
-                               effectColumn="Effect", 
-                               valuesFile, 
-                               valueColumn="Value", 
-                               valueThreshold, 
-                               graphType="compatible", 
-                               siteMatchStrict=TRUE,
-                               geneCentric=TRUE, 
-                               outputFilePrefix,
-                               customNetworkDirectory=tempdir()) {
+generateRPPAGraphs <- function(platformFile, idColumn = "NodeName", symbolsColumn = "Symbol", sitesColumn = "Sites", 
+    effectColumn = "Effect", valuesFile, valueColumn = "Value", valueThreshold, graphType = "compatible", 
+    siteMatchStrict = TRUE, geneCentric = TRUE, outputFilePrefix, customNetworkDirectory = tempdir()) {
     
     command <- "generateRPPAGraphs"
     commandJStr <- .jnew("java/lang/String", command)
@@ -46,33 +36,23 @@ generateRPPAGraphs <- function(platformFile,
     outputFilePrefixJStr <- .jnew("java/lang/String", outputFilePrefix)
     customNetworkDirectoryJStr <- .jnew("java/lang/String", customNetworkDirectory)
     
-    .jcall("org/cbio/causality/rppa/RPPAFrontFace","V", command,
-           platformFileJStr, 
-           idColumnJStr, 
-           symbolsColumnJStr, 
-           sitesColumnJStr, 
-           effectColumnJStr,
-           valuesFileJStr,
-           valueColumnJStr,
-           valueThreshold,
-           graphTypeJStr, 
-           siteMatchStrict,
-           geneCentric, 
-           outputFilePrefixJStr,
-           customNetworkDirectoryJStr)
+    .jcall("org/cbio/causality/rppa/RPPAFrontFace", "V", command, platformFileJStr, idColumnJStr, 
+        symbolsColumnJStr, sitesColumnJStr, effectColumnJStr, valuesFileJStr, valueColumnJStr, 
+        valueThreshold, graphTypeJStr, siteMatchStrict, geneCentric, outputFilePrefixJStr, customNetworkDirectoryJStr)
     .jcheck()
     
     sifFile <- paste0(outputFilePrefix, ".sif")
     sifCols <- c("PARTICIPANT_A", "INTERACTION_TYPE", "PARTICIPANT_B", "URIS", "SITES")
-
+    
     formatFile <- paste0(outputFilePrefix, ".format")
     formatCols <- c("componentType", "componentLabel", "componentProperty", "rgbColor")
     
-    sif <- read.table(sifFile, sep="\t", header=FALSE, fill=TRUE, stringsAsFactors=FALSE, col.names=sifCols)
-    format <- read.table(formatFile, sep="\t", header=FALSE, fill=TRUE, stringsAsFactors=FALSE, col.names=formatCols)
+    sif <- read.table(sifFile, sep = "\t", header = FALSE, fill = TRUE, stringsAsFactors = FALSE, 
+        col.names = sifCols)
+    format <- read.table(formatFile, sep = "\t", header = FALSE, fill = TRUE, stringsAsFactors = FALSE, 
+        col.names = formatCols)
     
-    results <- list(sif=sif,
-                    format=format)
+    results <- list(sif = sif, format = format)
     
     return(results)
-}
+} 

@@ -6,21 +6,21 @@
 #' 
 #' @concept zeptosensPkg
 #' @export
-genChibeExport <- function(antibodies, antibodyMapFilename=NULL, chibeFilename="abChibe.txt") {
-    if(is.null(antibodyMapFilename)) {
-        antibodyMapFilename <- system.file("extdata", "antibodyMap.txt", package="zeptosensPkg")
+genChibeExport <- function(antibodies, antibodyMapFilename = NULL, chibeFilename = "abChibe.txt") {
+    if (is.null(antibodyMapFilename)) {
+        antibodyMapFilename <- system.file("extdata", "antibodyMap.txt", package = "zeptosensPkg")
     }
     
-    antibodyMap <- read.table(antibodyMapFilename, sep="\t", header=TRUE, stringsAsFactors=FALSE)
+    antibodyMap <- read.table(antibodyMapFilename, sep = "\t", header = TRUE, stringsAsFactors = FALSE)
     idx <- which(antibodies %in% antibodyMap[, "AntibodyLabel"])
     
-    # Make lower case and split into synonyms 
-    tmp <- tolower(antibodyMap[,"AntibodyLabel"])
+    # Make lower case and split into synonyms
+    tmp <- tolower(antibodyMap[, "AntibodyLabel"])
     namesLst <- strsplit(tmp, "\\|")
     
     results <- list()
-        
-    for(curAntibody in antibodies) {
+    
+    for (curAntibody in antibodies) {
         q <- tolower(curAntibody)
         curResults <- searchListOfVectors(q, namesLst)
         results[[curAntibody]] <- as.vector(curResults)
@@ -29,14 +29,15 @@ genChibeExport <- function(antibodies, antibodyMapFilename=NULL, chibeFilename="
     results <- unlist(results)
     
     notFoundAntibodies <- names(which(is.na(results)))
-    warning("Antibodies Not Found: ", paste(notFoundAntibodies, collapse=", "))
-
+    warning("Antibodies Not Found: ", paste(notFoundAntibodies, collapse = ", "))
+    
     tmp <- as.numeric(results)
     idx <- tmp[!is.na(tmp)]
     
     chibeData <- antibodyMap[idx, c("NodeName", "Symbol", "Sites", "Effect")]
     
-    write.table(chibeData, file=chibeFilename, sep="\t", row.names=FALSE, col.names=TRUE, quote=FALSE)
+    write.table(chibeData, file = chibeFilename, sep = "\t", row.names = FALSE, col.names = TRUE, 
+        quote = FALSE)
     
     return(chibeData)
 }
@@ -65,9 +66,9 @@ searchListOfVectors <- function(q, lst) {
     tmp <- rep(seq_along(lst), sapply(lst, length))
     resultsSe <- sapply(q, function(x) tmp[which(unlist(lst) %in% x)])
     
-    if(class(resultsSe) == "list") {
+    if (class(resultsSe) == "list") {
         return(NA)
     } else {
         return(resultsSe)
     }
-}
+} 

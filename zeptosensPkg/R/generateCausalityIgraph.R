@@ -10,24 +10,25 @@ generateCausalityIgraph <- function(causalityResults) {
     sif <- causalityResults$sif
     
     t1 <- sif[, c("PARTICIPANT_A", "INTERACTION_TYPE", "PARTICIPANT_B")]
-    t2 <- t1[t1$INTERACTION_TYPE != "",]
+    t2 <- t1[t1$INTERACTION_TYPE != "", ]
     g <- loadSifInIgraph(t2)
     
     # Get node colors
-    formatTmp <- subset(causalityResults$format, componentProperty == "color" & componentType == "node", select = c(componentLabel, rgbColor))
+    formatTmp <- subset(causalityResults$format, componentProperty == "color" & componentType == 
+        "node", select = c(componentLabel, rgbColor))
     # Unique because the Java causality returns duplicates sometimes
     formatTmp <- unique(formatTmp)
     
-    nodeColors <- NULL 
+    nodeColors <- NULL
     
-    for(i in 1:length(V(g))) {
+    for (i in 1:length(V(g))) {
         idx <- which(formatTmp[, "componentLabel"] == V(g)$name[i])
         
-        if(length(idx) == 1) {
+        if (length(idx) == 1) {
             rgbTmp <- strsplit(formatTmp[idx, "rgbColor"], " ")[[1]]
             
             # Values must be between 0 and 1
-            t1 <- as.numeric(rgbTmp) / 255
+            t1 <- as.numeric(rgbTmp)/255
             hexColor <- do.call("rgb", as.list(t1))
             
             nodeColors <- c(nodeColors, hexColor)
@@ -36,28 +37,29 @@ generateCausalityIgraph <- function(causalityResults) {
         }
     }
     
-    # Get edge colors 
-    formatTmp <- subset(causalityResults$format, componentProperty == "color" & componentType == "edge", select = c(componentLabel, rgbColor))
+    # Get edge colors
+    formatTmp <- subset(causalityResults$format, componentProperty == "color" & componentType == 
+        "edge", select = c(componentLabel, rgbColor))
     formatTmp <- unique(formatTmp)
     
-    edgeColors <- NULL 
+    edgeColors <- NULL
     edgeLty <- NULL
     
-    for(i in 1:length(E(g))) {
-        label <- paste(ends(g, E(g)[i])[1], E(g)[i]$edgeType, ends(g, E(g)[i])[2], sep=" ")
+    for (i in 1:length(E(g))) {
+        label <- paste(ends(g, E(g)[i])[1], E(g)[i]$edgeType, ends(g, E(g)[i])[2], sep = " ")
         idx <- which(formatTmp[, "componentLabel"] == label)
         
-        if(length(idx) == 1) {
+        if (length(idx) == 1) {
             rgbTmp <- strsplit(formatTmp[idx, "rgbColor"], " ")[[1]]
-            t1 <- as.numeric(rgbTmp) / 255
+            t1 <- as.numeric(rgbTmp)/255
             hexColor <- do.call("rgb", as.list(t1))
             
             edgeColors <- c(edgeColors, hexColor)
             
-            if(E(g)[i]$edgeType == "phosphorylates") {
-                edgeLty <- c(edgeLty, 2)            
+            if (E(g)[i]$edgeType == "phosphorylates") {
+                edgeLty <- c(edgeLty, 2)
             } else {
-                edgeLty <- c(edgeLty, 1) 
+                edgeLty <- c(edgeLty, 1)
             }
         } else {
             edgeColors <- c(edgeColors, "#FFFFFF")
@@ -69,4 +71,4 @@ generateCausalityIgraph <- function(causalityResults) {
     E(g)$lty <- edgeLty
     
     return(g)
-}
+} 
