@@ -9,18 +9,19 @@
 #' @concept zeptosens
 #' @export
 convertIntermediateFormatToMatrix <- function(arrayData, colsForRowNames) {
-    mat <- matrix(NA, nrow=length(unique(arrayData$sNumber)), ncol=length(unique(arrayData$antibody)))
-    for(i in 1:length(unique(arrayData$sNumber))) {
+    mat <- matrix(NA, nrow = length(unique(arrayData$sNumber)), ncol = length(unique(arrayData$antibody)))
+    for (i in 1:length(unique(arrayData$sNumber))) {
         cursNumber <- unique(arrayData$sNumber)[i]
         mat[i, ] <- arrayData[which(arrayData$sNumber == cursNumber), "readout"]
     }
     
-    rowNames <- apply(arrayData[1:length(unique(arrayData$sNumber)), colsForRowNames], 1, function(x) {
-        paste(x, collapse="_")    
-    })
+    rowNames <- apply(arrayData[1:length(unique(arrayData$sNumber)), colsForRowNames], 
+        1, function(x) {
+            paste(x, collapse = "_")
+        })
     
     colnames(mat) <- unique(arrayData$antibody)
     rownames(mat) <- rowNames
     
-    return(mat) 
-}
+    return(mat)
+} 

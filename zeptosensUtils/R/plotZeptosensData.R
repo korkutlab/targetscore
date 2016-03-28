@@ -14,43 +14,46 @@
 #' @concept zeptosens
 #' @export
 plotZeptosensData <- function(normArray1, normArray2, antibodies, excludeTreatments, 
-                              ctrlTreatment, ctrlTime, plotColNames, plotRowNames, plotColors, plotDir) {
+    ctrlTreatment, ctrlTime, plotColNames, plotRowNames, plotColors, plotDir) {
     allDrugs <- unique(normArray1[, "treatment"])
     tmpDrugs <- allDrugs[!(unique(normArray1[, "treatment"]) %in% excludeTreatments)]
     
     curDrug <- tmpDrugs[1]
     
-    for(curDrug in tmpDrugs) {
+    for (curDrug in tmpDrugs) {
         plotRows <- ceiling(sqrt(length(antibodies)))
         plotCols <- ceiling(sqrt(length(antibodies)))
         
-        pdf(paste0(plotDir, curDrug, ".pdf"), width=20, height=8.5)
+        pdf(paste0(plotDir, curDrug, ".pdf"), width = 20, height = 8.5)
         
-        par(mfrow=c(plotRows, plotCols))
+        par(mfrow = c(plotRows, plotCols))
         
-        par(mar=c(2,2,1.5,1), oma=c(0,0,2,0))
-        for(curAntibody in antibodies) {
-            tmpArray1Entries <- normArray1[which(normArray1[, "antibody"] == curAntibody), ]
-            tmpArray2Entries <- normArray2[which(normArray2[, "antibody"] == curAntibody), ]
+        par(mar = c(2, 2, 1.5, 1), oma = c(0, 0, 2, 0))
+        for (curAntibody in antibodies) {
+            tmpArray1Entries <- normArray1[which(normArray1[, "antibody"] == curAntibody), 
+                ]
+            tmpArray2Entries <- normArray2[which(normArray2[, "antibody"] == curAntibody), 
+                ]
             
             idx <- intersect(which(tmpArray1Entries[, "antibody"] == curAntibody), 
-                             which(tmpArray1Entries[, "treatment"] == curDrug))
+                which(tmpArray1Entries[, "treatment"] == curDrug))
             
             t0Idx <- intersect(which(tmpArray1Entries[, "treatment"] == ctrlTreatment), 
-                               which(tmpArray1Entries[, "time"] == ctrlTime))
+                which(tmpArray1Entries[, "time"] == ctrlTime))
             allIdx <- c(t0Idx, idx)
             
-            entriesWithCtrl <- cbind(tmpArray1Entries[allIdx, "normReadout"], 
-                                     tmpArray2Entries[allIdx, "normReadout"])
+            entriesWithCtrl <- cbind(tmpArray1Entries[allIdx, "normReadout"], tmpArray2Entries[allIdx, 
+                "normReadout"])
             colnames(entriesWithCtrl) <- plotColNames
             rownames(entriesWithCtrl) <- plotRowNames
             tmpMat <- t(entriesWithCtrl)
             
-            barplot(tmpMat, main=curAntibody, beside=TRUE, col=plotColors, cex.main=0.9, cex.axis=0.7)
+            barplot(tmpMat, main = curAntibody, beside = TRUE, col = plotColors, 
+                cex.main = 0.9, cex.axis = 0.7)
         }
-        title(main=curDrug, outer=TRUE)
+        title(main = curDrug, outer = TRUE)
         
         dev.off()
     }
     
-}
+} 
