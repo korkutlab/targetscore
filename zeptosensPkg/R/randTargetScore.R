@@ -27,8 +27,8 @@ randTargetScore <- function(nDose, nProt, proteomicResponses, maxDist=1,
     #print(fs)
     #randomize the readouts over proteomic entities
     randProteomicResponses <-proteomicResponses
-    for(j in 1:ncol(proteomicResponses))randProteomicResponses[,j] <- sample (proteomicResponses[,j])
-    
+#    for(j in 1:ncol(proteomicResponses))randProteomicResponses[,j] <- sample (proteomicResponses[,j])
+    for(i in 1:nrow(proteomicResponses))randProteomicResponses[i,] <- sample (proteomicResponses[i,])    
     #match Ab names to gene names & posttranslational modifications
     antibodyMapFile <- system.file("targetScoreData", "antibodyMap.txt", package="zeptosensPkg")
     mab_to_genes <- read.table(antibodyMapFile, sep="\t", header=TRUE)

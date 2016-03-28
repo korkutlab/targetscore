@@ -24,7 +24,7 @@ getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist=1, nPerm,
                            cellLine, targetScoreOutputFile=NULL, matrixWkOutputFile=NULL
                            ,targetScoreQValueFile=NULL, targetScoreDoseFile=NULL) {
     # LOAD INTERNAL DATA ----
-    #read function score
+    #read function score # uses antibody names
     fsFile <- system.file("targetScoreData", "fs.txt", package="zeptosensPkg")
     fs <- read.table(fsFile, header=TRUE)
     #print(fs)
@@ -34,7 +34,7 @@ getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist=1, nPerm,
     mab_to_genes <- read.table(antibodyMapFile, sep="\t", header=TRUE)
     #mab_to_genes
     
-    #pathway distance matrix
+    #pathway distance matrix  
     distFile <- system.file("targetScoreData", "distances.txt", package="zeptosensPkg")
     dist <- read.table(distFile, sep="\t", header=TRUE)
     #dist
@@ -138,11 +138,11 @@ getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist=1, nPerm,
         write.table(wk, file=matrixWkOutputFile)
     }
     #calculate TS for each dose
-    tsd <- matrix(0,ncol=nProt,nrow=nDose)
-    tsp <- array(0:0,dim=c(nDose,nProt,nProt))
-    randTs <- matrix(0,nrow=nProt,ncol=nPerm)
-    ts <- matrix(0,ncol=1,nrow=nProt)
-    pts <- matrix(0,ncol=1,nrow=nProt)
+    tsd <- matrix(0,ncol=nProt,nrow=nDose) #target score for a specific dose
+    tsp <- array(0:0,dim=c(nDose,nProt,nProt)) #tsp : influence of a node in the neighborhood on target score of a node for a specific dose
+    randTs <- matrix(0,nrow=nProt,ncol=nPerm) #random TS for each node over n permutations comes from randTargetScore.R
+    ts <- matrix(0,ncol=1,nrow=nProt) # overall target score for each node
+    pts <- matrix(0,ncol=1,nrow=nProt) # p value for a given target score computed over the distribution from randTS
     print(randTs)
     for(i in 1:nDose) {
         #downstream (target)
