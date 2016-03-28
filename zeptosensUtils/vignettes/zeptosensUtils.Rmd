@@ -24,7 +24,7 @@ opts_chunk$set(out.extra='style="display:block; margin: auto"', fig.align="cente
 
 # Overview
 
-The **zeptosensUtils** package 
+The **zeptosensUtils** package allows user to import and visualize data exported from the [Zeptosens protein array platform]().
 
 # Basics
 

@@ -21,178 +21,69 @@
 #' @concept zeptosensPkg
 #' @export
 getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist=1, nPerm,  
-                           cellLine, targetScoreOutputFile=NULL, matrixWkOutputFile=NULL
-                           ,targetScoreQValueFile=NULL, targetScoreDoseFile=NULL) {
-    # LOAD INTERNAL DATA ----
-    #read function score
-    fsFile <- system.file("targetScoreData", "fs.txt", package="zeptosensPkg")
-    fs <- read.table(fsFile, header=TRUE)
-    #print(fs)
+                           cellLine, targetScoreOutputFile=NULL, matrixWkOutputFile=NULL, 
+                           targetScoreQValueFile=NULL, targetScoreDoseFile=NULL, 
+                           randomTargetScoreFile=NULL) {
+
+    # CALCULATE TARGET SCORE ----
+    results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist=1, cellLine)$ts
+    ts <- results$ts
+    wk <- results$wk 
+    tsd <- results$tsd
+
+    randTs <- matrix(0,nrow=nProt,ncol=nPerm) #random TS for each node over n permutations comes from randTargetScore.R
+    pts <- matrix(0,ncol=1,nrow=nProt) # p value for a given target score computed over the distribution from randTS
     
-    #match Ab names to gene names & posttranslational modifications
-    antibodyMapFile <- system.file("targetScoreData", "antibodyMap.txt", package="zeptosensPkg")
-    mab_to_genes <- read.table(antibodyMapFile, sep="\t", header=TRUE)
-    #mab_to_genes
-    
-    #pathway distance matrix
-    distFile <- system.file("targetScoreData", "distances.txt", package="zeptosensPkg")
-    dist <- read.table(distFile, sep="\t", header=TRUE)
-    #dist
-    
-    measured_genes <- pmatch(colnames(proteomicResponses),mab_to_genes[,1],duplicates.ok = TRUE)
-    mab_to_genes[measured_genes,]
-    dist_gene1 <- pmatch(dist[,1],mab_to_genes[measured_genes,4],duplicates.ok = TRUE)
-    dist_gene2 <- pmatch(dist[,2],mab_to_genes[measured_genes,4],duplicates.ok = TRUE)
-    
-    #distance framework
-    dist_list <- cbind(dist_gene1,dist_gene2,dist[,3])
-    dist_list[is.na(dist_list[,1]),1]<-100
-    dist_list[is.na(dist_list[,2]),2]<-100
-    dist_list[,1]
-    dist_ind <- matrix(Inf,ncol=nProt,nrow=nProt) #dist_ind(upstream,downstream)
-    
-    for(i in 1:length(dist_list[,1])){
-        
-        dist_ind[dist_list[i,1],dist_list[i,2]] <- dist[i,3] 
-        
-        if(dist_ind[dist_list[i,1],dist_list[i,2]] > maxDist){
-            dist_ind[dist_list[i,1],dist_list[i,2]] <- Inf
-        }
-        if(dist_ind[dist_list[i,1],dist_list[i,2]]==0){
-            dist_ind[dist_list[i,1],dist_list[i,2]] <- Inf
-        }
-    }
-    
-    ###get the network product###
-#     phospFile <- system.file("SignedPC", "phosphorylates.txt", package="zeptosensPkg")
-#     phosp <- read.csv(phospFile, sep="\t", header=TRUE, na.strings = c("", " "))
-#     phosp <- phosp[,-3]
-#     
-#     dephospFile <- system.file("SignedPC", "dephosphorylates.txt", package="zeptosensPkg")
-#     dephosp <- read.csv(dephospFile, sep="\t", header=TRUE, na.strings = c("", " "))
-#     dephosp <- dephosp[,-3]
-#     
-#     upexpFile <- system.file("SignedPC", "dephosphorylates.txt", package="zeptosensPkg")
-#     upexp <- read.csv(upexpFile, sep="\t", header=TRUE, na.strings = c("", " "))
-#     upexp <- upexp[,-3]
-#     
-#     dwnexpFile <- system.file("SignedPC", "downregulates-expression.txt", package="zeptosensPkg")
-#     dwnexp <- read.csv(dwnexpFile, sep="\t", header=TRUE, na.strings = c("", " "))
-#     dwnexp <- dwnexp[,-3]
-    
-    results <- downloadSignedPC()
-    
-    dephosp <- filterSif(results, "dephosphorylates")
-    phosp <- filterSif(results, "phosphorylates")
-    dwnexp <- filterSif(results, "downregulates-expression")
-    upexp <- filterSif(results, "upregulates-expression")
-    
-    #only concentration nodes are included in up & downregulation
-    mab_to_genes_c <- mab_to_genes[which(mab_to_genes$Effect=='c'),]
-    
-    #define wk
-    wk <- matrix(0,ncol=nProt,nrow=nProt) #wk(upstr,downstr)
-    #upregulation expression, wk=1
-    upexp_gene1 <- pmatch(upexp[,1],mab_to_genes_c[measured_genes,4], duplicates.ok = TRUE)
-    upexp_gene2 <- pmatch(upexp[,3],mab_to_genes_c[measured_genes,4], duplicates.ok = TRUE)
-    upexp_gene <- cbind(upexp_gene1,upexp_gene2)
-    
-    for(i in 1:length(upexp[,1])){
-        wk[upexp_gene[i,1],upexp_gene[i,2]] = 1
-    }
-    
-    #downregulation expression, wk=-1
-    dwnexp_gene1 <- pmatch(dwnexp[,1],mab_to_genes_c[measured_genes,4],duplicates.ok = TRUE)
-    dwnexp_gene2 <- pmatch(dwnexp[,3],mab_to_genes_c[measured_genes,4],duplicates.ok = TRUE)
-    dwnexp_gene <- cbind(dwnexp_gene1,dwnexp_gene2)
-    
-    for(i in 1:length(dwnexp[,1])){
-        wk[dwnexp_gene[i,1],dwnexp_gene[i,2]] = -1
-    }
-    
-    #phosphorylates wk=1
-    #only active and concentration states are upstream
-    mab_to_genes_a <- mab_to_genes[which(mab_to_genes$Effect != 'i'),]
-    mab_to_genes_d <- mab_to_genes[which(mab_to_genes$Sites != 'c'),]
-    phos_gene1 <- pmatch(phosp[,1],mab_to_genes_a[measured_genes,4],duplicates.ok = TRUE) 
-    phos_gene2 <- pmatch(phosp[,3],mab_to_genes_d[measured_genes,4],duplicates.ok = TRUE) 
-    phos_gene <- cbind(phos_gene1,phos_gene2)
-    
-    for(i in 1:length(phos_gene[,1])){
-        wk[phos_gene[i,1],phos_gene[i,2]] = 1 
-    }
-    
-    #dephosphorylates wk=-1
-    #only active and concentration states are upstream
-    mab_to_genes_a <- mab_to_genes[which(mab_to_genes$Effect != 'i'),]
-    mab_to_genes_d <- mab_to_genes[which(mab_to_genes$Sites != 'c'),]
-    dephos_gene1 <- pmatch(dephosp[,1],mab_to_genes_a[measured_genes,4],duplicates.ok = TRUE) 
-    dephos_gene2 <- pmatch(dephosp[,3],mab_to_genes_d[measured_genes,4],duplicates.ok = TRUE) 
-    dephos_gene <- cbind(dephos_gene1,dephos_gene2)
-    
-    for(i in 1:length(dephos_gene[,1])){
-        wk[dephos_gene[i,1],dephos_gene[i,2]] = -1
-    }
-    
-    if(!is.null(matrixWkOutputFile)) {
-        write.table(wk, file=matrixWkOutputFile)
-    }
-    #calculate TS for each dose
-    tsd <- matrix(0,ncol=nProt,nrow=nDose)
-    tsp <- array(0:0,dim=c(nDose,nProt,nProt))
-    randTs <- matrix(0,nrow=nProt,ncol=nPerm)
-    ts <- matrix(0,ncol=1,nrow=nProt)
-    pts <- matrix(0,ncol=1,nrow=nProt)
-    print(randTs)
-    for(i in 1:nDose) {
-        #downstream (target)
-        for (j in 1:nProt)  {
-            #upstream
-            for (k in 1:nProt){
-                
-                tsp[i,k,j]=(2^-(dist_ind[k,j]))*proteomicResponses[i,k]*wk[k,j]
-                
-            }
-            tsd[i,j] = fs[j,2]*(proteomicResponses[i,j]+sum(tsp[i,1:nProt,j]))
-        }
-    }
-    ts <- as.matrix(colSums(tsd))
-#    colnames(ts) <- "Target_score" 
-    rownames(ts) <- colnames(proteomicResponses) 
-#    colnames(tsd) <- colnames(proteomicResponses)
-#    rownames(tsd) <- rownames(proteomicResponses)
-    
-    if(!is.null(targetScoreOutputFile)) {
-        write.table(ts, file=targetScoreOutputFile)
-    }
-    if(!is.null(targetScoreDoseFile)) {
-        write.table(tsd, file=targetScoreDoseFile)
-    }
-    
+    # CREATE Q-VALUES ----
     for (k in 1:nPerm){
-        randTs[,k] <- randTargetScore(nDose, nProt, proteomicResponses, maxDist=1,  
-                                  cellLine)$tsr
+        #print(fs)
+        #randomize the readouts over proteomic entities
+        randProteomicResponses <- proteomicResponses
         
-#        randTs[,k] <- as.matrix(rants)
+        #    for(j in 1:ncol(randProteomicResponses))randProteomicResponses[,j] <- sample (proteomicResponses[,j])
+        for(i in 1:nrow(randProteomicResponses))randProteomicResponses[i,] <- sample (proteomicResponses[i,])    
+
+        randTs[,k] <- calcTargetScore(nDose, nProt, randProteomicResponses, maxDist=1,  
+                                  cellLine)$ts
+        
+        #randTs[,k] <- as.matrix(rants)
         #print("resi")
         #print(resi$ts)
         #randTs[,k]
     }
-    write.table(data.frame(randTs),file="randts.txt")
-    for (i in 1:nProt){
-        
+
+    for (i in 1:nProt) {
         pts[i] <- pnorm(ts[i],mean=mean(randTs[i,1:nPerm]),sd=sd(randTs[i,1:nPerm]))   
         print(pts[i])
-            }
+    }
     q <- as.matrix(p.adjust(pts, method = "fdr", n = nProt))
 #    q <- as.matrix(q)
 #    colnames(q) <- colnames(proteomicResponses)
 #    rownames(q) <- "FDR_adjusted_p"
+    
+    # WRITE OUTPUTS ----
+    if(!is.null(matrixWkOutputFile)) {
+        write.table(wk, file=matrixWkOutputFile)
+    }
+    
+    if(!is.null(targetScoreOutputFile)) {
+        write.table(ts, file=targetScoreOutputFile)
+    }
+    
+    if(!is.null(targetScoreDoseFile)) {
+        write.table(tsd, file=targetScoreDoseFile)
+    }
+    
+    if(!is.null(randomTargetScoreFile)) {
+        write.table(data.frame(randTs), file=randomTargetScoreFile)
+    }
+    
     if(!is.null(targetScoreQValueFile)) {
         write.table(q, file=targetScoreQValueFile)
     }    
 
-    results <- list(ts=ts, wk=wk, q=q)
+    # RETURN RESULTS ----
+    results <- list(ts=ts, wk=wk, tsd=tsd, q=q)
 
     return(results)
 }

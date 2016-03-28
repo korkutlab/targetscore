@@ -24,11 +24,6 @@ randTargetScore <- function(nDose, nProt, proteomicResponses, maxDist=1,
     fsFile <- system.file("targetScoreData", "fs.txt", package="zeptosensPkg")
     fs <- read.table(fsFile, header=TRUE)
     
-    #print(fs)
-    #randomize the readouts over proteomic entities
-    randProteomicResponses <-proteomicResponses
-    for(j in 1:ncol(proteomicResponses))randProteomicResponses[,j] <- sample (proteomicResponses[,j])
-    
     #match Ab names to gene names & posttranslational modifications
     antibodyMapFile <- system.file("targetScoreData", "antibodyMap.txt", package="zeptosensPkg")
     mab_to_genes <- read.table(antibodyMapFile, sep="\t", header=TRUE)
@@ -136,7 +131,7 @@ randTargetScore <- function(nDose, nProt, proteomicResponses, maxDist=1,
     #calculate TS for each dose
     tsd <- matrix(0,ncol=nProt,nrow=nDose)
     tsp <- array(0:0,dim=c(nDose,nProt,nProt))
-    tsr <- matrix(0,ncol=nProt,nrow=1)
+    ts <- matrix(0,ncol=nProt,nrow=1)
     
     for(i in 1:nDose) {
         #downstream (target)
@@ -144,15 +139,15 @@ randTargetScore <- function(nDose, nProt, proteomicResponses, maxDist=1,
             #upstream
             for (k in 1:nProt){
                 
-                tsp[i,k,j]=(2^-(dist_ind[k,j]))*randProteomicResponses[i,k]*wk[k,j]
+                tsp[i,k,j]=(2^-(dist_ind[k,j]))*proteomicResponses[i,k]*wk[k,j]
                 
             }
-            tsd[i,j]=fs[i,2]*(randProteomicResponses[i,j]+sum(tsp[i,1:nProt,j]))
+            tsd[i,j]=fs[i,2]*(proteomicResponses[i,j]+sum(tsp[i,1:nProt,j]))
         }
     }
-    tsr <- colSums(tsd)
+    ts <- colSums(tsd)
 #    colnames(ts) <- colnames(proteomicResponses)
 #    rownames(ts) <- rownames(proteomicResponses)
-    results <- list(tsr=tsr)
+    results <- list(ts=ts, wk=wk, tsd=tsd)
     return(results)
 }
