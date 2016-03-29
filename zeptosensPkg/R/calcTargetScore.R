@@ -77,7 +77,7 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
     mab_to_genes_c <- mab_to_genes[which(mab_to_genes$Effect == "c"), ]
     
     # define wk
-    wk <- matrix(0, ncol = nProt, nrow = nProt)  #wk(upstr,downstr)
+    wk <- matrix(0, ncol = nProt, nrow = nProt, dimnames = list(colnames(proteomicResponses), colnames(proteomicResponses)))  #wk(upstr,downstr)
     # upregulation expression, wk=1
     upexp_gene1 <- pmatch(upexp[, 1], mab_to_genes_c[measured_genes, 4], duplicates.ok = TRUE)
     upexp_gene2 <- pmatch(upexp[, 3], mab_to_genes_c[measured_genes, 4], duplicates.ok = TRUE)
@@ -119,10 +119,10 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
     }
     
     # calculate TS for each dose
-    tsd <- matrix(0, ncol = nProt, nrow = nDose)
-    tsp <- array(0:0, dim = c(nDose, nProt, nProt))
-    ts <- matrix(0, ncol = nProt, nrow = 1)
-    
+    tsd <- matrix(0, ncol = nProt, nrow = nDose, dimnames = list(rownames(proteomicResponses), colnames(proteomicResponses)))
+    tsp <- array(0:0, dim = c(nDose, nProt, nProt), dimnames = list(rownames(proteomicResponses), colnames(proteomicResponses), colnames(proteomicResponses)))
+    ts <- matrix(0, ncol = nProt, nrow = 1, dimnames = list("targetScore", colnames(proteomicResponses)))
+
     for (i in 1:nDose) {
         # downstream (target)
         for (j in 1:nProt) {

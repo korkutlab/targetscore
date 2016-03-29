@@ -60,27 +60,28 @@ getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, nPerm,
         }
     }
     q <- as.matrix(p.adjust(pts, method = "fdr", n = nProt))
-    # q <- as.matrix(q) colnames(q) <- colnames(proteomicResponses) rownames(q) <- 'FDR_adjusted_p'
-    
+    rownames(q) <- colnames(proteomicResponses) 
+    colnames(q) <- 'FDR_adjusted_p'
+
     # WRITE OUTPUTS ----
     if (!is.null(matrixWkOutputFile)) {
-        write.table(wk, file = matrixWkOutputFile)
+        write.table(wk, file = matrixWkOutputFile, quote = FALSE)
     }
     
     if (!is.null(targetScoreOutputFile)) {
-        write.table(ts, file = targetScoreOutputFile)
+        write.table(ts, file = targetScoreOutputFile, quote = FALSE)
     }
     
     if (!is.null(targetScoreDoseFile)) {
-        write.table(tsd, file = targetScoreDoseFile)
+        write.table(tsd, file = targetScoreDoseFile, quote = FALSE)
     }
     
     if (!is.null(randomTargetScoreFile)) {
-        write.table(data.frame(randTs), file = randomTargetScoreFile)
+        write.table(data.frame(randTs), file = randomTargetScoreFile, quote = FALSE)
     }
     
     if (!is.null(targetScoreQValueFile)) {
-        write.table(q, file = targetScoreQValueFile)
+        write.table(q, file = targetScoreQValueFile, quote = FALSE)
     }
     
     # RETURN RESULTS ----
