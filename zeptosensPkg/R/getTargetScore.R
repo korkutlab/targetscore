@@ -10,6 +10,7 @@
 #' @param targetScoreQValueFile a file namme to write statistical significance levels (default: NULL)
 #' @param targetScoreDoseFile a filename to write dose dependent target score results (default: NULL) 
 #' @param nPerm number of random TS calculations for building the null distribution
+#' @param verbose a flag for debugging output 
 #' 
 #' @details 
 #' data: multiple dose single drug perturbation
@@ -21,10 +22,10 @@
 #' @concept zeptosensPkg
 #' @export
 getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, nPerm, cellLine, targetScoreOutputFile = NULL, 
-    matrixWkOutputFile = NULL, targetScoreQValueFile = NULL, targetScoreDoseFile = NULL, randomTargetScoreFile = NULL) {
+    matrixWkOutputFile = NULL, targetScoreQValueFile = NULL, targetScoreDoseFile = NULL, randomTargetScoreFile = NULL, verbose=FALSE) {
     
     # CALCULATE TARGET SCORE ----
-    results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine)$ts
+    results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine)
     ts <- results$ts
     wk <- results$wk
     tsd <- results$tsd
@@ -34,6 +35,10 @@ getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, nPerm,
     
     # CREATE Q-VALUES ----
     for (k in 1:nPerm) {
+        if(verbose) {
+            cat("Permutation Iteration: ", k, "\n")
+        }
+        
         # print(fs) randomize the readouts over proteomic entities
         randProteomicResponses <- proteomicResponses
         
@@ -49,7 +54,10 @@ getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, nPerm,
     
     for (i in 1:nProt) {
         pts[i] <- pnorm(ts[i], mean = mean(randTs[i, 1:nPerm]), sd = sd(randTs[i, 1:nPerm]))
-        print(pts[i])
+        
+        if(verbose) {
+            print(pts[i])
+        }
     }
     q <- as.matrix(p.adjust(pts, method = "fdr", n = nProt))
     # q <- as.matrix(q) colnames(q) <- colnames(proteomicResponses) rownames(q) <- 'FDR_adjusted_p'

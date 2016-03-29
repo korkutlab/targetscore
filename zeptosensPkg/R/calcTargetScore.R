@@ -17,7 +17,7 @@
 #' 
 #' @concept zeptosensPkg
 #' @export
-randTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellLine) {
+calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellLine) {
     # LOAD & RANDOMIZE INTERNAL DATA ---- read function score
     fsFile <- system.file("targetScoreData", "fs.txt", package = "zeptosensPkg")
     fs <- read.table(fsFile, header = TRUE)

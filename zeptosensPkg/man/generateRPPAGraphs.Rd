@@ -27,7 +27,7 @@ generateRPPAGraphs(platformFile, idColumn = "NodeName",
 
 \item{valueThreshold}{The value threshold to be considered as significant}
 
-\item{graphType}{Either "compatible" or "conflicting"}
+\item{graphType}{Either 'compatible' or 'conflicting'}
 
 \item{siteMatchStrict}{boolean option to enforce matching a phosphorylation site in the network with
 the annotation of antibody}
