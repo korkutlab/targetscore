@@ -65,23 +65,23 @@ getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, nPerm,
 
     # WRITE OUTPUTS ----
     if (!is.null(matrixWkOutputFile)) {
-        write.table(wk, file = matrixWkOutputFile, quote = FALSE)
+        write.table(wk, file = matrixWkOutputFile, quote = FALSE, sep="\t")
     }
     
     if (!is.null(targetScoreOutputFile)) {
-        write.table(ts, file = targetScoreOutputFile, quote = FALSE)
+        write.table(ts, file = targetScoreOutputFile, quote = FALSE, col.names = FALSE, sep="\t")
     }
     
     if (!is.null(targetScoreDoseFile)) {
-        write.table(tsd, file = targetScoreDoseFile, quote = FALSE)
+        write.table(tsd, file = targetScoreDoseFile, quote = FALSE, sep="\t")
     }
     
     if (!is.null(randomTargetScoreFile)) {
-        write.table(data.frame(randTs), file = randomTargetScoreFile, quote = FALSE)
+        write.table(data.frame(randTs), file = randomTargetScoreFile, quote = FALSE, sep="\t")
     }
     
     if (!is.null(targetScoreQValueFile)) {
-        write.table(q, file = targetScoreQValueFile, quote = FALSE)
+        write.table(q, file = targetScoreQValueFile, quote = FALSE, sep="\t")
     }
     
     # RETURN RESULTS ----

@@ -20,36 +20,58 @@
 calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellLine) {
     # LOAD & RANDOMIZE INTERNAL DATA ---- read function score
     fsFile <- system.file("targetScoreData", "fs.txt", package = "zeptosensPkg")
-    fs <- read.table(fsFile, header = TRUE)
+    fs <- read.table(fsFile, header = TRUE, stringsAsFactors = FALSE)
     
     # match Ab names to gene names & posttranslational modifications
     antibodyMapFile <- system.file("targetScoreData", "antibodyMap.txt", package = "zeptosensPkg")
-    mab_to_genes <- read.table(antibodyMapFile, sep = "\t", header = TRUE)
+    mab_to_genes <- read.table(antibodyMapFile, sep = "\t", header = TRUE, stringsAsFactors = FALSE)
     # mab_to_genes
     
     # pathway distance matrix
     distFile <- system.file("targetScoreData", "distances.txt", package = "zeptosensPkg")
-    dist <- read.table(distFile, sep = "\t", header = TRUE)
-    # dist
-    measured_genes <- pmatch(colnames(proteomicResponses), mab_to_genes[, 1], duplicates.ok = TRUE)
-    mab_to_genes[measured_genes, ]
-    dist_gene1 <- pmatch(dist[, 1], mab_to_genes[measured_genes, 4], duplicates.ok = TRUE)
-    dist_gene2 <- pmatch(dist[, 2], mab_to_genes[measured_genes, 4], duplicates.ok = TRUE)
+    tmpDist <- read.table(distFile, sep = "\t", header = TRUE, stringsAsFactors = FALSE)
     
-    # distance framework
-    dist_list <- cbind(dist_gene1, dist_gene2, dist[, 3])
-    dist_list[is.na(dist_list[, 1]), 1] <- 100
-    dist_list[is.na(dist_list[, 2]), 2] <- 100
-    dist_list[, 1]
+    if(nProt != ncol(proteomicResponses)) {
+        stop("ERROR: nProt is not equal to proteomicResponses column number")
+    }
+    
+    # Filter dist to only keep those with a distance less than maxDist
+    idx <- which(tmpDist[,3] <= maxDist)
+    dist <- tmpDist[idx,]
+    # dist
+    idxAbMap <- which(mab_to_genes[, 1] %in% colnames(proteomicResponses))
+    
+    if(length(idxAbMap) < nProt) {
+        stop("ERROR: Not all columns in data were matched in antibody map")
+    }
+    
+    del <- mab_to_genes[idxAbMap, ]
+
+    mabGenes <- mab_to_genes[idxAbMap, 4]    
+
+    dist_list <- matchGenesToEdgelist(genes1 = mabGenes, genes2 = NULL, annotEdgelist = dist, useAnnot=TRUE, verbose = TRUE)
+    
+    # # Get interactions from that exist in measured genes
+    # dist_gene1 <- pmatch(dist[, 1], mab_to_genes[measured_genes, 4], duplicates.ok = TRUE)
+    # dist_gene1Name <- mab_to_genes[measured_genes, 4][dist_gene1]
+    # dist_gene2 <- pmatch(dist[, 2], mab_to_genes[measured_genes, 4], duplicates.ok = TRUE)
+    # dist_gene2Name <- mab_to_genes[measured_genes, 4][dist_gene2]
+    # 
+    # # distance framework
+    # dist_list <- data.frame(dist_gene1=dist_gene1, dist_gene2=dist_gene2, dist=dist[, 3], 
+    #                         dist_gene1Name=dist_gene1Name, dist_gene2Name=dist_gene2Name, stringsAsFactors = FALSE)
+    # dist_list[is.na(dist_list[, 1]), 3] <- 100
+    # dist_list[is.na(dist_list[, 2]), 3] <- 100
+    # dist_list[, 1]
     dist_ind <- matrix(Inf, ncol = nProt, nrow = nProt)  #dist_ind(upstream,downstream)
     
     for (i in 1:length(dist_list[, 1])) {
-        
         dist_ind[dist_list[i, 1], dist_list[i, 2]] <- dist[i, 3]
         
         if (dist_ind[dist_list[i, 1], dist_list[i, 2]] > maxDist) {
             dist_ind[dist_list[i, 1], dist_list[i, 2]] <- Inf
         }
+        
         if (dist_ind[dist_list[i, 1], dist_list[i, 2]] == 0) {
             dist_ind[dist_list[i, 1], dist_list[i, 2]] <- Inf
         }
@@ -73,46 +95,71 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
     dwnexp <- filterSif(results, "downregulates-expression")
     upexp <- filterSif(results, "upregulates-expression")
     
+    # NOTE: SIF has interaction type as column 2, edgelists (like distances) do 
+    # not have this, so convert the SIF to an edgelist
+    dephosp <- dephosp[,c(1,3)]
+    phosp <- phosp[,c(1,3)]
+    dwnexp <- dwnexp[,c(1,3)]
+    upexp <- upexp[,c(1,3)]
+    
     # only concentration nodes are included in up & downregulation
-    mab_to_genes_c <- mab_to_genes[which(mab_to_genes$Effect == "c"), ]
+    #mab_to_genes_c <- mab_to_genes[which(mab_to_genes$Effect == "c"), ]
     
     # define wk
     wk <- matrix(0, ncol = nProt, nrow = nProt, dimnames = list(colnames(proteomicResponses), colnames(proteomicResponses)))  #wk(upstr,downstr)
     # upregulation expression, wk=1
-    upexp_gene1 <- pmatch(upexp[, 1], mab_to_genes_c[measured_genes, 4], duplicates.ok = TRUE)
-    upexp_gene2 <- pmatch(upexp[, 3], mab_to_genes_c[measured_genes, 4], duplicates.ok = TRUE)
-    upexp_gene <- cbind(upexp_gene1, upexp_gene2)
+    # upexp_gene1 <- pmatch(upexp[, 1], mab_to_genes_c[measured_genes, 4], duplicates.ok = TRUE)
+    # upexp_gene2 <- pmatch(upexp[, 3], mab_to_genes_c[measured_genes, 4], duplicates.ok = TRUE)
+    # upexp_gene <- cbind(upexp_gene1, upexp_gene2)
     
+    # Define genes by their effects
+    tmpIdxC <- intersect(idxAbMap, which(mab_to_genes$Effect == "c"))
+    tmpIdxA <- intersect(idxAbMap, which(mab_to_genes$Effect != "i"))
+    tmpIdxD <- intersect(idxAbMap, which(mab_to_genes$Effect != "c"))
+    
+    tmpGenesC <- mab_to_genes[tmpIdxC, 4]
+    tmpGenesA <- mab_to_genes[tmpIdxA, 4]
+    tmpGenesD <- mab_to_genes[tmpIdxD, 4]
+    
+    # only concentration nodes are included in up & downregulation
+    upexp_gene <- matchGenesToEdgelist(genes1=tmpGenesC, genes2=NULL, annotEdgelist=upexp, useAnnot=FALSE, verbose=TRUE)
+    # cov318 results in 122
+  
     for (i in 1:length(upexp[, 1])) {
         wk[upexp_gene[i, 1], upexp_gene[i, 2]] <- 1
     }
     
     # downregulation expression, wk=-1
-    dwnexp_gene1 <- pmatch(dwnexp[, 1], mab_to_genes_c[measured_genes, 4], duplicates.ok = TRUE)
-    dwnexp_gene2 <- pmatch(dwnexp[, 3], mab_to_genes_c[measured_genes, 4], duplicates.ok = TRUE)
-    dwnexp_gene <- cbind(dwnexp_gene1, dwnexp_gene2)
+    dwnexp_gene <- matchGenesToEdgelist(genes1=tmpGenesC, genes2=NULL, annotEdgelist=dwnexp, useAnnot=FALSE, verbose=TRUE)
+    # cov318 results in 15
     
     for (i in 1:length(dwnexp[, 1])) {
         wk[dwnexp_gene[i, 1], dwnexp_gene[i, 2]] <- -1
     }
     
     # phosphorylates wk=1 only active and concentration states are upstream
-    mab_to_genes_a <- mab_to_genes[which(mab_to_genes$Effect != "i"), ]
-    mab_to_genes_d <- mab_to_genes[which(mab_to_genes$Sites != "c"), ]
-    phos_gene1 <- pmatch(phosp[, 1], mab_to_genes_a[measured_genes, 4], duplicates.ok = TRUE)
-    phos_gene2 <- pmatch(phosp[, 3], mab_to_genes_d[measured_genes, 4], duplicates.ok = TRUE)
-    phos_gene <- cbind(phos_gene1, phos_gene2)
+    # mab_to_genes_a <- mab_to_genes[which(mab_to_genes$Effect != "i"), ]
+    # mab_to_genes_d <- mab_to_genes[which(mab_to_genes$Sites != "c"), ]
+    # phos_gene1 <- pmatch(phosp[, 1], mab_to_genes_a[measured_genes, 4], duplicates.ok = TRUE)
+    # phos_gene2 <- pmatch(phosp[, 3], mab_to_genes_d[measured_genes, 4], duplicates.ok = TRUE)
+    # phos_gene <- cbind(phos_gene1, phos_gene2)
+    
+    phos_gene <- matchGenesToEdgelist(genes1=tmpGenesA, genes2=tmpGenesD, annotEdgelist=dwnexp, useAnnot=FALSE, verbose=TRUE)
+    #cov318 13 results
     
     for (i in 1:length(phos_gene[, 1])) {
         wk[phos_gene[i, 1], phos_gene[i, 2]] <- 1
     }
     
     # dephosphorylates wk=-1 only active and concentration states are upstream
-    mab_to_genes_a <- mab_to_genes[which(mab_to_genes$Effect != "i"), ]
-    mab_to_genes_d <- mab_to_genes[which(mab_to_genes$Sites != "c"), ]
-    dephos_gene1 <- pmatch(dephosp[, 1], mab_to_genes_a[measured_genes, 4], duplicates.ok = TRUE)
-    dephos_gene2 <- pmatch(dephosp[, 3], mab_to_genes_d[measured_genes, 4], duplicates.ok = TRUE)
-    dephos_gene <- cbind(dephos_gene1, dephos_gene2)
+    # mab_to_genes_a <- mab_to_genes[which(mab_to_genes$Effect != "i"), ]
+    # mab_to_genes_d <- mab_to_genes[which(mab_to_genes$Sites != "c"), ]
+    # dephos_gene1 <- pmatch(dephosp[, 1], mab_to_genes_a[measured_genes, 4], duplicates.ok = TRUE)
+    # dephos_gene2 <- pmatch(dephosp[, 3], mab_to_genes_d[measured_genes, 4], duplicates.ok = TRUE)
+    # dephos_gene <- cbind(dephos_gene1, dephos_gene2)
+    
+    dephos_gene <- matchGenesToEdgelist(genes1=tmpGenesA, genes2=tmpGenesD, annotEdgelist=dephosp, useAnnot=FALSE, verbose=TRUE)
+    #cov318 21 results
     
     for (i in 1:length(dephos_gene[, 1])) {
         wk[dephos_gene[i, 1], dephos_gene[i, 2]] <- -1
