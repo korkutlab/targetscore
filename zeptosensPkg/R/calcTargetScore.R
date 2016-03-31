@@ -7,6 +7,7 @@
 #' @param cellLine TBA 
 #' @param targetScoreOutputFile a filename to write target score results (default: NULL)
 #' @param matrixWkOutputFile TBA 
+#' @param verbose a boolean to show debugging information  
 #' 
 #' @details 
 #' data: multiple dose single drug perturbation
@@ -17,7 +18,7 @@
 #' 
 #' @concept zeptosensPkg
 #' @export
-calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellLine) {
+calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellLine, verbose=TRUE) {
     # LOAD & RANDOMIZE INTERNAL DATA ---- read function score
     fsFile <- system.file("targetScoreData", "fs.txt", package = "zeptosensPkg")
     fs <- read.table(fsFile, header = TRUE, stringsAsFactors = FALSE)
@@ -45,11 +46,19 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
         stop("ERROR: Not all columns in data were matched in antibody map")
     }
     
-    del <- mab_to_genes[idxAbMap, ]
+    if(length(unique(mab_to_genes[idxAbMap, 1])) != nProt) {
+        stop("ERROR: Mismatch in the number of selected antibodies and the number of proteomic responses")
+    }
+    
+    # Used by matchGenesToEdgelist to account for the cases where multiple entries for the same antibody
+    # exist in the antibody map
+    antibodyMapSubset <- mab_to_genes[idxAbMap, ]
 
-    mabGenes <- mab_to_genes[idxAbMap, 4]    
+    mabGenes <- mab_to_genes[idxAbMap, 4]   
+    names(mabGenes) <- mab_to_genes[idxAbMap, 1]
 
-    dist_list <- matchGenesToEdgelist(genes1 = mabGenes, genes2 = NULL, annotEdgelist = dist, useAnnot=TRUE, verbose = TRUE)
+    dist_list <- matchGenesToEdgelist(genes1 = mabGenes, genes2 = NULL, annotEdgelist = dist, 
+                                      antibodyMap=antibodyMapSubset, useAnnot=TRUE, verbose = TRUE)
     
     # # Get interactions from that exist in measured genes
     # dist_gene1 <- pmatch(dist[, 1], mab_to_genes[measured_genes, 4], duplicates.ok = TRUE)
@@ -66,7 +75,7 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
     dist_ind <- matrix(Inf, ncol = nProt, nrow = nProt)  #dist_ind(upstream,downstream)
     
     for (i in 1:length(dist_list[, 1])) {
-        dist_ind[dist_list[i, 1], dist_list[i, 2]] <- dist[i, 3]
+        dist_ind[dist_list[i, 1], dist_list[i, 2]] <- dist_list[i, 3]
         
         if (dist_ind[dist_list[i, 1], dist_list[i, 2]] > maxDist) {
             dist_ind[dist_list[i, 1], dist_list[i, 2]] <- Inf
@@ -76,6 +85,7 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
             dist_ind[dist_list[i, 1], dist_list[i, 2]] <- Inf
         }
     }
+    # cov318 results ~2100
     
     ### get the network product### phospFile <- system.file('SignedPC', 'phosphorylates.txt',
     ### package='zeptosensPkg') phosp <- read.csv(phospFile, sep='\t', header=TRUE, na.strings =
@@ -120,9 +130,14 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
     tmpGenesC <- mab_to_genes[tmpIdxC, 4]
     tmpGenesA <- mab_to_genes[tmpIdxA, 4]
     tmpGenesD <- mab_to_genes[tmpIdxD, 4]
+
+    names(tmpGenesC) <- mab_to_genes[tmpIdxC, 1]
+    names(tmpGenesA) <- mab_to_genes[tmpIdxA, 1]
+    names(tmpGenesD) <- mab_to_genes[tmpIdxD, 1]
     
     # only concentration nodes are included in up & downregulation
-    upexp_gene <- matchGenesToEdgelist(genes1=tmpGenesC, genes2=NULL, annotEdgelist=upexp, useAnnot=FALSE, verbose=TRUE)
+    upexp_gene <- matchGenesToEdgelist(genes1=tmpGenesC, genes2=NULL, annotEdgelist=upexp, 
+                                       antibodyMap=antibodyMapSubset, useAnnot=FALSE, verbose=verbose)
     # cov318 results in 122
   
     for (i in 1:length(upexp[, 1])) {
@@ -130,7 +145,8 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
     }
     
     # downregulation expression, wk=-1
-    dwnexp_gene <- matchGenesToEdgelist(genes1=tmpGenesC, genes2=NULL, annotEdgelist=dwnexp, useAnnot=FALSE, verbose=TRUE)
+    dwnexp_gene <- matchGenesToEdgelist(genes1=tmpGenesC, genes2=NULL, annotEdgelist=dwnexp, 
+                                        antibodyMap=antibodyMapSubset, useAnnot=FALSE, verbose=verbose)
     # cov318 results in 15
     
     for (i in 1:length(dwnexp[, 1])) {
@@ -144,7 +160,8 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
     # phos_gene2 <- pmatch(phosp[, 3], mab_to_genes_d[measured_genes, 4], duplicates.ok = TRUE)
     # phos_gene <- cbind(phos_gene1, phos_gene2)
     
-    phos_gene <- matchGenesToEdgelist(genes1=tmpGenesA, genes2=tmpGenesD, annotEdgelist=dwnexp, useAnnot=FALSE, verbose=TRUE)
+    phos_gene <- matchGenesToEdgelist(genes1=tmpGenesA, genes2=tmpGenesD, annotEdgelist=dwnexp, 
+                                      antibodyMap=antibodyMapSubset, useAnnot=FALSE, verbose=verbose)
     #cov318 13 results
     
     for (i in 1:length(phos_gene[, 1])) {
@@ -158,7 +175,8 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
     # dephos_gene2 <- pmatch(dephosp[, 3], mab_to_genes_d[measured_genes, 4], duplicates.ok = TRUE)
     # dephos_gene <- cbind(dephos_gene1, dephos_gene2)
     
-    dephos_gene <- matchGenesToEdgelist(genes1=tmpGenesA, genes2=tmpGenesD, annotEdgelist=dephosp, useAnnot=FALSE, verbose=TRUE)
+    dephos_gene <- matchGenesToEdgelist(genes1=tmpGenesA, genes2=tmpGenesD, annotEdgelist=dephosp, 
+                                        antibodyMap=antibodyMapSubset, useAnnot=FALSE, verbose=verbose)
     #cov318 21 results
     
     for (i in 1:length(dephos_gene[, 1])) {

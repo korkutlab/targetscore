@@ -25,7 +25,7 @@ getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, nPerm,
     matrixWkOutputFile = NULL, targetScoreQValueFile = NULL, targetScoreDoseFile = NULL, randomTargetScoreFile = NULL, verbose=FALSE) {
     
     # CALCULATE TARGET SCORE ----
-    results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine)
+    results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine, verbose)
     ts <- results$ts
     wk <- results$wk
     tsd <- results$tsd
@@ -47,7 +47,7 @@ getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, nPerm,
         for (i in 1:nrow(randProteomicResponses)) randProteomicResponses[i, ] <- sample(proteomicResponses[i, 
             ])
         
-        randTs[, k] <- calcTargetScore(nDose, nProt, randProteomicResponses, maxDist = 1, cellLine)$ts
+        randTs[, k] <- calcTargetScore(nDose, nProt, randProteomicResponses, maxDist = 1, cellLine, verbose)$ts
         
         # randTs[,k] <- as.matrix(rants) print('resi') print(resi$ts) randTs[,k]
     }
