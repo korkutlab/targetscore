@@ -10,7 +10,7 @@ readZeptosensXls(inputFile)
 \item{inputFile}{}
 }
 \value{
-a data.frame where columns have been classified as "character" or "numeric"
+a data.frame where columns have been classified as 'character' or 'numeric'
 }
 \description{
 Reads the Zeptosens File (.xls) into a Data.Frame

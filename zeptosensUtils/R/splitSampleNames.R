@@ -25,8 +25,6 @@ splitSampleNames <- function(sampleNames, sampleNameEntries) {
             dose = doseIdx, time = timeIdx, replicate = replicateIdx, date = dateIdx, 
             notes = notesIdx)
         
-        
-        
         tmpRow <- NULL
         
         for (col in names(availableCols)) {
@@ -36,7 +34,6 @@ splitSampleNames <- function(sampleNames, sampleNameEntries) {
             
             if (col == "sample") {
                 tmpRow <- c(tmpRow, splitSampleNames[[i]][sampleIdx])
-                
             }
             
             if (col == "treatment") {
@@ -53,6 +50,10 @@ splitSampleNames <- function(sampleNames, sampleNameEntries) {
             
             if (col == "replicate") {
                 tmpRow <- c(tmpRow, splitSampleNames[[i]][replicateIdx])
+            }
+          
+            if (col == "date") {
+              tmpRow <- c(tmpRow, splitSampleNames[[i]][dateIdx])
             }
             
             if (col == "notes") {

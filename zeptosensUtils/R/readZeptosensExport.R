@@ -13,7 +13,7 @@
 #' @concept zeptosens
 #' @export
 readZeptosensExport <- function(data, sampleNameEntries = NULL) {
-    message("NOTE: Sample Name in *_RFI_Export_Table.xls is assumed to be in the format sNumber_sample_treatment_dose_time_replicate_date_notes. Use 'samplenNameEntries' parameter to modify as described in documentation.")
+    message("NOTE: Sample Name in *_RFI_Export_Table.xls is assumed to be in the format sNumber_sample_treatment_dose_time_replicate_date_notes. Use 'sampleNameEntries' parameter to modify as described in documentation.")
     
     splitSampleNames <- splitSampleNames(data[, "Sample.Name"], sampleNameEntries)
     

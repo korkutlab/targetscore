@@ -1,0 +1,183 @@
+---
+title: "4 Cell Lines"
+output: 
+  html_document:
+    toc: true
+---
+
+```{r setup, echo=FALSE, warning=FALSE, message=FALSE}
+require("knitr")
+opts_knit$set(root.dir="..")
+opts_chunk$set(fig.align="center", fig.width=6, fig.height=6, dpi=300)
+```
+
+## Purpose
+* Zeptosens analysis
+
+## Setup 
+```{r loadLibraries, message=FALSE, warning=FALSE}
+library(xlsx)
+library(zeptosensPkg)
+```
+
+## Normalization
+```{r}
+inputFile <- "inst/skmel475/R006_RFI_Export_Table.xls"
+data06 <- readZeptosensXls(inputFile)
+
+tmp <- data06[which(grepl("melanoma", data06[, "Sample.Name"], ignore.case=TRUE)),]
+
+# Example Sample Name: S001_cell line_Melanoma_A2058 _DMSO_1hr_rep1
+
+sampleNameEntries <- c("sampleNumber", NA, NA, "sample", "treatment", "time", "replicate")
+array06 <- readZeptosensExport(tmp, sampleNameEntries)
+write.table(array06, file="inst/dataInst/R006_RFI_Export_Int.txt", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+
+replicateLabels <- unique(array06[,"replicate"])
+
+array06[, c("sample", "treatment", "time", "antibody")]
+
+#which(duplicated(array06[, c("sample", "treatment", "time", "antibody")]))
+
+rep1 <- array06[which(array06$replicate == "rep1"), ]
+idx1 <- with(rep1, order(sample, treatment, time, antibody))
+rep1 <- rep1[idx1,]
+
+rep2 <- array06[which(array06$replicate == "rep2"), ]
+idx2 <- with(rep2, order(sample, treatment, time, antibody))
+rep2 <- rep2[idx2,]
+
+tmp <- cbind(rep1$readout, rep2$readout)
+avgRepVals <- rowMeans(tmp)
+
+sdVals <- apply(tmp, 1, sd)
+
+avgRep <- rep1
+avgRep[, "readout"] <- avgRepVals
+avgRep[, "cv"] <- sdVals
+
+write.table(avgRep,file="inst/dataInst/R006_RFI_Export_Avg.txt", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+```
+
+```{r normalization}
+colClasses <- c("character","character","numeric")
+
+tpl <- read.xlsx2("inst/dataInst/R006_TPL_Export_Table.xlsx", colClasses=colClasses, stringsAsFactors=FALSE, sheetIndex=1, endRow=65)
+colnames(tpl) <- c("sampleNumber", "fullSampleName", "readout")
+
+idx <- which(grepl("melanoma", tpl[, "fullSampleName"], ignore.case=TRUE))
+
+splitNames <- splitSampleNames(tpl[idx, "fullSampleName"], sampleNameEntries)
+tplSplit <- cbind(splitNames, tpl[idx,])
+
+rep1 <- tplSplit[which(tplSplit$replicate == "rep1"), ]
+idx1 <- with(rep1, order(sample, treatment, time))
+rep1 <- rep1[idx1,]
+
+rep2 <- tplSplit[which(tplSplit$replicate == "rep2"), ]
+idx2 <- with(rep2, order(sample, treatment, time))
+rep2 <- rep2[idx2,]
+
+tmp <- cbind(rep1[, "readout"], rep2[, "readout"])
+avgRepVals <- rowMeans(tmp)
+
+sdVals <- apply(tmp, 1, sd)
+
+avgRep <- rep1
+avgRep[, "replicate"] <- rep("avg", nrow(avgRep))
+avgRep[, "readout"] <- avgRepVals
+avgRep[, "cv"] <- sdVals
+```
+
+```{r}
+avgRepNames <- sapply(1:nrow(avgRep), function(i) {
+    paste(avgRep[i, c("sample", "treatment", "time")], collapse="_")
+})
+
+array06Names <- sapply(1:nrow(array06), function(i) {
+    paste(array06[i, c("sample", "treatment", "time")], collapse="_")
+})
+
+tmpArray06 <- cbind(tmpName=array06Names, array06)
+tmpAvgRep <- cbind(tmpName=avgRepNames, avgRep)
+
+normReadout <- NULL 
+
+for(i in 1:nrow(tmpArray06)) {
+    for(j in 1:nrow(tmpAvgRep)) {
+        if(tmpArray06[i, "tmpName"] == tmpAvgRep[j, "tmpName"]) {
+           normReadout <- c(normReadout, tmpArray06[i, "readout"] / tmpAvgRep[j, "readout"])
+        }
+    }
+}
+
+tmpArray06 <- cbind(tmpArray06, normReadout=normReadout)
+```
+
+## Normalization
+
+* Data has a duplication in antibody AKT-Thr308 that needs resoultion
+* Cell Sample Mix Sample Name needs correction
+
+```{r}
+tmp <- data06[which(grepl("mix", data06[, "Sample.Name"], ignore.case=TRUE)),]
+
+normReadoutMix <- NULL
+
+for(i in 1:nrow(tmpArray06)) {
+    flag <- 0
+    for(j in 1:nrow(tmp)) {
+        if(tmpArray06[i, "antibody"] == tmp[j, "Analyte"]) {
+           flag <- flag+1
+           if(flag > 1) {
+               cat("A: ", tmpArray06[i, "antibody"], " B: ", tmp[j, "Analyte"], flag, "\n")
+           } else {
+              normReadoutMix <- c(normReadoutMix, tmpArray06[i, "normReadout"] / tmp[j, "RFI"])
+           }
+        }
+    }
+}
+
+tmpArray06 <- cbind(tmpArray06, normReadoutMix=normReadoutMix)
+```
+
+## 
+```{r}
+rep1 <- tmpArray06[which(tmpArray06$replicate == "rep1"), ]
+idx1 <- with(rep1, order(sample, treatment, time, antibody))
+rep1 <- rep1[idx1,]
+
+rep2 <- tmpArray06[which(tmpArray06$replicate == "rep2"), ]
+idx2 <- with(rep2, order(sample, treatment, time, antibody))
+rep2 <- rep2[idx2,]
+
+tmp <- cbind(rep1[, "readout"], rep2[, "readout"])
+avgRepVals <- rowMeans(tmp)
+
+sdVals <- apply(tmp, 1, sd)
+
+avgRep <- rep1
+avgRep[, "replicate"] <- rep("normAvg", nrow(avgRep))
+avgRep[, "readout"] <- avgRepVals
+avgRep[, "cv"] <- sdVals
+
+# Remove tmpName column
+avgRep <- avgRep[,!(names(avgRep) %in% c("tmpName"))]
+
+write.table(avgRep, file="inst/dataInst/R006_RFI_Export_Int_Avg_Norm.txt", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+
+for(sample in unique(avgRep[, "sample"])) {
+    idx <- which(avgRep[, "sample"] == sample)
+    write.table(avgRep[idx, ], file=file.path("inst/dataInst/", paste(sample, "R006_RFI_Export_Int_Avg_Norm.txt", sep="_")), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+}
+```
+
+```{r, eval=FALSE}
+tmp <- read.table("inst/dataInst/R006_RFI_Export_Int_Avg_Norm.txt", sep="\t", header=TRUE, stringsAsFactors=FALSE)
+abMap <- read.table("inst/extdata/antibodyMap.txt", sep="\t", header=TRUE, stringsAsFactors=FALSE)
+
+dataAb <- unique(tmp[,"antibody"])
+abMap[, "ZeptosensLabel"]
+
+setdiff(dataAb, abMap[, "ZeptosensLabel"])
+```

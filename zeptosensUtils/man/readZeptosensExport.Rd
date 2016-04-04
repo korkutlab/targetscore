@@ -9,7 +9,7 @@ readZeptosensExport(data, sampleNameEntries = NULL)
 \arguments{
 \item{data}{Zeptosens data read in by readZeptosensXls}
 
-\item{sampleNameEntries}{FIXME, chracter string, perturbation conditions, #cell line etc (sampleNameEntries <- c("sNumber","sample", "treatment", NA,"time",NA,NA,NA))#}
+\item{sampleNameEntries}{FIXME, chracter string, perturbation conditions, #cell line etc (sampleNameEntries <- c('sNumber','sample', 'treatment', NA,'time',NA,NA,NA))#}
 }
 \description{
 Read Zeptosens Export File
@@ -18,7 +18,7 @@ Read Zeptosens Export File
 Format: sNumber_sample_treatment_dose_time_replicate_date_notes
 }
 \examples{
-tmp <- readZeptosensExport(tmp, c("sNumber", NA, NA, "sample", "treatment", "time", "replicate"))
+tmp <- readZeptosensExport(tmp, c('sNumber', NA, NA, 'sample', 'treatment', 'time', 'replicate'))
 
 }
 \concept{

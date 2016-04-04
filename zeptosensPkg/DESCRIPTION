@@ -13,7 +13,8 @@ Depends:
     xlsx,
     rJava,
     paxtoolsr (>= 1.4.3),
-    igraph
+    igraph,
+    zeptosensUtils
 Suggests:
     knitr
 VignetteBuilder: knitr

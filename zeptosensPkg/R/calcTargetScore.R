@@ -124,16 +124,16 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
     
     # Define genes by their effects
     tmpIdxC <- intersect(idxAbMap, which(mab_to_genes$Effect == "c"))
-    tmpIdxA <- intersect(idxAbMap, which(mab_to_genes$Effect != "i"))
-    tmpIdxD <- intersect(idxAbMap, which(mab_to_genes$Effect != "c"))
+    tmpIdxAC <- intersect(idxAbMap, which(mab_to_genes$Effect != "i"))
+    tmpIdxAI <- intersect(idxAbMap, which(mab_to_genes$Effect != "c"))
     
     tmpGenesC <- mab_to_genes[tmpIdxC, 4]
-    tmpGenesA <- mab_to_genes[tmpIdxA, 4]
-    tmpGenesD <- mab_to_genes[tmpIdxD, 4]
+    tmpGenesA <- mab_to_genes[tmpIdxAC, 4]
+    tmpGenesD <- mab_to_genes[tmpIdxAI, 4]
 
     names(tmpGenesC) <- mab_to_genes[tmpIdxC, 1]
-    names(tmpGenesA) <- mab_to_genes[tmpIdxA, 1]
-    names(tmpGenesD) <- mab_to_genes[tmpIdxD, 1]
+    names(tmpGenesA) <- mab_to_genes[tmpIdxAC, 1]
+    names(tmpGenesD) <- mab_to_genes[tmpIdxAI, 1]
     
     # only concentration nodes are included in up & downregulation
     upexp_gene <- matchGenesToEdgelist(genes1=tmpGenesC, genes2=NULL, annotEdgelist=upexp, 
