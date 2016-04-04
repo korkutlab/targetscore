@@ -15,18 +15,23 @@ rownames(x) <- x[,1]
 x <-x[,-1:-2]
 proteomicResponses <- x
 
-targetScoreOutputFile <-"tso.txt"
-matrixWkOutputFile <- "wk.txt"
+targetScoreOutputFile <-"inst/TS/tso2.txt"
+matrixWkOutputFile <- "inst/TS/wk2.txt"
 nPerm=30
+maxDist <- 2
 
 #results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine)
 
-results <- getTargetScore(nDose, nProt, proteomicResponses, 
-                          maxDist=1, nPerm,cellLine, 
-                          targetScoreOutputFile="inst/TS/tso.txt", 
-                          matrixWkOutputFile="inst/TS/wk.txt",
-                          targetScoreQValueFile="inst/TS/q.txt", 
-                          targetScoreDoseFile="inst/TS/tsd.txt",
+results <- getTargetScore(nDose=nDose, 
+                          nProt=nProt, 
+                          proteomicResponses=proteomicResponses, 
+                          maxDist=maxDist, 
+                          nPerm=nPerm,
+                          cellLine=cellLine, 
+                          targetScoreOutputFile=targetScoreOutputFile, 
+                          matrixWkOutputFile=matrixWkOutputFile,
+                          targetScoreQValueFile="inst/TS/q2.txt", 
+                          targetScoreDoseFile="inst/TS/tsd2.txt",
                           verbose=TRUE)
 
 # 1200 interactions
