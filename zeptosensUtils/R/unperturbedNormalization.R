@@ -1,39 +1,40 @@
 #' Normalize Zeptosens Data wrt unperturbed (or any other condition)
 #' 
 #' @param array1 data frame from readZeptosensExport function
-#' @param normal_factor (treatment_name)
-#' @param nsamples samples/Ab
+#' @param normalFactor (treatment_name)
+#' @param nSamples samples/Ab
 #' @param antibodyNum number of antibodies on array
 #' 
 #' @details Normalize wrt ttl prt lvl
 #' 
 #' @concept zeptosens
 #' @export
-unperturbedNormalization <- function(Array1, normal_factor, nsamples, antibodyNum) {
-    print(normal_factor)
+unperturbedNormalization <- function(array1, normalFactor, nSamples, antibodyNum) {
+    print(normalFactor)
     # tmpDf <- NULL
     
-    normArray1 <- Array1
-    norm_coef <- matrix(0, ncol = 1, nrow = length(antibodyNum))
-    nnorm <- matrix(0, ncol = 1, nrow = length(antibodyNum))
+    normArray1 <- array1
+    norm_coef <- matrix(0, ncol = 1, nrow = antibodyNum)
+    nnorm <- matrix(0, ncol = 1, nrow = antibodyNum)
     
-    Array1[is.na(Array1[, "treatment"]), "treatment"] <- "NA"
-    for (i in 1:length(antibodyNum)) {
-        for (j in 1:nsamples) {
+    array1[is.na(array1[, "treatment"]), "treatment"] <- "NA"
+    for (i in 1:antibodyNum) {
+        for (j in 1:nSamples) {
             
-            if (Array1[(i - 1) * nsamples + j, "treatment"] == normal_factor) {
+            if (array1[(i - 1) * nSamples + j, "treatment"] == normalFactor) {
                 
-                norm_coef[i, 1] <- norm_coef[i, 1] + Array1[(i - 1) * nsamples + 
+                norm_coef[i, 1] <- norm_coef[i, 1] + array1[(i - 1) * nSamples + 
                   j, "readout"]
                 nnorm[i, 1] <- nnorm[i, 1] + 1
                 print(nnorm[i, 1])
             }
         }
+        
         norm_coef[i, 1] <- norm_coef[i, 1]/nnorm[i, 1]
     }
-    for (i in 1:length(antibodyNum)) {
-        for (j in 1:nsamples) {
-            normArray1[(i - 1) * nsamples + j, "readout"] <- Array1[(i - 1) * nsamples + 
+    for (i in 1:antibodyNum) {
+        for (j in 1:nSamples) {
+            normArray1[(i - 1) * nSamples + j, "readout"] <- array1[(i - 1) * nSamples + 
                 j, "readout"]/norm_coef[i, 1]
         }
     }
