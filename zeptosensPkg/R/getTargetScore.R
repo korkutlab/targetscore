@@ -53,7 +53,10 @@ getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, nPerm,
     }
     
     for (i in 1:nProt) {
-        pts[i] <- pnorm(ts[i], mean = mean(randTs[i, 1:nPerm]), sd = sd(randTs[i, 1:nPerm]))
+        mean <- mean(randTs[i, 1:nPerm])
+        stdev <- sd(randTs[i, 1:nPerm])
+        zval <- (ts[i]-mean)/(stdev/sqrt(nPerm))
+        pts[i] <- 2*pnorm(-abs(zval)) #pnorm(ts[i], mean = mean(randTs[i, 1:nPerm]), sd = sd(randTs[i, 1:nPerm]))
         
         if(verbose) {
             print(pts[i])
@@ -83,6 +86,11 @@ getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, nPerm,
     if (!is.null(targetScoreQValueFile)) {
         write.table(q, file = targetScoreQValueFile, quote = FALSE, sep="\t")
     }
+    rownames(randTs) <- colnames(proteomicResponses) 
+    rownames(pts) <- colnames(proteomicResponses) 
+    
+    write.table(randTs, file = "randts.txt", quote = FALSE, sep="\t")
+    write.table(pts, file = "p.txt", quote = FALSE, sep="\t")
     
     # RETURN RESULTS ----
     results <- list(ts = ts, wk = wk, tsd = tsd, q = q)
