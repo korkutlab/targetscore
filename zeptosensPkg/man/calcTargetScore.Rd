@@ -4,7 +4,8 @@
 \alias{calcTargetScore}
 \title{Compute Target score for randomized data/compute P value for each TS given a network topology}
 \usage{
-calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine)
+calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine,
+  verbose = TRUE)
 }
 \arguments{
 \item{nDose}{TBA}
@@ -16,6 +17,8 @@ calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine)
 \item{maxDist}{TBA (default: 1)}
 
 \item{cellLine}{TBA}
+
+\item{verbose}{a boolean to show debugging information}
 
 \item{targetScoreOutputFile}{a filename to write target score results (default: NULL)}
 

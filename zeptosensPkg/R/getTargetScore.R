@@ -25,7 +25,7 @@ getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, nPerm,
     matrixWkOutputFile = NULL, targetScoreQValueFile = NULL, targetScoreDoseFile = NULL, randomTargetScoreFile = NULL, verbose=FALSE) {
     
     # CALCULATE TARGET SCORE ----
-    results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine)
+    results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine, verbose)
     ts <- results$ts
     wk <- results$wk
     tsd <- results$tsd
@@ -47,13 +47,16 @@ getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, nPerm,
         for (i in 1:nrow(randProteomicResponses)) randProteomicResponses[i, ] <- sample(proteomicResponses[i, 
             ])
         
-        randTs[, k] <- calcTargetScore(nDose, nProt, randProteomicResponses, maxDist = 1, cellLine)$ts
+        randTs[, k] <- calcTargetScore(nDose, nProt, randProteomicResponses, maxDist = 1, cellLine, verbose)$ts
         
         # randTs[,k] <- as.matrix(rants) print('resi') print(resi$ts) randTs[,k]
     }
     
     for (i in 1:nProt) {
-        pts[i] <- pnorm(ts[i], mean = mean(randTs[i, 1:nPerm]), sd = sd(randTs[i, 1:nPerm]))
+        mean <- mean(randTs[i, 1:nPerm])
+        stdev <- sd(randTs[i, 1:nPerm])
+        zval <- (ts[i]-mean)/(stdev/sqrt(nPerm))
+        pts[i] <- 2*pnorm(-abs(zval)) #pnorm(ts[i], mean = mean(randTs[i, 1:nPerm]), sd = sd(randTs[i, 1:nPerm]))
         
         if(verbose) {
             print(pts[i])
@@ -65,24 +68,29 @@ getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, nPerm,
 
     # WRITE OUTPUTS ----
     if (!is.null(matrixWkOutputFile)) {
-        write.table(wk, file = matrixWkOutputFile, quote = FALSE)
+        write.table(wk, file = matrixWkOutputFile, quote = FALSE, sep="\t")
     }
     
     if (!is.null(targetScoreOutputFile)) {
-        write.table(ts, file = targetScoreOutputFile, quote = FALSE)
+        write.table(ts, file = targetScoreOutputFile, quote = FALSE, col.names = FALSE, sep="\t")
     }
     
     if (!is.null(targetScoreDoseFile)) {
-        write.table(tsd, file = targetScoreDoseFile, quote = FALSE)
+        write.table(tsd, file = targetScoreDoseFile, quote = FALSE, sep="\t")
     }
     
     if (!is.null(randomTargetScoreFile)) {
-        write.table(data.frame(randTs), file = randomTargetScoreFile, quote = FALSE)
+        write.table(data.frame(randTs), file = randomTargetScoreFile, quote = FALSE, sep="\t")
     }
     
     if (!is.null(targetScoreQValueFile)) {
-        write.table(q, file = targetScoreQValueFile, quote = FALSE)
+        write.table(q, file = targetScoreQValueFile, quote = FALSE, sep="\t")
     }
+    rownames(randTs) <- colnames(proteomicResponses) 
+    rownames(pts) <- colnames(proteomicResponses) 
+    
+    write.table(randTs, file = "randts.txt", quote = FALSE, sep="\t")
+    write.table(pts, file = "p.txt", quote = FALSE, sep="\t")
     
     # RETURN RESULTS ----
     results <- list(ts = ts, wk = wk, tsd = tsd, q = q)
