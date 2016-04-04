@@ -18,7 +18,7 @@ proteomicResponses <- x
 targetScoreOutputFile <-"inst/TS/tso2.txt"
 matrixWkOutputFile <- "inst/TS/wk2.txt"
 nPerm=30
-maxDist <- 2
+maxDist <- 1
 
 #results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine)
 
