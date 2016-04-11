@@ -21,6 +21,8 @@ calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine,
 
 \item{verbose}{a boolean to show debugging information}
 
+\item{TSfactor}{a scaling factor for the pathway component in the target score}
+
 \item{fsFile}{Functional score file. A tab-delmited file with a header, each row is an
 antibody in the first column and functional score in the second column 
 (i.e. 1 oncogene, 0 tumor supressor/oncogene, -1 tumor supressor characteristics)}
@@ -28,7 +30,7 @@ antibody in the first column and functional score in the second column
 \item{antibodyMapFile}{a listing of antibodies, their associated genes, and modification sites}
 
 \item{distFile}{A distance file an edgelist with a third column which is the network distance
-between the genes in the interactino}
+between the genes in the interaction}
 
 \item{targetScoreOutputFile}{a filename to write target score results (default: NULL)}
 

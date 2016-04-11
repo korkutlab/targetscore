@@ -13,7 +13,8 @@
 #'   (i.e. 1 oncogene, 0 tumor supressor/oncogene, -1 tumor supressor characteristics)
 #' @param antibodyMapFile a listing of antibodies, their associated genes, and modification sites
 #' @param distFile A distance file an edgelist with a third column which is the network distance
-#'   between the genes in the interactino
+#'   between the genes in the interaction
+#' @param TSfactor a scaling factor for the pathway component in the target score
 #' 
 #' @details 
 #' data: multiple dose single drug perturbation
