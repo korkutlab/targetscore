@@ -1,40 +1,14 @@
----
-title: "4 Cell Lines"
-output: 
-  html_document:
-    toc: true
----
-
-```{r setup, echo=FALSE, warning=FALSE, message=FALSE}
-require("knitr")
-opts_knit$set(root.dir="..")
-opts_chunk$set(fig.align="center", fig.width=6, fig.height=6, dpi=300)
-```
-
-## Purpose
-* Zeptosens analysis
-
-## Setup 
-```{r loadLibraries, message=FALSE, warning=FALSE}
 library(xlsx)
 library(zeptosensUtils)
 library(zeptosensPkg)
-```
+
 
 ## Normalization
-```{r}
-inputFile <- "inst/skmel475/R009_RFI_Export_Table_skmel118_skmel475.xlsx"
+
+inputFile <- file.path("inst", "melanoma_TS/skmel475", "R009_RFI_Export_Table_skmel118_skmel475.xlsx")
+#inputFile <- "R009_RFI_Export_Table_skmel118_skmel475.xlsx"
 tmpDat <- readZeptosensXls(inputFile)
 
-#availableCols <- c("sNumber"=sampleNumberIdx, 
-#                   "sample"=sampleIdx,
-#                   "treatment"=treatmentIdx,
-#                   "dose"=doseIdx,
-#                   "time"=timeIdx,
-#                   "replicate"=replicateIdx,
-#                   "date"=dateIdx,
-#                   "notes"=notesIdx)
-#tmp <- tmpData[which(grepl("Mel-475", tmpData[, "Sample.Name"], ignore.case=TRUE)),]
 
 # Example Sample Name: S001_cell line_Melanoma_A2058 _DMSO_1hr_rep1
 
@@ -43,8 +17,9 @@ dat <- readZeptosensExport(tmpDat, sampleNameEntries)
 
 
 colClasses <- c("character","character","numeric")
+inputFile <- file.path("inst", "melanoma_TS/skmel475", "R009_total_protein_level_skmel118_skmel475.xlsx")
 
-tplDat <- read.xlsx2("inst/skmel475/R009_total_protein_level_skmel118_skmel475.xlsx", colClasses=colClasses, stringsAsFactors=F, sheetIndex=1)
+tplDat <- read.xlsx2(inputFile , colClasses=colClasses, stringsAsFactors=F, sheetIndex=1)
 
 # This is from the TPL file
 nSamples <- 64
@@ -93,10 +68,42 @@ y3 <- matrix(y2$readout, 1, antibodyNum)
 
 rownames(y3) <- "MEKi24_Skmel475"
 colnames(y3) <- unique(y2$antibody)
+inputFile <- file.path("inst", "melanoma_TS/skmel475", "skmel475_meki_ave.txt")
+write.table(y3,file=inputFile,quote=F,sep= "\t")
+test <- read.delim("inst/targetscoreData/antibodyMap.txt")
 
-```
 
-## Session Info
-```{r}
-sessionInfo()
-```
+######
+nDose=1
+nProt=71
+maxDist=1 # changing this value requires additional work to compute product(wk). This is not a priority
+cellLine="skmel475"
+
+#read proteomic response
+inputFile <- file.path("inst", "melanoma_TS/skmel475", paste0(cellLine,"_meki_ave.txt"))
+x <- read.table(inputFile, header=TRUE,sep="\t",check.names=FALSE)
+#x(dose,prot)
+#rownames(x) <- x[,1]
+#x <-x[,-1]
+x <- x[,-72]
+
+proteomicResponses <- x
+
+targetScoreOutputFile <-"inst/melanoma_TS/skmel475/tso_24.txt"
+matrixWkOutputFile <- "inst/melanoma_TS/skmel475/wk.txt"
+nPerm=30
+maxDist <- 1
+length(proteomicResponses)
+#results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine)
+
+results <- getTargetScore(nDose=nDose, 
+                          nProt=nProt, 
+                          proteomicResponses=proteomicResponses, 
+                          maxDist=maxDist, 
+                          nPerm=nPerm,
+                          cellLine=cellLine, 
+                          targetScoreOutputFile=targetScoreOutputFile, 
+                          matrixWkOutputFile=matrixWkOutputFile,
+                          targetScoreQValueFile="inst/melanoma_TS/skmel475/q_24.txt", 
+                          targetScoreDoseFile="inst/melanoma_TS/skmel475/tsd2.txt",
+                          verbose=TRUE,TSfactor=1)

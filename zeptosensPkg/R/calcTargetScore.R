@@ -18,15 +18,16 @@
 #' 
 #' @concept zeptosensPkg
 #' @export
-calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellLine, verbose=TRUE) {
+calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellLine, verbose=TRUE,TSfactor=1) {
     # LOAD & RANDOMIZE INTERNAL DATA ---- read function score
     fsFile <- system.file("targetScoreData", "fs.txt", package = "zeptosensPkg")
-    fs <- read.table(fsFile, header = TRUE, stringsAsFactors = FALSE)
-    
+    fs <- read.table(fsFile, header = TRUE, stringsAsFactors = FALSE,sep="\t")
+#    print(fs)
     # match Ab names to gene names & posttranslational modifications
     antibodyMapFile <- system.file("targetScoreData", "antibodyMap.txt", package = "zeptosensPkg")
     mab_to_genes <- read.table(antibodyMapFile, sep = "\t", header = TRUE, stringsAsFactors = FALSE)
-    # mab_to_genes
+#    print(mab_to_genes)
+        # mab_to_genes
     
     # pathway distance matrix
     distFile <- system.file("targetScoreData", "distances.txt", package = "zeptosensPkg")
@@ -41,11 +42,14 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
     dist <- tmpDist[idx,]
     # dist
     idxAbMap <- which(mab_to_genes[, 1] %in% colnames(proteomicResponses))
-    
+#    print(mab_to_genes[, 1])
+#    print(unique(mab_to_genes[idxAbMap,]))
+#    if(length(idxAbMap) < nProt) {
+#    print(length(unique(mab_to_genes[idxAbMap,1])))
     if(length(idxAbMap) < nProt) {
-        stop("ERROR: Not all columns in data were matched in antibody map")
+            stop("ERROR: Not all columns in data were matched in antibody map")
     }
-    
+#    print((unique(mab_to_genes[idxAbMap, 1])))
     if(length(unique(mab_to_genes[idxAbMap, 1])) != nProt) {
         stop("ERROR: Mismatch in the number of selected antibodies and the number of proteomic responses")
     }
@@ -194,7 +198,7 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
             # upstream
             for (k in 1:nProt) {
                 
-                tsp[i, k, j] <- (2^-(dist_ind[k, j])) * proteomicResponses[i, k] * wk[k, j]
+                tsp[i, k, j] <- TSfactor*(2^-(dist_ind[k, j])) * proteomicResponses[i, k] * wk[k, j]
                 
             }
             tsd[i, j] <- fs[i, 2] * (proteomicResponses[i, j] + sum(tsp[i, 1:nProt, j]))

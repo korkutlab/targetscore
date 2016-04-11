@@ -22,10 +22,11 @@
 #' @concept zeptosensPkg
 #' @export
 getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, nPerm, cellLine, targetScoreOutputFile = NULL, 
-    matrixWkOutputFile = NULL, targetScoreQValueFile = NULL, targetScoreDoseFile = NULL, randomTargetScoreFile = NULL, verbose=FALSE) {
+    matrixWkOutputFile = NULL, targetScoreQValueFile = NULL, targetScoreDoseFile = NULL, 
+    randomTargetScoreFile = NULL, verbose=TRUE,TSfactor=1) {
     
     # CALCULATE TARGET SCORE ----
-    results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine, verbose)
+    results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine, verbose=TRUE,TSfactor=TSfactor)
     ts <- results$ts
     wk <- results$wk
     tsd <- results$tsd
