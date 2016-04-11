@@ -5,7 +5,8 @@
 \title{Compute Target score for randomized data/compute P value for each TS given a network topology}
 \usage{
 calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine,
-  verbose = TRUE)
+  verbose = TRUE, TSfactor = 1, fsFile = NULL, antibodyMapFile = NULL,
+  distFile = NULL)
 }
 \arguments{
 \item{nDose}{TBA}
@@ -19,6 +20,15 @@ calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine,
 \item{cellLine}{TBA}
 
 \item{verbose}{a boolean to show debugging information}
+
+\item{fsFile}{Functional score file. A tab-delmited file with a header, each row is an
+antibody in the first column and functional score in the second column 
+(i.e. 1 oncogene, 0 tumor supressor/oncogene, -1 tumor supressor characteristics)}
+
+\item{antibodyMapFile}{a listing of antibodies, their associated genes, and modification sites}
+
+\item{distFile}{A distance file an edgelist with a third column which is the network distance
+between the genes in the interactino}
 
 \item{targetScoreOutputFile}{a filename to write target score results (default: NULL)}
 

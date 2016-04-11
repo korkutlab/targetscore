@@ -7,7 +7,7 @@
 getTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, nPerm, cellLine,
   targetScoreOutputFile = NULL, matrixWkOutputFile = NULL,
   targetScoreQValueFile = NULL, targetScoreDoseFile = NULL,
-  randomTargetScoreFile = NULL, verbose = FALSE)
+  randomTargetScoreFile = NULL, verbose = TRUE, TSfactor = 1)
 }
 \arguments{
 \item{nDose}{TBA}
