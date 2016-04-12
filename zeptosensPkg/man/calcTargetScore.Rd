@@ -5,7 +5,7 @@
 \title{Compute Target score for randomized data/compute P value for each TS given a network topology}
 \usage{
 calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine,
-  verbose = TRUE, TSfactor = 1, fsFile = NULL, antibodyMapFile = NULL,
+  verbose = TRUE, tsFactor = 1, fsFile, antibodyMapFile = NULL,
   distFile = NULL)
 }
 \arguments{
@@ -21,7 +21,7 @@ calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine,
 
 \item{verbose}{a boolean to show debugging information}
 
-\item{TSfactor}{a scaling factor for the pathway component in the target score}
+\item{tsFactor}{a scaling factor for the pathway component in the target score}
 
 \item{fsFile}{Functional score file. A tab-delmited file with a header, each row is an
 antibody in the first column and functional score in the second column 
@@ -35,6 +35,8 @@ between the genes in the interaction}
 \item{targetScoreOutputFile}{a filename to write target score results (default: NULL)}
 
 \item{matrixWkOutputFile}{TBA}
+
+\item{fsFile}{a file with the functional score data}
 }
 \description{
 Compute Target score for randomized data/compute P value for each TS given a network topology

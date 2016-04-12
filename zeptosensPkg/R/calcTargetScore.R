@@ -14,7 +14,8 @@
 #' @param antibodyMapFile a listing of antibodies, their associated genes, and modification sites
 #' @param distFile A distance file an edgelist with a third column which is the network distance
 #'   between the genes in the interaction
-#' @param TSfactor a scaling factor for the pathway component in the target score
+#' @param tsFactor a scaling factor for the pathway component in the target score
+#' @param fsFile a file with the functional score data 
 #' 
 #' @details 
 #' data: multiple dose single drug perturbation
@@ -26,11 +27,11 @@
 #' @concept zeptosensPkg
 #' @export
 calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellLine, verbose=TRUE, 
-                            TSfactor=1, fsFile=NULL, antibodyMapFile=NULL, distFile=NULL) {
+                            tsFactor=1, fsFile, antibodyMapFile=NULL, distFile=NULL) {
     # LOAD & RANDOMIZE INTERNAL DATA ---- read function score
-    if(is.null(fsFile)) {
-        fsFile <- system.file("targetScoreData", "fs.txt", package = "zeptosensPkg")        
-    }
+    # if(is.null(fsFile)) {
+    #     fsFile <- system.file("targetScoreData", "fs.txt", package = "zeptosensPkg")        
+    # }
 
     fs <- read.table(fsFile, header = TRUE, stringsAsFactors = FALSE,sep="\t")
     
@@ -220,10 +221,10 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
             # upstream
             for (k in 1:nProt) {
                 
-                tsp[i, k, j] <- TSfactor*(2^-(dist_ind[k, j])) * proteomicResponses[i, k] * wk[k, j]
+                tsp[i, k, j] <- tsFactor*(2^-(dist_ind[k, j])) * proteomicResponses[i, k] * wk[k, j]
                 
             }
-            tsd[i, j] <- fs[i, 2] * (proteomicResponses[i, j] + sum(tsp[i, 1:nProt, j]))
+            tsd[i, j] <- fs[j, 2] * (proteomicResponses[i, j] + sum(tsp[i, 1:nProt, j]))
         }
     }
     ts <- colSums(tsd)
