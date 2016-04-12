@@ -2,7 +2,6 @@ library(xlsx)
 library(zeptosensUtils)
 library(zeptosensPkg)
 
-
 ## Normalization
 
 inputFile <- file.path("inst", "melanoma_TS/skmel475", "R009_RFI_Export_Table_skmel118_skmel475.xlsx")
@@ -91,10 +90,12 @@ proteomicResponses <- x
 
 targetScoreOutputFile <-"inst/melanoma_TS/skmel475/tso_24.txt"
 matrixWkOutputFile <- "inst/melanoma_TS/skmel475/wk.txt"
-nPerm=30
+nPerm=3
 maxDist <- 1
 length(proteomicResponses)
 #results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine)
+
+set.seed(1)
 
 results <- getTargetScore(nDose=nDose, 
                           nProt=nProt, 
