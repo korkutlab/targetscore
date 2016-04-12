@@ -8,6 +8,14 @@
 #' @param targetScoreOutputFile a filename to write target score results (default: NULL)
 #' @param matrixWkOutputFile TBA 
 #' @param verbose a boolean to show debugging information  
+#' @param fsFile Functional score file. A tab-delmited file with a header, each row is an
+#'   antibody in the first column and functional score in the second column 
+#'   (i.e. 1 oncogene, 0 tumor supressor/oncogene, -1 tumor supressor characteristics)
+#' @param antibodyMapFile a listing of antibodies, their associated genes, and modification sites
+#' @param distFile A distance file an edgelist with a third column which is the network distance
+#'   between the genes in the interaction
+#' @param tsFactor a scaling factor for the pathway component in the target score
+#' @param fsFile a file with the functional score data 
 #' 
 #' @details 
 #' data: multiple dose single drug perturbation
@@ -18,19 +26,34 @@
 #' 
 #' @concept zeptosensPkg
 #' @export
-calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellLine, verbose=TRUE,TSfactor=1) {
+calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellLine, verbose=TRUE, 
+                            tsFactor=1, fsFile, antibodyMapFile=NULL, distFile=NULL) {
     # LOAD & RANDOMIZE INTERNAL DATA ---- read function score
-    fsFile <- system.file("targetScoreData", "fs.txt", package = "zeptosensPkg")
+    # if(is.null(fsFile)) {
+    #     fsFile <- system.file("targetScoreData", "fs.txt", package = "zeptosensPkg")        
+    # }
+
     fs <- read.table(fsFile, header = TRUE, stringsAsFactors = FALSE,sep="\t")
-#    print(fs)
+    
+    if(verbose) {
+        print(fs)    
+    }
+
     # match Ab names to gene names & posttranslational modifications
-    antibodyMapFile <- system.file("targetScoreData", "antibodyMap.txt", package = "zeptosensPkg")
+    if(is.null(antibodyMapFile)) {
+        antibodyMapFile <- system.file("targetScoreData", "antibodyMap.txt", package = "zeptosensPkg")      
+    }
     mab_to_genes <- read.table(antibodyMapFile, sep = "\t", header = TRUE, stringsAsFactors = FALSE)
-#    print(mab_to_genes)
-        # mab_to_genes
+    
+    if(verbose) {
+        print(mab_to_genes)   
+    }
     
     # pathway distance matrix
-    distFile <- system.file("targetScoreData", "distances.txt", package = "zeptosensPkg")
+    if(is.null(distFile)) {
+        distFile <- system.file("targetScoreData", "distances.txt", package = "zeptosensPkg")   
+    }
+    
     tmpDist <- read.table(distFile, sep = "\t", header = TRUE, stringsAsFactors = FALSE)
     
     if(nProt != ncol(proteomicResponses)) {
@@ -198,10 +221,10 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
             # upstream
             for (k in 1:nProt) {
                 
-                tsp[i, k, j] <- TSfactor*(2^-(dist_ind[k, j])) * proteomicResponses[i, k] * wk[k, j]
+                tsp[i, k, j] <- tsFactor*(2^-(dist_ind[k, j])) * proteomicResponses[i, k] * wk[k, j]
                 
             }
-            tsd[i, j] <- fs[i, 2] * (proteomicResponses[i, j] + sum(tsp[i, 1:nProt, j]))
+            tsd[i, j] <- fs[j, 2] * (proteomicResponses[i, j] + sum(tsp[i, 1:nProt, j]))
         }
     }
     ts <- colSums(tsd)

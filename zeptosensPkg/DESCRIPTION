@@ -1,8 +1,8 @@
 Package: zeptosensPkg
 Type: Package
 Title: zeptosensPkg
-Version: 0.99.3
-Date: 2015-08-25
+Version: 0.99.4
+Date: 2016-04-12
 Author: Augustin Luna, Anil Korkut
 Maintainer: Augustin Luna <lunaa@cbio.mskcc.org>
 Description: TBA

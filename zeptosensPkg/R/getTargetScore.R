@@ -11,6 +11,8 @@
 #' @param targetScoreDoseFile a filename to write dose dependent target score results (default: NULL) 
 #' @param nPerm number of random TS calculations for building the null distribution
 #' @param verbose a flag for debugging output 
+#' @param tsFactor a scaling factor for the pathway component of the target score
+#' @param fsFile a file with the functional score data 
 #' 
 #' @details 
 #' data: multiple dose single drug perturbation
@@ -23,10 +25,17 @@
 #' @export
 getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, nPerm, cellLine, targetScoreOutputFile = NULL, 
     matrixWkOutputFile = NULL, targetScoreQValueFile = NULL, targetScoreDoseFile = NULL, 
-    randomTargetScoreFile = NULL, verbose=TRUE,TSfactor=1) {
+    randomTargetScoreFile = NULL, verbose=TRUE, tsFactor=1, fsFile) {
     
     # CALCULATE TARGET SCORE ----
-    results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine, verbose=TRUE,TSfactor=TSfactor)
+    results <- calcTargetScore(nDose=nDose, 
+                               nProt=nProt, 
+                               proteomicResponses=proteomicResponses, 
+                               maxDist=maxDist, 
+                               cellLine=cellLine, 
+                               verbose=TRUE, 
+                               tsFactor=tsFactor, 
+                               fsFile=fsFile)
     ts <- results$ts
     wk <- results$wk
     tsd <- results$tsd
@@ -48,7 +57,14 @@ getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, nPerm,
         for (i in 1:nrow(randProteomicResponses)) randProteomicResponses[i, ] <- sample(proteomicResponses[i, 
             ])
         
-        randTs[, k] <- calcTargetScore(nDose, nProt, randProteomicResponses, maxDist = 1, cellLine, verbose)$ts
+        randTs[, k] <- calcTargetScore(nDose=nDose, 
+                                       nProt=nProt, 
+                                       proteomicResponses=randProteomicResponses, 
+                                       maxDist=maxDist, 
+                                       cellLine=cellLine, 
+                                       verbose=verbose, 
+                                       tsFactor=tsFactor, 
+                                       fsFile=fsFile)$ts
         
         # randTs[,k] <- as.matrix(rants) print('resi') print(resi$ts) randTs[,k]
     }

@@ -7,7 +7,7 @@
 getTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, nPerm, cellLine,
   targetScoreOutputFile = NULL, matrixWkOutputFile = NULL,
   targetScoreQValueFile = NULL, targetScoreDoseFile = NULL,
-  randomTargetScoreFile = NULL, verbose = FALSE)
+  randomTargetScoreFile = NULL, verbose = TRUE, tsFactor = 1, fsFile)
 }
 \arguments{
 \item{nDose}{TBA}
@@ -31,6 +31,10 @@ getTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, nPerm, cellLine,
 \item{targetScoreDoseFile}{a filename to write dose dependent target score results (default: NULL)}
 
 \item{verbose}{a flag for debugging output}
+
+\item{tsFactor}{a scaling factor for the pathway component of the target score}
+
+\item{fsFile}{a file with the functional score data}
 }
 \description{
 Target Score Pilot Run

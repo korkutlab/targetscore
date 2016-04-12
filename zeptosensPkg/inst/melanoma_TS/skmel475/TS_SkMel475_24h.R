@@ -106,4 +106,6 @@ results <- getTargetScore(nDose=nDose,
                           matrixWkOutputFile=matrixWkOutputFile,
                           targetScoreQValueFile="inst/melanoma_TS/skmel475/q_24.txt", 
                           targetScoreDoseFile="inst/melanoma_TS/skmel475/tsd2_24.txt",
-                          verbose=TRUE,TSfactor=1)
+                          verbose=TRUE,
+                          tsFactor=1,
+                          fsFile="inst/targetScoreData/fs_mskcc.txt")
