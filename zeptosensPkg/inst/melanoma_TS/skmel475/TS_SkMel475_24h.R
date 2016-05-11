@@ -90,8 +90,7 @@ proteomicResponses <- x
 
 targetScoreOutputFile <-"inst/melanoma_TS/skmel475/tso_24.txt"
 matrixWkOutputFile <- "inst/melanoma_TS/skmel475/wk.txt"
-nPerm=3
-maxDist <- 1
+nPerm=1
 length(proteomicResponses)
 #results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine)
 
@@ -110,3 +109,4 @@ results <- getTargetScore(nDose=nDose,
                           verbose=TRUE,
                           tsFactor=1,
                           fsFile="inst/targetScoreData/fs_mskcc.txt")
+

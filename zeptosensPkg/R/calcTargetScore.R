@@ -15,7 +15,6 @@
 #' @param distFile A distance file an edgelist with a third column which is the network distance
 #'   between the genes in the interaction
 #' @param tsFactor a scaling factor for the pathway component in the target score
-#' @param fsFile a file with the functional score data 
 #' 
 #' @details 
 #' data: multiple dose single drug perturbation
@@ -112,6 +111,7 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
             dist_ind[dist_list[i, 1], dist_list[i, 2]] <- Inf
         }
     }
+    write.table(dist_ind,file="dist_ind.txt", quote=F)
     # cov318 results ~2100
     
     ### get the network product### phospFile <- system.file('SignedPC', 'phosphorylates.txt',
@@ -177,7 +177,7 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
     # cov318 results in 15
     
     for (i in 1:length(dwnexp[, 1])) {
-        wk[dwnexp_gene[i, 1], dwnexp_gene[i, 2]] <- -1
+        wk[dwnexp_gene[i, 1], dwnexp_gene[i, 2]] <- 2#-1
     }
     
     # phosphorylates wk=1 only active and concentration states are upstream
@@ -192,7 +192,7 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
     #cov318 13 results
     
     for (i in 1:length(phos_gene[, 1])) {
-        wk[phos_gene[i, 1], phos_gene[i, 2]] <- 1
+        wk[phos_gene[i, 1], phos_gene[i, 2]] <- 3#1
     }
     
     # dephosphorylates wk=-1 only active and concentration states are upstream
@@ -207,7 +207,7 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
     #cov318 21 results
     
     for (i in 1:length(dephos_gene[, 1])) {
-        wk[dephos_gene[i, 1], dephos_gene[i, 2]] <- -1
+        wk[dephos_gene[i, 1], dephos_gene[i, 2]] <- 4#-1
     }
     
     # calculate TS for each dose

@@ -49,7 +49,7 @@ Bax	-1
 Bcl-2	1
 c-Myc	1
 CDK1 (p34cdc2) (phospho-Tyr15)	-1
-Chk2 (phospho-Thr68)	0
+Chk2 (phospho-Thr68)	-1
 Cyclin E_NB	1
 E-Cadherin	-1
 p44/42 MAPK (Erk1/2) (phospho-Thr202/Thr185,Tyr204/Tyr187))	1
@@ -60,7 +60,7 @@ N-Cadherin	1
 NFkB p65 (phospho-Ser536)	1
 P-Cadherin	1
 Src (family) (phospho-Tyr416)	1
-Survivin	0
+Survivin	1
 EGFR (phospho-Tyr1068)	1
 IGF-1R (phospho-Tyr1162,Tyr1163)	1
 PLK1	1
