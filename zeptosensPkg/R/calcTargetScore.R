@@ -84,7 +84,7 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
     names(mabGenes) <- mab_to_genes[idxAbMap, 1]
 
     dist_list <- matchGenesToEdgelist(genes1 = mabGenes, genes2 = NULL, annotEdgelist = dist, 
-                                      antibodyMap=antibodyMapSubset, useAnnot=TRUE, verbose = TRUE)
+                                      antibodyVec=colnames(proteomicResponses), useAnnot=TRUE, verbose = TRUE)
     
     # # Get interactions from that exist in measured genes
     # dist_gene1 <- pmatch(dist[, 1], mab_to_genes[measured_genes, 4], duplicates.ok = TRUE)
@@ -98,7 +98,7 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
     # dist_list[is.na(dist_list[, 1]), 3] <- 100
     # dist_list[is.na(dist_list[, 2]), 3] <- 100
     # dist_list[, 1]
-    dist_ind <- matrix(Inf, ncol = nProt, nrow = nProt)  #dist_ind(upstream,downstream)
+    dist_ind <- matrix(Inf, ncol = nProt, nrow = nProt, dimnames=list(colnames(proteomicResponses), colnames(proteomicResponses)))  #dist_ind(upstream,downstream)
     
     for (i in 1:length(dist_list[, 1])) {
         dist_ind[dist_list[i, 1], dist_list[i, 2]] <- dist_list[i, 3]
@@ -164,7 +164,7 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
     
     # only concentration nodes are included in up & downregulation
     upexp_gene <- matchGenesToEdgelist(genes1=tmpGenesC, genes2=NULL, annotEdgelist=upexp, 
-                                       antibodyMap=antibodyMapSubset, useAnnot=FALSE, verbose=verbose)
+                                       antibodyVec=colnames(proteomicResponses), useAnnot=FALSE, verbose=verbose)
     # cov318 results in 122
   
     for (i in 1:length(upexp[, 1])) {
@@ -173,7 +173,7 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
     
     # downregulation expression, wk=-1
     dwnexp_gene <- matchGenesToEdgelist(genes1=tmpGenesC, genes2=NULL, annotEdgelist=dwnexp, 
-                                        antibodyMap=antibodyMapSubset, useAnnot=FALSE, verbose=verbose)
+                                        antibodyVec=colnames(proteomicResponses), useAnnot=FALSE, verbose=verbose)
     # cov318 results in 15
     
     for (i in 1:length(dwnexp[, 1])) {
@@ -188,7 +188,7 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
     # phos_gene <- cbind(phos_gene1, phos_gene2)
     
     phos_gene <- matchGenesToEdgelist(genes1=tmpGenesA, genes2=tmpGenesD, annotEdgelist=dwnexp, 
-                                      antibodyMap=antibodyMapSubset, useAnnot=FALSE, verbose=verbose)
+                                      antibodyVec=colnames(proteomicResponses), useAnnot=FALSE, verbose=verbose)
     #cov318 13 results
     
     for (i in 1:length(phos_gene[, 1])) {
@@ -203,7 +203,7 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
     # dephos_gene <- cbind(dephos_gene1, dephos_gene2)
     
     dephos_gene <- matchGenesToEdgelist(genes1=tmpGenesA, genes2=tmpGenesD, annotEdgelist=dephosp, 
-                                        antibodyMap=antibodyMapSubset, useAnnot=FALSE, verbose=verbose)
+                                        antibodyVec=colnames(proteomicResponses), useAnnot=FALSE, verbose=verbose)
     #cov318 21 results
     
     for (i in 1:length(dephos_gene[, 1])) {
