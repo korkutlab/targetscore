@@ -35,8 +35,6 @@ between the genes in the interaction}
 \item{targetScoreOutputFile}{a filename to write target score results (default: NULL)}
 
 \item{matrixWkOutputFile}{TBA}
-
-\item{fsFile}{a file with the functional score data}
 }
 \description{
 Compute Target score for randomized data/compute P value for each TS given a network topology

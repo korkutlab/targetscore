@@ -4,8 +4,8 @@
 #' @param genes2 an optional vector if the source
 #' @param annotEdgelist a data.frame; the first two columns are interaction 
 #'   participants and the third column is an optional annotation
-#' @param a data.frame with the antibody map subset to only the antibodies being
-#'   analyzed
+#' @param antibodyVec a vector with the names of the antibodies (e.g. colnames(proteomicResponses)); 
+#'   indicies returned from this function will be mapped to this vector
 #' @param useAnnot a boolean as to whether the optional annotation column values 
 #'   in the annotEdgelist should outputted in the results
 #' @param verbose a boolean to show debugging information  
@@ -16,7 +16,7 @@
 #'
 #' @concept zeptosensPkg
 #' @export
-matchGenesToEdgelist <- function(genes1, genes2=NULL, annotEdgelist, antibodyMap, useAnnot=FALSE, verbose=FALSE) {
+matchGenesToEdgelist <- function(genes1, genes2=NULL, annotEdgelist, antibodyVec, useAnnot=FALSE, verbose=FALSE) {
     results <- data.frame(gene1=numeric(), gene2=numeric(), annot=numeric(), 
                               gene1Name=character(), gene2Name=character(), 
                               stringsAsFactors=FALSE)
@@ -38,6 +38,10 @@ matchGenesToEdgelist <- function(genes1, genes2=NULL, annotEdgelist, antibodyMap
         curAnnotEdgelist <- annotEdgelist[tmpIdx, ]
         
         for(j in 1:length(genes2)) {
+            #if(verbose) {
+            #    cat("J: ", j, "\n")
+            #}
+            
             tmpIdx <- which(curAnnotEdgelist[,1] == genes1[i] & curAnnotEdgelist[,2] == genes2[j])
             
             if(length(tmpIdx) == 1) {
@@ -48,14 +52,16 @@ matchGenesToEdgelist <- function(genes1, genes2=NULL, annotEdgelist, antibodyMap
                 }
                 
                 # Get indicies based off antibody names rather than the gene names
-                gene1AbIdx <- which(unique(antibodyMap[,1]) == names(genes1[i]))
-                gene2AbIdx <- which(unique(antibodyMap[,1]) == names(genes2[j]))
+                gene1AbIdx <- which(antibodyVec == names(genes1[i]))
+                gene2AbIdx <- which(antibodyVec == names(genes2[j]))
                 
                 tmpResults <- data.frame(gene1=gene1AbIdx, 
                                          gene2=gene2AbIdx, 
                                          annot=annot, 
                                          gene1Name=genes1[i], 
                                          gene2Name=genes2[j], 
+                                         gene1Ab=names(genes1[i]), 
+                                         gene2Ab=names(genes2[j]),
                                          stringsAsFactors=FALSE)
                 results <- rbind(results, tmpResults)
             } 
