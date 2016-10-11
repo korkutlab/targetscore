@@ -17,6 +17,7 @@
 #' @details 
 #' data: multiple dose single drug perturbation
 #' ts: integral_dose(fs*(xi+sigma_j(2^p*xj*product_k(wk))))
+#' to be converted to integral_dose(fs*((xi/(stdev_xi)+sigma_j(2^p*((xj/stdev_xj)*product_k(wk))))
 #' missing: For phosp and dephosp based wk, there is no 'exact match' between known and measured phospho-sites
 #' 
 #' @examples 
