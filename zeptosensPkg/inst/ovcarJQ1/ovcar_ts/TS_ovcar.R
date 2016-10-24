@@ -161,6 +161,7 @@ results <- getTargetScore(nDose=nDose,
                           matrixWkOutputFile=matrixWkOutputFile,
                           targetScoreQValueFile=paste0(cellLine4,"_q.txt"), 
                           targetScoreDoseFile=paste0(cellLine4,"_TS_d.txt"),
+                          targetScorePValueFile=paste0(cellLine4,"_p.txt"),
                           verbose=TRUE,fsFile="fs.txt")
 
 

@@ -8,6 +8,7 @@
 #' @param targetScoreOutputFile a filename to write total target score results (default: NULL)
 #' @param matrixWkOutputFile TBA 
 #' @param targetScoreQValueFile a file namme to write statistical significance levels (default: NULL)
+#' @param targetScorePValueFile a file namme to write statistical significance levels (default: NULL)
 #' @param targetScoreDoseFile a filename to write dose dependent target score results (default: NULL) 
 #' @param nPerm number of random TS calculations for building the null distribution
 #' @param verbose a flag for debugging output 
@@ -26,7 +27,7 @@
 #' @export
 getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, nPerm, cellLine, targetScoreOutputFile = NULL, 
     matrixWkOutputFile = NULL, targetScoreQValueFile = NULL, targetScoreDoseFile = NULL, 
-    randomTargetScoreFile = NULL, verbose=TRUE, tsFactor=1, fsFile) {
+    randomTargetScoreFile = NULL, targetScorePValueFile = NULL, verbose=TRUE, tsFactor=1, fsFile) {
     
     # CALCULATE TARGET SCORE ----
     results <- calcTargetScore(nDose=nDose, 
@@ -108,7 +109,7 @@ getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, nPerm,
     rownames(pts) <- colnames(proteomicResponses) 
     
     write.table(randTs, file = "randts.txt", quote = FALSE, sep="\t")
-    write.table(pts, file = "p.txt", quote = FALSE, sep="\t")
+    write.table(pts, file = targetScorePValueFile, quote = FALSE, sep="\t")
     
     # RETURN RESULTS ----
     results <- list(ts = ts, wk = wk, tsd = tsd, q = q)
