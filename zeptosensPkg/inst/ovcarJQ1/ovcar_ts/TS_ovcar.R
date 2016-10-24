@@ -71,6 +71,7 @@ results <- getTargetScore(nDose=nDose,
                           matrixWkOutputFile=matrixWkOutputFile,
                           targetScoreQValueFile=paste0(cellLine1,"_q.txt"), 
                           targetScoreDoseFile=paste0(cellLine1,"_TS_d.txt"),
+                          targetScorePValueFile=paste0(cellLine1,"_p.txt"),
                           verbose=TRUE,fsFile="fs.txt")
 
 
@@ -100,6 +101,7 @@ results <- getTargetScore(nDose=nDose,
                           matrixWkOutputFile=matrixWkOutputFile,
                           targetScoreQValueFile=paste0(cellLine2,"_q.txt"), 
                           targetScoreDoseFile=paste0(cellLine2,"_TS_d.txt"),
+                          targetScorePValueFile=paste0(cellLine2,"_p.txt"),
                           verbose=TRUE,fsFile="fs.txt")
 
 
@@ -130,6 +132,7 @@ results <- getTargetScore(nDose=nDose,
                           matrixWkOutputFile=matrixWkOutputFile,
                           targetScoreQValueFile=paste0(cellLine3,"_q.txt"), 
                           targetScoreDoseFile=paste0(cellLine3,"_TS_d.txt"),
+                          targetScorePValueFile=paste0(cellLine3,"_p.txt"),
                           verbose=TRUE,fsFile="fs.txt")
 
 

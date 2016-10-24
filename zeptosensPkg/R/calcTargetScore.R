@@ -127,10 +127,10 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
     
     results <- downloadSignedPC()
     
-    dephosp <- filterSif(results, "dephosphorylates")
-    phosp <- filterSif(results, "phosphorylates")
-    dwnexp <- filterSif(results, "downregulates-expression")
-    upexp <- filterSif(results, "upregulates-expression")
+    dephosp <- filterSif(results, interactionTypes="dephosphorylates")
+    phosp <- filterSif(results, interactionTypes="phosphorylates")
+    dwnexp <- filterSif(results, interactionTypes="downregulates-expression")
+    upexp <- filterSif(results, interactionTypes="upregulates-expression")
     
     # NOTE: SIF has interaction type as column 2, edgelists (like distances) do 
     # not have this, so convert the SIF to an edgelist
