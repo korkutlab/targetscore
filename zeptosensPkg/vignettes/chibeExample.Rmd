@@ -1,6 +1,7 @@
 ---
 title: "Generate Causality SIF"
 output:
+  html_notebook: default
   html_document:
     toc: yes
   pdf_document:

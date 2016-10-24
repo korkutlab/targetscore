@@ -1,0 +1,70 @@
+---
+title: "Plot wk Matrix"
+output:
+    html_notebook: default
+---
+    
+## Purpose
+
+Plot wk matrix using SignedPC data 
+
+```{r knitrSetup, include=FALSE}
+library(knitr)
+opts_chunk$set(out.extra='style="display:block; margin: auto"', fig.align="center", tidy=FALSE)
+verbose <- FALSE
+```
+
+## Load Libraries
+
+```{r loadLibraries, message=FALSE}
+library(paxtoolsr)
+library(zeptosensUtils)
+library(igraph)
+```
+
+## Load Data
+```{r, message=FALSE}
+map <- getAntibodyMap()
+spc <- downloadSignedPC()
+
+wk <- read.table(file.path("..", "inst", "OVTS", "wk.txt"), sep="\t", header=TRUE)
+```
+
+# Convert adjacency matrix to edgelist 
+```{r}
+g <- graph.adjacency(as.matrix(wk))
+el <- get.edgelist(g)
+
+d1 <- data.frame(a=character(), b=character())
+
+for(i in 1:nrow(el)) {
+    i1 <- which(map$AntibodyLabel == el[i,1])
+    i2 <- which(map$AntibodyLabel == el[i,2])
+    
+    g1 <- map$GeneSymbol[i1]
+    g2 <- map$GeneSymbol[i2]
+    
+    tmp <- expand.grid(g1, g2)
+    colnames(tmp) <- c("a", "b")
+    
+    d1 <- rbind(d1, tmp)
+}
+```
+
+# Plot network 
+```{r, fig.width=8, fig.height=8}
+x1 <- filterSif(spc, edgelist=d1)
+g <- loadSifInIgraph(x1)
+
+E(g)$color <- E(g)$interactionType
+E(g)$color <- gsub("upregulates-expression", "green", E(g)$color)
+E(g)$color <- gsub("downregulates-expression", "red", E(g)$color)
+E(g)$color <- gsub("dephosphorylates", "magenta", E(g)$color)
+E(g)$color <- gsub("phosphorylates", "cyan", E(g)$color)
+
+plot(g, layout = layout.fruchterman.reingold, vertex.size=3, edge.arrow.size=0.01, vertex.label.cex=0.7)
+```
+
+
+
+

@@ -4,16 +4,16 @@
 \alias{unperturbedNormalization}
 \title{Normalize Zeptosens Data wrt unperturbed (or any other condition)}
 \usage{
-unperturbedNormalization(Array1, normal_factor, nsamples, antibodyNum)
+unperturbedNormalization(array1, normalFactor, nSamples, antibodyNum)
 }
 \arguments{
-\item{normal_factor}{(treatment_name)}
+\item{array1}{data frame from readZeptosensExport function}
 
-\item{nsamples}{samples/Ab}
+\item{normalFactor}{(treatment_name)}
+
+\item{nSamples}{samples/Ab}
 
 \item{antibodyNum}{number of antibodies on array}
-
-\item{array1}{data frame from readZeptosensExport function}
 }
 \description{
 Normalize Zeptosens Data wrt unperturbed (or any other condition)

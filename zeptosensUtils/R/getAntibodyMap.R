@@ -5,6 +5,8 @@
 #' @concept zeptosens
 #' @export
 getAntibodyMap <- function() {
-    antibodyMapFilename <- system.file("extdata", "antibodyMap.txt", package = "zeptosensPkg")
+    antibodyMapFilename <- system.file("extdata", "antibodyMap.txt", package = "zeptosensUtils")
     antibodyMap <- read.table(antibodyMapFilename, sep = "\t", header = TRUE, stringsAsFactors = FALSE)
+    
+    return(antibodyMap)
 } 

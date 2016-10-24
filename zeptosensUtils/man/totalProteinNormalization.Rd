@@ -4,12 +4,12 @@
 \alias{totalProteinNormalization}
 \title{Normalize Zeptosens Data wrt ttl protein level}
 \usage{
-totalProteinNormalization(Array1, totalProteinLevels1, nsamples, antibodyNum)
+totalProteinNormalization(Array1, totalProteinLevels1, nSamples, antibodyNum)
 }
 \arguments{
-\item{totalProteinLevels1}{total protein levels for array 1 (use readZeptosensData format)}
+\item{totalProteinLevels1}{total protein levels for array 1 (use read.xlsx2 format)}
 
-\item{nsamples}{samples/Ab}
+\item{nSamples}{samples/Ab}
 
 \item{antibodyNum}{number of antibodies on array}
 

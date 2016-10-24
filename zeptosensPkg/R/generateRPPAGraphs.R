@@ -36,7 +36,7 @@ generateRPPAGraphs <- function(platformFile, idColumn = "NodeName", symbolsColum
     outputFilePrefixJStr <- .jnew("java/lang/String", outputFilePrefix)
     customNetworkDirectoryJStr <- .jnew("java/lang/String", customNetworkDirectory)
     
-    .jcall("org/cbio/causality/rppa/RPPAFrontFace", "V", command, platformFileJStr, idColumnJStr, 
+    .jcall("org/panda/causalpath/run/RPPAFrontFace", "V", command, platformFileJStr, idColumnJStr, 
         symbolsColumnJStr, sitesColumnJStr, effectColumnJStr, valuesFileJStr, valueColumnJStr, 
         valueThreshold, graphTypeJStr, siteMatchStrict, geneCentric, outputFilePrefixJStr, customNetworkDirectoryJStr)
     .jcheck()
