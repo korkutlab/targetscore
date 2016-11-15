@@ -1,1 +1,1 @@
-PARTICIPANT_A	INTERACTION_TYPE	PARTICIPANT_BA		DD		FD		EA		CA		BB		GB		E
+PARTICIPANT_A	INTERACTION_TYPE	PARTICIPANT_BA	downregulates-expression	DD	upregulates-expression	FD	phosphorylates 	EA	dephosphorylates	CA	dephosphorylates	BB	dephosphorylates	GB	dephosphorylates	EE	dephosphorylates	F
