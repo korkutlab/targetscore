@@ -188,7 +188,7 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
     # phos_gene2 <- pmatch(phosp[, 3], mab_to_genes_d[measured_genes, 4], duplicates.ok = TRUE)
     # phos_gene <- cbind(phos_gene1, phos_gene2)
     
-    phos_gene <- matchGenesToEdgelist(genes1=tmpGenesA, genes2=tmpGenesD, annotEdgelist=dwnexp, 
+    phos_gene <- matchGenesToEdgelist(genes1=tmpGenesA, genes2=tmpGenesD, annotEdgelist=phosp, 
                                       antibodyVec=colnames(proteomicResponses), useAnnot=FALSE, verbose=verbose)
     #cov318 13 results
     
