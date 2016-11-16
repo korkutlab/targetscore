@@ -7,7 +7,8 @@
 getTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, nPerm, cellLine,
   targetScoreOutputFile = NULL, matrixWkOutputFile = NULL,
   targetScoreQValueFile = NULL, targetScoreDoseFile = NULL,
-  randomTargetScoreFile = NULL, verbose = TRUE, tsFactor = 1, fsFile)
+  randomTargetScoreFile = NULL, targetScorePValueFile = NULL,
+  verbose = TRUE, tsFactor = 1, fsFile)
 }
 \arguments{
 \item{nDose}{TBA}
@@ -30,6 +31,8 @@ getTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, nPerm, cellLine,
 
 \item{targetScoreDoseFile}{a filename to write dose dependent target score results (default: NULL)}
 
+\item{targetScorePValueFile}{a file namme to write statistical significance levels (default: NULL)}
+
 \item{verbose}{a flag for debugging output}
 
 \item{tsFactor}{a scaling factor for the pathway component of the target score}
@@ -42,6 +45,7 @@ Target Score Pilot Run
 \details{
 data: multiple dose single drug perturbation
 ts: integral_dose(fs*(xi+sigma_j(2^p*xj*product_k(wk))))
+to be converted to integral_dose(fs*((xi/(stdev_xi)+sigma_j(2^p*((xj/stdev_xj)*product_k(wk))))
 missing: For phosp and dephosp based wk, there is no 'exact match' between known and measured phospho-sites
 }
 \examples{
