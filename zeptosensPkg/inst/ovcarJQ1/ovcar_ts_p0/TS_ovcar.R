@@ -6,7 +6,7 @@ library(zeptosensPkg)
 ######
 nDose=10
 nProt=152
-maxDist=0 # changing this value requires additional work to compute product(wk). This is not a priority
+maxDist=1 # changing this value requires additional work to compute product(wk). This is not a priority
 nSample=4
 cellLine1="ovcar3"
 cellLine2="ovcar4"

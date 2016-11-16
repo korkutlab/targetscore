@@ -49,7 +49,7 @@ stdev <- sampSdev(nSample=nSample,nProt=nProt,nDose=nDose,nX=nX)
 
 targetScoreOutputFile <-paste0(cellLine1,"_TS.txt")
 matrixWkOutputFile <- "wk_1.txt"
-nPerm=30
+nPerm=1
 maxDist <- 1
 proteomicResponses_1 <- x_1
 for(i in 1:nProt){
