@@ -1,0 +1,164 @@
+---
+title: "Z-Score Distribution for FDA Approved\n and Clinical Trial Drugs in the NCI-60"
+output:
+  html_notebook: default
+---
+
+## Setup 
+```{r setup, message=FALSE}
+library(knitr)
+opts_chunk$set(fig.align="center", warning=FALSE) 
+```
+
+## Load Libraries
+```{r}
+library(rcellminer)
+library(sqldf)
+library(ggplot2)
+
+source("https://gist.githubusercontent.com/cannin/db5174a74349e601fbcd662f1fa2951f/raw/93fc0938fb175ffa484e7d08c254122b6eac2021/saveGgplotPlot.R")
+
+## Compound annotations
+drugAnnot <- getFeatureAnnot(rcellminerData::drugData)[["drug"]]
+## Drug activities 
+drugAct <- exprs(getAct(rcellminerData::drugData))
+## Molecular profiling data
+molData <- getMolDataMatrices()
+```
+
+## FDA Approved and Clinical Trial Compounds
+### Get Data
+```{r}
+# Example filter on particular properties of the compounds
+nscs <- sqldf("SELECT NSC
+                FROM drugAnnot 
+                WHERE (FDA_STATUS != 'NA' AND FDA_STATUS != '')")
+
+nscs <- nscs$NSC
+length(nscs)
+
+# Get indicies for selected NSCs
+idx <- which(rownames(drugAct) %in% nscs)
+
+# Generate new data frame
+dat <- c(drugAct[idx,"OV:OVCAR-3"], drugAct[idx,"OV:OVCAR-4"], drugAct[idx,"OV:IGROV1"])
+labels <- c(rep("OV:OVCAR-3", length(idx)), rep("OV:OVCAR-4", length(idx)), rep("OV:IGROV1", length(idx)))
+
+tmp <- data.frame(data=dat, labels=labels) 
+```
+
+## Plot
+
+```{r message=FALSE, warning=FALSE, eval=FALSE, echo=FALSE}
+# Plot
+p <- ggplot(tmp, aes(data, fill=labels)) 
+p <- p + geom_density(alpha = 0.2)
+p <- p + ggtitle("Z-Score Distribution for FDA Approved \n and Clinical Trial Drugs in the NCI-60")
+p <- p + xlab("Z-Score") + ylab("Frequency")   
+p <- p + scale_fill_discrete(name = "Cell Lines")
+plot(p) 
+saveGgplotPlot(p, "plot1.pdf")
+```
+
+### Calculate the K-S Test 
+```{r}
+splitData <- split(tmp, tmp$labels)
+
+p <- ggplot(tmp, aes(x=data)) + stat_ecdf(aes(colour=labels))
+p <- p + ggtitle("Empirical Cumulative Distribution Function FDA Approved \n and Clinical Trial Drugs in the NCI-60")
+p <- p + xlab("Z-Score") + ylab("Fraction")
+p <- p + labs(colour = "Cell Lines")
+plot(p)
+saveGgplotPlot(p, "plot2.pdf")
+
+ks.test(splitData[["OV:IGROV1"]]$data, splitData[["OV:OVCAR-3"]]$data, alternative="two.sided")
+ks.test(splitData[["OV:IGROV1"]]$data, splitData[["OV:OVCAR-4"]]$data, alternative="two.sided")
+```
+
+## Known MOA Compounds
+### Get Data
+```{r}
+#nscs <- unique(unlist(drugAnnot$MOA))
+idx <- which(!is.na(drugAnnot$MOA))
+nscs <- rownames(drugAnnot)[idx]
+length(nscs)
+
+# Get indicies for selected NSCs
+idx <- which(rownames(drugAct) %in% nscs)
+
+# Generate new data frame
+dat <-  c(drugAct[idx,"OV:OVCAR-3"], drugAct[idx,"OV:OVCAR-4"], drugAct[idx,"OV:IGROV1"])
+labels <- c(rep("OV:OVCAR-3", length(idx)), rep("OV:OVCAR-4", length(idx)), rep("OV:IGROV1", length(idx)))
+
+tmp <- data.frame(data=dat, labels=labels) 
+```
+
+```{r message=FALSE, warning=FALSE, eval=FALSE, echo=FALSE}
+# Plot
+p <- ggplot(tmp, aes(data, fill=labels)) 
+p <- p + geom_density(alpha = 0.2)
+p <- p + ggtitle("Histogram \n
+								 Known Mechanism of Action Drugs in the NCI-60")
+p <- p + xlab("Z-Score") + ylab("Fraction")
+p <- p + scale_fill_discrete(name = "Cell Lines")
+plot(p) 
+saveGgplotPlot(p, "plot3.pdf")
+```
+
+### Calculate the K-S Test 
+```{r}
+splitData <- split(tmp, tmp$labels)
+
+p <- ggplot(tmp, aes(x=data)) + stat_ecdf(aes(colour=labels))
+p <- p + ggtitle("Empirical Cumulative Distribution Function \n Known Mechanism of Action Drugs in the NCI-60")
+p <- p + xlab("Z-Score") + ylab("Frequency")   
+p <- p + labs(colour = "Cell Lines")
+plot(p)
+saveGgplotPlot(p, "plot4.pdf")
+
+ks.test(splitData[["OV:IGROV1"]]$data, splitData[["OV:OVCAR-3"]]$data, alternative="two.sided")
+ks.test(splitData[["OV:IGROV1"]]$data, splitData[["OV:OVCAR-4"]]$data, alternative="two.sided")
+```
+
+## All Compounds
+### Get Data
+```{r}
+nscs <- rownames(drugAct)
+length(nscs)
+
+# Get indicies for selected NSCs
+idx <- which(rownames(drugAct) %in% nscs)
+
+# Generate new data frame
+dat <- c(drugAct[idx,"OV:OVCAR-3"], drugAct[idx,"OV:OVCAR-4"], drugAct[idx,"OV:IGROV1"])
+labels <- c(rep("OV:OVCAR-3", length(idx)), rep("OV:OVCAR-4", length(idx)), rep("OV:IGROV1", length(idx)))
+
+tmp <- data.frame(data=dat, labels=labels) 
+```
+
+```{r message=FALSE, warning=FALSE, eval=FALSE, echo=FALSE}
+# Plot
+p <- ggplot(tmp, aes(data, fill=labels)) 
+p <- p + geom_density(alpha = 0.2)
+p <- p + ggtitle("Histogram \n
+    							 Known Mechanism of Action Drugs in the NCI-60")
+p <- p + xlab("Z-Score") + ylab("Fraction")
+p <- p + scale_fill_discrete(name = "Cell Lines")
+plot(p) 
+saveGgplotPlot(p, "plot5.pdf")
+```
+
+### Calculate the K-S Test 
+```{r}
+splitData <- split(tmp, tmp$labels)
+
+p <- ggplot(tmp, aes(x=data)) + stat_ecdf(aes(colour=labels))
+p <- p + ggtitle("Empirical Cumulative Distribution Function \n Known Mechanism of Action Drugs in the NCI-60")
+p <- p + xlab("Z-Score") + ylab("Frequency")   
+p <- p + labs(colour = "Cell Lines")
+plot(p)
+saveGgplotPlot(p, "plot6.pdf")
+
+ks.test(splitData[["OV:IGROV1"]]$data, splitData[["OV:OVCAR-3"]]$data, alternative="two.sided")
+ks.test(splitData[["OV:IGROV1"]]$data, splitData[["OV:OVCAR-4"]]$data, alternative="two.sided")
+```
