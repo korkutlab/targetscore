@@ -56,8 +56,8 @@ p <- p + geom_density(alpha = 0.2)
 p <- p + ggtitle("Z-Score Distribution for FDA Approved \n and Clinical Trial Drugs in the NCI-60")
 p <- p + xlab("Z-Score") + ylab("Frequency")   
 p <- p + scale_fill_discrete(name = "Cell Lines")
-plot(p) 
-saveGgplotPlot(p, "plot1.pdf")
+p
+saveGgplotPlot(p, "density_fda.pdf")
 ```
 
 ### Calculate the K-S Test 
@@ -68,8 +68,8 @@ p <- ggplot(tmp, aes(x=data)) + stat_ecdf(aes(colour=labels))
 p <- p + ggtitle("Empirical Cumulative Distribution Function FDA Approved \n and Clinical Trial Drugs in the NCI-60")
 p <- p + xlab("Z-Score") + ylab("Fraction")
 p <- p + labs(colour = "Cell Lines")
-plot(p)
-saveGgplotPlot(p, "plot2.pdf")
+p
+saveGgplotPlot(p, "ks_fda.pdf")
 
 ks.test(splitData[["OV:IGROV1"]]$data, splitData[["OV:OVCAR-3"]]$data, alternative="two.sided")
 ks.test(splitData[["OV:IGROV1"]]$data, splitData[["OV:OVCAR-4"]]$data, alternative="two.sided")
@@ -97,12 +97,11 @@ tmp <- data.frame(data=dat, labels=labels)
 # Plot
 p <- ggplot(tmp, aes(data, fill=labels)) 
 p <- p + geom_density(alpha = 0.2)
-p <- p + ggtitle("Histogram \n
-								 Known Mechanism of Action Drugs in the NCI-60")
+p <- p + ggtitle("Histogram\nKnown Mechanism of Action Drugs in the NCI-60")
 p <- p + xlab("Z-Score") + ylab("Fraction")
 p <- p + scale_fill_discrete(name = "Cell Lines")
-plot(p) 
-saveGgplotPlot(p, "plot3.pdf")
+p
+saveGgplotPlot(p, "density_knownMoa.pdf")
 ```
 
 ### Calculate the K-S Test 
@@ -113,8 +112,8 @@ p <- ggplot(tmp, aes(x=data)) + stat_ecdf(aes(colour=labels))
 p <- p + ggtitle("Empirical Cumulative Distribution Function \n Known Mechanism of Action Drugs in the NCI-60")
 p <- p + xlab("Z-Score") + ylab("Frequency")   
 p <- p + labs(colour = "Cell Lines")
-plot(p)
-saveGgplotPlot(p, "plot4.pdf")
+p
+saveGgplotPlot(p, "ks_knownMoa.pdf")
 
 ks.test(splitData[["OV:IGROV1"]]$data, splitData[["OV:OVCAR-3"]]$data, alternative="two.sided")
 ks.test(splitData[["OV:IGROV1"]]$data, splitData[["OV:OVCAR-4"]]$data, alternative="two.sided")
@@ -140,12 +139,11 @@ tmp <- data.frame(data=dat, labels=labels)
 # Plot
 p <- ggplot(tmp, aes(data, fill=labels)) 
 p <- p + geom_density(alpha = 0.2)
-p <- p + ggtitle("Histogram \n
-    							 Known Mechanism of Action Drugs in the NCI-60")
+p <- p + ggtitle("Histogram\nAll Drugs in the NCI-60")
 p <- p + xlab("Z-Score") + ylab("Fraction")
 p <- p + scale_fill_discrete(name = "Cell Lines")
-plot(p) 
-saveGgplotPlot(p, "plot5.pdf")
+p
+saveGgplotPlot(p, "density_all.pdf")
 ```
 
 ### Calculate the K-S Test 
@@ -153,11 +151,11 @@ saveGgplotPlot(p, "plot5.pdf")
 splitData <- split(tmp, tmp$labels)
 
 p <- ggplot(tmp, aes(x=data)) + stat_ecdf(aes(colour=labels))
-p <- p + ggtitle("Empirical Cumulative Distribution Function \n Known Mechanism of Action Drugs in the NCI-60")
+p <- p + ggtitle("Empirical Cumulative Distribution Function\nAll Drugs in the NCI-60")
 p <- p + xlab("Z-Score") + ylab("Frequency")   
 p <- p + labs(colour = "Cell Lines")
-plot(p)
-saveGgplotPlot(p, "plot6.pdf")
+p
+saveGgplotPlot(p, "ks_all.pdf")
 
 ks.test(splitData[["OV:IGROV1"]]$data, splitData[["OV:OVCAR-3"]]$data, alternative="two.sided")
 ks.test(splitData[["OV:IGROV1"]]$data, splitData[["OV:OVCAR-4"]]$data, alternative="two.sided")
