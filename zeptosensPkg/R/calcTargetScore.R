@@ -125,7 +125,7 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
     ### dwnexp <- read.csv(dwnexpFile, sep='\t', header=TRUE, na.strings = c('', ' ')) dwnexp <-
     ### dwnexp[,-3]
     
-    results <- downloadSignedPC()
+    results <- downloadSignedPC(forceCache=TRUE)
     
     dephosp <- filterSif(results, interactionTypes="dephosphorylates")
     phosp <- filterSif(results, interactionTypes="phosphorylates")
@@ -169,7 +169,7 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
 
     for (i in 1:length(upexp[, 1])) {
         wk[upexp_gene[i, 1], upexp_gene[i, 2]] <- 1
-        print(upexp_gene[i, 1])
+#        print(upexp_gene[i, 1])
     }
     
     # downregulation expression, wk=-1

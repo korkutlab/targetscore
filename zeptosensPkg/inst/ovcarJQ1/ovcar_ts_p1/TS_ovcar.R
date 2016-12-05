@@ -49,7 +49,7 @@ stdev <- sampSdev(nSample=nSample,nProt=nProt,nDose=nDose,nX=nX)
 
 targetScoreOutputFile <-paste0(cellLine1,"_TS.txt")
 matrixWkOutputFile <- "wk_1.txt"
-nPerm=1
+nPerm=100
 maxDist <- 1
 proteomicResponses_1 <- x_1
 for(i in 1:nProt){
@@ -72,7 +72,7 @@ results <- getTargetScore(nDose=nDose,
                           targetScoreQValueFile=paste0(cellLine1,"_q.txt"), 
                           targetScoreDoseFile=paste0(cellLine1,"_TS_d.txt"),
                           targetScorePValueFile=paste0(cellLine1,"_p.txt"),
-                          verbose=TRUE,fsFile="fs.txt")
+                          verbose=FALSE,fsFile="fs.txt")
 
 
 #TS for cellLine2
@@ -102,7 +102,7 @@ results <- getTargetScore(nDose=nDose,
                           targetScoreQValueFile=paste0(cellLine2,"_q.txt"), 
                           targetScoreDoseFile=paste0(cellLine2,"_TS_d.txt"),
                           targetScorePValueFile=paste0(cellLine2,"_p.txt"),
-                          verbose=TRUE,fsFile="fs.txt")
+                          verbose=FALSE,fsFile="fs.txt")
 
 
 
@@ -133,7 +133,7 @@ results <- getTargetScore(nDose=nDose,
                           targetScoreQValueFile=paste0(cellLine3,"_q.txt"), 
                           targetScoreDoseFile=paste0(cellLine3,"_TS_d.txt"),
                           targetScorePValueFile=paste0(cellLine3,"_p.txt"),
-                          verbose=TRUE,fsFile="fs.txt")
+                          verbose=FALSE,fsFile="fs.txt")
 
 
 
@@ -165,9 +165,7 @@ results <- getTargetScore(nDose=nDose,
                           targetScoreQValueFile=paste0(cellLine4,"_q.txt"), 
                           targetScoreDoseFile=paste0(cellLine4,"_TS_d.txt"),
                           targetScorePValueFile=paste0(cellLine4,"_p.txt"),
-                          verbose=TRUE,fsFile="fs.txt")
-
-
+                          verbose=FALSE,fsFile="fs.txt")
 
 
 rm(list = ls())

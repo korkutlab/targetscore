@@ -47,9 +47,9 @@ getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, nPerm,
     
     # CREATE Q-VALUES ----
     for (k in 1:nPerm) {
-        if(verbose) {
+#        if(verbose) {
             cat("Permutation Iteration: ", k, "\n")
-        }
+#        }
         
         # print(fs) randomize the readouts over proteomic entities
         randProteomicResponses <- proteomicResponses
