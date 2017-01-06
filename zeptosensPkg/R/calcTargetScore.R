@@ -86,7 +86,7 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
     dist_list <- matchGenesToEdgelist(genes1 = mabGenes, genes2 = NULL, annotEdgelist = dist, 
                                       antibodyVec=colnames(proteomicResponses), useAnnot=TRUE, verbose = TRUE)
     
-    # # Get interactions from that exist in measured genes
+    # # Get interactions for measured genes
     # dist_gene1 <- pmatch(dist[, 1], mab_to_genes[measured_genes, 4], duplicates.ok = TRUE)
     # dist_gene1Name <- mab_to_genes[measured_genes, 4][dist_gene1]
     # dist_gene2 <- pmatch(dist[, 2], mab_to_genes[measured_genes, 4], duplicates.ok = TRUE)
@@ -144,6 +144,7 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
     
     # define wk
     wk <- matrix(0, ncol = nProt, nrow = nProt, dimnames = list(colnames(proteomicResponses), colnames(proteomicResponses)))  #wk(upstr,downstr)
+    wks <- matrix(0, ncol = nProt, nrow = nProt, dimnames = list(colnames(proteomicResponses), colnames(proteomicResponses)))  #wk(upstr,downstr)
     
         # upregulation expression, wk=1
     # upexp_gene1 <- pmatch(upexp[, 1], mab_to_genes_c[measured_genes, 4], duplicates.ok = TRUE)
@@ -169,6 +170,8 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
 
     for (i in 1:length(upexp[, 1])) {
         wk[upexp_gene[i, 1], upexp_gene[i, 2]] <- 1
+        wks[upexp_gene[i, 1], upexp_gene[i, 2]] <- 1
+        
 #        print(upexp_gene[i, 1])
     }
     
@@ -179,6 +182,7 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
     
     for (i in 1:length(dwnexp[, 1])) {
         wk[dwnexp_gene[i, 1], dwnexp_gene[i, 2]] <- -1
+        wks[dwnexp_gene[i, 1], dwnexp_gene[i, 2]] <- -1
     }
     
     # phosphorylates wk=1 only active and concentration states are upstream
@@ -194,6 +198,8 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
     
     for (i in 1:length(phos_gene[, 1])) {
         wk[phos_gene[i, 1], phos_gene[i, 2]] <- 1
+        wks[phos_gene[i, 1], phos_gene[i, 2]] <- 2
+        
     }
     
     # dephosphorylates wk=-1 only active and concentration states are upstream
@@ -209,6 +215,8 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
     
     for (i in 1:length(dephos_gene[, 1])) {
         wk[dephos_gene[i, 1], dephos_gene[i, 2]] <- -1
+        wk[dephos_gene[i, 1], dephos_gene[i, 2]] <- -2
+        
     }
     
     # calculate TS for each dose
@@ -230,6 +238,6 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
     }
     ts <- colSums(tsd)
     # colnames(ts) <- colnames(proteomicResponses) rownames(ts) <- rownames(proteomicResponses)
-    results <- list(ts = ts, wk = wk, tsd = tsd)
+    results <- list(ts = ts, wk = wk, tsd = tsd,wks=wks)
     return(results)
 } 

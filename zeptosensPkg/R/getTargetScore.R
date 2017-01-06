@@ -14,6 +14,7 @@
 #' @param verbose a flag for debugging output 
 #' @param tsFactor a scaling factor for the pathway component of the target score
 #' @param fsFile a file with the functional score data 
+#' @param signedMatrixWkOutputFile TBA
 #' 
 #' @details 
 #' data: multiple dose single drug perturbation
@@ -27,7 +28,8 @@
 #' @export
 getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, nPerm, cellLine, targetScoreOutputFile = NULL, 
     matrixWkOutputFile = NULL, targetScoreQValueFile = NULL, targetScoreDoseFile = NULL, 
-    randomTargetScoreFile = NULL, targetScorePValueFile = NULL, verbose=TRUE, tsFactor=1, fsFile) {
+    randomTargetScoreFile = NULL, targetScorePValueFile = NULL, verbose=TRUE, tsFactor=1, fsFile,
+    signedMatrixWkOutputFile = NULL) {
     
     # CALCULATE TARGET SCORE ----
     results <- calcTargetScore(nDose=nDose, 
@@ -41,6 +43,7 @@ getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, nPerm,
     ts <- results$ts
     wk <- results$wk
     tsd <- results$tsd
+    wks <- results$wks
     
     randTs <- matrix(0, nrow = nProt, ncol = nPerm)  #random TS for each node over n permutations comes from randTargetScore.R
     pts <- matrix(0, ncol = 1, nrow = nProt)  # p value for a given target score computed over the distribution from randTS
@@ -89,7 +92,9 @@ getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, nPerm,
     if (!is.null(matrixWkOutputFile)) {
         write.table(wk, file = matrixWkOutputFile, quote = FALSE, sep="\t")
     }
-    
+    if (!is.null(signedMatrixWkOutputFile)) {
+        write.table(wks, file = signedMatrixWkOutputFile, quote = FALSE, sep="\t")
+    }    
     if (!is.null(targetScoreOutputFile)) {
         write.table(ts, file = targetScoreOutputFile, quote = FALSE, col.names = FALSE, sep="\t")
     }
@@ -112,7 +117,7 @@ getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, nPerm,
     write.table(pts, file = targetScorePValueFile, quote = FALSE, sep="\t")
     
     # RETURN RESULTS ----
-    results <- list(ts = ts, wk = wk, tsd = tsd, q = q)
+    results <- list(ts = ts, wk = wk, tsd = tsd, q = q, wks=wks)
     
     return(results)
 } 
