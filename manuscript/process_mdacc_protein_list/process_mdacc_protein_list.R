@@ -36,10 +36,11 @@ for (i in 1:nrow(dat)) {
       symbol <- gsub('_', '', symbol) 
       symbol <- toupper(symbol)
       
-      sites <- ''
+      sites <- 'NA'
       if(grepl("p[TYS].*$", tmp)) {
-        sites <- sub(".*(p[TYS].*)$", "\\1", tmp)
-      }
+        sites <- sub(".*p([TYS].*)$", "\\1", tmp)
+        sites <- gsub('_', '|', sites) 
+      } 
 
       tmpDf <- rbind(tmpDf, data.frame(AntibodyLabel=dat[i,j], 
                                        Source='MDACC',
