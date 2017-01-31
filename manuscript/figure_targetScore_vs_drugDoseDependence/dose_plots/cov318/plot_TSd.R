@@ -41,6 +41,8 @@ plt <-  ggplot(data=plot_data, aes(x=dose, y=plot_data[,i+1], group=sup)) +
     geom_point(aes(color=sup))+
     scale_x_log10()+
     theme_minimal()+
+    ylab("TSd")+
+    xlab("Dose (uM)")+
     geom_errorbar(aes(ymin=plot_data[,i+1]-0.57*plot_err[,i+1], ymax=plot_data[,i+1]+0.57*plot_err[,i+1]), width=.1)
 ggsave(paste0(colnames(plot_data)[i+1],".pdf"),plot=plt)
   }
