@@ -1,6 +1,5 @@
 library(ggplot2)
 #input TS and stdev 
-source("https://gist.githubusercontent.com/cannin/db5174a74349e601fbcd662f1fa2951f/raw/saveGgplotPlot.R")
 data1 <- read.table(file="cov318_TS_d_p1.txt",header=T)
 data0 <- read.table(file="cov318_TS_d_p0.txt",header=T) 
 err1 <-  read.table(file="cov318_TS_stdev_p1.txt",header=T)
@@ -41,8 +40,8 @@ plt <-  ggplot(data=plot_data, aes(x=dose, y=plot_data[,i+1], group=sup)) +
     geom_point(aes(color=sup))+
     scale_x_log10()+
     theme_minimal()+
-    ylab("TSd")+
-    xlab("Dose (uM)")+
+    ylab(expression(TS[d]))+
+    xlab(expression(paste("Dose (", mu, "M)", sep="")))+
     geom_errorbar(aes(ymin=plot_data[,i+1]-0.57*plot_err[,i+1], ymax=plot_data[,i+1]+0.57*plot_err[,i+1]), width=.1)
 ggsave(paste0(colnames(plot_data)[i+1],".pdf"),plot=plt)
   }
