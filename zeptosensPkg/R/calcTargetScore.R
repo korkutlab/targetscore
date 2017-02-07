@@ -126,7 +126,7 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
     ### dwnexp[,-3]
     
     results <- downloadSignedPC(forceCache=TRUE)
-    
+    write.table(results, file="results_network1.txt",quote=F)
     dephosp <- filterSif(results, interactionTypes="dephosphorylates")
     phosp <- filterSif(results, interactionTypes="phosphorylates")
     dwnexp <- filterSif(results, interactionTypes="downregulates-expression")
@@ -215,7 +215,7 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
     
     for (i in 1:length(dephos_gene[, 1])) {
         wk[dephos_gene[i, 1], dephos_gene[i, 2]] <- -1
-        wk[dephos_gene[i, 1], dephos_gene[i, 2]] <- -2
+        wks[dephos_gene[i, 1], dephos_gene[i, 2]] <- -2
         
     }
     
