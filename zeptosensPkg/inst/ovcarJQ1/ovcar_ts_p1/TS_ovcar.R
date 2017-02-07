@@ -50,7 +50,7 @@ stdev <- sampSdev(nSample=nSample,nProt=nProt,nDose=nDose,nX=nX)
 targetScoreOutputFile <-paste0(cellLine1,"_TS.txt")
 matrixWkOutputFile <- "wk_1.txt"
 signedMatrixWkOutputFile <- "wks.txt"
-nPerm=3
+nPerm=30
 maxDist <- 1
 proteomicResponses_1 <- x_1
 for(i in 1:nProt){
@@ -58,7 +58,7 @@ for(i in 1:nProt){
         proteomicResponses_1[j,i] <- (x_1[j,i]/stdev[i])      
     }
 }
-
+write.table(proteomicResponses_1,file=paste0(cellLine1,"_Zresp.txt"))
 length(proteomicResponses_1)
 #results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine)
 
@@ -89,6 +89,7 @@ for(i in 1:nProt){
         proteomicResponses_2[j,i] <- (x_2[j,i]/stdev[i])      
     }
 }
+write.table(proteomicResponses_2,file=paste0(cellLine2,"_Zresp.txt"))
 
 length(proteomicResponses_2)
 #results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine)
@@ -120,6 +121,7 @@ for(i in 1:nProt){
         proteomicResponses_3[j,i] <- (x_3[j,i]/stdev[i])      
     }
 }
+write.table(proteomicResponses_3,file=paste0(cellLine3,"_Zresp.txt"))
 
 length(proteomicResponses_3)
 #results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine)
@@ -152,6 +154,7 @@ for(i in 1:nProt){
         proteomicResponses_4[j,i] <- (x_4[j,i]/stdev[i])      
     }
 }
+write.table(proteomicResponses_4,file=paste0(cellLine4,"_Zresp.txt"))
 
 length(proteomicResponses_4)
 #results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine)
