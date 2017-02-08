@@ -8,7 +8,7 @@ library(ggplot2)
 library(ggrepel)
 library(dplyr)
 
-source("../manuscript/savePlot.R")
+source("https://gist.githubusercontent.com/cannin/db5174a74349e601fbcd662f1fa2951f/raw/saveGgplotPlot.R")
 
 ptCol <- brewer.pal(8, "Set1")[2]
 ptCol <- "black"
