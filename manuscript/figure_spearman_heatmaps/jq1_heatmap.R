@@ -133,4 +133,4 @@ lay <- rbind(base, base, base)
 
 #grob <- arrangeGrob(gA, gB, gA, gB, gA, gB, gA, gB, nrow=1, layout_matrix=lay)
 grob <- arrangeGrob(grobs=grobs, nrow=1, layout_matrix=lay)
-ggsave(file=paste0(basePath, "jq1_spearman_heatmap.pdf"), grob, width=15, height=7.64)
+ggsave(file=file.path(workDir, "jq1_spearman_heatmap.pdf"), grob, width=15, height=7.64)
