@@ -125,8 +125,10 @@ calcTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, cellL
     ### dwnexp <- read.csv(dwnexpFile, sep='\t', header=TRUE, na.strings = c('', ' ')) dwnexp <-
     ### dwnexp[,-3]
     
-    results <- downloadSignedPC(forceCache=TRUE)
-    write.table(results, file="results_network1.txt",quote=F)
+#    results <- downloadSignedPC(forceCache=TRUE)
+#    results <- read.table(file="results_network1.txt",header=T)
+    results <- read.table(system.file("extdata", "filteredSignedPc.txt", package="zeptosensPkg"), sep="\t", header=TRUE, fill=TRUE)    
+#    write.table(results, file="results_network1.txt",quote=F)
     dephosp <- filterSif(results, interactionTypes="dephosphorylates")
     phosp <- filterSif(results, interactionTypes="phosphorylates")
     dwnexp <- filterSif(results, interactionTypes="downregulates-expression")
