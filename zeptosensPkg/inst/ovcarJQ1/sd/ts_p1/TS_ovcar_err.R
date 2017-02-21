@@ -50,7 +50,13 @@ nX <- rbind(x1_1,x1_2,x1_3,x2_1,x2_2,x2_3,x3_1,x3_2,x3_3,x4_1,x4_2,x4_3)
 
 
 stdev <- sampSdev(nSample=nSample,nProt=nProt,nDose=nDose,nX=nX)
-
+networks <- network(nProt=nProt, 
+                    proteomicResponses=x1_1,
+                    maxDist=maxDist)
+wk <- networks$wk
+wks <- networks$wks
+dist_ind <- networks$dist_ind
+inter <- networks$inter
 
 
 #TS for cellLine1
@@ -70,7 +76,11 @@ for(i in 1:nProt){
 length(proteomicResponses1_1)
 #results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine)
 
-results <- getTargetScore(nDose=nDose, 
+results <- getTargetScore(wk=wk,
+                          wks=wks,
+                          dist_ind=dist_ind,
+                          inter=inter,
+                          nDose=nDose, 
                           nProt=nProt, 
                           proteomicResponses=proteomicResponses1_1, 
                           maxDist=maxDist, 
@@ -100,7 +110,11 @@ for(i in 1:nProt){
 length(proteomicResponses1_2)
 #results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine)
 
-results <- getTargetScore(nDose=nDose, 
+results <- getTargetScore(wk=wk,
+                          wks=wks,
+                          dist_ind=dist_ind,
+                          inter=inter,
+                          nDose=nDose, 
                           nProt=nProt, 
                           proteomicResponses=proteomicResponses1_2, 
                           maxDist=maxDist, 
@@ -129,7 +143,11 @@ for(i in 1:nProt){
 length(proteomicResponses1_3)
 #results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine)
 
-results <- getTargetScore(nDose=nDose, 
+results <- getTargetScore(wk=wk,
+                          wks=wks,
+                          dist_ind=dist_ind,
+                          inter=inter,
+                          nDose=nDose, 
                           nProt=nProt, 
                           proteomicResponses=proteomicResponses1_3, 
                           maxDist=maxDist, 
@@ -168,7 +186,11 @@ for(i in 1:nProt){
 length(proteomicResponses2_1)
 #results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine)
 
-results <- getTargetScore(nDose=nDose, 
+results <- getTargetScore(wk=wk,
+                          wks=wks,
+                          dist_ind=dist_ind,
+                          inter=inter,
+                          nDose=nDose, 
                           nProt=nProt, 
                           proteomicResponses=proteomicResponses2_1, 
                           maxDist=maxDist, 
@@ -197,7 +219,11 @@ for(i in 1:nProt){
 length(proteomicResponses2_2)
 #results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine)
 
-results <- getTargetScore(nDose=nDose, 
+results <- getTargetScore(wk=wk,
+                          wks=wks,
+                          dist_ind=dist_ind,
+                          inter=inter,
+                          nDose=nDose, 
                           nProt=nProt, 
                           proteomicResponses=proteomicResponses2_2, 
                           maxDist=maxDist, 
@@ -226,7 +252,11 @@ for(i in 1:nProt){
 length(proteomicResponses2_3)
 #results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine)
 
-results <- getTargetScore(nDose=nDose, 
+results <- getTargetScore(wk=wk,
+                          wks=wks,
+                          dist_ind=dist_ind,
+                          inter=inter,
+                          nDose=nDose, 
                           nProt=nProt, 
                           proteomicResponses=proteomicResponses2_3, 
                           maxDist=maxDist, 
@@ -267,7 +297,11 @@ for(i in 1:nProt){
 length(proteomicResponses3_1)
 #results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine)
 
-results <- getTargetScore(nDose=nDose, 
+results <- getTargetScore(wk=wk,
+                          wks=wks,
+                          dist_ind=dist_ind,
+                          inter=inter,
+                          nDose=nDose, 
                           nProt=nProt, 
                           proteomicResponses=proteomicResponses3_1, 
                           maxDist=maxDist, 
@@ -296,7 +330,11 @@ for(i in 1:nProt){
 length(proteomicResponses3_2)
 #results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine)
 
-results <- getTargetScore(nDose=nDose, 
+results <- getTargetScore(wk=wk,
+                          wks=wks,
+                          dist_ind=dist_ind,
+                          inter=inter,
+                          nDose=nDose, 
                           nProt=nProt, 
                           proteomicResponses=proteomicResponses3_2, 
                           maxDist=maxDist, 
@@ -325,7 +363,11 @@ for(i in 1:nProt){
 length(proteomicResponses3_3)
 #results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine)
 
-results <- getTargetScore(nDose=nDose, 
+results <- getTargetScore(wk=wk,
+                          wks=wks,
+                          dist_ind=dist_ind,
+                          inter=inter,
+                          nDose=nDose, 
                           nProt=nProt, 
                           proteomicResponses=proteomicResponses3_3, 
                           maxDist=maxDist, 
@@ -364,7 +406,11 @@ for(i in 1:nProt){
 length(proteomicResponses4_1)
 #results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine)
 
-results <- getTargetScore(nDose=nDose, 
+results <- getTargetScore(wk=wk,
+                          wks=wks,
+                          dist_ind=dist_ind,
+                          inter=inter,
+                          nDose=nDose, 
                           nProt=nProt, 
                           proteomicResponses=proteomicResponses4_1, 
                           maxDist=maxDist, 
@@ -393,7 +439,11 @@ for(i in 1:nProt){
 length(proteomicResponses4_2)
 #results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine)
 
-results <- getTargetScore(nDose=nDose, 
+results <- getTargetScore(wk=wk,
+                          wks=wks,
+                          dist_ind=dist_ind,
+                          inter=inter,
+                          nDose=nDose, 
                           nProt=nProt, 
                           proteomicResponses=proteomicResponses4_2, 
                           maxDist=maxDist, 
@@ -422,7 +472,11 @@ for(i in 1:nProt){
 length(proteomicResponses4_3)
 #results <- calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine)
 
-results <- getTargetScore(nDose=nDose, 
+results <- getTargetScore(wk=wk,
+                          wks=wks,
+                          dist_ind=dist_ind,
+                          inter=inter,
+                          nDose=nDose, 
                           nProt=nProt, 
                           proteomicResponses=proteomicResponses4_3, 
                           maxDist=maxDist, 

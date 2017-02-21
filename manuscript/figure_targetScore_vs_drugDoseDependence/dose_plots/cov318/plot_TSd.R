@@ -31,7 +31,7 @@ plot_err0x <- cbind(dose,plot_err0)
 plot_err1x$sup <- rep("p1",each=10)
 plot_err0x$sup <- rep("p0",each=10)
 plot_err <- rbind(plot_err0x,plot_err1x)
-for (i in 1:6){
+for (i in 1:10){
 #  pdf("a.pdf")
 plt <-  ggplot(data=plot_data, aes(x=dose, y=plot_data[,i+1], group=sup)) +
     geom_line()+

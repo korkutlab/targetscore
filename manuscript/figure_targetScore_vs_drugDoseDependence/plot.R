@@ -44,7 +44,7 @@ for(i in 1:length(cellLines)) {
     #p
     #p <- p + annotate("text", label="Shane Victorino", x=0.5, y=10, size=3) + annotate("segment", x=0.7, y=10, xend=0.8, yend=-12, size=0.5, arrow=arrow(length=unit(.2, "cm")))
     
-    filterDat <- filter(dat, negSpCorr > 0.8 & TS >= quantile(dat$TS, 0.9))
+    filterDat <- filter(dat, negSpCorr > 0.7 & TS >= quantile(dat$TS, 0.90 ) & as.numeric(dat$p_fdr.TS.) < 0.10)
     p <- p + geom_point(data=filterDat, color="red")
     #p <- p + geom_label_repel(data=filter(dat, dat$abname %in% abOfInterest), aes(label=displayName))
     p <- p + geom_label_repel(data=filterDat, aes(label=displayName))

@@ -1,0 +1,292 @@
+node	all-nodes	color	255 255 255
+edge	NCOA3 upregulates-expression CCND1	color	0 100 0
+edge	AKT1 phosphorylates CDKN1B	color	0 100 0
+edge	AKT1 phosphorylates YBX1	color	0 100 0
+edge	PRKAA1 phosphorylates CDKN1B	color	0 100 0
+edge	AR upregulates-expression EIF4EBP1	color	0 100 0
+edge	MYC upregulates-expression NOTCH1	color	0 100 0
+edge	MYC upregulates-expression PTCH1	color	0 100 0
+edge	MYC upregulates-expression DIABLO	color	0 100 0
+edge	MYC upregulates-expression STMN1	color	0 100 0
+edge	ERBB3 phosphorylates AKT1	color	0 100 0
+edge	NOTCH1 upregulates-expression MYC	color	0 100 0
+edge	PDPK1 phosphorylates AKT1	color	0 100 0
+edge	PDPK1 phosphorylates AKT2	color	0 100 0
+edge	RB1 upregulates-expression MYC	color	0 100 0
+edge	RB1 downregulates-expression CASP7	color	100 0 0
+edge	RB1 upregulates-expression MSH2	color	0 100 0
+edge	SRC phosphorylates STAT3	color	0 100 0
+edge	STAT3 upregulates-expression MYC	color	0 100 0
+node	YWHAE	color	250 250 250
+node	YWHAE	tooltip	14.3.3_epsilon.M.C_GBL9026348(0)
+node	EIF4EBP1	color	126 145 255
+node	EIF4EBP1	tooltip	4E.BP1.R.V_GBL9026169(-0.82)
+node	EIF4EBP1	rppasite	4E.BP1_pS65.R.V_GBL9026170(0)|p|250 250 250|180 0 20
+node	TP53BP1	color	250 250 250
+node	TP53BP1	tooltip	P53BP1.R.C_GBL9026171(0)
+node	ACACA	rppasite	ACC_pS79.R.V_GBL9026172(0)|p|250 250 250|0 180 20
+node	ACACB	rppasite	ACC_pS79.R.V_GBL9026172(0)|p|250 250 250|0 180 20
+node	ACACA	color	250 250 250
+node	ACACA	tooltip	ACC1.R.C_GBL9026173(0)
+node	NCOA3	color	202 204 255
+node	NCOA3	tooltip	AIB1.M.V_GBL9026302(-0.08)
+node	AKT1	color	250 250 250
+node	AKT1	tooltip	Akt.R.V_GBL9026174(0)
+node	AKT2	color	250 250 250
+node	AKT2	tooltip	Akt.R.V_GBL9026174(0)
+node	AKT3	color	250 250 250
+node	AKT3	tooltip	Akt.R.V_GBL9026174(0)
+node	AKT1	rppasite	Akt_pS473.R.V_GBL9026175(-1.04)|p|102 128 255|0 180 20
+node	AKT2	rppasite	Akt_pS473.R.V_GBL9026175(-1.04)|p|102 128 255|0 180 20
+node	AKT3	rppasite	Akt_pS473.R.V_GBL9026175(-1.04)|p|102 128 255|0 180 20
+node	AKT1	rppasite	Akt_pT308.R.V_GBL9026176(0)|p|250 250 250|0 180 20
+node	AKT2	rppasite	Akt_pT308.R.V_GBL9026176(0)|p|250 250 250|0 180 20
+node	AKT3	rppasite	Akt_pT308.R.V_GBL9026176(0)|p|250 250 250|0 180 20
+node	CTNNA1	color	255 182 174
+node	CTNNA1	tooltip	alpha.Catenin.M.V_GBL9026304(0.35)
+node	PRKAA1	color	250 250 250
+node	PRKAA1	tooltip	AMPK_alpha.R.C_GBL9026177(0)
+node	PRKAA1	rppasite	AMPK_pT172.R.V_GBL9026178(-0.3)|p|179 186 255|0 180 20
+node	ANXA1	color	250 250 250
+node	ANXA1	tooltip	Annexin_I.R.V_GBL9026179(0)
+node	AR	color	255 200 196
+node	AR	tooltip	AR.R.V_GBL9026335(0.13)
+node	BAD	rppasite	Bad_pS112.R.V_GBL9026336(-0.08)|p|202 204 255|0 180 20
+node	BAK1	color	250 250 250
+node	BAK1	tooltip	Bak.R.C_GBL9026182(0)
+node	BAX	color	250 250 250
+node	BAX	tooltip	Bax.R.V_GBL9026183(0)
+node	BCL2	color	250 250 250
+node	BCL2	tooltip	Bcl.2.M.V_GBL9026303(0)
+node	BCL2L1	color	250 250 250
+node	BCL2L1	tooltip	Bcl.X.R.C_GBL9026338(0)
+node	BCL2L1	rppasite	Bcl.xL.R.V_GBL9026339(0)|t|250 250 250|0 0 0
+node	BECN1	color	255 205 203
+node	BECN1	tooltip	Beclin.G.V_GBL9026330(0.07)
+node	CTNNB1	color	250 250 250
+node	CTNNB1	tooltip	beta.Catenin.R.V_GBL9026194(0)
+node	BID	color	255 196 192
+node	BID	tooltip	Bid.R.C_GBL9026340(0.17)
+node	BCL2L11	color	255 162 148
+node	BCL2L11	tooltip	Bim.R.V_GBL9026351(0.6)
+node	JUN	rppasite	c.Jun_pS73.R.C_GBL9026231(0)|p|250 250 250|0 180 20
+node	KIT	color	255 203 200
+node	KIT	tooltip	c.Kit.R.V_GBL9026344(0.09)
+node	MET	color	250 250 250
+node	MET	tooltip	c.Met.M.C_GBL9026314(0)
+node	MET	rppasite	c.Met_pY1235.R.C_GBL9026236(0)|p|250 250 250|0 180 20
+node	MYC	color	175 183 255
+node	MYC	tooltip	c.Myc.R.C_GBL9026241(-0.34)
+node	RAF1	color	250 250 250
+node	RAF1	tooltip	C.Raf.R.V_GBL9026278(0)
+node	RAF1	rppasite	C.Raf_pS338.R.C_GBL9026279(0)|p|250 250 250|0 180 20
+node	CASP3	color	250 250 250
+node	CASP3	tooltip	Caspase.3_active.R.C_GBL9026352(0)
+node	CASP7	color	255 137 115
+node	CASP7	tooltip	Caspase.7_cleavedD198.R.C_GBL9026353(0.92)
+node	CASP9	color	250 250 250
+node	CASP9	tooltip	Caspase.9_cleavedD330.R.C_GBL9026193(0)
+node	CAV1	color	250 250 250
+node	CAV1	tooltip	Caveolin.1.R.V_GBL9026195(0)
+node	PECAM1	color	250 250 250
+node	PECAM1	tooltip	CD31.M.V_GBL9026349(0)
+node	CDC2	color	250 250 250
+node	CDC2	tooltip	CDK1.R.V_GBL9026196(0)
+node	CHEK1	color	250 250 250
+node	CHEK1	tooltip	Chk1.R.C_GBL9026197(0)
+node	CHEK1	rppasite	Chk1_pS345.R.C_GBL9026198(0)|p|250 250 250|0 180 20
+node	CHEK2	color	250 250 250
+node	CHEK2	tooltip	Chk2.M.C_GBL9026306(0)
+node	CHEK2	rppasite	Chk2_pT68.R.C_GBL9026199(0)|p|250 250 250|0 180 20
+node	BIRC2	color	250 250 250
+node	BIRC2	tooltip	cIAP.R.V_GBL9026200(0)
+node	COL6A1	color	250 250 250
+node	COL6A1	tooltip	Claudin.7.R.V_GBL9026201(0)
+node	CLDN7	color	250 250 250
+node	CLDN7	tooltip	Collagen_VI.R.V_GBL9026202(0)
+node	PTGS2	color	250 250 250
+node	PTGS2	tooltip	COX.2.R.C_GBL9026203(0)
+node	CCNB1	color	104 129 255
+node	CCNB1	tooltip	Cyclin_B1.R.V_GBL9026204(-1.03)
+node	CCND1	color	255 192 186
+node	CCND1	tooltip	Cyclin_D1.R.V_GBL9026205(0.23)
+node	CCNE1	color	150 164 255
+node	CCNE1	tooltip	Cyclin_E1.M.V_GBL9026308(-0.58)
+node	PARK7	color	250 250 250
+node	PARK7	tooltip	DJ.1.R.C_GBL9026206(0)
+node	DVL3	color	250 250 250
+node	DVL3	tooltip	Dvl3.R.V_GBL9026207(0)
+node	CDH1	color	255 188 182
+node	CDH1	tooltip	E.Cadherin.R.V_GBL9026188(0.28)
+node	EEF2	color	250 250 250
+node	EEF2	tooltip	eEF2.R.V_GBL9026208(0)
+node	EEF2K	color	250 250 250
+node	EEF2K	tooltip	eEF2K.R.V_GBL9026209(0)
+node	EGFR	color	250 250 250
+node	EGFR	tooltip	EGFR.R.C_GBL9026210(0)
+node	EGFR	rppasite	EGFR.CST2232..R.C_GBL9026334(0)|t|250 250 250|0 0 0
+node	EGFR	rppasite	EGFR_pY1068.R.V_GBL9026211(0)|p|250 250 250|0 180 20
+node	EGFR	rppasite	EGFR_pY1173.R.C_GBL9026212(0)|p|250 250 250|0 180 20
+node	EGFR	rppasite	EGFR_pY992.R.V_GBL9026213(0)|p|250 250 250|0 180 20
+node	EIF4E	color	250 250 250
+node	EIF4E	tooltip	eIF4E.R.V_GBL9026214(0)
+node	ESR1	color	250 250 250
+node	ESR1	tooltip	ER.alpha.R.V_GBL9026215(0)
+node	ESR1	rppasite	ER.alpha_pS118.R.V_GBL9026217(0)|p|250 250 250|0 180 20
+node	ERCC1	color	250 250 250
+node	ERCC1	tooltip	ERCC1.M.C_GBL9026309(0)
+node	PTK2	color	250 250 250
+node	PTK2	tooltip	FAK.R.C_GBL9026218(0)
+node	FN1	color	250 250 250
+node	FN1	tooltip	Fibronectin.R.C_GBL9026216(0)
+node	FOXO3	color	250 250 250
+node	FOXO3	tooltip	FOXO3a.R.C_GBL9026219(0)
+node	FOXO3	rppasite	FOXO3a_pS318_S321.R.C_GBL9026220(0)|p|250 250 250|0 180 20
+node	GATA3	color	250 250 250
+node	GATA3	tooltip	GATA3.M.V_GBL9026310(0)
+node	GSK3A	color	250 250 250
+node	GSK3A	tooltip	GSK3.alpha.beta.M.V_GBL9026312(0)
+node	GSK3B	color	250 250 250
+node	GSK3B	tooltip	GSK3.alpha.beta.M.V_GBL9026312(0)
+node	GSK3A	rppasite	GSK3.alpha.beta_pS21_S9.R.V_GBL9026222(0)|p|250 250 250|180 0 20
+node	GSK3B	rppasite	GSK3.alpha.beta_pS21_S9.R.V_GBL9026222(0)|p|250 250 250|180 0 20
+node	GSK3B	rppasite	GSK3_pS9.R.V_GBL9026221(0)|p|250 250 250|180 0 20
+node	ERBB2	color	250 250 250
+node	ERBB2	tooltip	HER2.M.V_GBL9026313(0)
+node	ERBB2	rppasite	HER2_pY1248.R.V_GBL9026223(0)|p|250 250 250|0 180 20
+node	ERBB3	color	250 250 250
+node	ERBB3	tooltip	HER3.R.V_GBL9026224(0)
+node	ERBB3	rppasite	HER3_pY1298.R.C_GBL9026225(0.1)|p|255 202 200|0 180 20
+node	IGF1R	color	250 250 250
+node	IGF1R	tooltip	IGF.1R.beta.R.C_GBL9026226(0)
+node	IGFBP2	color	250 250 250
+node	IGFBP2	tooltip	IGFBP2.R.V_GBL9026227(0)
+node	INPP4B	color	250 250 250
+node	INPP4B	tooltip	INPP4B.G.C_GBL9026331(0)
+node	IRS1	color	194 198 255
+node	IRS1	tooltip	IRS1.R.V_GBL9026228(-0.15)
+node	MAPK8	rppasite	JNK_pT183_pT185.R.V_GBL9026343(0)|p|250 250 250|0 180 20
+node	MAPK9	color	250 250 250
+node	MAPK9	tooltip	JNK2.R.C_GBL9026230(0)
+node	KRAS	color	250 250 250
+node	KRAS	tooltip	K.Ras.M.C_GBL9026322(0)
+node	MAPK1	rppasite	MAPK_pT202_Y204.R.V_GBL9026233(0)|p|250 250 250|0 180 20
+node	MAPK3	rppasite	MAPK_pT202_Y204.R.V_GBL9026233(0)|p|250 250 250|0 180 20
+node	MAP2K1	color	250 250 250
+node	MAP2K1	tooltip	MEK1.R.V_GBL9026234(0)
+node	MAP2K1	rppasite	MEK1_pS217_S221.R.V_GBL9026345(0)|p|250 250 250|0 180 20
+node	ERRFI1	color	250 250 250
+node	ERRFI1	tooltip	MIG.6.M.V_GBL9026315(0)
+node	MRE11A	color	255 207 205
+node	MRE11A	tooltip	Mre11.R.C_GBL9026237(0.04)
+node	MSH2	color	112 135 255
+node	MSH2	tooltip	MSH2.M.C_GBL9026316(-0.95)
+node	MSH6	color	193 197 255
+node	MSH6	tooltip	MSH6.R.C_GBL9026238(-0.16)
+node	MTOR	color	250 250 250
+node	MTOR	tooltip	mTOR.R.V_GBL9026239(0)
+node	MTOR	rppasite	mTOR_.pS2448.R.C_GBL9026240(0)|p|250 250 250|0 180 20
+node	CDH2	color	250 250 250
+node	CDH2	tooltip	N.Cadherin.R.V_GBL9026341(0)
+node	NFKB1	rppasite	NF.kB.p65_pS536.R.C_GBL9026242(0)|p|250 250 250|0 180 20
+node	NF2	color	186 191 255
+node	NF2	tooltip	NF2.R.C_GBL9026243(-0.24)
+node	NOTCH1	color	255 144 124
+node	NOTCH1	tooltip	Notch1.R.V_GBL9026244(0.83)
+node	NOTCH3	color	148 163 255
+node	NOTCH3	tooltip	Notch3.R.C_GBL9026246(-0.6)
+node	CDH3	color	250 250 250
+node	CDH3	tooltip	P.Cadherin.R.C_GBL9026342(0)
+node	CDKN1A	color	255 80 40
+node	CDKN1A	tooltip	p21.R.C_GBL9026247(1.64)
+node	CDKN1B	color	250 250 250
+node	CDKN1B	tooltip	p27.R.V_GBL9026248(0)
+node	CDKN1B	rppasite	p27_pT157.R.C_GBL9026249(0)|p|250 250 250|0 180 20
+node	CDKN1B	rppasite	p27_pT198.R.V_GBL9026250(0.24)|p|255 191 185|0 180 20
+node	MAPK14	color	250 250 250
+node	MAPK14	tooltip	p38_MAPK.R.C_GBL9026251(0)
+node	MAPK14	rppasite	p38_pT180_Y182.R.V_GBL9026252(0)|p|250 250 250|0 180 20
+node	TP53	color	250 250 250
+node	TP53	tooltip	p53.R.V_GBL9026346(0)
+node	RPS6KB1	color	250 250 250
+node	RPS6KB1	tooltip	p70S6K.R.V_GBL9026254(0)
+node	RPS6KB1	rppasite	p70S6K_pT389.R.V_GBL9026255(0)|p|250 250 250|0 180 20
+node	RPS6KA1	rppasite	p90RSK_pT359_S363.R.C_GBL9026256(0)|p|250 250 250|0 180 20
+node	PARP1	color	250 250 250
+node	PARP1	tooltip	PARP_cleaved.M.C_GBL9026317(0)
+node	PXN	color	250 250 250
+node	PXN	tooltip	Paxillin.R.V_GBL9026257(0)
+node	PCNA	color	250 250 250
+node	PCNA	tooltip	PCNA.M.V_GBL9026318(0)
+node	PDPK1	rppasite	PDK1_pS241.R.V_GBL9026258(0.22)|p|255 192 187|0 180 20
+node	PIK3CA	color	250 250 250
+node	PIK3CA	tooltip	PI3K.p110.alpha.R.C_GBL9026269(0)
+node	PIK3R1	color	250 250 250
+node	PIK3R1	tooltip	PI3K.p85.R.V_GBL9026270(0)
+node	PRKCA	color	250 250 250
+node	PRKCA	tooltip	PKC.alpha.M.V_GBL9026319(0)
+node	PRKCA	rppasite	PKC.alpha_pS657.R.V_GBL9026271(0)|p|250 250 250|0 180 20
+node	PGR	color	250 250 250
+node	PGR	tooltip	PR.R.V_GBL9026272(0)
+node	AKT1S1	rppasite	PRAS40_pT246.R.V_GBL9026273(-0.52)|p|157 169 255|180 0 20
+node	PTCH1	color	255 177 167
+node	PTCH1	tooltip	PTCH.R.C_GBL9026274(0.42)
+node	PTEN	color	250 250 250
+node	PTEN	tooltip	PTEN.R.V_GBL9026275(0)
+node	RAB11A	color	250 250 250
+node	RAB11A	tooltip	Rab11.R.V_GBL9026276(0)
+node	RAB25	color	250 250 250
+node	RAB25	tooltip	Rab25.R.C_GBL9026277(0)
+node	RAD50	color	250 250 250
+node	RAD50	tooltip	Rad50.M.C_GBL9026320(0)
+node	RAD51	color	250 250 250
+node	RAD51	tooltip	Rad51.M.C_GBL9026321(0)
+node	RB1	color	250 250 250
+node	RB1	tooltip	Rb.M.V_GBL9026323(0)
+node	RB1	rppasite	Rb_pS807_S811.R.V_GBL9026280(-1.21)|p|84 114 255|180 0 20
+node	RPS6	rppasite	S6_pS235_S236.R.V_GBL9026281(0)|p|250 250 250|0 180 20
+node	RPS6	rppasite	S6_pS240_S244.R.V_GBL9026282(0)|p|250 250 250|0 180 20
+node	DIABLO	color	255 167 154
+node	DIABLO	tooltip	Smac.M.V_GBL9026324(0.54)
+node	SMAD1	color	250 250 250
+node	SMAD1	tooltip	Smad1.R.V_GBL9026283(0)
+node	SMAD3	color	250 250 250
+node	SMAD3	tooltip	Smad3.R.V_GBL9026284(0)
+node	SMAD4	color	250 250 250
+node	SMAD4	tooltip	Smad4.M.V_GBL9026325(0)
+node	SNAI2	color	198 201 255
+node	SNAI2	tooltip	Snail.M.C_GBL9026326(-0.12)
+node	SRC	color	250 250 250
+node	SRC	tooltip	Src.M.V_GBL9026327(0)
+node	SRC	rppasite	Src_pY416.R.C_GBL9026285(0)|p|250 250 250|0 180 20
+node	SRC	rppasite	Src_pY527.R.V_GBL9026286(0.51)|p|255 170 157|180 0 20
+node	STAT3	rppasite	STAT3_pY705.R.V_GBL9026287(0.06)|p|255 205 204|0 180 20
+node	STAT5A	color	250 250 250
+node	STAT5A	tooltip	STAT5.alpha.R.V_GBL9026288(0)
+node	STMN1	color	255 208 207
+node	STMN1	tooltip	Stathmin.R.V_GBL9026289(0.03)
+node	SYK	color	250 250 250
+node	SYK	tooltip	Syk.M.V_GBL9026328(0)
+node	MAPT	color	250 250 250
+node	MAPT	tooltip	Tau.M.C_GBL9026329(0)
+node	WWTR1	rppasite	TAZ_pS89.R.C_GBL9026290(0.13)|p|255 200 196|180 0 20
+node	TFF1	color	250 250 250
+node	TFF1	tooltip	TFF1.R.V_GBL9026291(0)
+node	C12ORF5	color	203 205 255
+node	C12ORF5	tooltip	TIGAR.R.V_GBL9026292(-0.07)
+node	TSC2	color	250 250 250
+node	TSC2	tooltip	Tuberin.R.C_GBL9026293(0)
+node	VASP	color	255 195 191
+node	VASP	tooltip	VASP.R.C_GBL9026294(0.18)
+node	KDR	color	250 250 250
+node	KDR	tooltip	VEGFR2.R.V_GBL9026347(0)
+node	XIAP	color	124 144 255
+node	XIAP	tooltip	XIAP.R.C_GBL9026296(-0.84)
+node	XRCC1	color	255 206 204
+node	XRCC1	tooltip	XRCC1.R.C_GBL9026297(0.05)
+node	YAP1	color	255 184 176
+node	YAP1	tooltip	YAP.R.V_GBL9026298(0.33)
+node	YAP1	rppasite	YAP_pS127.R.C_GBL9026299(-0.84)|p|123 143 255|0 180 20
+node	YBX1	color	250 250 250
+node	YBX1	tooltip	YB.1.R.V_GBL9026332(0)
+node	YBX1	rppasite	YB.1_pS102.R.V_GBL9026333(0.14)|p|255 199 195|0 180 20

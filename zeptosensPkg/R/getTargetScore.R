@@ -1,5 +1,9 @@
 #' Target Score Pilot Run
 #' 
+#' @param wk TBA
+#' @param wks TBA
+#' @param dist_ind TBA
+#' @param inter TBA
 #' @param nDose TBA
 #' @param nProt TBA
 #' @param proteomicResponses TBA
@@ -26,13 +30,17 @@
 #' 
 #' @concept zeptosensPkg
 #' @export
-getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, nPerm, cellLine, targetScoreOutputFile = NULL, 
+getTargetScore <- function(wk,wks,dist_ind,inter,nDose, nProt, proteomicResponses, maxDist = 1, nPerm, cellLine, targetScoreOutputFile = NULL, 
     matrixWkOutputFile = NULL, targetScoreQValueFile = NULL, targetScoreDoseFile = NULL, 
     randomTargetScoreFile = NULL, targetScorePValueFile = NULL, verbose=TRUE, tsFactor=1, fsFile,
     signedMatrixWkOutputFile = NULL) {
     
     # CALCULATE TARGET SCORE ----
-    results <- calcTargetScore(nDose=nDose, 
+    results <- calcTargetScore(wk=wk,
+                               wks=wks,
+                               dist_ind=dist_ind,
+                               inter=inter,
+                               nDose=nDose, 
                                nProt=nProt, 
                                proteomicResponses=proteomicResponses, 
                                maxDist=maxDist, 
@@ -62,7 +70,11 @@ getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, nPerm,
         for (i in 1:nrow(randProteomicResponses)) randProteomicResponses[i, ] <- sample(proteomicResponses[i, 
             ])
         
-        randTs[, k] <- calcTargetScore(nDose=nDose, 
+        randTs[, k] <- calcTargetScore(wk=wk,
+                                       wks=wks,
+                                       dist_ind=dist_ind,
+                                       inter=inter,
+                                       nDose=nDose, 
                                        nProt=nProt, 
                                        proteomicResponses=randProteomicResponses, 
                                        maxDist=maxDist, 
@@ -77,7 +89,7 @@ getTargetScore <- function(nDose, nProt, proteomicResponses, maxDist = 1, nPerm,
     for (i in 1:nProt) {
         mean <- mean(randTs[i, 1:nPerm])
         stdev <- sd(randTs[i, 1:nPerm])
-        zval <- (ts[i]-mean)/(stdev/sqrt(nPerm))
+        zval <- (ts[i]-mean)/(stdev)
         pts[i] <- 2*pnorm(-abs(zval)) #pnorm(ts[i], mean = mean(randTs[i, 1:nPerm]), sd = sd(randTs[i, 1:nPerm]))
         
         if(verbose) {
