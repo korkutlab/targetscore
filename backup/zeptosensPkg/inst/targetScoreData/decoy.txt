@@ -1,3 +1,0 @@
-Regulator	Target	IDs	Sites
-TRAC	PRKCQ	http://purl.org/pc2/7/Catalysis_9fea1b73975f523ffbc96ec059e872f6 http://identifiers.org/reactome/REACT_12566.3	Y90
-SOD2	AKT1	http://purl.org/pc2/7/Control_0ef641a8da3eb6a0b5a6a911153ac023 http://purl.org/pc2/7/BiochemicalReaction_e233c47d9fc45b3bc632da53dd628b10 http://purl.org/pc2/7/BiochemicalReaction_f0258d49da5219c8611d7aeed7f0ab7a http://purl.org/pc2/7/Control_f6a64fa0e6d7ba22ed66313b59f9253e http://purl.org/pc2/7/SmallMolecule_f1a45e91ff5388e540afc0b4c9c6c157 http://purl.org/pc2/7/Control_d50ad70bedc340a3c29e135223656900 http://purl.org/pc2/7/Control_05e3f17e8a5933be3eef334596504ad3
