@@ -32,4 +32,3 @@ names(results) <- q
 \concept{
 rcellminerUtils
 }
-

@@ -4,11 +4,19 @@
 \alias{calcTargetScore}
 \title{Compute Target score for randomized data/compute P value for each TS given a network topology}
 \usage{
-calcTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, cellLine,
-  verbose = TRUE, tsFactor = 1, fsFile, antibodyMapFile = NULL,
-  distFile = NULL)
+calcTargetScore(wk, wks, dist_ind, inter, nDose, nProt, proteomicResponses,
+  maxDist = 1, cellLine, verbose = TRUE, tsFactor = 1, fsFile,
+  antibodyMapFile = NULL, distFile = NULL)
 }
 \arguments{
+\item{wk}{TBA}
+
+\item{wks}{TBA}
+
+\item{dist_ind}{TBA}
+
+\item{inter}{TBA}
+
 \item{nDose}{TBA}
 
 \item{nProt}{TBA}
@@ -50,4 +58,3 @@ missing: For phosp and dephosp based wk, there is no 'exact match' between known
 \concept{
 zeptosensPkg
 }
-

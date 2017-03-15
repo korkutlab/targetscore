@@ -4,13 +4,22 @@
 \alias{getTargetScore}
 \title{Target Score Pilot Run}
 \usage{
-getTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, nPerm, cellLine,
-  targetScoreOutputFile = NULL, matrixWkOutputFile = NULL,
-  targetScoreQValueFile = NULL, targetScoreDoseFile = NULL,
-  randomTargetScoreFile = NULL, targetScorePValueFile = NULL,
-  verbose = TRUE, tsFactor = 1, fsFile)
+getTargetScore(wk, wks, dist_ind, inter, nDose, nProt, proteomicResponses,
+  maxDist = 1, nPerm, cellLine, targetScoreOutputFile = NULL,
+  matrixWkOutputFile = NULL, targetScoreQValueFile = NULL,
+  targetScoreDoseFile = NULL, randomTargetScoreFile = NULL,
+  targetScorePValueFile = NULL, verbose = TRUE, tsFactor = 1, fsFile,
+  signedMatrixWkOutputFile = NULL)
 }
 \arguments{
+\item{wk}{TBA}
+
+\item{wks}{TBA}
+
+\item{dist_ind}{TBA}
+
+\item{inter}{TBA}
+
 \item{nDose}{TBA}
 
 \item{nProt}{TBA}
@@ -38,6 +47,8 @@ getTargetScore(nDose, nProt, proteomicResponses, maxDist = 1, nPerm, cellLine,
 \item{tsFactor}{a scaling factor for the pathway component of the target score}
 
 \item{fsFile}{a file with the functional score data}
+
+\item{signedMatrixWkOutputFile}{TBA}
 }
 \description{
 Target Score Pilot Run
@@ -54,4 +65,3 @@ missing: For phosp and dephosp based wk, there is no 'exact match' between known
 \concept{
 zeptosensPkg
 }
-
