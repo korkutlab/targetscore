@@ -16,8 +16,6 @@ library(rcellminer)
 library(sqldf)
 library(ggplot2)
 
-source("https://gist.githubusercontent.com/cannin/db5174a74349e601fbcd662f1fa2951f/raw/93fc0938fb175ffa484e7d08c254122b6eac2021/saveGgplotPlot.R")
-
 ## Compound annotations
 drugAnnot <- getFeatureAnnot(rcellminerData::drugData)[["drug"]]
 ## Drug activities 
@@ -49,15 +47,18 @@ tmp <- data.frame(data=dat, labels=labels)
 
 ## Plot
 
-```{r message=FALSE, warning=FALSE, eval=FALSE, echo=FALSE}
+### Density Plot
+```{r message=FALSE, warning=FALSE}
 # Plot
 p <- ggplot(tmp, aes(data, fill=labels)) 
 p <- p + geom_density(alpha = 0.2)
 p <- p + ggtitle("Z-Score Distribution for FDA Approved \n and Clinical Trial Drugs in the NCI-60")
 p <- p + xlab("Z-Score") + ylab("Frequency")   
 p <- p + scale_fill_discrete(name = "Cell Lines")
+p <- p + theme_bw()
+
 p
-saveGgplotPlot(p, "density_fda.pdf")
+ggsave("density_fda.pdf")
 ```
 
 ### Calculate the K-S Test 
@@ -68,8 +69,10 @@ p <- ggplot(tmp, aes(x=data)) + stat_ecdf(aes(colour=labels))
 p <- p + ggtitle("Empirical Cumulative Distribution Function FDA Approved \n and Clinical Trial Drugs in the NCI-60")
 p <- p + xlab("Z-Score") + ylab("Fraction")
 p <- p + labs(colour = "Cell Lines")
+p <- p + theme_bw()
+
 p
-saveGgplotPlot(p, "ks_fda.pdf")
+ggsave("ks_fda.pdf")
 
 ks.test(splitData[["OV:IGROV1"]]$data, splitData[["OV:OVCAR-3"]]$data, alternative="two.sided")
 ks.test(splitData[["OV:IGROV1"]]$data, splitData[["OV:OVCAR-4"]]$data, alternative="two.sided")
@@ -93,15 +96,18 @@ labels <- c(rep("OV:OVCAR-3", length(idx)), rep("OV:OVCAR-4", length(idx)), rep(
 tmp <- data.frame(data=dat, labels=labels) 
 ```
 
-```{r message=FALSE, warning=FALSE, eval=FALSE, echo=FALSE}
+### Density Plot
+```{r message=FALSE, warning=FALSE}
 # Plot
 p <- ggplot(tmp, aes(data, fill=labels)) 
 p <- p + geom_density(alpha = 0.2)
 p <- p + ggtitle("Histogram\nKnown Mechanism of Action Drugs in the NCI-60")
 p <- p + xlab("Z-Score") + ylab("Fraction")
 p <- p + scale_fill_discrete(name = "Cell Lines")
+p <- p + theme_bw()
+
 p
-saveGgplotPlot(p, "density_knownMoa.pdf")
+ggsave("density_knownMoa.pdf")
 ```
 
 ### Calculate the K-S Test 
@@ -112,8 +118,10 @@ p <- ggplot(tmp, aes(x=data)) + stat_ecdf(aes(colour=labels))
 p <- p + ggtitle("Empirical Cumulative Distribution Function \n Known Mechanism of Action Drugs in the NCI-60")
 p <- p + xlab("Z-Score") + ylab("Frequency")   
 p <- p + labs(colour = "Cell Lines")
+p <- p + theme_bw()
+
 p
-saveGgplotPlot(p, "ks_knownMoa.pdf")
+ggsave("ks_knownMoa.pdf")
 
 ks.test(splitData[["OV:IGROV1"]]$data, splitData[["OV:OVCAR-3"]]$data, alternative="two.sided")
 ks.test(splitData[["OV:IGROV1"]]$data, splitData[["OV:OVCAR-4"]]$data, alternative="two.sided")
@@ -128,6 +136,15 @@ length(nscs)
 # Get indicies for selected NSCs
 idx <- which(rownames(drugAct) %in% nscs)
 
+i2 <- which(drugAct[idx,"OV:OVCAR-3"] > 0.5)
+length(i2)
+
+i2 <- which(drugAct[idx,"OV:OVCAR-4"] > 0.5)
+length(i2)
+
+i2 <- which(drugAct[idx,"OV:IGROV1"] > 0.5)
+length(i2)
+
 # Generate new data frame
 dat <- c(drugAct[idx,"OV:OVCAR-3"], drugAct[idx,"OV:OVCAR-4"], drugAct[idx,"OV:IGROV1"])
 labels <- c(rep("OV:OVCAR-3", length(idx)), rep("OV:OVCAR-4", length(idx)), rep("OV:IGROV1", length(idx)))
@@ -135,15 +152,18 @@ labels <- c(rep("OV:OVCAR-3", length(idx)), rep("OV:OVCAR-4", length(idx)), rep(
 tmp <- data.frame(data=dat, labels=labels) 
 ```
 
-```{r message=FALSE, warning=FALSE, eval=FALSE, echo=FALSE}
+### Density Plot
+```{r message=FALSE, warning=FALSE}
 # Plot
 p <- ggplot(tmp, aes(data, fill=labels)) 
 p <- p + geom_density(alpha = 0.2)
 p <- p + ggtitle("Histogram\nAll Drugs in the NCI-60")
 p <- p + xlab("Z-Score") + ylab("Fraction")
 p <- p + scale_fill_discrete(name = "Cell Lines")
+p <- p + theme_bw()
+
 p
-saveGgplotPlot(p, "density_all.pdf")
+ggsave("density_all.pdf")
 ```
 
 ### Calculate the K-S Test 
@@ -154,8 +174,10 @@ p <- ggplot(tmp, aes(x=data)) + stat_ecdf(aes(colour=labels))
 p <- p + ggtitle("Empirical Cumulative Distribution Function\nAll Drugs in the NCI-60")
 p <- p + xlab("Z-Score") + ylab("Frequency")   
 p <- p + labs(colour = "Cell Lines")
+p <- p + theme_bw()
+
 p
-saveGgplotPlot(p, "ks_all.pdf")
+ggsave("ks_all.pdf")
 
 ks.test(splitData[["OV:IGROV1"]]$data, splitData[["OV:OVCAR-3"]]$data, alternative="two.sided")
 ks.test(splitData[["OV:IGROV1"]]$data, splitData[["OV:OVCAR-4"]]$data, alternative="two.sided")
