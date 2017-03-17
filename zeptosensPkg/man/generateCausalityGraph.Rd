@@ -7,7 +7,8 @@
 generateCausalityGraph(platformFile, idColumn = "NodeName",
   symbolsColumn = "Symbol", sitesColumn = "Sites",
   effectColumn = "Effect", valuesFile, valueColumn = "Value",
-  valueThreshold, graphType = "compatible", siteMatchStrict = TRUE,
+  valueThreshold, graphType = "compatible", doSiteMatch = TRUE,
+  siteMatchProximityThreshold = 0, siteEffectProximityThreshold = 0,
   geneCentric = TRUE, outputFilePrefix, customNetworkDirectory = tempdir())
 }
 \arguments{
@@ -29,8 +30,14 @@ generateCausalityGraph(platformFile, idColumn = "NodeName",
 
 \item{graphType}{Either 'compatible' or 'conflicting'}
 
-\item{siteMatchStrict}{boolean option to enforce matching a phosphorylation site in the network with
-the annotation of antibody}
+\item{doSiteMatch}{option to enforce matching a phosphorylation site in the network with the annotation of antibody}
+
+\item{siteMatchProximityThreshold}{when site matching is on, this parameter sets the proxomity threshold for a
+site number in the relation to match the site whose change is observed in the data (DEFAULT: 0)}
+
+\item{siteEffectProximityThreshold}{when the site effect is not known, we can approximate it with the known
+effect of proximate sites. This parameter sets the proximity threshold for using the proximate sites for that 
+prediction. (DEFAULT: 0)}
 
 \item{geneCentric}{A boolean option to produce a gene-centric (TRUE) or an antibody-centric (FALSE) graph}
 
