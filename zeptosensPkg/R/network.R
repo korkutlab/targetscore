@@ -40,15 +40,18 @@ network <- function(nProt,proteomicResponses,maxDist,antibodyMapFile=NULL,distFi
     dist <- tmpDist[idx,]
     # dist
     idxAbMap <- which(mab_to_genes[, 1] %in% colnames(proteomicResponses))
-    #    print(mab_to_genes[, 1])
+#    print(mab_to_genes[, 1])
+#    print(colnames(proteomicResponses))
     #    print(unique(mab_to_genes[idxAbMap,]))
     #    if(length(idxAbMap) < nProt) {
     #    print(length(unique(mab_to_genes[idxAbMap,1])))
     if(length(idxAbMap) < nProt) {
+#        print(length(idxAbMap))
         stop("ERROR: Not all columns in data were matched in antibody map")
     }
     #    print((unique(mab_to_genes[idxAbMap, 1])))
     if(length(unique(mab_to_genes[idxAbMap, 1])) != nProt) {
+        print(unique(mab_to_genes[idxAbMap, 1]))
         stop("ERROR: Mismatch in the number of selected antibodies and the number of proteomic responses")
     }
     
