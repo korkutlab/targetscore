@@ -1,4 +1,5 @@
-#network from signedPC
+#' Network from signedPC
+#' 
 #' @param nProt TBA
 #' @param proteomicResponses TBA
 #' @param maxDist TBA (default: 1)
@@ -6,14 +7,12 @@
 #' @param distFile A distance file an edgelist with a third column which is the network distance
 #'   between the genes in the interaction
 #' 
-#' 
 #' @examples 
 #' 
 #' @concept zeptosensPkg
 #' @export
 network <- function(nProt,proteomicResponses,maxDist,antibodyMapFile=NULL,distFile=NULL,verbose=F){
 
-    
     # match Ab names to gene names & posttranslational modifications
     if(is.null(antibodyMapFile)) {
         antibodyMapFile <- system.file("targetScoreData", "antibodyMap.txt", package = "zeptosensPkg")      
