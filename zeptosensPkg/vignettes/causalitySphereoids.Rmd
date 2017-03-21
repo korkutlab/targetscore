@@ -23,40 +23,91 @@ opts_chunk$set(fig.align="center", fig.width=6, fig.height=6, dpi=300)
 library(zeptosensPkg)
 library(paxtoolsr)
 library(igraph)
+library(tidyverse)
+library(gsubfn)
+library(GetoptLong)
 ```
 
 ## Generate SIF File
+### Compatible
 ```{r}
+geneCentric <- FALSE
+doSiteMatch <- FALSE
+
+dataFile <- "TS_24h_3D_JQ1_bt474"
+
+#platformFile <- "/Users/user/default/workspace/zeptosensPkg/spheroids/platform.txt"
+platformFile <- "/Users/user/default/workspace/zeptosensPkg/zeptosensPkg/inst/targetScoreData/antibodyMap.txt"
+valuesFile <- qq("/Users/user/default/workspace/zeptosensPkg/spheroids/@{dataFile}.txt")
+#outputFilePrefix <- "/Users/user/default/workspace/zeptosensPkg/spheroids/compatible"
+
+# Sample Inputs: 
+#platformFile <- "/Users/user/default/workspace/zeptosensPkg/zeptosensPkg/inst/chibeExample/abdata-chibe.txt"
+#valuesFile <- "/Users/user/default/workspace/zeptosensPkg/spheroids/ovcar4_dif_drug_sig.txt"
+#outputFilePrefix <- "inst/chibeExample/ovcar4_dif_drug_sig_compatible"
+# Example Input File Format
+#ID1	change	p-val	q-val
+#4E.BP1.R.V_GBL9026169	-0.8159318946451	0.00123425381475823	0.0402318935848714
+
+# Data check
+y <- read_tsv(valuesFile)
+y1 <- head(y, 10)
+colnames(y1) <- c("ID1", "changeInclude", "change", "FDRp")
+tmpFile <- "/Users/user/default/workspace/zeptosensPkg/spheroids/values.txt"
+write_tsv(y1, tmpFile, na="")
+rownames(y1) 
+
+# Fixes for platformsFile and make antibodyMap match values file
+p1 <- read.table(platformFile, sep="\t", header=TRUE, stringsAsFactors = FALSE, fill = TRUE)
+drops <- c("Source")
+p1 <- p1[, !(names(p1) %in% drops)]
+colnames(p1) <- c("ID1", "ID2", "Symbols", "Sites", "Effect")
+write.table(p1, "/Users/user/default/workspace/zeptosensPkg/spheroids/platform.txt", na="", quote=FALSE, col.names = TRUE, row.names=FALSE, sep="\t")
+# NOTE: DO NOT USE write_tsv; produces something incompatible with Java; ghost quotes """
+#write_tsv(p1, "/Users/user/default/workspace/zeptosensPkg/spheroids/platform.txt", na="")
+platformFile <- "/Users/user/default/workspace/zeptosensPkg/spheroids/platform.txt"
+
+# Quick check that all IDs are in the platformsFile
+length(which(y1$ID1 %in% p1$ID1))
+
+# Run Causality
+## Compatible
 graphType <- "compatible"
+outputFilePrefix <- paste0("../spheroids/", graphType)
 signedPcDir <- tempdir()
-results <- generateRPPAGraphs(platformFile = "inst/chibeExample/abdata-chibe.txt", 
+results <- generateCausalityGraph(platformFile = platformFile, 
                               idColumn = "ID1", 
                               symbolsColumn = "Symbols",  
                               sitesColumn = "Sites",
                               effectColumn = "Effect", 
-                              valuesFile = "inst/chibeExample/ovcar4_dif_drug_sig.txt", 
+                              valuesFile = tmpFile, 
                               valueColumn = "change", 
                               valueThreshold = 0.001,
                               graphType = graphType, 
-                              siteMatchStrict=TRUE,
-                              outputFilePrefix = "inst/chibeExample/ovcar4_dif_drug_sig_compatible",
+                              doSiteMatch = doSiteMatch,
+                              geneCentric = geneCentric, 
+                              outputFilePrefix = outputFilePrefix,
                               customNetworkDirectory=signedPcDir)
 
 compatibleSif <- results$sif
 compatibleSif[, "graphType"] <- rep(graphType,  nrow(results$sif))
+```
 
+### Conflicting 
+```{r}
 graphType <- "conflicting"
-results <- generateRPPAGraphs(platformFile = "inst/chibeExample/abdata-chibe.txt", 
+results <- generateCausalityGraph(platformFile = platformFile, 
                               idColumn = "ID1", 
                               symbolsColumn = "Symbols",  
                               sitesColumn = "Sites",
                               effectColumn = "Effect", 
-                              valuesFile = "inst/chibeExample/ovcar4_dif_drug_sig.txt", 
+                              valuesFile = valuesFile, 
                               valueColumn = "change", 
                               valueThreshold = 0.001,
                               graphType = graphType, 
-                              siteMatchStrict=TRUE,
-                              outputFilePrefix = "inst/chibeExample/ovcar4_dif_drug_sig_conflicting",
+                              doSiteMatch = doSiteMatch,
+                              geneCentric = geneCentric, 
+                              outputFilePrefix = outputFilePrefix,
                               customNetworkDirectory=signedPcDir)
 
 conflictingSif <- results$sif
@@ -67,9 +118,23 @@ overallSif <- rbind(conflictingSif, compatibleSif)
 
 ## Parse SIF 
 ```{r}
-t1 <- conflictingSif[, c("PARTICIPANT_A", "INTERACTION_TYPE", "PARTICIPANT_B")]
+graphType <- "compatible"
+
+if(graphType == "conflicting") {
+    sif <- conflictingSif
+} else if(graphType == "compatible") {
+    sif <- compatibleSif
+} else {
+    stop("ERROR: Unknown graphType")
+}
+
+t1 <- sif[, c("PARTICIPANT_A", "INTERACTION_TYPE", "PARTICIPANT_B")]
 t2 <- t1[t1$INTERACTION_TYPE != "",]
 g <- loadSifInIgraph(t2)
+
+labels <- strapplyc(V(g)$name, "^(.*)\\.R\\..*$", simplify=TRUE)
+g <- set_vertex_attr(g, "label", index = V(g), value=labels)
+
 
 # Get node colors
 formatTmp <- subset(results$format, componentProperty == "color" & componentType == "node", select = c(componentLabel, rgbColor))
@@ -93,30 +158,34 @@ for(i in 1:length(V(g))) {
 }
 
 # Get edge colors 
-formatTmp <- subset(results$format, componentProperty == "color" & componentType == "edge", select = c(componentLabel, rgbColor))
+# formatTmp <- subset(results$format, componentProperty == "color" & componentType == "edge", select = c(componentLabel, rgbColor))
 
 edgeColors <- NULL 
 edgeLty <- NULL
 
 for(i in 1:length(E(g))) {
-    label <- paste(ends(g, E(g)[i])[1], E(g)[i]$edgeType, ends(g, E(g)[i])[2], sep=" ")
-    idx <- which(formatTmp[, "componentLabel"] == label)
+    label <- paste(ends(g, E(g)[i])[1], E(g)[i]$interactionType, ends(g, E(g)[i])[2], sep=" ")
+    #idx <- which(formatTmp[, "componentLabel"] == label)
     
-    if(length(idx) == 1) {
-        rgbTmp <- strsplit(formatTmp[idx, "rgbColor"], " ")[[1]]
-        t1 <- as.numeric(rgbTmp) / 255
-        hexColor <- do.call("rgb", as.list(t1))
-        
-        edgeColors <- c(edgeColors, hexColor)
-        
-        if(E(g)[i]$edgeType == "phosphorylates") {
+    #if(length(idx) == 1) {
+        # rgbTmp <- strsplit(formatTmp[idx, "rgbColor"], " ")[[1]]
+        # t1 <- as.numeric(rgbTmp) / 255
+        # hexColor <- do.call("rgb", as.list(t1))
+       
+         if(grepl("expression", E(g)[i]$interactionType)) {
             edgeLty <- c(edgeLty, 2)            
         } else {
             edgeLty <- c(edgeLty, 1) 
         }
-    } else {
-        edgeColors <- c(edgeColors, "#FFFFFF")
-    }
+        
+        if(grepl("^phosphorylates", E(g)[i]$interactionType) || grepl("^upregulates", E(g)[i]$interactionType)) {
+            edgeColors <- c(edgeColors, "#00ff00")            
+        } else {
+            edgeColors <- c(edgeColors, "#ff0000")    
+        }
+    #} else {
+    #    edgeColors <- c(edgeColors, "#FFFFFF")
+    #}
 }
 
 V(g)$color <- nodeColors
@@ -126,9 +195,22 @@ E(g)$lty <- edgeLty
 
 ## Plot SIF
 ```{r}
+plotTitle <- paste0("Data: ", dataFile, " Type: ", graphType)
+
+baseFile <- paste0(dataFile, "_", graphType)
+igraphFile <- paste0(baseFile, "_igraph.png")
+jsonFile <- paste0(baseFile, ".json")
+
+#png(filename=igraphFile, width=800, height=800, res = 150)
 plot(g, layout=layout.fruchterman.reingold, 
      edge.arrow.width=0.5, edge.arrow.size=0.5, edge.color=E(g)$color, edge.lty=E(g)$lty,
-     vertex.color=V(g)$color, vertex.label.cex=0.5)
+     vertex.color=V(g)$color, vertex.label.cex=0.75, vertex.label.color="black", vertex.label.family="Arial", vertex.label=V(g)$label)
+title(plotTitle, cex.main=1)
+#dev.off()
+
+# Export plot to Cytoscape
+tmp <- toCytoscape(g)
+writeLines(tmp, jsonFile)
 ```
 
 
