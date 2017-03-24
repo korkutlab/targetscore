@@ -4,26 +4,26 @@
     "nodes": [
       {
         "data": {
-          "name": "Fibronectin.R.V_GBL1033958",
-          "label": "Fibronectin",
+          "name": "FN1",
+          "label": "FN1",
           "color": "#FF5028",
-          "id": "Fibronectin.R.V_GBL1033958"
+          "id": "FN1"
         }
       },
       {
         "data": {
-          "name": "Src_pY527.R.V_GBL1033726",
-          "label": "Src_pY527",
-          "color": "#FF5028",
-          "id": "Src_pY527.R.V_GBL1033726"
+          "name": "SRC",
+          "label": "SRC",
+          "color": "#FFFFFF",
+          "id": "SRC"
         }
       }
     ],
     "edges": [
       {
         "data": {
-          "source": "Fibronectin.R.V_GBL1033958",
-          "target": "Src_pY527.R.V_GBL1033726",
+          "source": "FN1",
+          "target": "SRC",
           "interactionType": "dephosphorylates",
           "color": "#ff0000",
           "lty": 1

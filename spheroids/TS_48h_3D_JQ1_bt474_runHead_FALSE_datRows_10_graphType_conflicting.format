@@ -1,3 +1,5 @@
 node	all-nodes	color	255 255 255
-node	Rb_pS807_S811.R.V_GBL1033721	color	40 80 255
-node	Stathmin.1.R.V_GBL1033733	color	40 80 255
+node	all-nodes	bordercolor	50 50 50
+node	STMN1	color	40 80 255
+node	STMN1	tooltip	Stathmin.1.R.V_GBL1033733, -5.61190711331178
+node	RB1	rppasite	Rb_pS807_S811.R.V_GBL1033721, -6.94257063663888|p|40 80 255|180 0 20

@@ -4,42 +4,42 @@
     "nodes": [
       {
         "data": {
-          "name": "Akt.R.V_GBL1033833",
-          "label": "Akt",
+          "name": "AKT1",
+          "label": "AKT1",
           "color": "#FF5028",
-          "id": "Akt.R.V_GBL1033833"
+          "id": "AKT1"
         }
       },
       {
         "data": {
-          "name": "Mcl.1.R.V_GBL1033861",
-          "label": "Mcl.1",
+          "name": "MCL1",
+          "label": "MCL1",
           "color": "#FF5028",
-          "id": "Mcl.1.R.V_GBL1033861"
+          "id": "MCL1"
         }
       },
       {
         "data": {
-          "name": "EGFR.R.V_GBL1033837",
+          "name": "EGFR",
           "label": "EGFR",
           "color": "#FF5028",
-          "id": "EGFR.R.V_GBL1033837"
+          "id": "EGFR"
         }
       },
       {
         "data": {
-          "name": "Src_pY527.R.V_GBL1033726",
-          "label": "Src_pY527",
-          "color": "#FF5028",
-          "id": "Src_pY527.R.V_GBL1033726"
+          "name": "SRC",
+          "label": "SRC",
+          "color": "#FFFFFF",
+          "id": "SRC"
         }
       }
     ],
     "edges": [
       {
         "data": {
-          "source": "Akt.R.V_GBL1033833",
-          "target": "Mcl.1.R.V_GBL1033861",
+          "source": "AKT1",
+          "target": "MCL1",
           "interactionType": "upregulates-expression",
           "color": "#00ff00",
           "lty": 2
@@ -47,8 +47,8 @@
       },
       {
         "data": {
-          "source": "EGFR.R.V_GBL1033837",
-          "target": "Src_pY527.R.V_GBL1033726",
+          "source": "EGFR",
+          "target": "SRC",
           "interactionType": "phosphorylates",
           "color": "#00ff00",
           "lty": 1

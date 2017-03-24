@@ -1,5 +1,9 @@
 node	all-nodes	color	255 255 255
-node	Akt.R.V_GBL1033833	color	255 80 40
-node	Mcl.1.R.V_GBL1033861	color	255 80 40
-node	EGFR.R.V_GBL1033837	color	255 80 40
-node	Src_pY527.R.V_GBL1033726	color	255 80 40
+node	all-nodes	bordercolor	50 50 50
+node	MCL1	color	255 80 40
+node	MCL1	tooltip	Mcl.1.R.V_GBL1033861, 5.03955469633329
+node	SRC	rppasite	Src_pY527.R.V_GBL1033726, 6.84889528958499|p|255 80 40|180 0 20
+node	EGFR	color	255 80 40
+node	EGFR	tooltip	EGFR.R.V_GBL1033837, 9.81095186131987
+node	AKT1	color	255 80 40
+node	AKT1	tooltip	Akt.R.V_GBL1033833, 4.70868449157263

@@ -37,7 +37,7 @@ library(R.utils)
 
 ## Set Parameters and Do File Processing 
 ```{r}
-geneCentric <- FALSE
+geneCentric <- TRUE
 doSiteMatch <- FALSE
 
 # Parameters are set at top in YAML section
