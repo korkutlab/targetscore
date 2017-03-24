@@ -1,0 +1,6 @@
+NF.kB.p65_pS536.R.C_GBL1033806	downregulates-expression	c.Myc.R.C_GBL1033885
+Rb_pS807_S811.R.V_GBL1033721	upregulates-expression	CDK1.R.V_GBL1033788
+c.Myc.R.C_GBL1033885	downregulates-expression	p27.Kip.1.R.V_GBL1033778
+Rb_pS807_S811.R.V_GBL1033721	upregulates-expression	c.Myc.R.C_GBL1033885
+NF.kB.p65_pS536.R.C_GBL1033806	downregulates-expression	Cox2.R.C_GBL1033859
+Rb_pS807_S811.R.V_GBL1033721	upregulates-expression	Cox2.R.C_GBL1033859

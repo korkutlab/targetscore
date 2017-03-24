@@ -1,0 +1,173 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "E2F1.M.V_GBL1033938",
+          "label": "E2F1.M.V",
+          "color": "#FF5028",
+          "id": "E2F1.M.V_GBL1033938"
+        }
+      },
+      {
+        "data": {
+          "name": "Rb.M.QC_GBL1033895",
+          "label": "Rb.M.QC",
+          "color": "#FF5028",
+          "id": "Rb.M.QC_GBL1033895"
+        }
+      },
+      {
+        "data": {
+          "name": "mTOR_pS2448.R.C_GBL1033804",
+          "label": "mTOR_pS2448.R.C",
+          "color": "#FF5028",
+          "id": "mTOR_pS2448.R.C_GBL1033804"
+        }
+      },
+      {
+        "data": {
+          "name": "S6_pS240_S244.R.V_GBL1033724",
+          "label": "S6_pS240_S244.R.V",
+          "color": "#FF5028",
+          "id": "S6_pS240_S244.R.V_GBL1033724"
+        }
+      },
+      {
+        "data": {
+          "name": "p70.S6K_pT389.R.V_GBL1033811",
+          "label": "p70.S6K_pT389.R.V",
+          "color": "#FF5028",
+          "id": "p70.S6K_pT389.R.V_GBL1033811"
+        }
+      },
+      {
+        "data": {
+          "name": "MSH2.M.V_GBL1033900",
+          "label": "MSH2.M.V",
+          "color": "#FF5028",
+          "id": "MSH2.M.V_GBL1033900"
+        }
+      },
+      {
+        "data": {
+          "name": "S6_pS235_S236.R.V_GBL1033723",
+          "label": "S6_pS235_S236.R.V",
+          "color": "#FF5028",
+          "id": "S6_pS235_S236.R.V_GBL1033723"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "E2F1.M.V_GBL1033938",
+          "target": "Rb.M.QC_GBL1033895",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "Rb.M.QC_GBL1033895",
+          "target": "E2F1.M.V_GBL1033938",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "mTOR_pS2448.R.C_GBL1033804",
+          "target": "S6_pS240_S244.R.V_GBL1033724",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "mTOR_pS2448.R.C_GBL1033804",
+          "target": "p70.S6K_pT389.R.V_GBL1033811",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "p70.S6K_pT389.R.V_GBL1033811",
+          "target": "mTOR_pS2448.R.C_GBL1033804",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Rb.M.QC_GBL1033895",
+          "target": "MSH2.M.V_GBL1033900",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "E2F1.M.V_GBL1033938",
+          "target": "MSH2.M.V_GBL1033900",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "p70.S6K_pT389.R.V_GBL1033811",
+          "target": "S6_pS240_S244.R.V_GBL1033724",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "mTOR_pS2448.R.C_GBL1033804",
+          "target": "S6_pS235_S236.R.V_GBL1033723",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "p70.S6K_pT389.R.V_GBL1033811",
+          "target": "S6_pS235_S236.R.V_GBL1033723",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Rb.M.QC_GBL1033895",
+          "target": "E2F1.M.V_GBL1033938",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "mTOR_pS2448.R.C_GBL1033804",
+          "target": "p70.S6K_pT389.R.V_GBL1033811",
+          "interactionType": "dephosphorylates",
+          "color": "#ff0000",
+          "lty": 1
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,5 @@
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	SRC	rppasite	Src_pY527.R.V_GBL1033726, 7.05515555146722|p|255 80 40|180 0 20
+node	EGFR	color	255 80 40
+node	EGFR	tooltip	EGFR.R.V_GBL1033837, 9.09560923404631

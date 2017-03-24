@@ -1,0 +1,5 @@
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	STAT3	rppasite	Stat3_pY705.R.V_GBL1033727, -10.0906089111854|p|40 80 255|0 180 20
+node	BCL2L1	color	40 80 255
+node	BCL2L1	tooltip	Bcl.xL.R.V_GBL1033682, -8.43496198932763

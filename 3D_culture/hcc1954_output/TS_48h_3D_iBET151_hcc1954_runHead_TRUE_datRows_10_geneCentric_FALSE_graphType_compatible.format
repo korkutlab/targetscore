@@ -1,0 +1,11 @@
+node	all-nodes	color	255 255 255
+node	Akt_pS473.R.V_GBL1033793	color	255 80 40
+node	FAK_pY397.R.V_GBL1033863	color	255 80 40
+node	mTOR_pS2448.R.C_GBL1033804	color	255 80 40
+node	MEK1_pS217_S221.R.V_GBL1033828	color	255 80 40
+node	p70.S6K_pT389.R.V_GBL1033811	color	255 80 40
+node	Mcl.1.R.V_GBL1033861	color	255 80 40
+node	Akt_pT308.R.V_GBL1033851	color	255 80 40
+node	Shc_pY317.R.V_GBL1033791	color	255 80 40
+node	Bcl2.M.V_GBL1033931	color	255 80 40
+node	b.Catenin_pT41_S45.R.V_GBL1033855	color	255 80 40

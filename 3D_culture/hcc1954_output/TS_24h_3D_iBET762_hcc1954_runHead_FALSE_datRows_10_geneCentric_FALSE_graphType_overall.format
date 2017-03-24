@@ -1,0 +1,11 @@
+componentType	componentLabel	componentProperty	rgbColor
+node	all-nodes	color	255 255 255
+node	Cyclin.D1.R.V_GBL1033878	color	40 80 255
+node	Rb_pS807_S811.R.V_GBL1033721	color	40 80 255
+node	p16INK4a.R.V_GBL1033865	color	40 80 255
+node	FoxM1.R.V_GBL1033839	color	40 80 255
+node	c.Myc.R.C_GBL1033885	color	40 80 255
+node	c.Met.M.QC_GBL1033899	color	40 80 255
+node	Histone.H3.R.V_GBL1033869	color	40 80 255
+node	Smac.M.QC_GBL1033896	color	40 80 255
+node	eIF4G.R.C_GBL1033840	color	40 80 255

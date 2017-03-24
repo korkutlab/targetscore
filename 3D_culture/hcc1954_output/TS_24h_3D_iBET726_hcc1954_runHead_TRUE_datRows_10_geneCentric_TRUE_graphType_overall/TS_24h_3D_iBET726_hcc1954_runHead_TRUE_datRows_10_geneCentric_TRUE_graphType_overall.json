@@ -1,0 +1,76 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "TP53",
+          "label": "TP53",
+          "color": "#FF5028",
+          "id": "TP53"
+        }
+      },
+      {
+        "data": {
+          "name": "ERRFI1",
+          "label": "ERRFI1",
+          "color": "#FF5028",
+          "id": "ERRFI1"
+        }
+      },
+      {
+        "data": {
+          "name": "MTOR",
+          "label": "MTOR",
+          "color": "#FF5028",
+          "id": "MTOR"
+        }
+      },
+      {
+        "data": {
+          "name": "AKT1S1",
+          "label": "AKT1S1",
+          "color": "#FFFFFF",
+          "id": "AKT1S1"
+        }
+      },
+      {
+        "data": {
+          "name": "MCL1",
+          "label": "MCL1",
+          "color": "#FF5028",
+          "id": "MCL1"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "TP53",
+          "target": "ERRFI1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "MTOR",
+          "target": "AKT1S1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "TP53",
+          "target": "MCL1",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

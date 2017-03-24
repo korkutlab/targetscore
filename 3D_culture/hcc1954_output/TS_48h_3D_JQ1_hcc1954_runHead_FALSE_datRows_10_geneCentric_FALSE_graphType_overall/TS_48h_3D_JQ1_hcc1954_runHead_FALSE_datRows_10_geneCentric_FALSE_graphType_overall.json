@@ -1,0 +1,181 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "p38_pT180_Y182.R.V_GBL1033808",
+          "label": "p38_pT180_Y182.R.V",
+          "color": "#2850FF",
+          "id": "p38_pT180_Y182.R.V_GBL1033808"
+        }
+      },
+      {
+        "data": {
+          "name": "Stat3_pY705.R.V_GBL1033727",
+          "label": "Stat3_pY705.R.V",
+          "color": "#2850FF",
+          "id": "Stat3_pY705.R.V_GBL1033727"
+        }
+      },
+      {
+        "data": {
+          "name": "c.Myc.R.C_GBL1033885",
+          "label": "c.Myc.R.C",
+          "color": "#2850FF",
+          "id": "c.Myc.R.C_GBL1033885"
+        }
+      },
+      {
+        "data": {
+          "name": "CDK1.R.V_GBL1033788",
+          "label": "CDK1.R.V",
+          "color": "#2850FF",
+          "id": "CDK1.R.V_GBL1033788"
+        }
+      },
+      {
+        "data": {
+          "name": "Cox2.R.C_GBL1033859",
+          "label": "Cox2.R.C",
+          "color": "#2850FF",
+          "id": "Cox2.R.C_GBL1033859"
+        }
+      },
+      {
+        "data": {
+          "name": "Histone.H3.R.V_GBL1033869",
+          "label": "Histone.H3.R.V",
+          "color": "#2850FF",
+          "id": "Histone.H3.R.V_GBL1033869"
+        }
+      },
+      {
+        "data": {
+          "name": "EGFR_pY1173.R.V_GBL1033695",
+          "label": "EGFR_pY1173.R.V",
+          "color": "#2850FF",
+          "id": "EGFR_pY1173.R.V_GBL1033695"
+        }
+      },
+      {
+        "data": {
+          "name": "p27.Kip.1.R.V_GBL1033778",
+          "label": "p27.Kip.1.R.V",
+          "color": "#2850FF",
+          "id": "p27.Kip.1.R.V_GBL1033778"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "p38_pT180_Y182.R.V_GBL1033808",
+          "target": "Stat3_pY705.R.V_GBL1033727",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Stat3_pY705.R.V_GBL1033727",
+          "target": "c.Myc.R.C_GBL1033885",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "CDK1.R.V_GBL1033788",
+          "target": "Stat3_pY705.R.V_GBL1033727",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "p38_pT180_Y182.R.V_GBL1033808",
+          "target": "Cox2.R.C_GBL1033859",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "Stat3_pY705.R.V_GBL1033727",
+          "target": "Cox2.R.C_GBL1033859",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "c.Myc.R.C_GBL1033885",
+          "target": "Histone.H3.R.V_GBL1033869",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "p38_pT180_Y182.R.V_GBL1033808",
+          "target": "EGFR_pY1173.R.V_GBL1033695",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Cox2.R.C_GBL1033859",
+          "target": "EGFR_pY1173.R.V_GBL1033695",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "EGFR_pY1173.R.V_GBL1033695",
+          "target": "Stat3_pY705.R.V_GBL1033727",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "CDK1.R.V_GBL1033788",
+          "target": "EGFR_pY1173.R.V_GBL1033695",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "c.Myc.R.C_GBL1033885",
+          "target": "p27.Kip.1.R.V_GBL1033778",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "Stat3_pY705.R.V_GBL1033727",
+          "target": "c.Myc.R.C_GBL1033885",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

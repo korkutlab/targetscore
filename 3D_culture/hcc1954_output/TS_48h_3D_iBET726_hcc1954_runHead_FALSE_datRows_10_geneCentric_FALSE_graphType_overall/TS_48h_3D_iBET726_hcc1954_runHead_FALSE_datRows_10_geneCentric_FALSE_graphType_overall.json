@@ -1,0 +1,95 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "Rb_pS807_S811.R.V_GBL1033721",
+          "label": "Rb_pS807_S811.R.V",
+          "color": "#2850FF",
+          "id": "Rb_pS807_S811.R.V_GBL1033721"
+        }
+      },
+      {
+        "data": {
+          "name": "p21.R.V_GBL1033880",
+          "label": "p21.R.V",
+          "color": "#2850FF",
+          "id": "p21.R.V_GBL1033880"
+        }
+      },
+      {
+        "data": {
+          "name": "Tyro3.R.V_GBL1033829",
+          "label": "Tyro3.R.V",
+          "color": "#2850FF",
+          "id": "Tyro3.R.V_GBL1033829"
+        }
+      },
+      {
+        "data": {
+          "name": "Cox2.R.C_GBL1033859",
+          "label": "Cox2.R.C",
+          "color": "#2850FF",
+          "id": "Cox2.R.C_GBL1033859"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "Rb_pS807_S811.R.V_GBL1033721",
+          "target": "p21.R.V_GBL1033880",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "p21.R.V_GBL1033880",
+          "target": "Rb_pS807_S811.R.V_GBL1033721",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Rb_pS807_S811.R.V_GBL1033721",
+          "target": "p21.R.V_GBL1033880",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "Rb_pS807_S811.R.V_GBL1033721",
+          "target": "Tyro3.R.V_GBL1033829",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "Rb_pS807_S811.R.V_GBL1033721",
+          "target": "Cox2.R.C_GBL1033859",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "p21.R.V_GBL1033880",
+          "target": "Rb_pS807_S811.R.V_GBL1033721",
+          "interactionType": "dephosphorylates",
+          "color": "#ff0000",
+          "lty": 1
+        }
+      }
+    ]
+  }
+}

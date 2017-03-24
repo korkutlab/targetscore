@@ -1,0 +1,93 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "AKT1",
+          "label": "AKT1",
+          "color": "#FF5028",
+          "id": "AKT1"
+        }
+      },
+      {
+        "data": {
+          "name": "MCL1",
+          "label": "MCL1",
+          "color": "#FF5028",
+          "id": "MCL1"
+        }
+      },
+      {
+        "data": {
+          "name": "STAT5A",
+          "label": "STAT5A",
+          "color": "#FF5028",
+          "id": "STAT5A"
+        }
+      },
+      {
+        "data": {
+          "name": "EIF4E",
+          "label": "EIF4E",
+          "color": "#FF5028",
+          "id": "EIF4E"
+        }
+      },
+      {
+        "data": {
+          "name": "MAPK14",
+          "label": "MAPK14",
+          "color": "#FF5028",
+          "id": "MAPK14"
+        }
+      },
+      {
+        "data": {
+          "name": "MAPK9",
+          "label": "MAPK9",
+          "color": "#FF5028",
+          "id": "MAPK9"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "AKT1",
+          "target": "MCL1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "STAT5A",
+          "target": "EIF4E",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "STAT5A",
+          "target": "MAPK14",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "STAT5A",
+          "target": "MAPK9",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

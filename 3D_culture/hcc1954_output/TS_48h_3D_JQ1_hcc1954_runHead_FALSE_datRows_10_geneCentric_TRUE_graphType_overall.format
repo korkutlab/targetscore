@@ -1,0 +1,16 @@
+componentType	componentLabel	componentProperty	rgbColor
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	CDK1	color	40 80 255
+node	CDK1	tooltip	CDK1.R.V_GBL1033788, -2.59963226941607
+node	EGFR	rppasite	EGFR_pY1173.R.V_GBL1033695, -2.44490050976751|p|40 80 255|0 180 20
+node	STAT3	rppasite	Stat3_pY705.R.V_GBL1033727, -2.83440380199234|p|40 80 255|0 180 20
+node	MAPK14	rppasite	p38_pT180_Y182.R.V_GBL1033808, -2.44793949020301|p|40 80 255|0 180 20
+node	MYC	color	40 80 255
+node	MYC	tooltip	c.Myc.R.C_GBL1033885, -2.75163933562613
+node	PTGS2	color	40 80 255
+node	PTGS2	tooltip	Cox2.R.C_GBL1033859, -4.67572052827512
+node	H3F3A	color	40 80 255
+node	H3F3A	tooltip	Histone.H3.R.V_GBL1033869, -3.04729315736355
+node	CDKN1B	color	40 80 255
+node	CDKN1B	tooltip	p27.Kip.1.R.V_GBL1033778, -3.08569934265061

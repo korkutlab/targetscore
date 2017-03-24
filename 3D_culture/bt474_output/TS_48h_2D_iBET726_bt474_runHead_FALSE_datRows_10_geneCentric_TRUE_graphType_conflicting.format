@@ -1,0 +1,7 @@
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	ESR1	rppasite	ER.alpha_pS118.R.V_GBL1033794, -9.38559336002605|p|40 80 255|0 180 20
+node	ESR1	color	40 80 255
+node	ESR1	tooltip	ER.alpha.R.V_GBL1033879, -8.0632398247423
+node	CDKN1B	color	40 80 255
+node	CDKN1B	tooltip	p27.Kip.1.R.V_GBL1033778, -11.6912589111543

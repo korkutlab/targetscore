@@ -1,0 +1,93 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "MTOR",
+          "label": "MTOR",
+          "color": "#FF5028",
+          "id": "MTOR"
+        }
+      },
+      {
+        "data": {
+          "name": "AKT1S1",
+          "label": "AKT1S1",
+          "color": "#FFFFFF",
+          "id": "AKT1S1"
+        }
+      },
+      {
+        "data": {
+          "name": "FOXO3",
+          "label": "FOXO3",
+          "color": "#FFFFFF",
+          "id": "FOXO3"
+        }
+      },
+      {
+        "data": {
+          "name": "CDKN1A",
+          "label": "CDKN1A",
+          "color": "#FF5028",
+          "id": "CDKN1A"
+        }
+      },
+      {
+        "data": {
+          "name": "RAF1",
+          "label": "RAF1",
+          "color": "#FFFFFF",
+          "id": "RAF1"
+        }
+      },
+      {
+        "data": {
+          "name": "MAP2K1",
+          "label": "MAP2K1",
+          "color": "#FFFFFF",
+          "id": "MAP2K1"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "MTOR",
+          "target": "AKT1S1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "FOXO3",
+          "target": "CDKN1A",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "RAF1",
+          "target": "MAP2K1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "MAP2K1",
+          "target": "RAF1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      }
+    ]
+  }
+}

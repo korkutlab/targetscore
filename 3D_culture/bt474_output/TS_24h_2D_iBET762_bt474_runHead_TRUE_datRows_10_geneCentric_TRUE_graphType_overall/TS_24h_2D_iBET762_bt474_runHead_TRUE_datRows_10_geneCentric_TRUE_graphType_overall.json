@@ -1,0 +1,34 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "AKT1",
+          "label": "AKT1",
+          "color": "#FF5028",
+          "id": "AKT1"
+        }
+      },
+      {
+        "data": {
+          "name": "RICTOR",
+          "label": "RICTOR",
+          "color": "#FFFFFF",
+          "id": "RICTOR"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "AKT1",
+          "target": "RICTOR",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      }
+    ]
+  }
+}

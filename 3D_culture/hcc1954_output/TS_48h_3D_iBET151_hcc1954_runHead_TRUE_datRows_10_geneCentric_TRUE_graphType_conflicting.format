@@ -1,0 +1,4 @@
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	MTOR	rppasite	mTOR_pS2448.R.C_GBL1033804, 10.1508239799591|p|255 80 40|0 180 20
+node	RPS6KB1	rppasite	p70.S6K_pT389.R.V_GBL1033811, 6.81279576480126|p|255 80 40|0 180 20

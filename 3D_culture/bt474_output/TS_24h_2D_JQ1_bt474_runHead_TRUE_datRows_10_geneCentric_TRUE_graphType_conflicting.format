@@ -1,0 +1,6 @@
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	PRKCA	color	255 80 40
+node	PRKCA	tooltip	PKC.alpha.M.V_GBL1033894, 2.55920172305659
+node	TP53	color	255 80 40
+node	TP53	tooltip	p53.R.C_GBL1033956, 2.54969730319708

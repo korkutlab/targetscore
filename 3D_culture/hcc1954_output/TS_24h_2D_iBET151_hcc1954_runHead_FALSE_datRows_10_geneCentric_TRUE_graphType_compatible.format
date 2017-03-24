@@ -1,0 +1,13 @@
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	EGFR	rppasite	EGFR_pY1173.R.V_GBL1033695, -6.8399359864165|p|40 80 255|0 180 20
+node	TSC2	rppasite	Tuberin_pT1462.R.V_GBL1033730, -6.53742146824545|p|40 80 255|180 0 20
+node	CAV1	color	40 80 255
+node	CAV1	tooltip	Caveolin.1.R.V_GBL1033687, -8.47631448708632
+node	MET	color	40 80 255
+node	MET	tooltip	c.Met.M.QC_GBL1033899, -7.61156834148162
+node	MYC	color	40 80 255
+node	MYC	tooltip	c.Myc.R.C_GBL1033885, -10.5111026181573
+node	PTGS2	color	40 80 255
+node	PTGS2	tooltip	Cox2.R.C_GBL1033859, -8.55488723925678
+node	AKT1	rppasite	Akt_pS473.R.V_GBL1033793, -7.16648276370445|p|40 80 255|0 180 20

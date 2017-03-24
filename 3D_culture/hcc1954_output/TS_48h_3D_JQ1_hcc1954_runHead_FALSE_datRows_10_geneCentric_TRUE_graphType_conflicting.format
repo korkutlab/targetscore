@@ -1,0 +1,7 @@
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	STAT3	rppasite	Stat3_pY705.R.V_GBL1033727, -2.83440380199234|p|40 80 255|0 180 20
+node	MYC	color	40 80 255
+node	MYC	tooltip	c.Myc.R.C_GBL1033885, -2.75163933562613
+node	CDKN1B	color	40 80 255
+node	CDKN1B	tooltip	p27.Kip.1.R.V_GBL1033778, -3.08569934265061

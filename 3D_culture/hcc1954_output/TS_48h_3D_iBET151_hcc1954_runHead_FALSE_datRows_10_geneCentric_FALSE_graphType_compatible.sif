@@ -1,0 +1,7 @@
+Cox2.R.C_GBL1033859	phosphorylates	NF.kB.p65_pS536.R.C_GBL1033806
+NF.kB.p65_pS536.R.C_GBL1033806	upregulates-expression	c.Myc.R.C_GBL1033885
+p27.Kip.1.R.V_GBL1033778	phosphorylates	Rb_pS807_S811.R.V_GBL1033721
+CDK1.R.V_GBL1033788	phosphorylates	Rb_pS807_S811.R.V_GBL1033721
+Rb_pS807_S811.R.V_GBL1033721	downregulates-expression	c.Myc.R.C_GBL1033885
+c.Myc.R.C_GBL1033885	upregulates-expression	Histone.H3.R.V_GBL1033869
+NF.kB.p65_pS536.R.C_GBL1033806	upregulates-expression	Cox2.R.C_GBL1033859

@@ -1,0 +1,9 @@
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	GSK3A	rppasite	GSK.3ab_pS21_S9.R.V_GBL1033797, -4.67893072874465|p|40 80 255|180 0 20
+node	CCND1	color	40 80 255
+node	CCND1	tooltip	Cyclin.D1.R.V_GBL1033878, -4.65288713498782
+node	AKT1	rppasite	Akt_pT308.R.V_GBL1033851, -5.372865325145|p|40 80 255|0 180 20
+node	MYC	color	40 80 255
+node	MYC	tooltip	c.Myc.R.C_GBL1033885, -4.61190977308265
+node	AKT1	rppasite	Akt_pS473.R.V_GBL1033793, -5.38138148276556|p|40 80 255|0 180 20

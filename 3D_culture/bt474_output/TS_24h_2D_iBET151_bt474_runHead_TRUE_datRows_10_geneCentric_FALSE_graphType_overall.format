@@ -1,0 +1,8 @@
+componentType	componentLabel	componentProperty	rgbColor
+node	all-nodes	color	255 255 255
+node	Akt.R.V_GBL1033833	color	255 80 40
+node	Mcl.1.R.V_GBL1033861	color	255 80 40
+node	Stat5a.R.V_GBL1033728	color	255 80 40
+node	eIF4E.R.V_GBL1033734	color	255 80 40
+node	p38.R.V_GBL1033807	color	255 80 40
+node	JNK2.R.C_GBL1033799	color	255 80 40

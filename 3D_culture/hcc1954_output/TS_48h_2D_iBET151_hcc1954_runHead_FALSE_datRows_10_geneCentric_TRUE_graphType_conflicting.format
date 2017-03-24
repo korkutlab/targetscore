@@ -1,0 +1,13 @@
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	CDK1	color	40 80 255
+node	CDK1	tooltip	CDK1.R.V_GBL1033788, -10.3144681823947
+node	STMN1	color	40 80 255
+node	STMN1	tooltip	Stathmin.1.R.V_GBL1033733, -9.97284302014857
+node	CCND1	color	40 80 255
+node	CCND1	tooltip	Cyclin.D1.R.V_GBL1033878, -7.11838381624509
+node	TYRO3	color	40 80 255
+node	TYRO3	tooltip	Tyro3.R.V_GBL1033829, -9.32886708289462
+node	MYC	color	40 80 255
+node	MYC	tooltip	c.Myc.R.C_GBL1033885, -7.07930170873214
+node	RB1	rppasite	Rb_pS807_S811.R.V_GBL1033721, -7.49225999755089|p|40 80 255|180 0 20

@@ -1,0 +1,14 @@
+Stat3_pY705.R.V_GBL1033727	upregulates-expression	c.Myc.R.C_GBL1033885
+Cox2.R.C_GBL1033859	phosphorylates	GSK.3b_pS9.R.V_GBL1033831
+Stat3_pY705.R.V_GBL1033727	upregulates-expression	Cox2.R.C_GBL1033859
+Rb_pS807_S811.R.V_GBL1033721	downregulates-expression	c.Met.M.QC_GBL1033899
+c.Met.M.QC_GBL1033899	phosphorylates	Akt_pT308.R.V_GBL1033851
+Cox2.R.C_GBL1033859	phosphorylates	Akt_pT308.R.V_GBL1033851
+Akt_pT308.R.V_GBL1033851	phosphorylates	GSK.3ab_pS21_S9.R.V_GBL1033797
+Akt_pT308.R.V_GBL1033851	phosphorylates	GSK.3b_pS9.R.V_GBL1033831
+Akt_pT308.R.V_GBL1033851	phosphorylates	Stat3_pY705.R.V_GBL1033727
+Stat3_pY705.R.V_GBL1033727	phosphorylates	Akt_pT308.R.V_GBL1033851
+Caveolin.1.R.V_GBL1033687	phosphorylates	Akt_pT308.R.V_GBL1033851
+Akt_pT308.R.V_GBL1033851	upregulates-expression	c.Myc.R.C_GBL1033885
+Rb_pS807_S811.R.V_GBL1033721	downregulates-expression	c.Myc.R.C_GBL1033885
+c.Met.M.QC_GBL1033899	phosphorylates	Stat3_pY705.R.V_GBL1033727

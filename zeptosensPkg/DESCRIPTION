@@ -14,7 +14,8 @@ Depends:
     rJava,
     paxtoolsr (>= 1.4.3),
     igraph,
-    zeptosensUtils
+    zeptosensUtils,
+    heatmap3
 Suggests:
     knitr
 VignetteBuilder: knitr

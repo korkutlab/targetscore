@@ -1,0 +1,129 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "A.Raf.R.V_GBL1033858",
+          "label": "A.Raf.R.V",
+          "color": "#FF5028",
+          "id": "A.Raf.R.V_GBL1033858"
+        }
+      },
+      {
+        "data": {
+          "name": "MEK1_pS217_S221.R.V_GBL1033828",
+          "label": "MEK1_pS217_S221.R.V",
+          "color": "#FF5028",
+          "id": "MEK1_pS217_S221.R.V_GBL1033828"
+        }
+      },
+      {
+        "data": {
+          "name": "E2F1.M.V_GBL1033938",
+          "label": "E2F1.M.V",
+          "color": "#FF5028",
+          "id": "E2F1.M.V_GBL1033938"
+        }
+      },
+      {
+        "data": {
+          "name": "Rb.M.QC_GBL1033895",
+          "label": "Rb.M.QC",
+          "color": "#FF5028",
+          "id": "Rb.M.QC_GBL1033895"
+        }
+      },
+      {
+        "data": {
+          "name": "MSH2.M.V_GBL1033900",
+          "label": "MSH2.M.V",
+          "color": "#FF5028",
+          "id": "MSH2.M.V_GBL1033900"
+        }
+      },
+      {
+        "data": {
+          "name": "p53.R.C_GBL1033956",
+          "label": "p53.R.C",
+          "color": "#FF5028",
+          "id": "p53.R.C_GBL1033956"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "A.Raf.R.V_GBL1033858",
+          "target": "MEK1_pS217_S221.R.V_GBL1033828",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "E2F1.M.V_GBL1033938",
+          "target": "Rb.M.QC_GBL1033895",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "Rb.M.QC_GBL1033895",
+          "target": "E2F1.M.V_GBL1033938",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "Rb.M.QC_GBL1033895",
+          "target": "MSH2.M.V_GBL1033900",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "p53.R.C_GBL1033956",
+          "target": "Rb.M.QC_GBL1033895",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "E2F1.M.V_GBL1033938",
+          "target": "MSH2.M.V_GBL1033900",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "E2F1.M.V_GBL1033938",
+          "target": "p53.R.C_GBL1033956",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "p53.R.C_GBL1033956",
+          "target": "MSH2.M.V_GBL1033900",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

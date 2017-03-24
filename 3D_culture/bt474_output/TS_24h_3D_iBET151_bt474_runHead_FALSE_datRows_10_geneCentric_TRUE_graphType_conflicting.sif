@@ -1,0 +1,4 @@
+RB1	upregulates-expression	STMN1	http://pathwaycommons.org/pc2/TemplateReaction_1a0b2b128ded7064e029f1d8b85e67cd http://pathwaycommons.org/pc2/TemplateReactionRegulation_0f9e5d36393371d50122fd1dbe7cd63b
+STAT3	downregulates-expression	MYC	
+RB1	upregulates-expression	MYC	http://pathwaycommons.org/pc2/TemplateReaction_2d79b293b0d380e715c94313fb34cd26 http://pathwaycommons.org/pc2/TemplateReactionRegulation_32c0b3aaf69ce719bd195132a1177a75
+STAT3	downregulates-expression	BCL2L1	

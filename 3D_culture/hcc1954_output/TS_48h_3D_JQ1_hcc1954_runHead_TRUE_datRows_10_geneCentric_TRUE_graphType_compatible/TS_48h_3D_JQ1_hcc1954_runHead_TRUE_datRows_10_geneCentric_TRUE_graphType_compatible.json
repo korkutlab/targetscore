@@ -1,0 +1,76 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "TP53",
+          "label": "TP53",
+          "color": "#FF5028",
+          "id": "TP53"
+        }
+      },
+      {
+        "data": {
+          "name": "PMS2",
+          "label": "PMS2",
+          "color": "#FF5028",
+          "id": "PMS2"
+        }
+      },
+      {
+        "data": {
+          "name": "BCL2L1",
+          "label": "BCL2L1",
+          "color": "#FF5028",
+          "id": "BCL2L1"
+        }
+      },
+      {
+        "data": {
+          "name": "MTOR",
+          "label": "MTOR",
+          "color": "#FFFFFF",
+          "id": "MTOR"
+        }
+      },
+      {
+        "data": {
+          "name": "BCL2",
+          "label": "BCL2",
+          "color": "#FF5028",
+          "id": "BCL2"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "TP53",
+          "target": "PMS2",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "TP53",
+          "target": "BCL2L1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "MTOR",
+          "target": "BCL2",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

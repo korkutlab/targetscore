@@ -1,0 +1,68 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "Lck.R.V_GBL1033800",
+          "label": "Lck.R.V",
+          "color": "#2850FF",
+          "id": "Lck.R.V_GBL1033800"
+        }
+      },
+      {
+        "data": {
+          "name": "c.Myc.R.C_GBL1033885",
+          "label": "c.Myc.R.C",
+          "color": "#2850FF",
+          "id": "c.Myc.R.C_GBL1033885"
+        }
+      },
+      {
+        "data": {
+          "name": "TFRC.R.V_GBL1033849",
+          "label": "TFRC.R.V",
+          "color": "#2850FF",
+          "id": "TFRC.R.V_GBL1033849"
+        }
+      },
+      {
+        "data": {
+          "name": "Histone.H3.R.V_GBL1033869",
+          "label": "Histone.H3.R.V",
+          "color": "#2850FF",
+          "id": "Histone.H3.R.V_GBL1033869"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "Lck.R.V_GBL1033800",
+          "target": "c.Myc.R.C_GBL1033885",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "c.Myc.R.C_GBL1033885",
+          "target": "TFRC.R.V_GBL1033849",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "c.Myc.R.C_GBL1033885",
+          "target": "Histone.H3.R.V_GBL1033869",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

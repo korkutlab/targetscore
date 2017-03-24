@@ -1,0 +1,5 @@
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	CDKN1A	color	255 80 40
+node	CDKN1A	tooltip	p21.R.V_GBL1033880, 5.69693907168623
+node	ATM	rppasite	ATM_pS1981.R.V_GBL1033875, 4.53872562807864|p|255 80 40|0 180 20

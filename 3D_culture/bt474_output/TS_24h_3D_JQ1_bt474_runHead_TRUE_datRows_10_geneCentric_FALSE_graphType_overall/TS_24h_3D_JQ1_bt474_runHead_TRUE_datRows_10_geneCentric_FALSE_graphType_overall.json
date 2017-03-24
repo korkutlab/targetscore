@@ -1,0 +1,59 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "Akt.R.V_GBL1033833",
+          "label": "Akt.R.V",
+          "color": "#FF5028",
+          "id": "Akt.R.V_GBL1033833"
+        }
+      },
+      {
+        "data": {
+          "name": "Mcl.1.R.V_GBL1033861",
+          "label": "Mcl.1.R.V",
+          "color": "#FF5028",
+          "id": "Mcl.1.R.V_GBL1033861"
+        }
+      },
+      {
+        "data": {
+          "name": "EGFR.R.V_GBL1033837",
+          "label": "EGFR.R.V",
+          "color": "#FF5028",
+          "id": "EGFR.R.V_GBL1033837"
+        }
+      },
+      {
+        "data": {
+          "name": "Src_pY527.R.V_GBL1033726",
+          "label": "Src_pY527.R.V",
+          "color": "#FF5028",
+          "id": "Src_pY527.R.V_GBL1033726"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "Akt.R.V_GBL1033833",
+          "target": "Mcl.1.R.V_GBL1033861",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "EGFR.R.V_GBL1033837",
+          "target": "Src_pY527.R.V_GBL1033726",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      }
+    ]
+  }
+}

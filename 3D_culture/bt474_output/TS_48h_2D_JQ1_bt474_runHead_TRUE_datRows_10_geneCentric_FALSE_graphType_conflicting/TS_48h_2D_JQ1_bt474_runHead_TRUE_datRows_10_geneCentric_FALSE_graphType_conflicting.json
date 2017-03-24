@@ -1,0 +1,59 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "GSK.3ab.M.V_GBL1033941",
+          "label": "GSK.3ab.M.V",
+          "color": "#FF5028",
+          "id": "GSK.3ab.M.V_GBL1033941"
+        }
+      },
+      {
+        "data": {
+          "name": "Rictor_pT1135.R.V_GBL1033845",
+          "label": "Rictor_pT1135.R.V",
+          "color": "#FF5028",
+          "id": "Rictor_pT1135.R.V_GBL1033845"
+        }
+      },
+      {
+        "data": {
+          "name": "EGFR.R.V_GBL1033837",
+          "label": "EGFR.R.V",
+          "color": "#FF5028",
+          "id": "EGFR.R.V_GBL1033837"
+        }
+      },
+      {
+        "data": {
+          "name": "Src_pY527.R.V_GBL1033726",
+          "label": "Src_pY527.R.V",
+          "color": "#FF5028",
+          "id": "Src_pY527.R.V_GBL1033726"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "GSK.3ab.M.V_GBL1033941",
+          "target": "Rictor_pT1135.R.V_GBL1033845",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "EGFR.R.V_GBL1033837",
+          "target": "Src_pY527.R.V_GBL1033726",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      }
+    ]
+  }
+}

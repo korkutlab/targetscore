@@ -1,0 +1,11 @@
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	CCND1	color	40 80 255
+node	CCND1	tooltip	Cyclin.D1.R.V_GBL1033878, -8.65304114987883
+node	ESR1	color	40 80 255
+node	ESR1	tooltip	ER.alpha.R.V_GBL1033879, -6.92936204341344
+node	MYC	color	40 80 255
+node	MYC	tooltip	c.Myc.R.C_GBL1033885, -14.8231048025545
+node	GSK3B	rppasite	GSK.3b_pS9.R.V_GBL1033831, -6.9610601514857|p|40 80 255|180 0 20
+node	PTGS2	color	40 80 255
+node	PTGS2	tooltip	Cox2.R.C_GBL1033859, -11.3484376653944

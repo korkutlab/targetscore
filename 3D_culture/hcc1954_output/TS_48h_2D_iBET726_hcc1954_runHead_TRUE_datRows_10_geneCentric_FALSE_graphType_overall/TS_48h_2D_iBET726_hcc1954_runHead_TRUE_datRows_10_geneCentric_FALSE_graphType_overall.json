@@ -1,0 +1,189 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "p53.R.C_GBL1033956",
+          "label": "p53.R.C",
+          "color": "#FF5028",
+          "id": "p53.R.C_GBL1033956"
+        }
+      },
+      {
+        "data": {
+          "name": "PMS2.R.V_GBL1033867",
+          "label": "PMS2.R.V",
+          "color": "#FF5028",
+          "id": "PMS2.R.V_GBL1033867"
+        }
+      },
+      {
+        "data": {
+          "name": "mTOR_pS2448.R.C_GBL1033804",
+          "label": "mTOR_pS2448.R.C",
+          "color": "#FF5028",
+          "id": "mTOR_pS2448.R.C_GBL1033804"
+        }
+      },
+      {
+        "data": {
+          "name": "p70.S6K_pT389.R.V_GBL1033811",
+          "label": "p70.S6K_pT389.R.V",
+          "color": "#FF5028",
+          "id": "p70.S6K_pT389.R.V_GBL1033811"
+        }
+      },
+      {
+        "data": {
+          "name": "Fibronectin.R.V_GBL1033958",
+          "label": "Fibronectin.R.V",
+          "color": "#FF5028",
+          "id": "Fibronectin.R.V_GBL1033958"
+        }
+      },
+      {
+        "data": {
+          "name": "Src_pY527.R.V_GBL1033726",
+          "label": "Src_pY527.R.V",
+          "color": "#FF5028",
+          "id": "Src_pY527.R.V_GBL1033726"
+        }
+      },
+      {
+        "data": {
+          "name": "EGFR_pY1068.R.C_GBL1033694",
+          "label": "EGFR_pY1068.R.C",
+          "color": "#FF5028",
+          "id": "EGFR_pY1068.R.C_GBL1033694"
+        }
+      },
+      {
+        "data": {
+          "name": "Rb.M.QC_GBL1033895",
+          "label": "Rb.M.QC",
+          "color": "#FF5028",
+          "id": "Rb.M.QC_GBL1033895"
+        }
+      },
+      {
+        "data": {
+          "name": "Bcl2.M.V_GBL1033931",
+          "label": "Bcl2.M.V",
+          "color": "#FF5028",
+          "id": "Bcl2.M.V_GBL1033931"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "p53.R.C_GBL1033956",
+          "target": "PMS2.R.V_GBL1033867",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "mTOR_pS2448.R.C_GBL1033804",
+          "target": "p70.S6K_pT389.R.V_GBL1033811",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "p70.S6K_pT389.R.V_GBL1033811",
+          "target": "mTOR_pS2448.R.C_GBL1033804",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Fibronectin.R.V_GBL1033958",
+          "target": "Src_pY527.R.V_GBL1033726",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "EGFR_pY1068.R.C_GBL1033694",
+          "target": "Src_pY527.R.V_GBL1033726",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "p53.R.C_GBL1033956",
+          "target": "Rb.M.QC_GBL1033895",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "EGFR_pY1068.R.C_GBL1033694",
+          "target": "mTOR_pS2448.R.C_GBL1033804",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "mTOR_pS2448.R.C_GBL1033804",
+          "target": "Bcl2.M.V_GBL1033931",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "mTOR_pS2448.R.C_GBL1033804",
+          "target": "p70.S6K_pT389.R.V_GBL1033811",
+          "interactionType": "dephosphorylates",
+          "color": "#ff0000",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Src_pY527.R.V_GBL1033726",
+          "target": "EGFR_pY1068.R.C_GBL1033694",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Fibronectin.R.V_GBL1033958",
+          "target": "Src_pY527.R.V_GBL1033726",
+          "interactionType": "dephosphorylates",
+          "color": "#ff0000",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "p53.R.C_GBL1033956",
+          "target": "Bcl2.M.V_GBL1033931",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

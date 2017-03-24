@@ -1,0 +1,4 @@
+mTOR_pS2448.R.C_GBL1033804	dephosphorylates	p70.S6K_pT389.R.V_GBL1033811
+Src_pY527.R.V_GBL1033726	phosphorylates	EGFR_pY1068.R.C_GBL1033694
+Fibronectin.R.V_GBL1033958	dephosphorylates	Src_pY527.R.V_GBL1033726
+p53.R.C_GBL1033956	downregulates-expression	Bcl2.M.V_GBL1033931

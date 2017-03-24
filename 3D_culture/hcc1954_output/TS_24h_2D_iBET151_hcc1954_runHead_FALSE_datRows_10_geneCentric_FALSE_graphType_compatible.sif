@@ -1,0 +1,8 @@
+Akt_pS473.R.V_GBL1033793	phosphorylates	EGFR_pY1173.R.V_GBL1033695
+EGFR_pY1173.R.V_GBL1033695	phosphorylates	Akt_pS473.R.V_GBL1033793
+c.Met.M.QC_GBL1033899	phosphorylates	Akt_pS473.R.V_GBL1033793
+Akt_pS473.R.V_GBL1033793	phosphorylates	Tuberin_pT1462.R.V_GBL1033730
+Akt_pS473.R.V_GBL1033793	upregulates-expression	c.Myc.R.C_GBL1033885
+Caveolin.1.R.V_GBL1033687	phosphorylates	Akt_pS473.R.V_GBL1033793
+Cox2.R.C_GBL1033859	phosphorylates	Akt_pS473.R.V_GBL1033793
+Cox2.R.C_GBL1033859	phosphorylates	EGFR_pY1173.R.V_GBL1033695

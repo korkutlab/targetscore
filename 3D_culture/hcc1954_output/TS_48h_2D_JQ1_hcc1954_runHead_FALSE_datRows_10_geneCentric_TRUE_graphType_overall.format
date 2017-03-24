@@ -1,0 +1,16 @@
+componentType	componentLabel	componentProperty	rgbColor
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	TFRC	color	40 80 255
+node	TFRC	tooltip	TFRC.R.V_GBL1033849, -6.18086518510565
+node	CDK1	color	40 80 255
+node	CDK1	tooltip	CDK1.R.V_GBL1033788, -5.40257522514145
+node	STMN1	color	40 80 255
+node	STMN1	tooltip	Stathmin.1.R.V_GBL1033733, -5.1356688064031
+node	CCND1	color	40 80 255
+node	CCND1	tooltip	Cyclin.D1.R.V_GBL1033878, -5.02792908285896
+node	MYC	color	40 80 255
+node	MYC	tooltip	c.Myc.R.C_GBL1033885, -5.32917178649835
+node	RB1	rppasite	Rb_pS807_S811.R.V_GBL1033721, -4.82134514926422|p|40 80 255|180 0 20
+node	TYRO3	color	40 80 255
+node	TYRO3	tooltip	Tyro3.R.V_GBL1033829, -6.53319842867285

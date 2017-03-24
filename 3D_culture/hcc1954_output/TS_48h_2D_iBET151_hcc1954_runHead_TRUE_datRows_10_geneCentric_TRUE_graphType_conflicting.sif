@@ -1,0 +1,6 @@
+RB1	downregulates-expression	E2F1	
+E2F1	downregulates-expression	TP53	
+TP53	downregulates-expression	E2F1	
+E2F1	downregulates-expression	MCL1	http://pathwaycommons.org/pc2/TemplateReaction_98c5e50fe58ffdfe3e065f0748152b6d http://pathwaycommons.org/pc2/TemplateReactionRegulation_a66a96fb18a27ddc1b837f3796a9a7c9
+TP53	downregulates-expression	MCL1	
+SRC	phosphorylates	MAP2K1	http://pathwaycommons.org/pc2/Catalysis_3460dba62516012c8a06734172957c08 http://pathwaycommons.org/pc2/BiochemicalReaction_9f35e419b9c78ae61562bfb1d05f3269 http://identifiers.org/reactome/R-HSA-5672978 http://pathwaycommons.org/pc2/Catalysis_9faef70af9c1a1a6bb98148497f8cd4b	S218;S222

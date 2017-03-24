@@ -1,0 +1,4 @@
+CCND1	dephosphorylates	RB1	
+MYC	downregulates-expression	CCND1	
+RB1	upregulates-expression	MYC	http://pathwaycommons.org/pc2/TemplateReaction_2d79b293b0d380e715c94313fb34cd26 http://pathwaycommons.org/pc2/TemplateReactionRegulation_32c0b3aaf69ce719bd195132a1177a75
+RB1	upregulates-expression	PTGS2	http://pathwaycommons.org/pc2/Control_b271c78ecd3924b5f781ee20edcb493b http://pathwaycommons.org/pc2/TemplateReaction_8486f3ce08c91baeb72c1f01c1b9a10e

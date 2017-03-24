@@ -1,0 +1,68 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "Stat5a.R.V_GBL1033728",
+          "label": "Stat5a.R.V",
+          "color": "#FF5028",
+          "id": "Stat5a.R.V_GBL1033728"
+        }
+      },
+      {
+        "data": {
+          "name": "Ets.1.R.V_GBL1033886",
+          "label": "Ets.1.R.V",
+          "color": "#FF5028",
+          "id": "Ets.1.R.V_GBL1033886"
+        }
+      },
+      {
+        "data": {
+          "name": "p38.R.V_GBL1033807",
+          "label": "p38.R.V",
+          "color": "#FF5028",
+          "id": "p38.R.V_GBL1033807"
+        }
+      },
+      {
+        "data": {
+          "name": "JNK2.R.C_GBL1033799",
+          "label": "JNK2.R.C",
+          "color": "#FF5028",
+          "id": "JNK2.R.C_GBL1033799"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "Stat5a.R.V_GBL1033728",
+          "target": "Ets.1.R.V_GBL1033886",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "Stat5a.R.V_GBL1033728",
+          "target": "p38.R.V_GBL1033807",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "Stat5a.R.V_GBL1033728",
+          "target": "JNK2.R.C_GBL1033799",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

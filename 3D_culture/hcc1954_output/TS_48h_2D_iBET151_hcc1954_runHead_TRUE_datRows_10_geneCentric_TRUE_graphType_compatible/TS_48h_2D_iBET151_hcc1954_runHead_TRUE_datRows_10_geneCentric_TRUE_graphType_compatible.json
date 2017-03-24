@@ -1,0 +1,129 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "ARAF",
+          "label": "ARAF",
+          "color": "#FF5028",
+          "id": "ARAF"
+        }
+      },
+      {
+        "data": {
+          "name": "MAP2K1",
+          "label": "MAP2K1",
+          "color": "#FFFFFF",
+          "id": "MAP2K1"
+        }
+      },
+      {
+        "data": {
+          "name": "E2F1",
+          "label": "E2F1",
+          "color": "#FF5028",
+          "id": "E2F1"
+        }
+      },
+      {
+        "data": {
+          "name": "RB1",
+          "label": "RB1",
+          "color": "#FF5028",
+          "id": "RB1"
+        }
+      },
+      {
+        "data": {
+          "name": "MSH2",
+          "label": "MSH2",
+          "color": "#FF5028",
+          "id": "MSH2"
+        }
+      },
+      {
+        "data": {
+          "name": "TP53",
+          "label": "TP53",
+          "color": "#FF5028",
+          "id": "TP53"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "ARAF",
+          "target": "MAP2K1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "E2F1",
+          "target": "RB1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "RB1",
+          "target": "E2F1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "RB1",
+          "target": "MSH2",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "TP53",
+          "target": "RB1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "E2F1",
+          "target": "MSH2",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "E2F1",
+          "target": "TP53",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "TP53",
+          "target": "MSH2",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

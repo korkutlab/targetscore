@@ -1,0 +1,18 @@
+componentType	componentLabel	componentProperty	rgbColor
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	DIABLO	color	40 80 255
+node	DIABLO	tooltip	Smac.M.QC_GBL1033896, -2.91579396982275
+node	MET	color	40 80 255
+node	MET	tooltip	c.Met.M.QC_GBL1033899, -2.91780374034433
+node	CCND1	color	40 80 255
+node	CCND1	tooltip	Cyclin.D1.R.V_GBL1033878, -4.96663539136804
+node	MYC	color	40 80 255
+node	MYC	tooltip	c.Myc.R.C_GBL1033885, -5.24521628244249
+node	RB1	rppasite	Rb_pS807_S811.R.V_GBL1033721, -6.05228331664559|p|40 80 255|180 0 20
+node	FOXM1	color	40 80 255
+node	FOXM1	tooltip	FoxM1.R.V_GBL1033839, -4.03885761347307
+node	H3F3A	color	40 80 255
+node	H3F3A	tooltip	Histone.H3.R.V_GBL1033869, -3.77463766062675
+node	PTGS2	color	40 80 255
+node	PTGS2	tooltip	Cox2.R.C_GBL1033859, -4.71222522562219

@@ -1,0 +1,6 @@
+PARTICIPANT_A	INTERACTION_TYPE	PARTICIPANT_B	URIS	SITES
+p53.R.C_GBL1033956	upregulates-expression	PMS2.R.V_GBL1033867		
+p53.R.C_GBL1033956	upregulates-expression	Bcl.xL.R.V_GBL1033682		
+mTOR_pS2448.R.C_GBL1033804	upregulates-expression	Bcl2.M.V_GBL1033931		
+p53.R.C_GBL1033956	downregulates-expression	Mcl.1.R.V_GBL1033861		
+p53.R.C_GBL1033956	downregulates-expression	Bcl2.M.V_GBL1033931		

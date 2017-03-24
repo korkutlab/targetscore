@@ -1,0 +1,51 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "FOXO3",
+          "label": "FOXO3",
+          "color": "#FFFFFF",
+          "id": "FOXO3"
+        }
+      },
+      {
+        "data": {
+          "name": "ACACA",
+          "label": "ACACA",
+          "color": "#FF5028",
+          "id": "ACACA"
+        }
+      },
+      {
+        "data": {
+          "name": "CDKN1B",
+          "label": "CDKN1B",
+          "color": "#FF5028",
+          "id": "CDKN1B"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "FOXO3",
+          "target": "ACACA",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "FOXO3",
+          "target": "CDKN1B",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

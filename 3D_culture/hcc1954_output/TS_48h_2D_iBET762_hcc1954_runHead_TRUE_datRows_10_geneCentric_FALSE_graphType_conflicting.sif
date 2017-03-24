@@ -1,0 +1,5 @@
+Rb.M.QC_GBL1033895	downregulates-expression	p21.R.V_GBL1033880
+Src_pY527.R.V_GBL1033726	phosphorylates	HER2_pY1248.R.C_GBL1033827
+p53.R.C_GBL1033956	downregulates-expression	p21.R.V_GBL1033880
+Src_pY527.R.V_GBL1033726	phosphorylates	PDK1_pS241.R.V_GBL1033814
+p53.R.C_GBL1033956	downregulates-expression	Bcl2.M.V_GBL1033931

@@ -1,0 +1,8 @@
+node	all-nodes	color	255 255 255
+node	Src_pY416.R.C_GBL1033725	color	40 80 255
+node	Stat3_pY705.R.V_GBL1033727	color	40 80 255
+node	MAPK_pT202_Y204.R.V_GBL1033801	color	40 80 255
+node	Akt_pS473.R.V_GBL1033793	color	40 80 255
+node	Akt_pT308.R.V_GBL1033851	color	40 80 255
+node	Bad_pS112.R.V_GBL1033677	color	40 80 255
+node	Shc_pY317.R.V_GBL1033791	color	40 80 255

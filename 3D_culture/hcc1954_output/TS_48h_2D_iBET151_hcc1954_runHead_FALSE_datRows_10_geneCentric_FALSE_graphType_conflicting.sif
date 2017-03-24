@@ -1,0 +1,6 @@
+Rb_pS807_S811.R.V_GBL1033721	upregulates-expression	Stathmin.1.R.V_GBL1033733
+Rb_pS807_S811.R.V_GBL1033721	upregulates-expression	CDK1.R.V_GBL1033788
+Cyclin.D1.R.V_GBL1033878	dephosphorylates	Rb_pS807_S811.R.V_GBL1033721
+c.Myc.R.C_GBL1033885	downregulates-expression	Cyclin.D1.R.V_GBL1033878
+Rb_pS807_S811.R.V_GBL1033721	upregulates-expression	c.Myc.R.C_GBL1033885
+Rb_pS807_S811.R.V_GBL1033721	upregulates-expression	Tyro3.R.V_GBL1033829

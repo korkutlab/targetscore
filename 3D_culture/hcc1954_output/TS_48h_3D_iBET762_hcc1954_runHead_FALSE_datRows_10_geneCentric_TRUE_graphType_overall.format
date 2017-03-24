@@ -1,0 +1,11 @@
+componentType	componentLabel	componentProperty	rgbColor
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	TFRC	color	40 80 255
+node	TFRC	tooltip	TFRC.R.V_GBL1033849, -3.61502157681936
+node	LCK	color	40 80 255
+node	LCK	tooltip	Lck.R.V_GBL1033800, -3.56352329721631
+node	MYC	color	40 80 255
+node	MYC	tooltip	c.Myc.R.C_GBL1033885, -4.88909968638309
+node	H3F3A	color	40 80 255
+node	H3F3A	tooltip	Histone.H3.R.V_GBL1033869, -7.77526650954741

@@ -1,0 +1,10 @@
+componentType	componentLabel	componentProperty	rgbColor
+node	all-nodes	color	255 255 255
+node	p38_pT180_Y182.R.V_GBL1033808	color	40 80 255
+node	Stat3_pY705.R.V_GBL1033727	color	40 80 255
+node	c.Myc.R.C_GBL1033885	color	40 80 255
+node	CDK1.R.V_GBL1033788	color	40 80 255
+node	Cox2.R.C_GBL1033859	color	40 80 255
+node	Histone.H3.R.V_GBL1033869	color	40 80 255
+node	EGFR_pY1173.R.V_GBL1033695	color	40 80 255
+node	p27.Kip.1.R.V_GBL1033778	color	40 80 255

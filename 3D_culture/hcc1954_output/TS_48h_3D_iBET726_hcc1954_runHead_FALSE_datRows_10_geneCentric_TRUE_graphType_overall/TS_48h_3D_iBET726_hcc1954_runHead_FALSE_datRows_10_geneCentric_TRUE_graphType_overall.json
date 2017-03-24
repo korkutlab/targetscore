@@ -1,0 +1,95 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "RB1",
+          "label": "RB1",
+          "color": "#FFFFFF",
+          "id": "RB1"
+        }
+      },
+      {
+        "data": {
+          "name": "CDKN1A",
+          "label": "CDKN1A",
+          "color": "#2850FF",
+          "id": "CDKN1A"
+        }
+      },
+      {
+        "data": {
+          "name": "TYRO3",
+          "label": "TYRO3",
+          "color": "#2850FF",
+          "id": "TYRO3"
+        }
+      },
+      {
+        "data": {
+          "name": "PTGS2",
+          "label": "PTGS2",
+          "color": "#2850FF",
+          "id": "PTGS2"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "RB1",
+          "target": "CDKN1A",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "CDKN1A",
+          "target": "RB1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "RB1",
+          "target": "CDKN1A",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "RB1",
+          "target": "TYRO3",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "RB1",
+          "target": "PTGS2",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "CDKN1A",
+          "target": "RB1",
+          "interactionType": "dephosphorylates",
+          "color": "#ff0000",
+          "lty": 1
+        }
+      }
+    ]
+  }
+}

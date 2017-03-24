@@ -1,0 +1,5 @@
+RB1	downregulates-expression	CDKN1A	
+SRC	phosphorylates	ERBB2	http://pathwaycommons.org/pc2/BiochemicalReaction_fb62b8db9512b9c8b75f89b65b7b8afd http://identifiers.org/reactome/R-HSA-1963586 http://pathwaycommons.org/pc2/Catalysis_f6452c373cae4635d64fcb079f5e2821 http://pathwaycommons.org/pc2/Catalysis_924deca19bf83b2425c4744b4b36115c	Y877
+TP53	downregulates-expression	CDKN1A	
+SRC	phosphorylates	PDPK1	http://pathwaycommons.org/pc2/Catalysis_6981bee12a98c3e201c8fd73744dcea3 http://pathwaycommons.org/pc2/BiochemicalReaction_9d3eff48da3bf1d9468d34ca05b7a5d1 http://pathwaycommons.org/pc2/Catalysis_3aa58865a83fc453ad99b58fcae6df45 http://pathwaycommons.org/pc2/BiochemicalReaction_87c4e0d1d00aaf55d99e514b047123e8	Y376;Y373
+TP53	downregulates-expression	BCL2	http://pathwaycommons.org/pc2/TemplateReaction_be5c58e26e2d6637306069ebac748c46 http://pathwaycommons.org/pc2/TemplateReactionRegulation_4fa76b4f8ba38859180cabe6d4edfb78

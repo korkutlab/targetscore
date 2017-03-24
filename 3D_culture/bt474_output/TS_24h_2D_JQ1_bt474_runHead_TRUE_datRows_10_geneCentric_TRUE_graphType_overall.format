@@ -1,0 +1,15 @@
+componentType	componentLabel	componentProperty	rgbColor
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	STAT5A	color	255 80 40
+node	STAT5A	tooltip	Stat5a.R.V_GBL1033728, 3.93669912994182
+node	MAPK9	color	255 80 40
+node	MAPK9	tooltip	JNK2.R.C_GBL1033799, 2.70265197568354
+node	MAPK14	color	255 80 40
+node	MAPK14	tooltip	p38.R.V_GBL1033807, 3.42316481206673
+node	ETS1	color	255 80 40
+node	ETS1	tooltip	Ets.1.R.V_GBL1033886, 2.81736586756039
+node	PRKCA	color	255 80 40
+node	PRKCA	tooltip	PKC.alpha.M.V_GBL1033894, 2.55920172305659
+node	TP53	color	255 80 40
+node	TP53	tooltip	p53.R.C_GBL1033956, 2.54969730319708

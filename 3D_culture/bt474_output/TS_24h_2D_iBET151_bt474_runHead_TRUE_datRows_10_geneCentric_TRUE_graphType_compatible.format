@@ -1,0 +1,14 @@
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	STAT5A	color	255 80 40
+node	STAT5A	tooltip	Stat5a.R.V_GBL1033728, 4.194131899672
+node	MAPK9	color	255 80 40
+node	MAPK9	tooltip	JNK2.R.C_GBL1033799, 4.30915642898622
+node	MAPK14	color	255 80 40
+node	MAPK14	tooltip	p38.R.V_GBL1033807, 6.25146100329546
+node	MCL1	color	255 80 40
+node	MCL1	tooltip	Mcl.1.R.V_GBL1033861, 5.23340131624852
+node	EIF4E	color	255 80 40
+node	EIF4E	tooltip	eIF4E.R.V_GBL1033734, 3.74540449056692
+node	AKT1	color	255 80 40
+node	AKT1	tooltip	Akt.R.V_GBL1033833, 5.20067948113395

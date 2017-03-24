@@ -1,0 +1,209 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "Cyclin.D1.R.V_GBL1033878",
+          "label": "Cyclin.D1.R.V",
+          "color": "#2850FF",
+          "id": "Cyclin.D1.R.V_GBL1033878"
+        }
+      },
+      {
+        "data": {
+          "name": "ER.alpha.R.V_GBL1033879",
+          "label": "ER.alpha.R.V",
+          "color": "#2850FF",
+          "id": "ER.alpha.R.V_GBL1033879"
+        }
+      },
+      {
+        "data": {
+          "name": "Stathmin.1.R.V_GBL1033733",
+          "label": "Stathmin.1.R.V",
+          "color": "#2850FF",
+          "id": "Stathmin.1.R.V_GBL1033733"
+        }
+      },
+      {
+        "data": {
+          "name": "Akt_pS473.R.V_GBL1033793",
+          "label": "Akt_pS473.R.V",
+          "color": "#2850FF",
+          "id": "Akt_pS473.R.V_GBL1033793"
+        }
+      },
+      {
+        "data": {
+          "name": "FoxM1.R.V_GBL1033839",
+          "label": "FoxM1.R.V",
+          "color": "#2850FF",
+          "id": "FoxM1.R.V_GBL1033839"
+        }
+      },
+      {
+        "data": {
+          "name": "p27.Kip.1.R.V_GBL1033778",
+          "label": "p27.Kip.1.R.V",
+          "color": "#2850FF",
+          "id": "p27.Kip.1.R.V_GBL1033778"
+        }
+      },
+      {
+        "data": {
+          "name": "ER.alpha_pS118.R.V_GBL1033794",
+          "label": "ER.alpha_pS118.R.V",
+          "color": "#2850FF",
+          "id": "ER.alpha_pS118.R.V_GBL1033794"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "Cyclin.D1.R.V_GBL1033878",
+          "target": "ER.alpha.R.V_GBL1033879",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "ER.alpha.R.V_GBL1033879",
+          "target": "Cyclin.D1.R.V_GBL1033878",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "ER.alpha.R.V_GBL1033879",
+          "target": "Stathmin.1.R.V_GBL1033733",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "ER.alpha.R.V_GBL1033879",
+          "target": "Akt_pS473.R.V_GBL1033793",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "FoxM1.R.V_GBL1033839",
+          "target": "p27.Kip.1.R.V_GBL1033778",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "ER.alpha_pS118.R.V_GBL1033794",
+          "target": "Cyclin.D1.R.V_GBL1033878",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "FoxM1.R.V_GBL1033839",
+          "target": "Stathmin.1.R.V_GBL1033733",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "ER.alpha_pS118.R.V_GBL1033794",
+          "target": "FoxM1.R.V_GBL1033839",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "Akt_pS473.R.V_GBL1033793",
+          "target": "ER.alpha_pS118.R.V_GBL1033794",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "ER.alpha_pS118.R.V_GBL1033794",
+          "target": "Akt_pS473.R.V_GBL1033793",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "FoxM1.R.V_GBL1033839",
+          "target": "Cyclin.D1.R.V_GBL1033878",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "FoxM1.R.V_GBL1033839",
+          "target": "ER.alpha.R.V_GBL1033879",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "ER.alpha.R.V_GBL1033879",
+          "target": "FoxM1.R.V_GBL1033839",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "ER.alpha_pS118.R.V_GBL1033794",
+          "target": "Stathmin.1.R.V_GBL1033733",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "ER.alpha_pS118.R.V_GBL1033794",
+          "target": "p27.Kip.1.R.V_GBL1033778",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "ER.alpha.R.V_GBL1033879",
+          "target": "p27.Kip.1.R.V_GBL1033778",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

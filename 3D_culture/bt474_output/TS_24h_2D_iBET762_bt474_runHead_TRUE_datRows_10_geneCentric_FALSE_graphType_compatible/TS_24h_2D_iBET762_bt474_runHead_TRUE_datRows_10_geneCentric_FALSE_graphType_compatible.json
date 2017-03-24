@@ -1,0 +1,34 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "Akt.R.V_GBL1033833",
+          "label": "Akt.R.V",
+          "color": "#FF5028",
+          "id": "Akt.R.V_GBL1033833"
+        }
+      },
+      {
+        "data": {
+          "name": "Rictor_pT1135.R.V_GBL1033845",
+          "label": "Rictor_pT1135.R.V",
+          "color": "#FF5028",
+          "id": "Rictor_pT1135.R.V_GBL1033845"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "Akt.R.V_GBL1033833",
+          "target": "Rictor_pT1135.R.V_GBL1033845",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      }
+    ]
+  }
+}

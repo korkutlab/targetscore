@@ -1,0 +1,93 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "Akt.R.V_GBL1033833",
+          "label": "Akt.R.V",
+          "color": "#FF5028",
+          "id": "Akt.R.V_GBL1033833"
+        }
+      },
+      {
+        "data": {
+          "name": "Mcl.1.R.V_GBL1033861",
+          "label": "Mcl.1.R.V",
+          "color": "#FF5028",
+          "id": "Mcl.1.R.V_GBL1033861"
+        }
+      },
+      {
+        "data": {
+          "name": "Stat5a.R.V_GBL1033728",
+          "label": "Stat5a.R.V",
+          "color": "#FF5028",
+          "id": "Stat5a.R.V_GBL1033728"
+        }
+      },
+      {
+        "data": {
+          "name": "eIF4E.R.V_GBL1033734",
+          "label": "eIF4E.R.V",
+          "color": "#FF5028",
+          "id": "eIF4E.R.V_GBL1033734"
+        }
+      },
+      {
+        "data": {
+          "name": "p38.R.V_GBL1033807",
+          "label": "p38.R.V",
+          "color": "#FF5028",
+          "id": "p38.R.V_GBL1033807"
+        }
+      },
+      {
+        "data": {
+          "name": "JNK2.R.C_GBL1033799",
+          "label": "JNK2.R.C",
+          "color": "#FF5028",
+          "id": "JNK2.R.C_GBL1033799"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "Akt.R.V_GBL1033833",
+          "target": "Mcl.1.R.V_GBL1033861",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "Stat5a.R.V_GBL1033728",
+          "target": "eIF4E.R.V_GBL1033734",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "Stat5a.R.V_GBL1033728",
+          "target": "p38.R.V_GBL1033807",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "Stat5a.R.V_GBL1033728",
+          "target": "JNK2.R.C_GBL1033799",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "Akt_pS473.R.V_GBL1033793",
+          "label": "Akt_pS473.R.V",
+          "color": "#2850FF",
+          "id": "Akt_pS473.R.V_GBL1033793"
+        }
+      },
+      {
+        "data": {
+          "name": "EGFR_pY1173.R.V_GBL1033695",
+          "label": "EGFR_pY1173.R.V",
+          "color": "#2850FF",
+          "id": "EGFR_pY1173.R.V_GBL1033695"
+        }
+      },
+      {
+        "data": {
+          "name": "c.Met.M.QC_GBL1033899",
+          "label": "c.Met.M.QC",
+          "color": "#2850FF",
+          "id": "c.Met.M.QC_GBL1033899"
+        }
+      },
+      {
+        "data": {
+          "name": "Tuberin_pT1462.R.V_GBL1033730",
+          "label": "Tuberin_pT1462.R.V",
+          "color": "#2850FF",
+          "id": "Tuberin_pT1462.R.V_GBL1033730"
+        }
+      },
+      {
+        "data": {
+          "name": "c.Myc.R.C_GBL1033885",
+          "label": "c.Myc.R.C",
+          "color": "#2850FF",
+          "id": "c.Myc.R.C_GBL1033885"
+        }
+      },
+      {
+        "data": {
+          "name": "Caveolin.1.R.V_GBL1033687",
+          "label": "Caveolin.1.R.V",
+          "color": "#2850FF",
+          "id": "Caveolin.1.R.V_GBL1033687"
+        }
+      },
+      {
+        "data": {
+          "name": "Cox2.R.C_GBL1033859",
+          "label": "Cox2.R.C",
+          "color": "#2850FF",
+          "id": "Cox2.R.C_GBL1033859"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "Akt_pS473.R.V_GBL1033793",
+          "target": "EGFR_pY1173.R.V_GBL1033695",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "EGFR_pY1173.R.V_GBL1033695",
+          "target": "Akt_pS473.R.V_GBL1033793",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "c.Met.M.QC_GBL1033899",
+          "target": "Akt_pS473.R.V_GBL1033793",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Akt_pS473.R.V_GBL1033793",
+          "target": "Tuberin_pT1462.R.V_GBL1033730",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Akt_pS473.R.V_GBL1033793",
+          "target": "c.Myc.R.C_GBL1033885",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "Caveolin.1.R.V_GBL1033687",
+          "target": "Akt_pS473.R.V_GBL1033793",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Cox2.R.C_GBL1033859",
+          "target": "Akt_pS473.R.V_GBL1033793",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Cox2.R.C_GBL1033859",
+          "target": "EGFR_pY1173.R.V_GBL1033695",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      }
+    ]
+  }
+}

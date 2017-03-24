@@ -1,0 +1,6 @@
+SNAI2	downregulates-expression	MET	
+STAT3	downregulates-expression	CCND1	
+GSK3A	phosphorylates	STAT3	http://pathwaycommons.org/pc2/BiochemicalReaction_4b899db29fcf4ef6b7518c36962b3945 http://pathwaycommons.org/pc2/BiochemicalReaction_0c7d5414148d6d242a61586911ec29c7 http://pathwaycommons.org/pc2/Catalysis_fff2797339dce3a86fd8df096c9289cc http://pathwaycommons.org/pc2/Catalysis_a05f0c2ed73217f92820dd0858f30aa1
+GSK3A	phosphorylates	AKT1	http://pathwaycommons.org/pc2/BiochemicalReaction_60c2de232735ed9d071b034921408dc3 http://pathwaycommons.org/pc2/Catalysis_ab9343707587c3c25335011b05056035 http://pathwaycommons.org/pc2/Catalysis_0ef3381f29c1c77a473980c58d96cd6d http://pathwaycommons.org/pc2/Catalysis_e9aa9a1865aab7ee892299cdff1b894f http://pathwaycommons.org/pc2/BiochemicalReaction_d1f26d365343869db66a8e1a75ca4c95 http://pathwaycommons.org/pc2/BiochemicalReaction_c09693a0becdc7e1dcf831b4b10cbed9	T312
+MYC	downregulates-expression	CCND1	
+STAT3	downregulates-expression	MYC	

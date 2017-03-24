@@ -1,0 +1,9 @@
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	CCND1	color	40 80 255
+node	CCND1	tooltip	Cyclin.D1.R.V_GBL1033878, -4.96663539136804
+node	MYC	color	40 80 255
+node	MYC	tooltip	c.Myc.R.C_GBL1033885, -5.24521628244249
+node	RB1	rppasite	Rb_pS807_S811.R.V_GBL1033721, -6.05228331664559|p|40 80 255|180 0 20
+node	PTGS2	color	40 80 255
+node	PTGS2	tooltip	Cox2.R.C_GBL1033859, -4.71222522562219

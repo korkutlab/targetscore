@@ -1,0 +1,94 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "Cyclin.D1.R.V_GBL1033878",
+          "label": "Cyclin.D1.R.V",
+          "color": "#2850FF",
+          "id": "Cyclin.D1.R.V_GBL1033878"
+        }
+      },
+      {
+        "data": {
+          "name": "ER.alpha.R.V_GBL1033879",
+          "label": "ER.alpha.R.V",
+          "color": "#2850FF",
+          "id": "ER.alpha.R.V_GBL1033879"
+        }
+      },
+      {
+        "data": {
+          "name": "Cox2.R.C_GBL1033859",
+          "label": "Cox2.R.C",
+          "color": "#2850FF",
+          "id": "Cox2.R.C_GBL1033859"
+        }
+      },
+      {
+        "data": {
+          "name": "GSK.3b_pS9.R.V_GBL1033831",
+          "label": "GSK.3b_pS9.R.V",
+          "color": "#2850FF",
+          "id": "GSK.3b_pS9.R.V_GBL1033831"
+        }
+      },
+      {
+        "data": {
+          "name": "c.Myc.R.C_GBL1033885",
+          "label": "c.Myc.R.C",
+          "color": "#2850FF",
+          "id": "c.Myc.R.C_GBL1033885"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "Cyclin.D1.R.V_GBL1033878",
+          "target": "ER.alpha.R.V_GBL1033879",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "ER.alpha.R.V_GBL1033879",
+          "target": "Cyclin.D1.R.V_GBL1033878",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "Cox2.R.C_GBL1033859",
+          "target": "GSK.3b_pS9.R.V_GBL1033831",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "ER.alpha.R.V_GBL1033879",
+          "target": "c.Myc.R.C_GBL1033885",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "ER.alpha.R.V_GBL1033879",
+          "target": "Cox2.R.C_GBL1033859",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

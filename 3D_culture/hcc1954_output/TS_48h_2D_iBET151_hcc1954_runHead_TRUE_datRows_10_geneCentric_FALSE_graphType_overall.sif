@@ -1,0 +1,15 @@
+PARTICIPANT_A	INTERACTION_TYPE	PARTICIPANT_B	URIS	SITES
+A.Raf.R.V_GBL1033858	phosphorylates	MEK1_pS217_S221.R.V_GBL1033828		
+E2F1.M.V_GBL1033938	upregulates-expression	Rb.M.QC_GBL1033895		
+Rb.M.QC_GBL1033895	upregulates-expression	E2F1.M.V_GBL1033938		
+Rb.M.QC_GBL1033895	upregulates-expression	MSH2.M.V_GBL1033900		
+p53.R.C_GBL1033956	upregulates-expression	Rb.M.QC_GBL1033895		
+E2F1.M.V_GBL1033938	upregulates-expression	MSH2.M.V_GBL1033900		
+E2F1.M.V_GBL1033938	upregulates-expression	p53.R.C_GBL1033956		
+p53.R.C_GBL1033956	upregulates-expression	MSH2.M.V_GBL1033900		
+Rb.M.QC_GBL1033895	downregulates-expression	E2F1.M.V_GBL1033938		
+E2F1.M.V_GBL1033938	downregulates-expression	p53.R.C_GBL1033956		
+p53.R.C_GBL1033956	downregulates-expression	E2F1.M.V_GBL1033938		
+E2F1.M.V_GBL1033938	downregulates-expression	Mcl.1.R.V_GBL1033861		
+p53.R.C_GBL1033956	downregulates-expression	Mcl.1.R.V_GBL1033861		
+Src_pY527.R.V_GBL1033726	phosphorylates	MEK1_pS217_S221.R.V_GBL1033828		

@@ -1,0 +1,13 @@
+componentType	componentLabel	componentProperty	rgbColor
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	MTOR	rppasite	mTOR_pS2448.R.C_GBL1033804, 9.38631585711075|p|255 80 40|0 180 20
+node	AKT1S1	rppasite	PRAS40_pT246.R.V_GBL1033737, 5.2561014122374|p|255 80 40|180 0 20
+node	ERRFI1	color	255 80 40
+node	ERRFI1	tooltip	MIG6.M.V_GBL1033905, 5.30543784991836
+node	TP53	color	255 80 40
+node	TP53	tooltip	p53.R.C_GBL1033956, 6.29847770559613
+node	MTOR	color	255 80 40
+node	MTOR	tooltip	mTOR.R.V_GBL1033803, 6.7367885985537
+node	MCL1	color	255 80 40
+node	MCL1	tooltip	Mcl.1.R.V_GBL1033861, 11.4682125046519

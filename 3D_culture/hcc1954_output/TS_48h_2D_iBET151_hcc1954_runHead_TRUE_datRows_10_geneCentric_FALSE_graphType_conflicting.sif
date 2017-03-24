@@ -1,0 +1,6 @@
+Rb.M.QC_GBL1033895	downregulates-expression	E2F1.M.V_GBL1033938
+E2F1.M.V_GBL1033938	downregulates-expression	p53.R.C_GBL1033956
+p53.R.C_GBL1033956	downregulates-expression	E2F1.M.V_GBL1033938
+E2F1.M.V_GBL1033938	downregulates-expression	Mcl.1.R.V_GBL1033861
+p53.R.C_GBL1033956	downregulates-expression	Mcl.1.R.V_GBL1033861
+Src_pY527.R.V_GBL1033726	phosphorylates	MEK1_pS217_S221.R.V_GBL1033828

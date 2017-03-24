@@ -1,0 +1,8 @@
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	MCL1	color	255 80 40
+node	MCL1	tooltip	Mcl.1.R.V_GBL1033861, 4.91756801646035
+node	TP53	color	255 80 40
+node	TP53	tooltip	p53.R.C_GBL1033956, 3.476808009178
+node	BCL2	color	255 80 40
+node	BCL2	tooltip	Bcl2.M.V_GBL1033931, 4.15052427935444

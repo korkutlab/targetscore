@@ -1,0 +1,6 @@
+p53.R.C_GBL1033956	upregulates-expression	PMS2.R.V_GBL1033867
+p53.R.C_GBL1033956	upregulates-expression	p21.R.V_GBL1033880
+Rb.M.QC_GBL1033895	upregulates-expression	MSH2.M.V_GBL1033900
+p53.R.C_GBL1033956	upregulates-expression	Rb.M.QC_GBL1033895
+Rb.M.QC_GBL1033895	upregulates-expression	p21.R.V_GBL1033880
+p53.R.C_GBL1033956	upregulates-expression	MSH2.M.V_GBL1033900
