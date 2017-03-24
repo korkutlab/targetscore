@@ -1,0 +1,34 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "Fibronectin.R.V_GBL1033958",
+          "label": "Fibronectin",
+          "color": "#FF5028",
+          "id": "Fibronectin.R.V_GBL1033958"
+        }
+      },
+      {
+        "data": {
+          "name": "Src_pY527.R.V_GBL1033726",
+          "label": "Src_pY527",
+          "color": "#FF5028",
+          "id": "Src_pY527.R.V_GBL1033726"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "Fibronectin.R.V_GBL1033958",
+          "target": "Src_pY527.R.V_GBL1033726",
+          "interactionType": "dephosphorylates",
+          "color": "#ff0000",
+          "lty": 1
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "Rb_pS807_S811.R.V_GBL1033721",
+          "label": "Rb_pS807_S811",
+          "color": "#2850FF",
+          "id": "Rb_pS807_S811.R.V_GBL1033721"
+        }
+      },
+      {
+        "data": {
+          "name": "Stathmin.1.R.V_GBL1033733",
+          "label": "Stathmin.1",
+          "color": "#2850FF",
+          "id": "Stathmin.1.R.V_GBL1033733"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "Rb_pS807_S811.R.V_GBL1033721",
+          "target": "Stathmin.1.R.V_GBL1033733",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

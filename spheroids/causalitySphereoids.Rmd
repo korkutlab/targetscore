@@ -6,13 +6,19 @@ output:
     toc: yes
   pdf_document:
     toc: yes
+params:
+  dataFileBase: "TS_24h_3D_JQ1_bt474"
+  runHead: TRUE   
+  datRows: 10
+  outputDir: "./"
+  graphType: "compatible"
+  platformFileOrg: "../zeptosensPkg/inst/targetScoreData/antibodyMap.txt"
+  signedPcDir: "~/.paxtoolsRCache/"
 ---
 
 ```{r setup, echo=FALSE, warning=FALSE, message=FALSE}
 require("knitr")
-opts_knit$set(root.dir="..")
 opts_chunk$set(fig.align="center", fig.width=6, fig.height=6, dpi=300)
-
 ```
 
 ## Purpose
@@ -26,61 +32,77 @@ library(igraph)
 library(tidyverse)
 library(gsubfn)
 library(GetoptLong)
+library(R.utils)
+```
+
+## Set Parameters and Do File Processing 
+```{r}
+geneCentric <- FALSE
+doSiteMatch <- FALSE
+
+# Parameters are set at top in YAML section
+dataFileBase <- params$dataFileBase #"TS_24h_3D_JQ1_bt474"
+runHead <- params$runHead # TRUE
+datRows <- params$datRows # 10
+platformFileOrg <- params$platformFileOrg # "./zeptosensPkg/inst/targetScoreData/antibodyMap.txt"
+outputDir <- params$outputDir # "./"
+graphType <- params$graphType # "compatible"
+signedPcDir <- params$signedPcDir # "~/.paxtoolsRCache/"
+
+# Set up Paths and Process files
+baseFile <- paste0(dataFileBase, "_runHead_", runHead, "_datRows_", datRows, "_graphType_", graphType)
+outputFilePrefix <- file.path(outputDir, baseFile)
+outputFilePrefix <- getAbsolutePath(outputFilePrefix)
+
+if(!dir.exists(outputFilePrefix)) {
+  dir.create(outputFilePrefix)
+}
+
+signedPcDir <- path.expand(signedPcDir)
+
+valuesFile <- qq("./@{dataFileBase}.txt")
+valuesFile <- getAbsolutePath(valuesFile)
+
+# Extract data from valuesFile
+d1 <- read.table(valuesFile, sep="\t", header=TRUE, stringsAsFactors = FALSE)
+
+if(runHead) {
+  d2 <- head(d1, datRows)
+} else {
+  d2 <- tail(d1, datRows)
+}
+
+tmpFile <- tempfile()
+write.table(d2, tmpFile, na="", quote=FALSE, col.names = TRUE, row.names=FALSE, sep="\t")
+valuesFile <- tmpFile
+
+# Fixes for platformsFile and make antibodyMap match values file
+p1 <- read.table(platformFileOrg, sep="\t", header=TRUE, stringsAsFactors = FALSE, fill = TRUE)
+drops <- c("Source")
+p1 <- p1[, !(names(p1) %in% drops)]
+colnames(p1) <- c("ID1", "ID2", "Symbols", "Sites", "Effect")
+write.table(p1, "./platform.txt", na="", quote=FALSE, col.names = TRUE, row.names=FALSE, sep="\t")
+
+# NOTE: DO NOT USE write_tsv; produces something incompatible with Java; ghost quotes """
+#write_tsv(p1, "/Users/user/default/workspace/zeptosensPkg/spheroids/platform.txt", na="")
+platformFile <- "./platform.txt"
+# Needed for Java
+platformFile <- getAbsolutePath(platformFile)
+
+# Quick check that all IDs are in the platformsFile
+stopifnot(length(which(d2$ID1 %in% p1$ID1)) == datRows)
 ```
 
 ## Generate SIF File
 ### Compatible
 ```{r}
-geneCentric <- FALSE
-doSiteMatch <- FALSE
-
-dataFile <- "TS_24h_3D_JQ1_bt474"
-
-#platformFile <- "/Users/user/default/workspace/zeptosensPkg/spheroids/platform.txt"
-platformFile <- "/Users/user/default/workspace/zeptosensPkg/zeptosensPkg/inst/targetScoreData/antibodyMap.txt"
-valuesFile <- qq("/Users/user/default/workspace/zeptosensPkg/spheroids/@{dataFile}.txt")
-#outputFilePrefix <- "/Users/user/default/workspace/zeptosensPkg/spheroids/compatible"
-
-# Sample Inputs: 
-#platformFile <- "/Users/user/default/workspace/zeptosensPkg/zeptosensPkg/inst/chibeExample/abdata-chibe.txt"
-#valuesFile <- "/Users/user/default/workspace/zeptosensPkg/spheroids/ovcar4_dif_drug_sig.txt"
-#outputFilePrefix <- "inst/chibeExample/ovcar4_dif_drug_sig_compatible"
-# Example Input File Format
-#ID1	change	p-val	q-val
-#4E.BP1.R.V_GBL9026169	-0.8159318946451	0.00123425381475823	0.0402318935848714
-
-# Data check
-y <- read_tsv(valuesFile)
-y1 <- head(y, 10)
-colnames(y1) <- c("ID1", "changeInclude", "change", "FDRp")
-tmpFile <- "/Users/user/default/workspace/zeptosensPkg/spheroids/values.txt"
-write_tsv(y1, tmpFile, na="")
-rownames(y1) 
-
-# Fixes for platformsFile and make antibodyMap match values file
-p1 <- read.table(platformFile, sep="\t", header=TRUE, stringsAsFactors = FALSE, fill = TRUE)
-drops <- c("Source")
-p1 <- p1[, !(names(p1) %in% drops)]
-colnames(p1) <- c("ID1", "ID2", "Symbols", "Sites", "Effect")
-write.table(p1, "/Users/user/default/workspace/zeptosensPkg/spheroids/platform.txt", na="", quote=FALSE, col.names = TRUE, row.names=FALSE, sep="\t")
-# NOTE: DO NOT USE write_tsv; produces something incompatible with Java; ghost quotes """
-#write_tsv(p1, "/Users/user/default/workspace/zeptosensPkg/spheroids/platform.txt", na="")
-platformFile <- "/Users/user/default/workspace/zeptosensPkg/spheroids/platform.txt"
-
-# Quick check that all IDs are in the platformsFile
-length(which(y1$ID1 %in% p1$ID1))
-
 # Run Causality
-## Compatible
-graphType <- "compatible"
-outputFilePrefix <- paste0("../spheroids/", graphType)
-signedPcDir <- tempdir()
 results <- generateCausalityGraph(platformFile = platformFile, 
                               idColumn = "ID1", 
                               symbolsColumn = "Symbols",  
                               sitesColumn = "Sites",
                               effectColumn = "Effect", 
-                              valuesFile = tmpFile, 
+                              valuesFile = valuesFile, 
                               valueColumn = "change", 
                               valueThreshold = 0.001,
                               graphType = graphType, 
@@ -93,9 +115,11 @@ compatibleSif <- results$sif
 compatibleSif[, "graphType"] <- rep(graphType,  nrow(results$sif))
 ```
 
-### Conflicting 
-```{r}
+### Conflicting (IGNORE)
+```{r, eval=FALSE}
 graphType <- "conflicting"
+outputFilePrefix <- file.path(outputDir, graphType)
+outputFilePrefix <- getAbsolutePath(outputFilePrefix)
 results <- generateCausalityGraph(platformFile = platformFile, 
                               idColumn = "ID1", 
                               symbolsColumn = "Symbols",  
@@ -118,23 +142,28 @@ overallSif <- rbind(conflictingSif, compatibleSif)
 
 ## Parse SIF 
 ```{r}
-graphType <- "compatible"
+# NOT USED
+#graphType <- "conflicting"
+# if(graphType == "conflicting") {
+#     sif <- conflictingSif
+# } else if(graphType == "compatible") {
+#     sif <- compatibleSif
+# } else {
+#     stop("ERROR: Unknown graphType")
+# }
 
-if(graphType == "conflicting") {
-    sif <- conflictingSif
-} else if(graphType == "compatible") {
-    sif <- compatibleSif
-} else {
-    stop("ERROR: Unknown graphType")
-}
+sif <- results$sif
 
 t1 <- sif[, c("PARTICIPANT_A", "INTERACTION_TYPE", "PARTICIPANT_B")]
 t2 <- t1[t1$INTERACTION_TYPE != "",]
 g <- loadSifInIgraph(t2)
 
-labels <- strapplyc(V(g)$name, "^(.*)\\.R\\..*$", simplify=TRUE)
+# Shorten labels that have GBL
+labels <- V(g)$name
+idx <- which(grepl("GBL", labels))
+labels[idx] <- strapplyc(V(g)$name[idx], "^(.*)\\.R\\..*$", simplify=TRUE)
 g <- set_vertex_attr(g, "label", index = V(g), value=labels)
-
+#g <- set_vertex_attr(g, "label", index = V(g), value=V(g)$name)
 
 # Get node colors
 formatTmp <- subset(results$format, componentProperty == "color" & componentType == "node", select = c(componentLabel, rgbColor))
@@ -195,18 +224,17 @@ E(g)$lty <- edgeLty
 
 ## Plot SIF
 ```{r}
-plotTitle <- paste0("Data: ", dataFile, " Type: ", graphType)
+plotTitle <- paste0("Data: ", dataFileBase, " Type: ", graphType)
 
-baseFile <- paste0(dataFile, "_", graphType)
-igraphFile <- paste0(baseFile, "_igraph.png")
-jsonFile <- paste0(baseFile, ".json")
+igraphFile <- file.path(outputFilePrefix, paste0(baseFile, "_igraph.png"))
+jsonFile <- file.path(outputFilePrefix, paste0(baseFile, ".json"))
 
-#png(filename=igraphFile, width=800, height=800, res = 150)
+png(filename=igraphFile, width=800, height=800, res = 150)
 plot(g, layout=layout.fruchterman.reingold, 
      edge.arrow.width=0.5, edge.arrow.size=0.5, edge.color=E(g)$color, edge.lty=E(g)$lty,
      vertex.color=V(g)$color, vertex.label.cex=0.75, vertex.label.color="black", vertex.label.family="Arial", vertex.label=V(g)$label)
 title(plotTitle, cex.main=1)
-#dev.off()
+dev.off()
 
 # Export plot to Cytoscape
 tmp <- toCytoscape(g)
