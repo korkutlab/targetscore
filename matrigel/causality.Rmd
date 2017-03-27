@@ -16,6 +16,7 @@ params:
   dataDir: "./"
   platformFileOrg: "../zeptosensPkg/inst/targetScoreData/antibodyMap.txt"
   signedPcDir: "~/.paxtoolsRCache/"
+  colorSaturationValue: 10
 ---
 
 ```{r setup, echo=FALSE, warning=FALSE, message=FALSE}
@@ -48,6 +49,7 @@ signedPcDir <- params$signedPcDir # "~/.paxtoolsRCache/"
 geneCentric <- params$geneCentric # TRUE
 doSiteMatch <- params$doSiteMatch # FALSE
 dataDir <- params$dataDir # "./"
+colorSaturationValue <- params$colorSaturationValue
 
 # Set up Paths and Process files
 signedPcDir <- path.expand(signedPcDir)

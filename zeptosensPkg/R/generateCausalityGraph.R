@@ -16,6 +16,7 @@
 #'   effect of proximate sites. This parameter sets the proximity threshold for using the proximate sites for that 
 #'   prediction. (DEFAULT: 0)
 #' @param geneCentric A boolean option to produce a gene-centric (TRUE) or an antibody-centric (FALSE) graph
+#' @param colorSaturationValue The value that maps to the most saturated color (DEFAULT: 10)
 #' @param outputFilePrefix If the user provides xxx, then xxx.sif and xxx.format are generated
 #' @param customNetworkDirectory The directory that the network will be downloaded and SignedPC
 #'   directory will be created in. Pass null to use default.
@@ -24,7 +25,8 @@
 #' @export
 generateCausalityGraph <- function(platformFile, idColumn = "NodeName", symbolsColumn = "Symbol", sitesColumn = "Sites", 
     effectColumn = "Effect", valuesFile, valueColumn = "Value", valueThreshold, graphType = "compatible", 
-    doSiteMatch = TRUE, siteMatchProximityThreshold = 0, siteEffectProximityThreshold = 0, geneCentric = TRUE, outputFilePrefix, customNetworkDirectory = tempdir()) {
+    doSiteMatch = TRUE, siteMatchProximityThreshold = 0, siteEffectProximityThreshold = 0, geneCentric = TRUE, 
+    colorSaturationValue=10, outputFilePrefix, customNetworkDirectory = tempdir()) {
     
     command <- "generateCausalityGraph"
     commandJStr <- .jnew("java/lang/String", command)
@@ -39,12 +41,13 @@ generateCausalityGraph <- function(platformFile, idColumn = "NodeName", symbolsC
     graphTypeJStr <- .jnew("java/lang/String", graphType)
     outputFilePrefixJStr <- .jnew("java/lang/String", outputFilePrefix)
     customNetworkDirectoryJStr <- .jnew("java/lang/String", customNetworkDirectory)
+    colorSaturationValue <- .jfloat(colorSaturationValue)
     
     .jcall("org/panda/causalpath/run/CausalityAnalysisSingleMethodInterface", "V", command, 
            platformFileJStr, idColumnJStr, symbolsColumnJStr, sitesColumnJStr, effectColumnJStr, 
            valuesFileJStr, valueColumnJStr, valueThreshold, graphTypeJStr, doSiteMatch, 
            as.integer(siteMatchProximityThreshold), as.integer(siteEffectProximityThreshold), 
-           geneCentric, outputFilePrefixJStr, customNetworkDirectoryJStr)
+           geneCentric, colorSaturationValue, outputFilePrefixJStr, customNetworkDirectoryJStr)
     .jcheck()
     
     sifFile <- paste0(outputFilePrefix, ".sif")

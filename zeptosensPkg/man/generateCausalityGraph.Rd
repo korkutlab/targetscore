@@ -9,7 +9,8 @@ generateCausalityGraph(platformFile, idColumn = "NodeName",
   effectColumn = "Effect", valuesFile, valueColumn = "Value",
   valueThreshold, graphType = "compatible", doSiteMatch = TRUE,
   siteMatchProximityThreshold = 0, siteEffectProximityThreshold = 0,
-  geneCentric = TRUE, outputFilePrefix, customNetworkDirectory = tempdir())
+  geneCentric = TRUE, colorSaturationValue = 10, outputFilePrefix,
+  customNetworkDirectory = tempdir())
 }
 \arguments{
 \item{platformFile}{Name of the antibody reference file}
@@ -40,6 +41,8 @@ effect of proximate sites. This parameter sets the proximity threshold for using
 prediction. (DEFAULT: 0)}
 
 \item{geneCentric}{A boolean option to produce a gene-centric (TRUE) or an antibody-centric (FALSE) graph}
+
+\item{colorSaturationValue}{The value that maps to the most saturated color (DEFAULT: 10)}
 
 \item{outputFilePrefix}{If the user provides xxx, then xxx.sif and xxx.format are generated}
 
