@@ -41,7 +41,6 @@ generateCausalityGraph <- function(platformFile, idColumn = "NodeName", symbolsC
     graphTypeJStr <- .jnew("java/lang/String", graphType)
     outputFilePrefixJStr <- .jnew("java/lang/String", outputFilePrefix)
     customNetworkDirectoryJStr <- .jnew("java/lang/String", customNetworkDirectory)
-    colorSaturationValue <- .jfloat(colorSaturationValue)
     
     .jcall("org/panda/causalpath/run/CausalityAnalysisSingleMethodInterface", "V", command, 
            platformFileJStr, idColumnJStr, symbolsColumnJStr, sitesColumnJStr, effectColumnJStr, 
