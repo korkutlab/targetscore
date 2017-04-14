@@ -1,0 +1,243 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "Stat3_pY705.R.V_GBL1033727",
+          "label": "Stat3_pY705.R.V",
+          "color": "#748EFF",
+          "id": "Stat3_pY705.R.V_GBL1033727"
+        }
+      },
+      {
+        "data": {
+          "name": "Cyclin.D1.R.V_GBL1033878",
+          "label": "Cyclin.D1.R.V",
+          "color": "#7E96FF",
+          "id": "Cyclin.D1.R.V_GBL1033878"
+        }
+      },
+      {
+        "data": {
+          "name": "c.Myc.R.C_GBL1033885",
+          "label": "c.Myc.R.C",
+          "color": "#3A5FFF",
+          "id": "c.Myc.R.C_GBL1033885"
+        }
+      },
+      {
+        "data": {
+          "name": "Caveolin.1.R.V_GBL1033687",
+          "label": "Caveolin.1.R.V",
+          "color": "#758FFF",
+          "id": "Caveolin.1.R.V_GBL1033687"
+        }
+      },
+      {
+        "data": {
+          "name": "Akt_pS473.R.V_GBL1033793",
+          "label": "Akt_pS473.R.V",
+          "color": "#8BA0FF",
+          "id": "Akt_pS473.R.V_GBL1033793"
+        }
+      },
+      {
+        "data": {
+          "name": "Akt_pT308.R.V_GBL1033851",
+          "label": "Akt_pT308.R.V",
+          "color": "#6D88FF",
+          "id": "Akt_pT308.R.V_GBL1033851"
+        }
+      },
+      {
+        "data": {
+          "name": "c.Met.M.QC_GBL1033899",
+          "label": "c.Met.M.QC",
+          "color": "#4B6DFF",
+          "id": "c.Met.M.QC_GBL1033899"
+        }
+      },
+      {
+        "data": {
+          "name": "Cox2.R.C_GBL1033859",
+          "label": "Cox2.R.C",
+          "color": "#8EA3FF",
+          "id": "Cox2.R.C_GBL1033859"
+        }
+      },
+      {
+        "data": {
+          "name": "GSK.3ab_pS21_S9.R.V_GBL1033797",
+          "label": "GSK.3ab_pS21_S9.R.V",
+          "color": "#93A7FF",
+          "id": "GSK.3ab_pS21_S9.R.V_GBL1033797"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "Stat3_pY705.R.V_GBL1033727",
+          "target": "Cyclin.D1.R.V_GBL1033878",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "Stat3_pY705.R.V_GBL1033727",
+          "target": "c.Myc.R.C_GBL1033885",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "Caveolin.1.R.V_GBL1033687",
+          "target": "Akt_pS473.R.V_GBL1033793",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Akt_pT308.R.V_GBL1033851",
+          "target": "c.Myc.R.C_GBL1033885",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "c.Met.M.QC_GBL1033899",
+          "target": "Stat3_pY705.R.V_GBL1033727",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Cox2.R.C_GBL1033859",
+          "target": "Akt_pT308.R.V_GBL1033851",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "c.Met.M.QC_GBL1033899",
+          "target": "Akt_pT308.R.V_GBL1033851",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "c.Met.M.QC_GBL1033899",
+          "target": "Akt_pS473.R.V_GBL1033793",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Akt_pT308.R.V_GBL1033851",
+          "target": "Stat3_pY705.R.V_GBL1033727",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Stat3_pY705.R.V_GBL1033727",
+          "target": "Akt_pT308.R.V_GBL1033851",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Caveolin.1.R.V_GBL1033687",
+          "target": "Akt_pT308.R.V_GBL1033851",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Stat3_pY705.R.V_GBL1033727",
+          "target": "Cox2.R.C_GBL1033859",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "Akt_pT308.R.V_GBL1033851",
+          "target": "GSK.3ab_pS21_S9.R.V_GBL1033797",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Akt_pS473.R.V_GBL1033793",
+          "target": "Stat3_pY705.R.V_GBL1033727",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Stat3_pY705.R.V_GBL1033727",
+          "target": "Akt_pS473.R.V_GBL1033793",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Cox2.R.C_GBL1033859",
+          "target": "Akt_pS473.R.V_GBL1033793",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Akt_pS473.R.V_GBL1033793",
+          "target": "c.Myc.R.C_GBL1033885",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "Akt_pS473.R.V_GBL1033793",
+          "target": "GSK.3ab_pS21_S9.R.V_GBL1033797",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      }
+    ]
+  }
+}

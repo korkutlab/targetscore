@@ -1,0 +1,102 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "MTOR",
+          "label": "MTOR",
+          "color": "#FFC1B3",
+          "id": "MTOR"
+        }
+      },
+      {
+        "data": {
+          "name": "RPS6KB1",
+          "label": "RPS6KB1",
+          "color": "#FFFFFF",
+          "id": "RPS6KB1"
+        }
+      },
+      {
+        "data": {
+          "name": "AKT1S1",
+          "label": "AKT1S1",
+          "color": "#FFFFFF",
+          "id": "AKT1S1"
+        }
+      },
+      {
+        "data": {
+          "name": "TP53",
+          "label": "TP53",
+          "color": "#FFC9BD",
+          "id": "TP53"
+        }
+      },
+      {
+        "data": {
+          "name": "ERRFI1",
+          "label": "ERRFI1",
+          "color": "#FFAC99",
+          "id": "ERRFI1"
+        }
+      },
+      {
+        "data": {
+          "name": "GSK3A",
+          "label": "GSK3A",
+          "color": "#FFFFFF",
+          "id": "GSK3A"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "MTOR",
+          "target": "RPS6KB1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "RPS6KB1",
+          "target": "MTOR",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "MTOR",
+          "target": "AKT1S1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "TP53",
+          "target": "ERRFI1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "RPS6KB1",
+          "target": "GSK3A",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      }
+    ]
+  }
+}

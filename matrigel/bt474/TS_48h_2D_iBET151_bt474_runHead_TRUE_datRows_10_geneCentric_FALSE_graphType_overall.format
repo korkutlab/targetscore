@@ -1,0 +1,4 @@
+componentType	componentLabel	componentProperty	rgbColor
+node	all-nodes	color	255 255 255
+node	ATM_pS1981.R.V_GBL1033875	color	255 176 157
+node	p21.R.V_GBL1033880	color	255 155 133

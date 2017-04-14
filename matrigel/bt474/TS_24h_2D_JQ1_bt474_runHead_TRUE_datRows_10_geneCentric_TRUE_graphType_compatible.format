@@ -1,0 +1,10 @@
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	STAT5A	color	255 186 170
+node	STAT5A	tooltip	Stat5a.R.V_GBL1033728, 3.93669912994182
+node	MAPK9	color	255 208 197
+node	MAPK9	tooltip	JNK2.R.C_GBL1033799, 2.70265197568354
+node	MAPK14	color	255 195 181
+node	MAPK14	tooltip	p38.R.V_GBL1033807, 3.42316481206673
+node	ETS1	color	255 206 194
+node	ETS1	tooltip	Ets.1.R.V_GBL1033886, 2.81736586756039

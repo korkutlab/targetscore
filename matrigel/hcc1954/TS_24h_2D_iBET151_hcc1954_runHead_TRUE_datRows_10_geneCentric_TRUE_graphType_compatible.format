@@ -1,0 +1,7 @@
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	ACACA	color	255 148 124
+node	ACACA	tooltip	ACC1.R.E_GBL1033674, 6.0906909708399
+node	FOXO3	rppasite	FoxO3a_pS318_S321.R.C_GBL1033796, 5.13055113178877|p|255 165 145|0 180 20
+node	CDKN1B	color	255 137 111
+node	CDKN1B	tooltip	p27.Kip.1.R.V_GBL1033778, 6.71842316990902

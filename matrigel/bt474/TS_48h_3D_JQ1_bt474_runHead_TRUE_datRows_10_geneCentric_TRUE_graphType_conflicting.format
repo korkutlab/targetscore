@@ -1,0 +1,5 @@
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	SRC	rppasite	Src_pY527.R.V_GBL1033726, 4.66966257560377|p|255 173 155|180 0 20
+node	FN1	color	255 193 178
+node	FN1	tooltip	Fibronectin.R.V_GBL1033958, 3.5583500328547

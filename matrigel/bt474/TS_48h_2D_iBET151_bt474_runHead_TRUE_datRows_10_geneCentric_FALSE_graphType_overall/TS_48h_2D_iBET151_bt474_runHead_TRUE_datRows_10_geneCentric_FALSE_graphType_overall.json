@@ -1,0 +1,34 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "ATM_pS1981.R.V_GBL1033875",
+          "label": "ATM_pS1981.R.V",
+          "color": "#FFB09D",
+          "id": "ATM_pS1981.R.V_GBL1033875"
+        }
+      },
+      {
+        "data": {
+          "name": "p21.R.V_GBL1033880",
+          "label": "p21.R.V",
+          "color": "#FF9B85",
+          "id": "p21.R.V_GBL1033880"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "ATM_pS1981.R.V_GBL1033875",
+          "target": "p21.R.V_GBL1033880",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

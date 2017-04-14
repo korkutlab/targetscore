@@ -1,0 +1,12 @@
+componentType	componentLabel	componentProperty	rgbColor
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	MCL1	color	255 158 136
+node	MCL1	tooltip	Mcl.1.R.V_GBL1033861, 5.53462973228368
+node	SRC	rppasite	Src_pY527.R.V_GBL1033726, 4.66966257560377|p|255 173 155|180 0 20
+node	EGFR	color	255 166 146
+node	EGFR	tooltip	EGFR.R.V_GBL1033837, 5.08045468629141
+node	FN1	color	255 193 178
+node	FN1	tooltip	Fibronectin.R.V_GBL1033958, 3.5583500328547
+node	AKT1	color	255 187 171
+node	AKT1	tooltip	Akt.R.V_GBL1033833, 3.88830644862098

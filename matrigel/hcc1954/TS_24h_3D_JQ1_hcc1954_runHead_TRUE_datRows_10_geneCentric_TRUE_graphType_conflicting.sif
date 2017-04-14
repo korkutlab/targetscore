@@ -1,0 +1,3 @@
+AKT1S1	phosphorylates	RPS6KB1	http://identifiers.org/reactome/R-HSA-165718 http://identifiers.org/reactome/R-HSA-5672889	T389;S371
+MTOR	dephosphorylates	RPS6KB1	
+TP53	downregulates-expression	MCL1	

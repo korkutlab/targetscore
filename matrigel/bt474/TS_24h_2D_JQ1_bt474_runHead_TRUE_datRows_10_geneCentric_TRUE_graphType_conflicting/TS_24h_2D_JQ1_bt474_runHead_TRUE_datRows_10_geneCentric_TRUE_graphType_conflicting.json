@@ -1,0 +1,68 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "STAT5A",
+          "label": "STAT5A",
+          "color": "#FFBAAA",
+          "id": "STAT5A"
+        }
+      },
+      {
+        "data": {
+          "name": "MAPK9",
+          "label": "MAPK9",
+          "color": "#FFD0C5",
+          "id": "MAPK9"
+        }
+      },
+      {
+        "data": {
+          "name": "ETS1",
+          "label": "ETS1",
+          "color": "#FFCEC2",
+          "id": "ETS1"
+        }
+      },
+      {
+        "data": {
+          "name": "MAPK14",
+          "label": "MAPK14",
+          "color": "#FFC3B5",
+          "id": "MAPK14"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "STAT5A",
+          "target": "MAPK9",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "STAT5A",
+          "target": "ETS1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "STAT5A",
+          "target": "MAPK14",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+componentType	componentLabel	componentProperty	rgbColor
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	MCL1	color	255 167 147
+node	MCL1	tooltip	Mcl.1.R.V_GBL1033861, 5.04474368214987
+node	AKT1	color	255 149 125
+node	AKT1	tooltip	Akt.R.V_GBL1033833, 6.06730620684616

@@ -1,0 +1,12 @@
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	CDKN1A	color	255 145 120
+node	CDKN1A	tooltip	p21.R.V_GBL1033880, 6.26591452851384
+node	MSH2	color	255 172 152
+node	MSH2	tooltip	MSH2.M.V_GBL1033900, 4.76746860081519
+node	TP53	color	255 124 94
+node	TP53	tooltip	p53.R.C_GBL1033956, 7.46512202867706
+node	PMS2	color	255 165 145
+node	PMS2	tooltip	PMS2.R.V_GBL1033867, 5.13590245410901
+node	RB1	color	255 143 117
+node	RB1	tooltip	Rb.M.QC_GBL1033895, 6.42774384760893

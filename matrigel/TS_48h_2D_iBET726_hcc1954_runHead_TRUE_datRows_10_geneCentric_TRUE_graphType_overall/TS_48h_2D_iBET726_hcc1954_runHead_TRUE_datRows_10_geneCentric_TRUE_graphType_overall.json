@@ -1,0 +1,189 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "TP53",
+          "label": "TP53",
+          "color": "#FF542D",
+          "id": "TP53"
+        }
+      },
+      {
+        "data": {
+          "name": "RB1",
+          "label": "RB1",
+          "color": "#FF937B",
+          "id": "RB1"
+        }
+      },
+      {
+        "data": {
+          "name": "MTOR",
+          "label": "MTOR",
+          "color": "#FFFFFF",
+          "id": "MTOR"
+        }
+      },
+      {
+        "data": {
+          "name": "RPS6KB1",
+          "label": "RPS6KB1",
+          "color": "#FFFFFF",
+          "id": "RPS6KB1"
+        }
+      },
+      {
+        "data": {
+          "name": "EGFR",
+          "label": "EGFR",
+          "color": "#FFFFFF",
+          "id": "EGFR"
+        }
+      },
+      {
+        "data": {
+          "name": "BCL2",
+          "label": "BCL2",
+          "color": "#FF5028",
+          "id": "BCL2"
+        }
+      },
+      {
+        "data": {
+          "name": "FN1",
+          "label": "FN1",
+          "color": "#FF937B",
+          "id": "FN1"
+        }
+      },
+      {
+        "data": {
+          "name": "SRC",
+          "label": "SRC",
+          "color": "#FFFFFF",
+          "id": "SRC"
+        }
+      },
+      {
+        "data": {
+          "name": "PMS2",
+          "label": "PMS2",
+          "color": "#FF5028",
+          "id": "PMS2"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "TP53",
+          "target": "RB1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "MTOR",
+          "target": "RPS6KB1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "RPS6KB1",
+          "target": "MTOR",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "EGFR",
+          "target": "MTOR",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "MTOR",
+          "target": "BCL2",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "FN1",
+          "target": "SRC",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "EGFR",
+          "target": "SRC",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "TP53",
+          "target": "PMS2",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "MTOR",
+          "target": "RPS6KB1",
+          "interactionType": "dephosphorylates",
+          "color": "#ff0000",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "TP53",
+          "target": "BCL2",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "FN1",
+          "target": "SRC",
+          "interactionType": "dephosphorylates",
+          "color": "#ff0000",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "SRC",
+          "target": "EGFR",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      }
+    ]
+  }
+}

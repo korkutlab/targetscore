@@ -1,0 +1,5 @@
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	MSH2	color	60 96 255
+node	MSH2	tooltip	MSH2.M.V_GBL1033900, -9.09125807406456
+node	RB1	rppasite	Rb_pS807_S811.R.V_GBL1033721, -9.85817529416624|p|43 82 255|180 0 20

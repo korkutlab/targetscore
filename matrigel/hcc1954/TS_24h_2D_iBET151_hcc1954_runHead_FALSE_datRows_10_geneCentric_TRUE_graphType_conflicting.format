@@ -1,0 +1,10 @@
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	SNAI2	color	98 128 255
+node	SNAI2	tooltip	Snail.M.QC_GBL1033897, -7.284036574539
+node	MET	color	91 122 255
+node	MET	tooltip	c.Met.M.QC_GBL1033899, -7.61156834148162
+node	CCND1	color	114 140 255
+node	CCND1	tooltip	Cyclin.D1.R.V_GBL1033878, -6.58094150949635
+node	MYC	color	40 80 255
+node	MYC	tooltip	c.Myc.R.C_GBL1033885, -10.5111026181573

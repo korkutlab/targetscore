@@ -1,0 +1,261 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "SRC",
+          "label": "SRC",
+          "color": "#FFFFFF",
+          "id": "SRC"
+        }
+      },
+      {
+        "data": {
+          "name": "STAT3",
+          "label": "STAT3",
+          "color": "#FFFFFF",
+          "id": "STAT3"
+        }
+      },
+      {
+        "data": {
+          "name": "AKT1",
+          "label": "AKT1",
+          "color": "#FFFFFF",
+          "id": "AKT1"
+        }
+      },
+      {
+        "data": {
+          "name": "ESR1",
+          "label": "ESR1",
+          "color": "#FFFFFF",
+          "id": "ESR1"
+        }
+      },
+      {
+        "data": {
+          "name": "MAPK1",
+          "label": "MAPK1",
+          "color": "#FFFFFF",
+          "id": "MAPK1"
+        }
+      },
+      {
+        "data": {
+          "name": "MAPK8",
+          "label": "MAPK8",
+          "color": "#FFFFFF",
+          "id": "MAPK8"
+        }
+      },
+      {
+        "data": {
+          "name": "IRS1",
+          "label": "IRS1",
+          "color": "#5474FF",
+          "id": "IRS1"
+        }
+      },
+      {
+        "data": {
+          "name": "STMN1",
+          "label": "STMN1",
+          "color": "#4668FF",
+          "id": "STMN1"
+        }
+      },
+      {
+        "data": {
+          "name": "RB1",
+          "label": "RB1",
+          "color": "#FFFFFF",
+          "id": "RB1"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "SRC",
+          "target": "STAT3",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "AKT1",
+          "target": "ESR1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "ESR1",
+          "target": "AKT1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "MAPK1",
+          "target": "STAT3",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "MAPK1",
+          "target": "AKT1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "SRC",
+          "target": "AKT1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "MAPK8",
+          "target": "AKT1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "MAPK8",
+          "target": "STAT3",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "IRS1",
+          "target": "MAPK1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "MAPK1",
+          "target": "ESR1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "ESR1",
+          "target": "MAPK1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "SRC",
+          "target": "MAPK8",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "ESR1",
+          "target": "STMN1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "AKT1",
+          "target": "STAT3",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "STAT3",
+          "target": "AKT1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "SRC",
+          "target": "MAPK1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "ESR1",
+          "target": "IRS1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "SRC",
+          "target": "ESR1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "ESR1",
+          "target": "SRC",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "RB1",
+          "target": "STMN1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

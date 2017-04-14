@@ -1,0 +1,119 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "C.Raf_pS338.R.V_GBL1033691",
+          "label": "C.Raf_pS338.R.V",
+          "color": "#FFA38F",
+          "id": "C.Raf_pS338.R.V_GBL1033691"
+        }
+      },
+      {
+        "data": {
+          "name": "MEK1_pS217_S221.R.V_GBL1033828",
+          "label": "MEK1_pS217_S221.R.V",
+          "color": "#FF967E",
+          "id": "MEK1_pS217_S221.R.V_GBL1033828"
+        }
+      },
+      {
+        "data": {
+          "name": "FoxO3a_pS318_S321.R.C_GBL1033796",
+          "label": "FoxO3a_pS318_S321.R.C",
+          "color": "#FFA995",
+          "id": "FoxO3a_pS318_S321.R.C_GBL1033796"
+        }
+      },
+      {
+        "data": {
+          "name": "p21.R.V_GBL1033880",
+          "label": "p21.R.V",
+          "color": "#FF866A",
+          "id": "p21.R.V_GBL1033880"
+        }
+      },
+      {
+        "data": {
+          "name": "mTOR.R.V_GBL1033803",
+          "label": "mTOR.R.V",
+          "color": "#FF9F89",
+          "id": "mTOR.R.V_GBL1033803"
+        }
+      },
+      {
+        "data": {
+          "name": "PRAS40_pT246.R.V_GBL1033737",
+          "label": "PRAS40_pT246.R.V",
+          "color": "#FFA692",
+          "id": "PRAS40_pT246.R.V_GBL1033737"
+        }
+      },
+      {
+        "data": {
+          "name": "mTOR_pS2448.R.C_GBL1033804",
+          "label": "mTOR_pS2448.R.C",
+          "color": "#FFA894",
+          "id": "mTOR_pS2448.R.C_GBL1033804"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "C.Raf_pS338.R.V_GBL1033691",
+          "target": "MEK1_pS217_S221.R.V_GBL1033828",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "MEK1_pS217_S221.R.V_GBL1033828",
+          "target": "C.Raf_pS338.R.V_GBL1033691",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "FoxO3a_pS318_S321.R.C_GBL1033796",
+          "target": "p21.R.V_GBL1033880",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "mTOR.R.V_GBL1033803",
+          "target": "PRAS40_pT246.R.V_GBL1033737",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "mTOR_pS2448.R.C_GBL1033804",
+          "target": "PRAS40_pT246.R.V_GBL1033737",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "FoxO3a_pS318_S321.R.C_GBL1033796",
+          "target": "p21.R.V_GBL1033880",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

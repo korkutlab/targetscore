@@ -1,0 +1,6 @@
+STAT3	downregulates-expression	CCND1	
+STAT3	downregulates-expression	BCL2L1	
+CCND1	dephosphorylates	RB1	
+RB1	upregulates-expression	MYC	http://pathwaycommons.org/pc2/TemplateReaction_2d79b293b0d380e715c94313fb34cd26 http://pathwaycommons.org/pc2/TemplateReactionRegulation_32c0b3aaf69ce719bd195132a1177a75
+MYC	downregulates-expression	CCND1	
+STAT3	downregulates-expression	MYC	

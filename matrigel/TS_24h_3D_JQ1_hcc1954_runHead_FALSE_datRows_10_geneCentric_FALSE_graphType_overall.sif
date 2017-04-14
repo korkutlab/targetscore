@@ -1,0 +1,13 @@
+PARTICIPANT_A	INTERACTION_TYPE	PARTICIPANT_B	URIS	SITES
+c.Myc.R.C_GBL1033885	upregulates-expression	Histone.H3.R.V_GBL1033869		
+Rb_pS807_S811.R.V_GBL1033721	downregulates-expression	c.Myc.R.C_GBL1033885		
+c.Myc.R.C_GBL1033885	upregulates-expression	Smac.M.QC_GBL1033896		
+FoxM1.R.V_GBL1033839	upregulates-expression	Cyclin.D1.R.V_GBL1033878		
+Rb_pS807_S811.R.V_GBL1033721	downregulates-expression	c.Met.M.QC_GBL1033899		
+FoxM1.R.V_GBL1033839	upregulates-expression	c.Myc.R.C_GBL1033885		
+c.Myc.R.C_GBL1033885	upregulates-expression	FoxM1.R.V_GBL1033839		
+Cyclin.D1.R.V_GBL1033878	phosphorylates	Rb_pS807_S811.R.V_GBL1033721		
+Rb_pS807_S811.R.V_GBL1033721	upregulates-expression	Cox2.R.C_GBL1033859		
+Cyclin.D1.R.V_GBL1033878	dephosphorylates	Rb_pS807_S811.R.V_GBL1033721		
+Rb_pS807_S811.R.V_GBL1033721	upregulates-expression	c.Myc.R.C_GBL1033885		
+c.Myc.R.C_GBL1033885	downregulates-expression	Cyclin.D1.R.V_GBL1033878		

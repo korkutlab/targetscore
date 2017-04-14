@@ -1,0 +1,11 @@
+componentType	componentLabel	componentProperty	rgbColor
+node	all-nodes	color	255 255 255
+node	Akt_pS473.R.V_GBL1033793	color	255 148 124
+node	Mcl.1.R.V_GBL1033861	color	255 80 40
+node	mTOR_pS2448.R.C_GBL1033804	color	255 80 40
+node	FAK_pY397.R.V_GBL1033863	color	255 102 67
+node	p70.S6K_pT389.R.V_GBL1033811	color	255 80 40
+node	Shc_pY317.R.V_GBL1033791	color	255 105 71
+node	PDK1_pS241.R.V_GBL1033814	color	255 131 102
+node	b.Catenin_pT41_S45.R.V_GBL1033855	color	255 107 74
+node	IRS1.R.V_GBL1033768	color	255 142 116

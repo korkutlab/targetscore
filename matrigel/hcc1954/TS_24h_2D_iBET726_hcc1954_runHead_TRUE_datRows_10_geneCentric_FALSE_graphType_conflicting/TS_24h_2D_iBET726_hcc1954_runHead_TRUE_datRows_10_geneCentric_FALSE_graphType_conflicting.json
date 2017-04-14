@@ -1,0 +1,34 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "p53.R.C_GBL1033956",
+          "label": "p53.R.C",
+          "color": "#FF8266",
+          "id": "p53.R.C_GBL1033956"
+        }
+      },
+      {
+        "data": {
+          "name": "PMS2.R.V_GBL1033867",
+          "label": "PMS2.R.V",
+          "color": "#FF9076",
+          "id": "PMS2.R.V_GBL1033867"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "p53.R.C_GBL1033956",
+          "target": "PMS2.R.V_GBL1033867",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

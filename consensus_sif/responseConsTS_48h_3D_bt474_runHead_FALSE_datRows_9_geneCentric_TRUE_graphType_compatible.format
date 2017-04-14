@@ -1,0 +1,11 @@
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	BAD	rppasite	Bad_pS112.R.V_GBL1033677, -5.0|p|148 168 255|0 180 20
+node	SHC1	rppasite	Shc_pY317.R.V_GBL1033791, -5.0|p|148 168 255|0 180 20
+node	STAT3	rppasite	Stat3_pY705.R.V_GBL1033727, -5.0|p|148 168 255|0 180 20
+node	MAPK1	rppasite	MAPK_pT202_Y204.R.V_GBL1033801, -5.0|p|148 168 255|0 180 20
+node	ESR1	rppasite	ER.alpha_pS118.R.V_GBL1033794, -5.0|p|148 168 255|0 180 20
+node	AKT1	rppasite	Akt_pT308.R.V_GBL1033851, -5.0|p|148 168 255|0 180 20
+node	AKT1	rppasite	Akt_pS473.R.V_GBL1033793, -5.0|p|148 168 255|0 180 20
+node	FOXM1	color	148 168 255
+node	FOXM1	tooltip	FoxM1.R.V_GBL1033839, -5.0

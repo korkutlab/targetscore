@@ -1,0 +1,6 @@
+RELA	downregulates-expression	MYC	
+RB1	upregulates-expression	CDK1	http://pathwaycommons.org/pc2/TemplateReactionRegulation_41dca8df1eab3da54c87d1948f7bb6d4 http://pathwaycommons.org/pc2/TemplateReaction_db0e8c5cce99fbbd891672c917f75c43
+MYC	downregulates-expression	CDKN1B	http://pathwaycommons.org/pc2/TemplateReaction_f029dd40a747bbae8c0b36d0f3fde810 http://pathwaycommons.org/pc2/TemplateReactionRegulation_0fc14019afef7ded105660822ebffe37
+RB1	upregulates-expression	MYC	http://pathwaycommons.org/pc2/TemplateReaction_2d79b293b0d380e715c94313fb34cd26 http://pathwaycommons.org/pc2/TemplateReactionRegulation_32c0b3aaf69ce719bd195132a1177a75
+RELA	downregulates-expression	PTGS2	
+RB1	upregulates-expression	PTGS2	http://pathwaycommons.org/pc2/Control_b271c78ecd3924b5f781ee20edcb493b http://pathwaycommons.org/pc2/TemplateReaction_8486f3ce08c91baeb72c1f01c1b9a10e

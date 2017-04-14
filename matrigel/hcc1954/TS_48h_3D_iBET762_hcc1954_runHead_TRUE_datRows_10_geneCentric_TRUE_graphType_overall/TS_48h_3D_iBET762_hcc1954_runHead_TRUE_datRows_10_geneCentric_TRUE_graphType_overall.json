@@ -1,0 +1,297 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "MAPK1",
+          "label": "MAPK1",
+          "color": "#FFFFFF",
+          "id": "MAPK1"
+        }
+      },
+      {
+        "data": {
+          "name": "STAT3",
+          "label": "STAT3",
+          "color": "#FFFFFF",
+          "id": "STAT3"
+        }
+      },
+      {
+        "data": {
+          "name": "AKT1",
+          "label": "AKT1",
+          "color": "#FFFFFF",
+          "id": "AKT1"
+        }
+      },
+      {
+        "data": {
+          "name": "PTK2",
+          "label": "PTK2",
+          "color": "#FFFFFF",
+          "id": "PTK2"
+        }
+      },
+      {
+        "data": {
+          "name": "CTNNB1",
+          "label": "CTNNB1",
+          "color": "#FFFFFF",
+          "id": "CTNNB1"
+        }
+      },
+      {
+        "data": {
+          "name": "SHC1",
+          "label": "SHC1",
+          "color": "#FFFFFF",
+          "id": "SHC1"
+        }
+      },
+      {
+        "data": {
+          "name": "MTOR",
+          "label": "MTOR",
+          "color": "#FFFFFF",
+          "id": "MTOR"
+        }
+      },
+      {
+        "data": {
+          "name": "MAP2K1",
+          "label": "MAP2K1",
+          "color": "#FFFFFF",
+          "id": "MAP2K1"
+        }
+      },
+      {
+        "data": {
+          "name": "MCL1",
+          "label": "MCL1",
+          "color": "#FF5731",
+          "id": "MCL1"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "MAPK1",
+          "target": "STAT3",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "MAPK1",
+          "target": "AKT1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "MAPK1",
+          "target": "PTK2",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "AKT1",
+          "target": "CTNNB1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "SHC1",
+          "target": "AKT1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "AKT1",
+          "target": "PTK2",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "PTK2",
+          "target": "AKT1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "SHC1",
+          "target": "MTOR",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "SHC1",
+          "target": "MAP2K1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "AKT1",
+          "target": "MCL1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "MAP2K1",
+          "target": "AKT1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "AKT1",
+          "target": "MTOR",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "MTOR",
+          "target": "AKT1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "STAT3",
+          "target": "MCL1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "MAP2K1",
+          "target": "STAT3",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "SHC1",
+          "target": "MAPK1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "MTOR",
+          "target": "STAT3",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "PTK2",
+          "target": "STAT3",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "AKT1",
+          "target": "STAT3",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "STAT3",
+          "target": "AKT1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "MAP2K1",
+          "target": "MAPK1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "MAPK1",
+          "target": "MAP2K1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "MAPK1",
+          "target": "MAP2K1",
+          "interactionType": "dephosphorylates",
+          "color": "#ff0000",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "STAT3",
+          "target": "MCL1",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,4 @@
+STAT5A	upregulates-expression	MAPK9	http://pathwaycommons.org/pc2/TemplateReactionRegulation_1033f5d881dedecea52295345cdbbd04 http://pathwaycommons.org/pc2/TemplateReaction_8d1693538fd4d5d02d8f067a21b17cc6
+AKT1	upregulates-expression	MCL1	http://pathwaycommons.org/pc2/TemplateReaction_515949a45a5fdaf87683c1327bd30011 http://pathwaycommons.org/pc2/TemplateReactionRegulation_c9c4a2b6999d565604b7d3f2382f0432
+STAT5A	upregulates-expression	EIF4E	http://pathwaycommons.org/pc2/TemplateReactionRegulation_d36f7e7f105a8856a6665dd1c8dc6b5e http://pathwaycommons.org/pc2/TemplateReaction_581ede167d135654493644c80f35e2ba
+STAT5A	upregulates-expression	MAPK14	http://pathwaycommons.org/pc2/TemplateReactionRegulation_fa73dfb26af97dea7b2b2eb52167d98c http://pathwaycommons.org/pc2/TemplateReaction_cb00dc0581dd35ec097742670d5c54d1

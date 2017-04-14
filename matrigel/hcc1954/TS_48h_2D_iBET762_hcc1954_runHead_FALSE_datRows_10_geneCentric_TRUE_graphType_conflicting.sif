@@ -1,0 +1,6 @@
+RB1	upregulates-expression	TYRO3	http://pathwaycommons.org/pc2/TemplateReaction_eaf4daf0c00d8e5a2eb1941801a0c5df http://pathwaycommons.org/pc2/TemplateReaction_429d5193ed55fa591788936b2437cf89 http://pathwaycommons.org/pc2/TemplateReactionRegulation_eddd1aea8b14067b60c9f977008dd51a http://pathwaycommons.org/pc2/TemplateReactionRegulation_c9e35a6e391a090e2e7d35b5df48b00b
+CCND1	dephosphorylates	RB1	
+RB1	upregulates-expression	STMN1	http://pathwaycommons.org/pc2/TemplateReaction_1a0b2b128ded7064e029f1d8b85e67cd http://pathwaycommons.org/pc2/TemplateReactionRegulation_0f9e5d36393371d50122fd1dbe7cd63b
+RB1	upregulates-expression	CDK1	http://pathwaycommons.org/pc2/TemplateReactionRegulation_41dca8df1eab3da54c87d1948f7bb6d4 http://pathwaycommons.org/pc2/TemplateReaction_db0e8c5cce99fbbd891672c917f75c43
+RB1	upregulates-expression	MYC	http://pathwaycommons.org/pc2/TemplateReaction_2d79b293b0d380e715c94313fb34cd26 http://pathwaycommons.org/pc2/TemplateReactionRegulation_32c0b3aaf69ce719bd195132a1177a75
+MYC	downregulates-expression	CCND1	

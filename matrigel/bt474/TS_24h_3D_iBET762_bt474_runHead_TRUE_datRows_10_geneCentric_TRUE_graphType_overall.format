@@ -1,0 +1,12 @@
+componentType	componentLabel	componentProperty	rgbColor
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	MAPK14	color	255 170 150
+node	MAPK14	tooltip	p38.R.V_GBL1033807, 4.88494362631458
+node	MAPK14	rppasite	p38.alpha.M.V_GBL1033908, 4.20560750372233|t|255 181 165|50 50 50
+node	SRC	rppasite	Src_pY527.R.V_GBL1033726, 3.60298946008675|p|255 192 178|180 0 20
+node	EGFR	color	255 128 99
+node	EGFR	tooltip	EGFR.R.V_GBL1033837, 7.24805899825833
+node	FOXO3	rppasite	FoxO3a_pS318_S321.R.C_GBL1033796, 4.56895826529427|p|255 175 157|0 180 20
+node	AKT1	color	255 186 171
+node	AKT1	tooltip	Akt.R.V_GBL1033833, 3.914722889446

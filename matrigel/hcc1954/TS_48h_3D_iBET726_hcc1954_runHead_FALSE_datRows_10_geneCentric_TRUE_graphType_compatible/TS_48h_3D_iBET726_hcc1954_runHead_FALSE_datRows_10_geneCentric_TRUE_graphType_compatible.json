@@ -1,0 +1,43 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "RB1",
+          "label": "RB1",
+          "color": "#FFFFFF",
+          "id": "RB1"
+        }
+      },
+      {
+        "data": {
+          "name": "CDKN1A",
+          "label": "CDKN1A",
+          "color": "#2850FF",
+          "id": "CDKN1A"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "RB1",
+          "target": "CDKN1A",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "CDKN1A",
+          "target": "RB1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      }
+    ]
+  }
+}

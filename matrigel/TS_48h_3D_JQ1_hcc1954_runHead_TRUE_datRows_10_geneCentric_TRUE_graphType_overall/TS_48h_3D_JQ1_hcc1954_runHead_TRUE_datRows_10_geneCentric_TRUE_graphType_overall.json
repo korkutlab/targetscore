@@ -1,0 +1,102 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "MTOR",
+          "label": "MTOR",
+          "color": "#FFFFFF",
+          "id": "MTOR"
+        }
+      },
+      {
+        "data": {
+          "name": "BCL2",
+          "label": "BCL2",
+          "color": "#FFB6A6",
+          "id": "BCL2"
+        }
+      },
+      {
+        "data": {
+          "name": "TP53",
+          "label": "TP53",
+          "color": "#FFC2B4",
+          "id": "TP53"
+        }
+      },
+      {
+        "data": {
+          "name": "PMS2",
+          "label": "PMS2",
+          "color": "#FFC8BB",
+          "id": "PMS2"
+        }
+      },
+      {
+        "data": {
+          "name": "BCL2L1",
+          "label": "BCL2L1",
+          "color": "#FFC2B5",
+          "id": "BCL2L1"
+        }
+      },
+      {
+        "data": {
+          "name": "MCL1",
+          "label": "MCL1",
+          "color": "#FFA995",
+          "id": "MCL1"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "MTOR",
+          "target": "BCL2",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "TP53",
+          "target": "PMS2",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "TP53",
+          "target": "BCL2L1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "TP53",
+          "target": "BCL2",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "TP53",
+          "target": "MCL1",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

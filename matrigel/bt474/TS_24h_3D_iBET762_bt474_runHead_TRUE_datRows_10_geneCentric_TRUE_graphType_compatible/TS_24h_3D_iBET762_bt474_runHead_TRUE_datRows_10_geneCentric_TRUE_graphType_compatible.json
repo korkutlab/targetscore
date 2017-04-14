@@ -1,0 +1,76 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "EGFR",
+          "label": "EGFR",
+          "color": "#FF8063",
+          "id": "EGFR"
+        }
+      },
+      {
+        "data": {
+          "name": "SRC",
+          "label": "SRC",
+          "color": "#FFFFFF",
+          "id": "SRC"
+        }
+      },
+      {
+        "data": {
+          "name": "AKT1",
+          "label": "AKT1",
+          "color": "#FFBAAB",
+          "id": "AKT1"
+        }
+      },
+      {
+        "data": {
+          "name": "FOXO3",
+          "label": "FOXO3",
+          "color": "#FFFFFF",
+          "id": "FOXO3"
+        }
+      },
+      {
+        "data": {
+          "name": "MAPK14",
+          "label": "MAPK14",
+          "color": "#FFAA96",
+          "id": "MAPK14"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "EGFR",
+          "target": "SRC",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "AKT1",
+          "target": "FOXO3",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "MAPK14",
+          "target": "FOXO3",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,217 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "MYC",
+          "label": "MYC",
+          "color": "#5171FF",
+          "id": "MYC"
+        }
+      },
+      {
+        "data": {
+          "name": "TFRC",
+          "label": "TFRC",
+          "color": "#4C6DFF",
+          "id": "TFRC"
+        }
+      },
+      {
+        "data": {
+          "name": "RB1",
+          "label": "RB1",
+          "color": "#FFFFFF",
+          "id": "RB1"
+        }
+      },
+      {
+        "data": {
+          "name": "STMN1",
+          "label": "STMN1",
+          "color": "#4B6DFF",
+          "id": "STMN1"
+        }
+      },
+      {
+        "data": {
+          "name": "FOXM1",
+          "label": "FOXM1",
+          "color": "#6F8AFF",
+          "id": "FOXM1"
+        }
+      },
+      {
+        "data": {
+          "name": "CDK1",
+          "label": "CDK1",
+          "color": "#5877FF",
+          "id": "CDK1"
+        }
+      },
+      {
+        "data": {
+          "name": "CCND1",
+          "label": "CCND1",
+          "color": "#3157FF",
+          "id": "CCND1"
+        }
+      },
+      {
+        "data": {
+          "name": "TYRO3",
+          "label": "TYRO3",
+          "color": "#4769FF",
+          "id": "TYRO3"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "MYC",
+          "target": "TFRC",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "RB1",
+          "target": "MYC",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "MYC",
+          "target": "STMN1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "FOXM1",
+          "target": "STMN1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "CDK1",
+          "target": "RB1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "FOXM1",
+          "target": "CDK1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "FOXM1",
+          "target": "CCND1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "FOXM1",
+          "target": "MYC",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "MYC",
+          "target": "FOXM1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "CCND1",
+          "target": "RB1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "RB1",
+          "target": "TYRO3",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "CCND1",
+          "target": "RB1",
+          "interactionType": "dephosphorylates",
+          "color": "#ff0000",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "RB1",
+          "target": "STMN1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "RB1",
+          "target": "CDK1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "RB1",
+          "target": "MYC",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "MYC",
+          "target": "CCND1",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

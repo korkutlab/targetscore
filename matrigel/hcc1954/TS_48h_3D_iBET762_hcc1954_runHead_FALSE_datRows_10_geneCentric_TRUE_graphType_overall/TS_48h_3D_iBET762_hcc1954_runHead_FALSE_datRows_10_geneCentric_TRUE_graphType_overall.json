@@ -1,0 +1,68 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "MYC",
+          "label": "MYC",
+          "color": "#96A9FF",
+          "id": "MYC"
+        }
+      },
+      {
+        "data": {
+          "name": "H3F3A",
+          "label": "H3F3A",
+          "color": "#5877FF",
+          "id": "H3F3A"
+        }
+      },
+      {
+        "data": {
+          "name": "TFRC",
+          "label": "TFRC",
+          "color": "#B1C0FF",
+          "id": "TFRC"
+        }
+      },
+      {
+        "data": {
+          "name": "LCK",
+          "label": "LCK",
+          "color": "#B2C1FF",
+          "id": "LCK"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "MYC",
+          "target": "H3F3A",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "MYC",
+          "target": "TFRC",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "LCK",
+          "target": "MYC",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

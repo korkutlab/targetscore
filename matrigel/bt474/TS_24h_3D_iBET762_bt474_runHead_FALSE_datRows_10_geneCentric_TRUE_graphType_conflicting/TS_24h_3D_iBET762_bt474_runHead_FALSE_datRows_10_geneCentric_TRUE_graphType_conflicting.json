@@ -1,0 +1,198 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "STAT3",
+          "label": "STAT3",
+          "color": "#FFFFFF",
+          "id": "STAT3"
+        }
+      },
+      {
+        "data": {
+          "name": "CCND1",
+          "label": "CCND1",
+          "color": "#4C6DFF",
+          "id": "CCND1"
+        }
+      },
+      {
+        "data": {
+          "name": "MAPK1",
+          "label": "MAPK1",
+          "color": "#FFFFFF",
+          "id": "MAPK1"
+        }
+      },
+      {
+        "data": {
+          "name": "AKT1",
+          "label": "AKT1",
+          "color": "#FFFFFF",
+          "id": "AKT1"
+        }
+      },
+      {
+        "data": {
+          "name": "BAD",
+          "label": "BAD",
+          "color": "#FFFFFF",
+          "id": "BAD"
+        }
+      },
+      {
+        "data": {
+          "name": "MYC",
+          "label": "MYC",
+          "color": "#2850FF",
+          "id": "MYC"
+        }
+      },
+      {
+        "data": {
+          "name": "RB1",
+          "label": "RB1",
+          "color": "#FFFFFF",
+          "id": "RB1"
+        }
+      },
+      {
+        "data": {
+          "name": "IRS1",
+          "label": "IRS1",
+          "color": "#4C6EFF",
+          "id": "IRS1"
+        }
+      },
+      {
+        "data": {
+          "name": "BCL2L1",
+          "label": "BCL2L1",
+          "color": "#2850FF",
+          "id": "BCL2L1"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "STAT3",
+          "target": "CCND1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "MAPK1",
+          "target": "STAT3",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "AKT1",
+          "target": "BAD",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "STAT3",
+          "target": "MYC",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "MAPK1",
+          "target": "AKT1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "AKT1",
+          "target": "MYC",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "RB1",
+          "target": "MYC",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "IRS1",
+          "target": "MAPK1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "MAPK1",
+          "target": "BAD",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "AKT1",
+          "target": "STAT3",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "STAT3",
+          "target": "AKT1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "STAT3",
+          "target": "BCL2L1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "CCND1",
+          "target": "RB1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "MET",
+          "label": "MET",
+          "color": "#5B7AFF",
+          "id": "MET"
+        }
+      },
+      {
+        "data": {
+          "name": "AKT1",
+          "label": "AKT1",
+          "color": "#FFFFFF",
+          "id": "AKT1"
+        }
+      },
+      {
+        "data": {
+          "name": "EGFR",
+          "label": "EGFR",
+          "color": "#FFFFFF",
+          "id": "EGFR"
+        }
+      },
+      {
+        "data": {
+          "name": "CAV1",
+          "label": "CAV1",
+          "color": "#496BFF",
+          "id": "CAV1"
+        }
+      },
+      {
+        "data": {
+          "name": "PTGS2",
+          "label": "PTGS2",
+          "color": "#4769FF",
+          "id": "PTGS2"
+        }
+      },
+      {
+        "data": {
+          "name": "MYC",
+          "label": "MYC",
+          "color": "#2850FF",
+          "id": "MYC"
+        }
+      },
+      {
+        "data": {
+          "name": "TSC2",
+          "label": "TSC2",
+          "color": "#FFFFFF",
+          "id": "TSC2"
+        }
+      },
+      {
+        "data": {
+          "name": "SNAI2",
+          "label": "SNAI2",
+          "color": "#6280FF",
+          "id": "SNAI2"
+        }
+      },
+      {
+        "data": {
+          "name": "CCND1",
+          "label": "CCND1",
+          "color": "#728CFF",
+          "id": "CCND1"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "MET",
+          "target": "AKT1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "AKT1",
+          "target": "EGFR",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "EGFR",
+          "target": "AKT1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "CAV1",
+          "target": "AKT1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "PTGS2",
+          "target": "EGFR",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "PTGS2",
+          "target": "AKT1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "AKT1",
+          "target": "MYC",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "AKT1",
+          "target": "TSC2",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "SNAI2",
+          "target": "MET",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "MYC",
+          "target": "CCND1",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

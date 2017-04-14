@@ -1,0 +1,5 @@
+node	all-nodes	color	255 255 255
+node	EGFR.R.V_GBL1033837	color	255 83 44
+node	Src_pY527.R.V_GBL1033726	color	255 135 108
+node	Akt.R.V_GBL1033833	color	255 173 154
+node	Mcl.1.R.V_GBL1033861	color	255 167 147

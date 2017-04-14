@@ -1,0 +1,25 @@
+PARTICIPANT_A	INTERACTION_TYPE	PARTICIPANT_B	URIS	SITES
+Stat3_pY705.R.V_GBL1033727	upregulates-expression	Cyclin.D1.R.V_GBL1033878		
+MAPK_pT202_Y204.R.V_GBL1033801	phosphorylates	Stat3_pY705.R.V_GBL1033727		
+Akt_pT308.R.V_GBL1033851	phosphorylates	Bad_pS112.R.V_GBL1033677		
+Stat3_pY705.R.V_GBL1033727	upregulates-expression	c.Myc.R.C_GBL1033885		
+MAPK_pT202_Y204.R.V_GBL1033801	phosphorylates	Akt_pS473.R.V_GBL1033793		
+Akt_pT308.R.V_GBL1033851	upregulates-expression	c.Myc.R.C_GBL1033885		
+Rb_pS807_S811.R.V_GBL1033721	downregulates-expression	c.Myc.R.C_GBL1033885		
+IRS1.R.V_GBL1033768	phosphorylates	MAPK_pT202_Y204.R.V_GBL1033801		
+Akt_pS473.R.V_GBL1033793	phosphorylates	Bad_pS112.R.V_GBL1033677		
+MAPK_pT202_Y204.R.V_GBL1033801	phosphorylates	Bad_pS112.R.V_GBL1033677		
+Akt_pT308.R.V_GBL1033851	phosphorylates	Stat3_pY705.R.V_GBL1033727		
+Stat3_pY705.R.V_GBL1033727	phosphorylates	Akt_pT308.R.V_GBL1033851		
+Stat3_pY705.R.V_GBL1033727	upregulates-expression	Bcl.xL.R.V_GBL1033682		
+Akt_pS473.R.V_GBL1033793	phosphorylates	Stat3_pY705.R.V_GBL1033727		
+Stat3_pY705.R.V_GBL1033727	phosphorylates	Akt_pS473.R.V_GBL1033793		
+Akt_pS473.R.V_GBL1033793	upregulates-expression	c.Myc.R.C_GBL1033885		
+MAPK_pT202_Y204.R.V_GBL1033801	phosphorylates	Akt_pT308.R.V_GBL1033851		
+Cyclin.D1.R.V_GBL1033878	phosphorylates	Rb_pS807_S811.R.V_GBL1033721		
+Stat3_pY705.R.V_GBL1033727	downregulates-expression	Cyclin.D1.R.V_GBL1033878		
+Stat3_pY705.R.V_GBL1033727	downregulates-expression	Bcl.xL.R.V_GBL1033682		
+Cyclin.D1.R.V_GBL1033878	dephosphorylates	Rb_pS807_S811.R.V_GBL1033721		
+Rb_pS807_S811.R.V_GBL1033721	upregulates-expression	c.Myc.R.C_GBL1033885		
+c.Myc.R.C_GBL1033885	downregulates-expression	Cyclin.D1.R.V_GBL1033878		
+Stat3_pY705.R.V_GBL1033727	downregulates-expression	c.Myc.R.C_GBL1033885		

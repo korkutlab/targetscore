@@ -1,0 +1,6 @@
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	STAT3	rppasite	Stat3_pY705.R.V_GBL1033727, -8.47610279766429|p|73 107 255|0 180 20
+node	CCND1	color	82 115 255
+node	CCND1	tooltip	Cyclin.D1.R.V_GBL1033878, -8.02714029020176
+node	RB1	rppasite	Rb_pS807_S811.R.V_GBL1033721, -8.14127871210922|p|80 113 255|180 0 20

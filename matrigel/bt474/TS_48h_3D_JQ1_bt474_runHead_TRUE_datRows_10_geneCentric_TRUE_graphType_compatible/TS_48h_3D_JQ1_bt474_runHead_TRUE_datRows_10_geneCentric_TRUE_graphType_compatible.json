@@ -1,0 +1,85 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "EGFR",
+          "label": "EGFR",
+          "color": "#FFA692",
+          "id": "EGFR"
+        }
+      },
+      {
+        "data": {
+          "name": "SRC",
+          "label": "SRC",
+          "color": "#FFFFFF",
+          "id": "SRC"
+        }
+      },
+      {
+        "data": {
+          "name": "FN1",
+          "label": "FN1",
+          "color": "#FFC1B2",
+          "id": "FN1"
+        }
+      },
+      {
+        "data": {
+          "name": "AKT1",
+          "label": "AKT1",
+          "color": "#FFBBAB",
+          "id": "AKT1"
+        }
+      },
+      {
+        "data": {
+          "name": "MCL1",
+          "label": "MCL1",
+          "color": "#FF9E88",
+          "id": "MCL1"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "EGFR",
+          "target": "SRC",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "FN1",
+          "target": "SRC",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "FN1",
+          "target": "EGFR",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "AKT1",
+          "target": "MCL1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

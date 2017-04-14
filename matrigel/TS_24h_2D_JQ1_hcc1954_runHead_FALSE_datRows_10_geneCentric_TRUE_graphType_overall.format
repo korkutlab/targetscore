@@ -1,0 +1,19 @@
+componentType	componentLabel	componentProperty	rgbColor
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	GSK3A	rppasite	GSK.3ab_pS21_S9.R.V_GBL1033797, -5.0299602432907|p|147 167 255|180 0 20
+node	STAT3	rppasite	Stat3_pY705.R.V_GBL1033727, -6.45790206456519|p|116 142 255|0 180 20
+node	CAV1	color	117 143 255
+node	CAV1	tooltip	Caveolin.1.R.V_GBL1033687, -6.39794905462138
+node	MET	color	75 109 255
+node	MET	tooltip	c.Met.M.QC_GBL1033899, -8.36609058212491
+node	CCND1	color	126 150 255
+node	CCND1	tooltip	Cyclin.D1.R.V_GBL1033878, -5.98406739750911
+node	AKT1	rppasite	Akt_pT308.R.V_GBL1033851, -6.77319352293874|p|109 136 255|0 180 20
+node	MYC	color	58 95 255
+node	MYC	tooltip	c.Myc.R.C_GBL1033885, -9.15825222232017
+node	PTGS2	color	142 163 255
+node	PTGS2	tooltip	Cox2.R.C_GBL1033859, -5.2728852148738
+node	AKT1	rppasite	Akt_pS473.R.V_GBL1033793, -5.40574583315016|p|139 160 255|0 180 20
+node	SNAI2	color	117 143 255
+node	SNAI2	tooltip	Snail.M.QC_GBL1033897, -6.40032394762298

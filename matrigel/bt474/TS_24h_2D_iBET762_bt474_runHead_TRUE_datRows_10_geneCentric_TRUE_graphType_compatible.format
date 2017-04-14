@@ -1,0 +1,5 @@
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	RICTOR	rppasite	Rictor_pT1135.R.V_GBL1033845, 3.67139453969513|p|255 191 176|180 0 20
+node	AKT1	color	255 158 136
+node	AKT1	tooltip	Akt.R.V_GBL1033833, 5.51719330931069

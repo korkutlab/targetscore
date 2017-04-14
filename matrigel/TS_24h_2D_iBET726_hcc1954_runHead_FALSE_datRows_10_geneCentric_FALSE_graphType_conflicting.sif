@@ -1,0 +1,7 @@
+GSK.3ab_pS21_S9.R.V_GBL1033797	phosphorylates	Stat3_pY705.R.V_GBL1033727
+Rb_pS807_S811.R.V_GBL1033721	upregulates-expression	Cox2.R.C_GBL1033859
+GSK.3b_pS9.R.V_GBL1033831	phosphorylates	Akt_pT308.R.V_GBL1033851
+GSK.3b_pS9.R.V_GBL1033831	phosphorylates	Stat3_pY705.R.V_GBL1033727
+GSK.3ab_pS21_S9.R.V_GBL1033797	phosphorylates	Akt_pT308.R.V_GBL1033851
+Rb_pS807_S811.R.V_GBL1033721	upregulates-expression	c.Myc.R.C_GBL1033885
+Stat3_pY705.R.V_GBL1033727	downregulates-expression	c.Myc.R.C_GBL1033885

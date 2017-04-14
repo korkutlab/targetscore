@@ -1,0 +1,15 @@
+componentType	componentLabel	componentProperty	rgbColor
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	STMN1	color	87 118 255
+node	STMN1	tooltip	Stathmin.1.R.V_GBL1033733, -7.80290112894164
+node	ESR1	rppasite	ER.alpha_pS118.R.V_GBL1033794, -9.38559336002605|p|53 91 255|0 180 20
+node	ESR1	color	82 114 255
+node	ESR1	tooltip	ER.alpha.R.V_GBL1033879, -8.0632398247423
+node	CCND1	color	40 80 255
+node	CCND1	tooltip	Cyclin.D1.R.V_GBL1033878, -11.6641227086195
+node	CDKN1B	color	40 80 255
+node	CDKN1B	tooltip	p27.Kip.1.R.V_GBL1033778, -11.6912589111543
+node	AKT1	rppasite	Akt_pS473.R.V_GBL1033793, -8.28633855295761|p|77 110 255|0 180 20
+node	FOXM1	color	72 106 255
+node	FOXM1	tooltip	FoxM1.R.V_GBL1033839, -8.48950990128111

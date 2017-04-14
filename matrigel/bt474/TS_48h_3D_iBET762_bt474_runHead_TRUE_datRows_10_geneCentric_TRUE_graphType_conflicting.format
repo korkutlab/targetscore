@@ -1,0 +1,5 @@
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	CDKN1A	color	255 82 42
+node	CDKN1A	tooltip	p21.R.V_GBL1033880, 9.90460343864073
+node	FOXO3	rppasite	FoxO3a_pS318_S321.R.C_GBL1033796, 6.16328491089583|p|255 147 122|0 180 20

@@ -1,0 +1,9 @@
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	CCND1	color	121 146 255
+node	CCND1	tooltip	Cyclin.D1.R.V_GBL1033878, -6.24734087298313
+node	TYRO3	color	145 166 255
+node	TYRO3	tooltip	Tyro3.R.V_GBL1033829, -5.10403349674906
+node	MYC	color	136 158 255
+node	MYC	tooltip	c.Myc.R.C_GBL1033885, -5.54030822095076
+node	RB1	rppasite	Rb_pS807_S811.R.V_GBL1033721, -8.94356391954154|p|63 98 255|180 0 20

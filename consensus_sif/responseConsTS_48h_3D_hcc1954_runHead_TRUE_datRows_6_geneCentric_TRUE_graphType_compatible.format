@@ -1,0 +1,6 @@
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	MYC	color	148 168 255
+node	MYC	tooltip	c.Myc.R.C_GBL1033885, -5.0
+node	H3F3A	color	148 168 255
+node	H3F3A	tooltip	Histone.H3.R.V_GBL1033869, -5.0

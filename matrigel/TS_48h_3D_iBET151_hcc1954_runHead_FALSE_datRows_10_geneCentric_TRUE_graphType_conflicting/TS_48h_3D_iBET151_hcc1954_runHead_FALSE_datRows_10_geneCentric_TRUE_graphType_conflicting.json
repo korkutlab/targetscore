@@ -1,0 +1,128 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "PTGS2",
+          "label": "PTGS2",
+          "color": "#708AFF",
+          "id": "PTGS2"
+        }
+      },
+      {
+        "data": {
+          "name": "RELA",
+          "label": "RELA",
+          "color": "#FFFFFF",
+          "id": "RELA"
+        }
+      },
+      {
+        "data": {
+          "name": "MYC",
+          "label": "MYC",
+          "color": "#7891FF",
+          "id": "MYC"
+        }
+      },
+      {
+        "data": {
+          "name": "H3F3A",
+          "label": "H3F3A",
+          "color": "#5070FF",
+          "id": "H3F3A"
+        }
+      },
+      {
+        "data": {
+          "name": "RB1",
+          "label": "RB1",
+          "color": "#FFFFFF",
+          "id": "RB1"
+        }
+      },
+      {
+        "data": {
+          "name": "CDK1",
+          "label": "CDK1",
+          "color": "#90A5FF",
+          "id": "CDK1"
+        }
+      },
+      {
+        "data": {
+          "name": "CDKN1B",
+          "label": "CDKN1B",
+          "color": "#98ABFF",
+          "id": "CDKN1B"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "PTGS2",
+          "target": "RELA",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "MYC",
+          "target": "H3F3A",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "RELA",
+          "target": "MYC",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "RB1",
+          "target": "MYC",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "RELA",
+          "target": "PTGS2",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "CDK1",
+          "target": "RB1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "CDKN1B",
+          "target": "RB1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      }
+    ]
+  }
+}

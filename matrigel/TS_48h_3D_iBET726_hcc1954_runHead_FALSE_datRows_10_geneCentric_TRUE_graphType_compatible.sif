@@ -1,0 +1,2 @@
+RB1	downregulates-expression	CDKN1A	
+CDKN1A	phosphorylates	RB1	http://identifiers.org/reactome/R-HSA-69227 http://pathwaycommons.org/pc2/Catalysis_dbf124663cbfdbdafbfaa20afadbc283 http://pathwaycommons.org/pc2/ComplexAssembly_a47f5c3ba15c0b774769f92afa96102c http://pathwaycommons.org/pc2/Control_9bfc8f1ef9c35216081f2f3cf8640bf6	S788;S795

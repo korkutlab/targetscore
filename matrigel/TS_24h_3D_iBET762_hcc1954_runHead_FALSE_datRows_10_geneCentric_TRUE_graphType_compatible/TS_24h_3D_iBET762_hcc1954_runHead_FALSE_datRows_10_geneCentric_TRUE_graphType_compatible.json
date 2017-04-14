@@ -1,0 +1,171 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "MYC",
+          "label": "MYC",
+          "color": "#2B52FF",
+          "id": "MYC"
+        }
+      },
+      {
+        "data": {
+          "name": "H3F3A",
+          "label": "H3F3A",
+          "color": "#869CFF",
+          "id": "H3F3A"
+        }
+      },
+      {
+        "data": {
+          "name": "EIF4G1",
+          "label": "EIF4G1",
+          "color": "#8BA1FF",
+          "id": "EIF4G1"
+        }
+      },
+      {
+        "data": {
+          "name": "RB1",
+          "label": "RB1",
+          "color": "#FFFFFF",
+          "id": "RB1"
+        }
+      },
+      {
+        "data": {
+          "name": "DIABLO",
+          "label": "DIABLO",
+          "color": "#93A7FF",
+          "id": "DIABLO"
+        }
+      },
+      {
+        "data": {
+          "name": "FOXM1",
+          "label": "FOXM1",
+          "color": "#91A5FF",
+          "id": "FOXM1"
+        }
+      },
+      {
+        "data": {
+          "name": "CCND1",
+          "label": "CCND1",
+          "color": "#627FFF",
+          "id": "CCND1"
+        }
+      },
+      {
+        "data": {
+          "name": "MET",
+          "label": "MET",
+          "color": "#93A7FF",
+          "id": "MET"
+        }
+      },
+      {
+        "data": {
+          "name": "CDKN2A",
+          "label": "CDKN2A",
+          "color": "#8CA2FF",
+          "id": "CDKN2A"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "MYC",
+          "target": "H3F3A",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "MYC",
+          "target": "EIF4G1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "RB1",
+          "target": "MYC",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "MYC",
+          "target": "DIABLO",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "FOXM1",
+          "target": "CCND1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "RB1",
+          "target": "MET",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "FOXM1",
+          "target": "MYC",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "MYC",
+          "target": "FOXM1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "RB1",
+          "target": "CDKN2A",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "CCND1",
+          "target": "RB1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      }
+    ]
+  }
+}

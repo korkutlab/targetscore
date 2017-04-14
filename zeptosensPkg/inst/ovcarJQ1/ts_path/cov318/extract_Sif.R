@@ -1,6 +1,6 @@
 #generate sif files for selected 
 wk <- read.table("wks.txt",header=T,row.names = 1)
-prot_names <- read.table("prot_names.txt",header=T,row.names = 1)
+prot_names <- read.table("protlist1.txt",header=T,row.names = 1)
 rownames(wk) <- row.names(prot_names)
 colnames(wk) <- row.names(prot_names)
 upst <- matrix(wk[,colnames(wk) %in% "STAT3pY705"])

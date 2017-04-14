@@ -1,0 +1,9 @@
+node	all-nodes	color	255 255 255
+node	Stat3_pY705.R.V_GBL1033727	color	116 142 255
+node	Cyclin.D1.R.V_GBL1033878	color	126 150 255
+node	GSK.3ab_pS21_S9.R.V_GBL1033797	color	147 167 255
+node	Snail.M.QC_GBL1033897	color	117 143 255
+node	c.Met.M.QC_GBL1033899	color	75 109 255
+node	Akt_pT308.R.V_GBL1033851	color	109 136 255
+node	Akt_pS473.R.V_GBL1033793	color	139 160 255
+node	c.Myc.R.C_GBL1033885	color	58 95 255

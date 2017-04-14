@@ -1,0 +1,51 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "TP53",
+          "label": "TP53",
+          "color": "#FFAD9A",
+          "id": "TP53"
+        }
+      },
+      {
+        "data": {
+          "name": "PMS2",
+          "label": "PMS2",
+          "color": "#FFB5A4",
+          "id": "PMS2"
+        }
+      },
+      {
+        "data": {
+          "name": "ERRFI1",
+          "label": "ERRFI1",
+          "color": "#FFB9A9",
+          "id": "ERRFI1"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "TP53",
+          "target": "PMS2",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "TP53",
+          "target": "ERRFI1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

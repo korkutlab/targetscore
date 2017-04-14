@@ -1,0 +1,155 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "FOXO3",
+          "label": "FOXO3",
+          "color": "#FFFFFF",
+          "id": "FOXO3"
+        }
+      },
+      {
+        "data": {
+          "name": "CDKN1A",
+          "label": "CDKN1A",
+          "color": "#FF8063",
+          "id": "CDKN1A"
+        }
+      },
+      {
+        "data": {
+          "name": "EGFR",
+          "label": "EGFR",
+          "color": "#FF5028",
+          "id": "EGFR"
+        }
+      },
+      {
+        "data": {
+          "name": "SRC",
+          "label": "SRC",
+          "color": "#FFFFFF",
+          "id": "SRC"
+        }
+      },
+      {
+        "data": {
+          "name": "TP53",
+          "label": "TP53",
+          "color": "#FFA08B",
+          "id": "TP53"
+        }
+      },
+      {
+        "data": {
+          "name": "FN1",
+          "label": "FN1",
+          "color": "#FF977F",
+          "id": "FN1"
+        }
+      },
+      {
+        "data": {
+          "name": "PMS2",
+          "label": "PMS2",
+          "color": "#FF947C",
+          "id": "PMS2"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "FOXO3",
+          "target": "CDKN1A",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "EGFR",
+          "target": "SRC",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "TP53",
+          "target": "EGFR",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "FN1",
+          "target": "SRC",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "FN1",
+          "target": "EGFR",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "TP53",
+          "target": "CDKN1A",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "TP53",
+          "target": "PMS2",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "FN1",
+          "target": "SRC",
+          "interactionType": "dephosphorylates",
+          "color": "#ff0000",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "TP53",
+          "target": "CDKN1A",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "FOXO3",
+          "target": "CDKN1A",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

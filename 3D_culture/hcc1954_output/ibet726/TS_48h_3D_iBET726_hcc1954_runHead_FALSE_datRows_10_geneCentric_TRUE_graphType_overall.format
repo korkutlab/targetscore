@@ -1,0 +1,10 @@
+componentType	componentLabel	componentProperty	rgbColor
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	CDKN1A	color	40 80 255
+node	CDKN1A	tooltip	p21.R.V_GBL1033880, -10.0453445463514
+node	RB1	rppasite	Rb_pS807_S811.R.V_GBL1033721, -7.07250070894133|p|40 80 255|180 0 20
+node	TYRO3	color	40 80 255
+node	TYRO3	tooltip	Tyro3.R.V_GBL1033829, -5.98018326325687
+node	PTGS2	color	40 80 255
+node	PTGS2	tooltip	Cox2.R.C_GBL1033859, -4.49001497058879

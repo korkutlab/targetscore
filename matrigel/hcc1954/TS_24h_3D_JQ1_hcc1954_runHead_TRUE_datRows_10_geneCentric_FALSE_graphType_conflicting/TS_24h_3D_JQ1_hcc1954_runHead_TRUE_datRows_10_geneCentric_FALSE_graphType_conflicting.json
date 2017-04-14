@@ -1,0 +1,128 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "mTOR_pS2448.R.C_GBL1033804",
+          "label": "mTOR_pS2448.R.C",
+          "color": "#FFA28D",
+          "id": "mTOR_pS2448.R.C_GBL1033804"
+        }
+      },
+      {
+        "data": {
+          "name": "p70.S6K_pT389.R.V_GBL1033811",
+          "label": "p70.S6K_pT389.R.V",
+          "color": "#FFC9BD",
+          "id": "p70.S6K_pT389.R.V_GBL1033811"
+        }
+      },
+      {
+        "data": {
+          "name": "mTOR.R.V_GBL1033803",
+          "label": "mTOR.R.V",
+          "color": "#FFC1B3",
+          "id": "mTOR.R.V_GBL1033803"
+        }
+      },
+      {
+        "data": {
+          "name": "PRAS40_pT246.R.V_GBL1033737",
+          "label": "PRAS40_pT246.R.V",
+          "color": "#FFCDC2",
+          "id": "PRAS40_pT246.R.V_GBL1033737"
+        }
+      },
+      {
+        "data": {
+          "name": "p53.R.C_GBL1033956",
+          "label": "p53.R.C",
+          "color": "#FFC9BD",
+          "id": "p53.R.C_GBL1033956"
+        }
+      },
+      {
+        "data": {
+          "name": "MIG6.M.V_GBL1033905",
+          "label": "MIG6.M.V",
+          "color": "#FFAC99",
+          "id": "MIG6.M.V_GBL1033905"
+        }
+      },
+      {
+        "data": {
+          "name": "GSK.3ab_pS21_S9.R.V_GBL1033797",
+          "label": "GSK.3ab_pS21_S9.R.V",
+          "color": "#FFCABD",
+          "id": "GSK.3ab_pS21_S9.R.V_GBL1033797"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "mTOR_pS2448.R.C_GBL1033804",
+          "target": "p70.S6K_pT389.R.V_GBL1033811",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "p70.S6K_pT389.R.V_GBL1033811",
+          "target": "mTOR_pS2448.R.C_GBL1033804",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "mTOR.R.V_GBL1033803",
+          "target": "PRAS40_pT246.R.V_GBL1033737",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "mTOR.R.V_GBL1033803",
+          "target": "p70.S6K_pT389.R.V_GBL1033811",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "p53.R.C_GBL1033956",
+          "target": "MIG6.M.V_GBL1033905",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "p70.S6K_pT389.R.V_GBL1033811",
+          "target": "GSK.3ab_pS21_S9.R.V_GBL1033797",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "mTOR_pS2448.R.C_GBL1033804",
+          "target": "PRAS40_pT246.R.V_GBL1033737",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      }
+    ]
+  }
+}

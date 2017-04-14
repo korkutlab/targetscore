@@ -1,0 +1,59 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "EGFR",
+          "label": "EGFR",
+          "color": "#FFBDAE",
+          "id": "EGFR"
+        }
+      },
+      {
+        "data": {
+          "name": "SRC",
+          "label": "SRC",
+          "color": "#FFFFFF",
+          "id": "SRC"
+        }
+      },
+      {
+        "data": {
+          "name": "GSK3A",
+          "label": "GSK3A",
+          "color": "#FFC9BC",
+          "id": "GSK3A"
+        }
+      },
+      {
+        "data": {
+          "name": "RICTOR",
+          "label": "RICTOR",
+          "color": "#FFFFFF",
+          "id": "RICTOR"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "EGFR",
+          "target": "SRC",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "GSK3A",
+          "target": "RICTOR",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "mTOR_pS2448.R.C_GBL1033804",
+          "label": "mTOR_pS2448.R.C",
+          "color": "#FFB8A8",
+          "id": "mTOR_pS2448.R.C_GBL1033804"
+        }
+      },
+      {
+        "data": {
+          "name": "Bcl2.M.V_GBL1033931",
+          "label": "Bcl2.M.V",
+          "color": "#FFB6A6",
+          "id": "Bcl2.M.V_GBL1033931"
+        }
+      },
+      {
+        "data": {
+          "name": "p53.R.C_GBL1033956",
+          "label": "p53.R.C",
+          "color": "#FFC2B4",
+          "id": "p53.R.C_GBL1033956"
+        }
+      },
+      {
+        "data": {
+          "name": "PMS2.R.V_GBL1033867",
+          "label": "PMS2.R.V",
+          "color": "#FFC8BB",
+          "id": "PMS2.R.V_GBL1033867"
+        }
+      },
+      {
+        "data": {
+          "name": "Bcl.xL.R.V_GBL1033682",
+          "label": "Bcl.xL.R.V",
+          "color": "#FFC2B5",
+          "id": "Bcl.xL.R.V_GBL1033682"
+        }
+      },
+      {
+        "data": {
+          "name": "Mcl.1.R.V_GBL1033861",
+          "label": "Mcl.1.R.V",
+          "color": "#FFA995",
+          "id": "Mcl.1.R.V_GBL1033861"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "mTOR_pS2448.R.C_GBL1033804",
+          "target": "Bcl2.M.V_GBL1033931",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "p53.R.C_GBL1033956",
+          "target": "PMS2.R.V_GBL1033867",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "p53.R.C_GBL1033956",
+          "target": "Bcl.xL.R.V_GBL1033682",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "p53.R.C_GBL1033956",
+          "target": "Bcl2.M.V_GBL1033931",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "p53.R.C_GBL1033956",
+          "target": "Mcl.1.R.V_GBL1033861",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

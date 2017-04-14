@@ -1,0 +1,51 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "FoxO3a_pS318_S321.R.C_GBL1033796",
+          "label": "FoxO3a_pS318_S321.R.C",
+          "color": "#FFA591",
+          "id": "FoxO3a_pS318_S321.R.C_GBL1033796"
+        }
+      },
+      {
+        "data": {
+          "name": "ACC1.R.E_GBL1033674",
+          "label": "ACC1.R.E",
+          "color": "#FF947C",
+          "id": "ACC1.R.E_GBL1033674"
+        }
+      },
+      {
+        "data": {
+          "name": "p27.Kip.1.R.V_GBL1033778",
+          "label": "p27.Kip.1.R.V",
+          "color": "#FF896F",
+          "id": "p27.Kip.1.R.V_GBL1033778"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "FoxO3a_pS318_S321.R.C_GBL1033796",
+          "target": "ACC1.R.E_GBL1033674",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "FoxO3a_pS318_S321.R.C_GBL1033796",
+          "target": "p27.Kip.1.R.V_GBL1033778",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

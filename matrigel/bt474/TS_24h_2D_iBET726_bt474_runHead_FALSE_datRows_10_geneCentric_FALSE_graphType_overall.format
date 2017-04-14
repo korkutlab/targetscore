@@ -1,0 +1,11 @@
+componentType	componentLabel	componentProperty	rgbColor
+node	all-nodes	color	255 255 255
+node	Akt_pT308.R.V_GBL1033851	color	40 80 255
+node	ER.alpha_pS118.R.V_GBL1033794	color	40 80 255
+node	Bad_pS112.R.V_GBL1033677	color	67 102 255
+node	MAPK_pT202_Y204.R.V_GBL1033801	color	90 121 255
+node	Akt_pS473.R.V_GBL1033793	color	40 80 255
+node	FAK_pY397.R.V_GBL1033863	color	106 134 255
+node	Stathmin.1.R.V_GBL1033733	color	74 108 255
+node	GSK.3ab_pS21_S9.R.V_GBL1033797	color	107 135 255
+node	p27.Kip.1.R.V_GBL1033778	color	100 129 255

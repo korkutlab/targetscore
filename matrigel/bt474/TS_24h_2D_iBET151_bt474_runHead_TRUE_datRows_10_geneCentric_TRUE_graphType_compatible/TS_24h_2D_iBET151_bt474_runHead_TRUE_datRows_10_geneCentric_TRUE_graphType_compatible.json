@@ -1,0 +1,93 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "STAT5A",
+          "label": "STAT5A",
+          "color": "#FFB6A5",
+          "id": "STAT5A"
+        }
+      },
+      {
+        "data": {
+          "name": "MAPK9",
+          "label": "MAPK9",
+          "color": "#FFB4A2",
+          "id": "MAPK9"
+        }
+      },
+      {
+        "data": {
+          "name": "AKT1",
+          "label": "AKT1",
+          "color": "#FFA48F",
+          "id": "AKT1"
+        }
+      },
+      {
+        "data": {
+          "name": "MCL1",
+          "label": "MCL1",
+          "color": "#FFA38E",
+          "id": "MCL1"
+        }
+      },
+      {
+        "data": {
+          "name": "EIF4E",
+          "label": "EIF4E",
+          "color": "#FFBDAE",
+          "id": "EIF4E"
+        }
+      },
+      {
+        "data": {
+          "name": "MAPK14",
+          "label": "MAPK14",
+          "color": "#FF9279",
+          "id": "MAPK14"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "STAT5A",
+          "target": "MAPK9",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "AKT1",
+          "target": "MCL1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "STAT5A",
+          "target": "EIF4E",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "STAT5A",
+          "target": "MAPK14",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

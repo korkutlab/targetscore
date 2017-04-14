@@ -1,0 +1,93 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "EGFR.R.V_GBL1033837",
+          "label": "EGFR.R.V",
+          "color": "#FF8063",
+          "id": "EGFR.R.V_GBL1033837"
+        }
+      },
+      {
+        "data": {
+          "name": "Src_pY527.R.V_GBL1033726",
+          "label": "Src_pY527.R.V",
+          "color": "#FFC0B2",
+          "id": "Src_pY527.R.V_GBL1033726"
+        }
+      },
+      {
+        "data": {
+          "name": "Akt.R.V_GBL1033833",
+          "label": "Akt.R.V",
+          "color": "#FFBAAB",
+          "id": "Akt.R.V_GBL1033833"
+        }
+      },
+      {
+        "data": {
+          "name": "FoxO3a_pS318_S321.R.C_GBL1033796",
+          "label": "FoxO3a_pS318_S321.R.C",
+          "color": "#FFAF9D",
+          "id": "FoxO3a_pS318_S321.R.C_GBL1033796"
+        }
+      },
+      {
+        "data": {
+          "name": "p38.alpha.M.V_GBL1033908",
+          "label": "p38.alpha.M.V",
+          "color": "#FFB5A5",
+          "id": "p38.alpha.M.V_GBL1033908"
+        }
+      },
+      {
+        "data": {
+          "name": "p38.R.V_GBL1033807",
+          "label": "p38.R.V",
+          "color": "#FFAA96",
+          "id": "p38.R.V_GBL1033807"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "EGFR.R.V_GBL1033837",
+          "target": "Src_pY527.R.V_GBL1033726",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Akt.R.V_GBL1033833",
+          "target": "FoxO3a_pS318_S321.R.C_GBL1033796",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "p38.alpha.M.V_GBL1033908",
+          "target": "FoxO3a_pS318_S321.R.C_GBL1033796",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "p38.R.V_GBL1033807",
+          "target": "FoxO3a_pS318_S321.R.C_GBL1033796",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      }
+    ]
+  }
+}

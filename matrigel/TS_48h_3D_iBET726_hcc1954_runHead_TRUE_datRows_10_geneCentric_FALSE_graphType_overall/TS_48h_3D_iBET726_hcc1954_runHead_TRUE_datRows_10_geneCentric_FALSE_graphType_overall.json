@@ -1,0 +1,234 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "Akt_pS473.R.V_GBL1033793",
+          "label": "Akt_pS473.R.V",
+          "color": "#FF947C",
+          "id": "Akt_pS473.R.V_GBL1033793"
+        }
+      },
+      {
+        "data": {
+          "name": "Mcl.1.R.V_GBL1033861",
+          "label": "Mcl.1.R.V",
+          "color": "#FF5028",
+          "id": "Mcl.1.R.V_GBL1033861"
+        }
+      },
+      {
+        "data": {
+          "name": "mTOR_pS2448.R.C_GBL1033804",
+          "label": "mTOR_pS2448.R.C",
+          "color": "#FF5028",
+          "id": "mTOR_pS2448.R.C_GBL1033804"
+        }
+      },
+      {
+        "data": {
+          "name": "FAK_pY397.R.V_GBL1033863",
+          "label": "FAK_pY397.R.V",
+          "color": "#FF6643",
+          "id": "FAK_pY397.R.V_GBL1033863"
+        }
+      },
+      {
+        "data": {
+          "name": "p70.S6K_pT389.R.V_GBL1033811",
+          "label": "p70.S6K_pT389.R.V",
+          "color": "#FF5028",
+          "id": "p70.S6K_pT389.R.V_GBL1033811"
+        }
+      },
+      {
+        "data": {
+          "name": "Shc_pY317.R.V_GBL1033791",
+          "label": "Shc_pY317.R.V",
+          "color": "#FF6947",
+          "id": "Shc_pY317.R.V_GBL1033791"
+        }
+      },
+      {
+        "data": {
+          "name": "PDK1_pS241.R.V_GBL1033814",
+          "label": "PDK1_pS241.R.V",
+          "color": "#FF8366",
+          "id": "PDK1_pS241.R.V_GBL1033814"
+        }
+      },
+      {
+        "data": {
+          "name": "b.Catenin_pT41_S45.R.V_GBL1033855",
+          "label": "b.Catenin_pT41_S45.R.V",
+          "color": "#FF6B4A",
+          "id": "b.Catenin_pT41_S45.R.V_GBL1033855"
+        }
+      },
+      {
+        "data": {
+          "name": "IRS1.R.V_GBL1033768",
+          "label": "IRS1.R.V",
+          "color": "#FF8E74",
+          "id": "IRS1.R.V_GBL1033768"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "Akt_pS473.R.V_GBL1033793",
+          "target": "Mcl.1.R.V_GBL1033861",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "Akt_pS473.R.V_GBL1033793",
+          "target": "mTOR_pS2448.R.C_GBL1033804",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "mTOR_pS2448.R.C_GBL1033804",
+          "target": "Akt_pS473.R.V_GBL1033793",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Akt_pS473.R.V_GBL1033793",
+          "target": "FAK_pY397.R.V_GBL1033863",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "FAK_pY397.R.V_GBL1033863",
+          "target": "Akt_pS473.R.V_GBL1033793",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Akt_pS473.R.V_GBL1033793",
+          "target": "p70.S6K_pT389.R.V_GBL1033811",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "p70.S6K_pT389.R.V_GBL1033811",
+          "target": "Akt_pS473.R.V_GBL1033793",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Shc_pY317.R.V_GBL1033791",
+          "target": "Akt_pS473.R.V_GBL1033793",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "PDK1_pS241.R.V_GBL1033814",
+          "target": "p70.S6K_pT389.R.V_GBL1033811",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "mTOR_pS2448.R.C_GBL1033804",
+          "target": "p70.S6K_pT389.R.V_GBL1033811",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "p70.S6K_pT389.R.V_GBL1033811",
+          "target": "mTOR_pS2448.R.C_GBL1033804",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Shc_pY317.R.V_GBL1033791",
+          "target": "mTOR_pS2448.R.C_GBL1033804",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Akt_pS473.R.V_GBL1033793",
+          "target": "b.Catenin_pT41_S45.R.V_GBL1033855",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "PDK1_pS241.R.V_GBL1033814",
+          "target": "Akt_pS473.R.V_GBL1033793",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "p70.S6K_pT389.R.V_GBL1033811",
+          "target": "FAK_pY397.R.V_GBL1033863",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "IRS1.R.V_GBL1033768",
+          "target": "p70.S6K_pT389.R.V_GBL1033811",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "mTOR_pS2448.R.C_GBL1033804",
+          "target": "p70.S6K_pT389.R.V_GBL1033811",
+          "interactionType": "dephosphorylates",
+          "color": "#ff0000",
+          "lty": 1
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,305 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "Akt_pT308.R.V_GBL1033851",
+          "label": "Akt_pT308.R.V",
+          "color": "#8BA1FF",
+          "id": "Akt_pT308.R.V_GBL1033851"
+        }
+      },
+      {
+        "data": {
+          "name": "ER.alpha_pS118.R.V_GBL1033794",
+          "label": "ER.alpha_pS118.R.V",
+          "color": "#899FFF",
+          "id": "ER.alpha_pS118.R.V_GBL1033794"
+        }
+      },
+      {
+        "data": {
+          "name": "Bad_pS112.R.V_GBL1033677",
+          "label": "Bad_pS112.R.V",
+          "color": "#7791FF",
+          "id": "Bad_pS112.R.V_GBL1033677"
+        }
+      },
+      {
+        "data": {
+          "name": "B.Raf_pS445.R.V_GBL1033685",
+          "label": "B.Raf_pS445.R.V",
+          "color": "#9BAEFF",
+          "id": "B.Raf_pS445.R.V_GBL1033685"
+        }
+      },
+      {
+        "data": {
+          "name": "c.Myc.R.C_GBL1033885",
+          "label": "c.Myc.R.C",
+          "color": "#9CAEFF",
+          "id": "c.Myc.R.C_GBL1033885"
+        }
+      },
+      {
+        "data": {
+          "name": "p70.S6K_pT389.R.V_GBL1033811",
+          "label": "p70.S6K_pT389.R.V",
+          "color": "#8BA0FF",
+          "id": "p70.S6K_pT389.R.V_GBL1033811"
+        }
+      },
+      {
+        "data": {
+          "name": "S6_pS235_S236.R.V_GBL1033723",
+          "label": "S6_pS235_S236.R.V",
+          "color": "#ABBBFF",
+          "id": "S6_pS235_S236.R.V_GBL1033723"
+        }
+      },
+      {
+        "data": {
+          "name": "Akt_pS473.R.V_GBL1033793",
+          "label": "Akt_pS473.R.V",
+          "color": "#8BA1FF",
+          "id": "Akt_pS473.R.V_GBL1033793"
+        }
+      },
+      {
+        "data": {
+          "name": "GSK.3ab_pS21_S9.R.V_GBL1033797",
+          "label": "GSK.3ab_pS21_S9.R.V",
+          "color": "#9AADFF",
+          "id": "GSK.3ab_pS21_S9.R.V_GBL1033797"
+        }
+      },
+      {
+        "data": {
+          "name": "Cyclin.D1.R.V_GBL1033878",
+          "label": "Cyclin.D1.R.V",
+          "color": "#9BAEFF",
+          "id": "Cyclin.D1.R.V_GBL1033878"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "Akt_pT308.R.V_GBL1033851",
+          "target": "ER.alpha_pS118.R.V_GBL1033794",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "ER.alpha_pS118.R.V_GBL1033794",
+          "target": "Akt_pT308.R.V_GBL1033851",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Akt_pT308.R.V_GBL1033851",
+          "target": "Bad_pS112.R.V_GBL1033677",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "B.Raf_pS445.R.V_GBL1033685",
+          "target": "Bad_pS112.R.V_GBL1033677",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Akt_pT308.R.V_GBL1033851",
+          "target": "c.Myc.R.C_GBL1033885",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "p70.S6K_pT389.R.V_GBL1033811",
+          "target": "S6_pS235_S236.R.V_GBL1033723",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Akt_pS473.R.V_GBL1033793",
+          "target": "p70.S6K_pT389.R.V_GBL1033811",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "p70.S6K_pT389.R.V_GBL1033811",
+          "target": "Akt_pS473.R.V_GBL1033793",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Akt_pT308.R.V_GBL1033851",
+          "target": "p70.S6K_pT389.R.V_GBL1033811",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "p70.S6K_pT389.R.V_GBL1033811",
+          "target": "Akt_pT308.R.V_GBL1033851",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "p70.S6K_pT389.R.V_GBL1033811",
+          "target": "GSK.3ab_pS21_S9.R.V_GBL1033797",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "p70.S6K_pT389.R.V_GBL1033811",
+          "target": "ER.alpha_pS118.R.V_GBL1033794",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Akt_pS473.R.V_GBL1033793",
+          "target": "Bad_pS112.R.V_GBL1033677",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Akt_pS473.R.V_GBL1033793",
+          "target": "B.Raf_pS445.R.V_GBL1033685",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "B.Raf_pS445.R.V_GBL1033685",
+          "target": "Akt_pS473.R.V_GBL1033793",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "ER.alpha_pS118.R.V_GBL1033794",
+          "target": "Cyclin.D1.R.V_GBL1033878",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "ER.alpha_pS118.R.V_GBL1033794",
+          "target": "c.Myc.R.C_GBL1033885",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "Akt_pT308.R.V_GBL1033851",
+          "target": "GSK.3ab_pS21_S9.R.V_GBL1033797",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Akt_pS473.R.V_GBL1033793",
+          "target": "c.Myc.R.C_GBL1033885",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "Akt_pS473.R.V_GBL1033793",
+          "target": "GSK.3ab_pS21_S9.R.V_GBL1033797",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Akt_pS473.R.V_GBL1033793",
+          "target": "ER.alpha_pS118.R.V_GBL1033794",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "ER.alpha_pS118.R.V_GBL1033794",
+          "target": "Akt_pS473.R.V_GBL1033793",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Akt_pT308.R.V_GBL1033851",
+          "target": "B.Raf_pS445.R.V_GBL1033685",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "B.Raf_pS445.R.V_GBL1033685",
+          "target": "Akt_pT308.R.V_GBL1033851",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      }
+    ]
+  }
+}

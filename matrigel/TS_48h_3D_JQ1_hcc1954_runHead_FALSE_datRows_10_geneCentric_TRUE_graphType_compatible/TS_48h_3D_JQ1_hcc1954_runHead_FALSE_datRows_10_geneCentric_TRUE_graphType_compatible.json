@@ -1,0 +1,155 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "MAPK14",
+          "label": "MAPK14",
+          "color": "#FFFFFF",
+          "id": "MAPK14"
+        }
+      },
+      {
+        "data": {
+          "name": "STAT3",
+          "label": "STAT3",
+          "color": "#FFFFFF",
+          "id": "STAT3"
+        }
+      },
+      {
+        "data": {
+          "name": "MYC",
+          "label": "MYC",
+          "color": "#C4CFFF",
+          "id": "MYC"
+        }
+      },
+      {
+        "data": {
+          "name": "H3F3A",
+          "label": "H3F3A",
+          "color": "#BDCAFF",
+          "id": "H3F3A"
+        }
+      },
+      {
+        "data": {
+          "name": "CDK1",
+          "label": "CDK1",
+          "color": "#C7D2FF",
+          "id": "CDK1"
+        }
+      },
+      {
+        "data": {
+          "name": "EGFR",
+          "label": "EGFR",
+          "color": "#FFFFFF",
+          "id": "EGFR"
+        }
+      },
+      {
+        "data": {
+          "name": "PTGS2",
+          "label": "PTGS2",
+          "color": "#9AADFF",
+          "id": "PTGS2"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "MAPK14",
+          "target": "STAT3",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "MYC",
+          "target": "H3F3A",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "STAT3",
+          "target": "MYC",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "CDK1",
+          "target": "STAT3",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "EGFR",
+          "target": "STAT3",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "PTGS2",
+          "target": "EGFR",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "STAT3",
+          "target": "PTGS2",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "MAPK14",
+          "target": "EGFR",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "CDK1",
+          "target": "EGFR",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "MAPK14",
+          "target": "PTGS2",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

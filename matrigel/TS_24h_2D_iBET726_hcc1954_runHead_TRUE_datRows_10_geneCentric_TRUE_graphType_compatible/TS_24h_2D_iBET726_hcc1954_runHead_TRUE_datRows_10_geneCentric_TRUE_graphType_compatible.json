@@ -1,0 +1,34 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "TP53",
+          "label": "TP53",
+          "color": "#FF8266",
+          "id": "TP53"
+        }
+      },
+      {
+        "data": {
+          "name": "PMS2",
+          "label": "PMS2",
+          "color": "#FF9076",
+          "id": "PMS2"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "TP53",
+          "target": "PMS2",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

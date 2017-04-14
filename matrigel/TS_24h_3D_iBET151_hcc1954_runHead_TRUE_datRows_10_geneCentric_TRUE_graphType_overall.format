@@ -1,0 +1,12 @@
+componentType	componentLabel	componentProperty	rgbColor
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	GSK3A	rppasite	GSK.3ab_pS21_S9.R.V_GBL1033797, 4.36748522868702|p|255 179 161|180 0 20
+node	CDKN1A	color	255 164 143
+node	CDKN1A	tooltip	p21.R.V_GBL1033880, 5.20040698268105
+node	PRKCA	color	255 172 153
+node	PRKCA	tooltip	PKC.alpha.M.V_GBL1033894, 4.73498797138705
+node	AKT1S1	rppasite	PRAS40_pT246.R.V_GBL1033737, 5.43957052637091|p|255 160 138|180 0 20
+node	FOXO3	rppasite	FoxO3a_pS318_S321.R.C_GBL1033796, 4.38134241212408|p|255 178 161|0 180 20
+node	MTOR	color	255 182 165
+node	MTOR	tooltip	mTOR.R.V_GBL1033803, 4.17183933389011

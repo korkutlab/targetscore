@@ -13,7 +13,7 @@ opts <- expand.grid(dataFileBase=dataFileBases, runHead=runHead, datRows=datRows
 
 errors <- NULL
 
-for(i in 59:nrow(opts)) {
+for(i in 1:nrow(opts)) {
   cat("I: ", i, "\n")
   tmpOpts <- opts[i,]
   

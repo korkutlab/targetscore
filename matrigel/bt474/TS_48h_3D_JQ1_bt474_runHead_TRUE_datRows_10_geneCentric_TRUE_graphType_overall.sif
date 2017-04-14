@@ -1,0 +1,6 @@
+PARTICIPANT_A	INTERACTION_TYPE	PARTICIPANT_B	URIS	SITES
+EGFR	phosphorylates	SRC	http://pathwaycommons.org/pc2/Catalysis_ca9bd5a1ce179fc0ad6e56cdb9577678 http://pathwaycommons.org/pc2/BiochemicalReaction_ce108ab0131e784afc591f36ef3e9a3e	Y419
+FN1	phosphorylates	SRC	http://pathwaycommons.org/pc2/BiochemicalReaction_ca2ccb6f52d9816e8aad0c481808d58e http://pathwaycommons.org/pc2/Catalysis_aa03cbdab3ea63994af055dc8cf8aff3	Y419
+FN1	upregulates-expression	EGFR	http://pathwaycommons.org/pc2/TemplateReaction_5d2dc5340b7abaa13dea37d60eceae34 http://pathwaycommons.org/pc2/Control_e92e0ff471e44131d8ee838d8c7fb6a0	
+AKT1	upregulates-expression	MCL1	http://pathwaycommons.org/pc2/TemplateReaction_515949a45a5fdaf87683c1327bd30011 http://pathwaycommons.org/pc2/TemplateReactionRegulation_c9c4a2b6999d565604b7d3f2382f0432	
+FN1	dephosphorylates	SRC	http://pathwaycommons.org/pc2/BiochemicalReaction_ca2ccb6f52d9816e8aad0c481808d58e http://pathwaycommons.org/pc2/Catalysis_aa03cbdab3ea63994af055dc8cf8aff3	Y529

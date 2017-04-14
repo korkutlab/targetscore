@@ -1,0 +1,10 @@
+componentType	componentLabel	componentProperty	rgbColor
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	SHC1	rppasite	Shc_pY317.R.V_GBL1033791, 5.0|p|255 168 148|0 180 20
+node	MCL1	color	255 168 148
+node	MCL1	tooltip	Mcl.1.R.V_GBL1033861, 5.0
+node	CTNNB1	rppasite	b.Catenin_pT41_S45.R.V_GBL1033855, 5.0|p|255 168 148|0 180 20
+node	MTOR	rppasite	mTOR_pS2448.R.C_GBL1033804, 5.0|p|255 168 148|0 180 20
+node	PTK2	rppasite	FAK_pY397.R.V_GBL1033863, 5.0|p|255 168 148|0 180 20
+node	AKT1	rppasite	Akt_pS473.R.V_GBL1033793, 5.0|p|255 168 148|0 180 20

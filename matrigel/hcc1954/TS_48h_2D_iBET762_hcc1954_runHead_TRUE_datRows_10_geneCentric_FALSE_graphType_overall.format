@@ -1,0 +1,11 @@
+componentType	componentLabel	componentProperty	rgbColor
+node	all-nodes	color	255 255 255
+node	p53.R.C_GBL1033956	color	255 124 94
+node	Rb.M.QC_GBL1033895	color	255 143 117
+node	p21.R.V_GBL1033880	color	255 145 120
+node	MSH2.M.V_GBL1033900	color	255 172 152
+node	PMS2.R.V_GBL1033867	color	255 165 145
+node	Src_pY527.R.V_GBL1033726	color	255 161 139
+node	PDK1_pS241.R.V_GBL1033814	color	255 160 139
+node	Bcl2.M.V_GBL1033931	color	255 126 96
+node	HER2_pY1248.R.C_GBL1033827	color	255 171 152

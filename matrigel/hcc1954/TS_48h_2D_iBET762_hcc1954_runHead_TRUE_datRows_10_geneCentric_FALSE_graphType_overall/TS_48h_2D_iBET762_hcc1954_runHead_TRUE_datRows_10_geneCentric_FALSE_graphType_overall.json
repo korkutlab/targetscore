@@ -1,0 +1,180 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "p53.R.C_GBL1033956",
+          "label": "p53.R.C",
+          "color": "#FF7C5E",
+          "id": "p53.R.C_GBL1033956"
+        }
+      },
+      {
+        "data": {
+          "name": "Rb.M.QC_GBL1033895",
+          "label": "Rb.M.QC",
+          "color": "#FF8F75",
+          "id": "Rb.M.QC_GBL1033895"
+        }
+      },
+      {
+        "data": {
+          "name": "p21.R.V_GBL1033880",
+          "label": "p21.R.V",
+          "color": "#FF9178",
+          "id": "p21.R.V_GBL1033880"
+        }
+      },
+      {
+        "data": {
+          "name": "MSH2.M.V_GBL1033900",
+          "label": "MSH2.M.V",
+          "color": "#FFAC98",
+          "id": "MSH2.M.V_GBL1033900"
+        }
+      },
+      {
+        "data": {
+          "name": "PMS2.R.V_GBL1033867",
+          "label": "PMS2.R.V",
+          "color": "#FFA591",
+          "id": "PMS2.R.V_GBL1033867"
+        }
+      },
+      {
+        "data": {
+          "name": "Src_pY527.R.V_GBL1033726",
+          "label": "Src_pY527.R.V",
+          "color": "#FFA18B",
+          "id": "Src_pY527.R.V_GBL1033726"
+        }
+      },
+      {
+        "data": {
+          "name": "PDK1_pS241.R.V_GBL1033814",
+          "label": "PDK1_pS241.R.V",
+          "color": "#FFA08B",
+          "id": "PDK1_pS241.R.V_GBL1033814"
+        }
+      },
+      {
+        "data": {
+          "name": "Bcl2.M.V_GBL1033931",
+          "label": "Bcl2.M.V",
+          "color": "#FF7E60",
+          "id": "Bcl2.M.V_GBL1033931"
+        }
+      },
+      {
+        "data": {
+          "name": "HER2_pY1248.R.C_GBL1033827",
+          "label": "HER2_pY1248.R.C",
+          "color": "#FFAB98",
+          "id": "HER2_pY1248.R.C_GBL1033827"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "p53.R.C_GBL1033956",
+          "target": "Rb.M.QC_GBL1033895",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "Rb.M.QC_GBL1033895",
+          "target": "p21.R.V_GBL1033880",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "p53.R.C_GBL1033956",
+          "target": "MSH2.M.V_GBL1033900",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "p53.R.C_GBL1033956",
+          "target": "p21.R.V_GBL1033880",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "p53.R.C_GBL1033956",
+          "target": "PMS2.R.V_GBL1033867",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "Rb.M.QC_GBL1033895",
+          "target": "MSH2.M.V_GBL1033900",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "Rb.M.QC_GBL1033895",
+          "target": "p21.R.V_GBL1033880",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "Src_pY527.R.V_GBL1033726",
+          "target": "PDK1_pS241.R.V_GBL1033814",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "p53.R.C_GBL1033956",
+          "target": "Bcl2.M.V_GBL1033931",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "p53.R.C_GBL1033956",
+          "target": "p21.R.V_GBL1033880",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "Src_pY527.R.V_GBL1033726",
+          "target": "HER2_pY1248.R.C_GBL1033827",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      }
+    ]
+  }
+}

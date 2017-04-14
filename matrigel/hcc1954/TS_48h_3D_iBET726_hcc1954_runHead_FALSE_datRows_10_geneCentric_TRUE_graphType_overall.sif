@@ -1,0 +1,7 @@
+PARTICIPANT_A	INTERACTION_TYPE	PARTICIPANT_B	URIS	SITES
+RB1	downregulates-expression	CDKN1A		
+CDKN1A	phosphorylates	RB1	http://identifiers.org/reactome/R-HSA-69227 http://pathwaycommons.org/pc2/Catalysis_dbf124663cbfdbdafbfaa20afadbc283 http://pathwaycommons.org/pc2/ComplexAssembly_a47f5c3ba15c0b774769f92afa96102c http://pathwaycommons.org/pc2/Control_9bfc8f1ef9c35216081f2f3cf8640bf6	S788;S795
+RB1	upregulates-expression	CDKN1A	http://pathwaycommons.org/pc2/TemplateReaction_52b404c8f5c01288d3bb5d1c2a6c68eb http://pathwaycommons.org/pc2/TemplateReactionRegulation_2fc5546079c002a549852419c84d4c44	
+RB1	upregulates-expression	TYRO3	http://pathwaycommons.org/pc2/TemplateReaction_eaf4daf0c00d8e5a2eb1941801a0c5df http://pathwaycommons.org/pc2/TemplateReaction_429d5193ed55fa591788936b2437cf89 http://pathwaycommons.org/pc2/TemplateReactionRegulation_eddd1aea8b14067b60c9f977008dd51a http://pathwaycommons.org/pc2/TemplateReactionRegulation_c9e35a6e391a090e2e7d35b5df48b00b	
+RB1	upregulates-expression	PTGS2	http://pathwaycommons.org/pc2/Control_b271c78ecd3924b5f781ee20edcb493b http://pathwaycommons.org/pc2/TemplateReaction_8486f3ce08c91baeb72c1f01c1b9a10e	
+CDKN1A	dephosphorylates	RB1	S788 T821 S567 T826	

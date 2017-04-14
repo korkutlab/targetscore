@@ -1,0 +1,6 @@
+PARTICIPANT_A	INTERACTION_TYPE	PARTICIPANT_B	URIS	SITES
+EGFR.R.V_GBL1033837	phosphorylates	Src_pY527.R.V_GBL1033726		
+Fibronectin.R.V_GBL1033958	phosphorylates	Src_pY527.R.V_GBL1033726		
+Fibronectin.R.V_GBL1033958	upregulates-expression	EGFR.R.V_GBL1033837		
+Akt.R.V_GBL1033833	upregulates-expression	Mcl.1.R.V_GBL1033861		
+Fibronectin.R.V_GBL1033958	dephosphorylates	Src_pY527.R.V_GBL1033726		

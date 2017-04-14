@@ -1,0 +1,225 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "AKT1",
+          "label": "AKT1",
+          "color": "#FFFFFF",
+          "id": "AKT1"
+        }
+      },
+      {
+        "data": {
+          "name": "MCL1",
+          "label": "MCL1",
+          "color": "#FF5028",
+          "id": "MCL1"
+        }
+      },
+      {
+        "data": {
+          "name": "MTOR",
+          "label": "MTOR",
+          "color": "#FFFFFF",
+          "id": "MTOR"
+        }
+      },
+      {
+        "data": {
+          "name": "PTK2",
+          "label": "PTK2",
+          "color": "#FFFFFF",
+          "id": "PTK2"
+        }
+      },
+      {
+        "data": {
+          "name": "RPS6KB1",
+          "label": "RPS6KB1",
+          "color": "#FFFFFF",
+          "id": "RPS6KB1"
+        }
+      },
+      {
+        "data": {
+          "name": "SHC1",
+          "label": "SHC1",
+          "color": "#FFFFFF",
+          "id": "SHC1"
+        }
+      },
+      {
+        "data": {
+          "name": "PDPK1",
+          "label": "PDPK1",
+          "color": "#FFFFFF",
+          "id": "PDPK1"
+        }
+      },
+      {
+        "data": {
+          "name": "CTNNB1",
+          "label": "CTNNB1",
+          "color": "#FFFFFF",
+          "id": "CTNNB1"
+        }
+      },
+      {
+        "data": {
+          "name": "IRS1",
+          "label": "IRS1",
+          "color": "#FF8E74",
+          "id": "IRS1"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "AKT1",
+          "target": "MCL1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "AKT1",
+          "target": "MTOR",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "MTOR",
+          "target": "AKT1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "AKT1",
+          "target": "PTK2",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "PTK2",
+          "target": "AKT1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "AKT1",
+          "target": "RPS6KB1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "RPS6KB1",
+          "target": "AKT1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "SHC1",
+          "target": "AKT1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "PDPK1",
+          "target": "RPS6KB1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "MTOR",
+          "target": "RPS6KB1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "RPS6KB1",
+          "target": "MTOR",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "SHC1",
+          "target": "MTOR",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "AKT1",
+          "target": "CTNNB1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "PDPK1",
+          "target": "AKT1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "RPS6KB1",
+          "target": "PTK2",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "IRS1",
+          "target": "RPS6KB1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      }
+    ]
+  }
+}

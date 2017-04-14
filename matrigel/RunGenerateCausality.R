@@ -1,7 +1,7 @@
 library(rmarkdown)
 
 outputDir <- "./"
-dataDir <- "./" # "./bt474"
+dataDir <- "./hcc1954"
 
 files <- dir(path=dataDir, pattern="^TS_.*.txt$")
 dataFileBases <- gsub("\\.txt", "", files)

@@ -1,0 +1,8 @@
+node	all-nodes	color	255 255 255
+node	mTOR_pS2448.R.C_GBL1033804	color	255 80 40
+node	p70.S6K_pT389.R.V_GBL1033811	color	255 80 40
+node	p53.R.C_GBL1033956	color	255 84 45
+node	Bcl2.M.V_GBL1033931	color	255 80 40
+node	Fibronectin.R.V_GBL1033958	color	255 147 123
+node	Src_pY527.R.V_GBL1033726	color	255 141 115
+node	EGFR_pY1068.R.C_GBL1033694	color	255 132 103

@@ -1,0 +1,5 @@
+PARTICIPANT_A	INTERACTION_TYPE	PARTICIPANT_B	URIS	SITES
+STAT5A	upregulates-expression	MAPK9	http://pathwaycommons.org/pc2/TemplateReactionRegulation_1033f5d881dedecea52295345cdbbd04 http://pathwaycommons.org/pc2/TemplateReaction_8d1693538fd4d5d02d8f067a21b17cc6	
+STAT5A	upregulates-expression	ETS1	http://pathwaycommons.org/pc2/TemplateReaction_63b80a2b718b32c797d8cbcc7363286a http://pathwaycommons.org/pc2/TemplateReactionRegulation_f08aec08f09706c71c92bec25094b69e	
+STAT5A	upregulates-expression	MAPK14	http://pathwaycommons.org/pc2/TemplateReactionRegulation_fa73dfb26af97dea7b2b2eb52167d98c http://pathwaycommons.org/pc2/TemplateReaction_cb00dc0581dd35ec097742670d5c54d1	
+TP53	downregulates-expression	PRKCA	http://pathwaycommons.org/pc2/TemplateReaction_259e250d9026a51fd3c94f64b67ec191 http://pathwaycommons.org/pc2/Control_68ab0bd6e829cf2930ab17ac8046ebc4	

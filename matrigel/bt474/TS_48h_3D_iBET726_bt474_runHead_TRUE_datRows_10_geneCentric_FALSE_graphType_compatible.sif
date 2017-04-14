@@ -1,0 +1,7 @@
+FoxO3a_pS318_S321.R.C_GBL1033796	upregulates-expression	p21.R.V_GBL1033880
+EGFR.R.V_GBL1033837	phosphorylates	Src_pY527.R.V_GBL1033726
+p53.R.C_GBL1033956	upregulates-expression	EGFR.R.V_GBL1033837
+Fibronectin.R.V_GBL1033958	phosphorylates	Src_pY527.R.V_GBL1033726
+Fibronectin.R.V_GBL1033958	upregulates-expression	EGFR.R.V_GBL1033837
+p53.R.C_GBL1033956	upregulates-expression	p21.R.V_GBL1033880
+p53.R.C_GBL1033956	upregulates-expression	PMS2.R.V_GBL1033867

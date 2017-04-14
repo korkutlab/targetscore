@@ -1,0 +1,10 @@
+componentType	componentLabel	componentProperty	rgbColor
+node	all-nodes	color	255 255 255
+node	c.Myc.R.C_GBL1033885	color	103 131 255
+node	TFRC.R.V_GBL1033849	color	73 107 255
+node	eIF4E.R.V_GBL1033734	color	105 133 255
+node	Rb_pS807_S811.R.V_GBL1033721	color	94 124 255
+node	Stathmin.1.R.V_GBL1033733	color	41 80 255
+node	CDK1.R.V_GBL1033788	color	40 80 255
+node	Cyclin.D1.R.V_GBL1033878	color	102 130 255
+node	Tyro3.R.V_GBL1033829	color	54 92 255

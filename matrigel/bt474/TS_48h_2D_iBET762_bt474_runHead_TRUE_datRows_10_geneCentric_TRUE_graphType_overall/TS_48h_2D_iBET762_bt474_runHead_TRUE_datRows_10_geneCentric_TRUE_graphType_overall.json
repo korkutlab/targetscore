@@ -1,0 +1,94 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "FOXO3",
+          "label": "FOXO3",
+          "color": "#FFFFFF",
+          "id": "FOXO3"
+        }
+      },
+      {
+        "data": {
+          "name": "CDKN1A",
+          "label": "CDKN1A",
+          "color": "#FF522A",
+          "id": "CDKN1A"
+        }
+      },
+      {
+        "data": {
+          "name": "ACACA",
+          "label": "ACACA",
+          "color": "#FFA793",
+          "id": "ACACA"
+        }
+      },
+      {
+        "data": {
+          "name": "NRAS",
+          "label": "NRAS",
+          "color": "#FF9A83",
+          "id": "NRAS"
+        }
+      },
+      {
+        "data": {
+          "name": "MAPK14",
+          "label": "MAPK14",
+          "color": "#FFA691",
+          "id": "MAPK14"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "FOXO3",
+          "target": "CDKN1A",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "FOXO3",
+          "target": "ACACA",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "FOXO3",
+          "target": "NRAS",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "MAPK14",
+          "target": "FOXO3",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "FOXO3",
+          "target": "CDKN1A",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      }
+    ]
+  }
+}

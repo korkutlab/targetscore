@@ -1,0 +1,207 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "Cox2.R.C_GBL1033859",
+          "label": "Cox2.R.C",
+          "color": "#4C6EFF",
+          "id": "Cox2.R.C_GBL1033859"
+        }
+      },
+      {
+        "data": {
+          "name": "GSK.3b_pS9.R.V_GBL1033831",
+          "label": "GSK.3b_pS9.R.V",
+          "color": "#4A6CFF",
+          "id": "GSK.3b_pS9.R.V_GBL1033831"
+        }
+      },
+      {
+        "data": {
+          "name": "Stat3_pY705.R.V_GBL1033727",
+          "label": "Stat3_pY705.R.V",
+          "color": "#2850FF",
+          "id": "Stat3_pY705.R.V_GBL1033727"
+        }
+      },
+      {
+        "data": {
+          "name": "c.Myc.R.C_GBL1033885",
+          "label": "c.Myc.R.C",
+          "color": "#2850FF",
+          "id": "c.Myc.R.C_GBL1033885"
+        }
+      },
+      {
+        "data": {
+          "name": "Akt_pT308.R.V_GBL1033851",
+          "label": "Akt_pT308.R.V",
+          "color": "#3057FF",
+          "id": "Akt_pT308.R.V_GBL1033851"
+        }
+      },
+      {
+        "data": {
+          "name": "Rb_pS807_S811.R.V_GBL1033721",
+          "label": "Rb_pS807_S811.R.V",
+          "color": "#2850FF",
+          "id": "Rb_pS807_S811.R.V_GBL1033721"
+        }
+      },
+      {
+        "data": {
+          "name": "c.Met.M.QC_GBL1033899",
+          "label": "c.Met.M.QC",
+          "color": "#345AFF",
+          "id": "c.Met.M.QC_GBL1033899"
+        }
+      },
+      {
+        "data": {
+          "name": "Caveolin.1.R.V_GBL1033687",
+          "label": "Caveolin.1.R.V",
+          "color": "#3359FF",
+          "id": "Caveolin.1.R.V_GBL1033687"
+        }
+      },
+      {
+        "data": {
+          "name": "GSK.3ab_pS21_S9.R.V_GBL1033797",
+          "label": "GSK.3ab_pS21_S9.R.V",
+          "color": "#4E6FFF",
+          "id": "GSK.3ab_pS21_S9.R.V_GBL1033797"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "Cox2.R.C_GBL1033859",
+          "target": "GSK.3b_pS9.R.V_GBL1033831",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Stat3_pY705.R.V_GBL1033727",
+          "target": "c.Myc.R.C_GBL1033885",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "Akt_pT308.R.V_GBL1033851",
+          "target": "GSK.3b_pS9.R.V_GBL1033831",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Akt_pT308.R.V_GBL1033851",
+          "target": "c.Myc.R.C_GBL1033885",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "Rb_pS807_S811.R.V_GBL1033721",
+          "target": "c.Myc.R.C_GBL1033885",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "c.Met.M.QC_GBL1033899",
+          "target": "Stat3_pY705.R.V_GBL1033727",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Cox2.R.C_GBL1033859",
+          "target": "Akt_pT308.R.V_GBL1033851",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "c.Met.M.QC_GBL1033899",
+          "target": "Akt_pT308.R.V_GBL1033851",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Rb_pS807_S811.R.V_GBL1033721",
+          "target": "c.Met.M.QC_GBL1033899",
+          "interactionType": "downregulates-expression",
+          "color": "#ff0000",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "Akt_pT308.R.V_GBL1033851",
+          "target": "Stat3_pY705.R.V_GBL1033727",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Stat3_pY705.R.V_GBL1033727",
+          "target": "Akt_pT308.R.V_GBL1033851",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Caveolin.1.R.V_GBL1033687",
+          "target": "Akt_pT308.R.V_GBL1033851",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "Stat3_pY705.R.V_GBL1033727",
+          "target": "Cox2.R.C_GBL1033859",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "Akt_pT308.R.V_GBL1033851",
+          "target": "GSK.3ab_pS21_S9.R.V_GBL1033797",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      }
+    ]
+  }
+}

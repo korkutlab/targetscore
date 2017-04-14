@@ -1,0 +1,9 @@
+componentType	componentLabel	componentProperty	rgbColor
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	SRC	rppasite	Src_pY527.R.V_GBL1033726, 4.12862588889014|p|255 183 166|180 0 20
+node	EGFR	color	255 189 174
+node	EGFR	tooltip	EGFR.R.V_GBL1033837, 3.78283053093658
+node	RICTOR	rppasite	Rictor_pT1135.R.V_GBL1033845, 3.83920949055506|p|255 188 172|180 0 20
+node	GSK3A	color	255 201 188
+node	GSK3A	tooltip	GSK.3ab.M.V_GBL1033941, 3.10751578300107

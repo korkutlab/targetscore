@@ -1,0 +1,11 @@
+node	all-nodes	color	255 255 255
+node	all-nodes	bordercolor	50 50 50
+node	MTOR	rppasite	mTOR_pS2448.R.C_GBL1033804, 4.0502268521045|p|255 184 168|0 180 20
+node	BCL2L1	color	255 194 181
+node	BCL2L1	tooltip	Bcl.xL.R.V_GBL1033682, 3.46366166216268
+node	TP53	color	255 194 180
+node	TP53	tooltip	p53.R.C_GBL1033956, 3.476808009178
+node	PMS2	color	255 200 187
+node	PMS2	tooltip	PMS2.R.V_GBL1033867, 3.14109546167535
+node	BCL2	color	255 182 166
+node	BCL2	tooltip	Bcl2.M.V_GBL1033931, 4.15052427935444

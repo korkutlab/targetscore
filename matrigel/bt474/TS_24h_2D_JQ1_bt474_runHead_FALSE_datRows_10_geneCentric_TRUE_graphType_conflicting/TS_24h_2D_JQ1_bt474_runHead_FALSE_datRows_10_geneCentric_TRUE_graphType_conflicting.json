@@ -1,0 +1,216 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "AKT1",
+          "label": "AKT1",
+          "color": "#FFFFFF",
+          "id": "AKT1"
+        }
+      },
+      {
+        "data": {
+          "name": "ESR1",
+          "label": "ESR1",
+          "color": "#FFFFFF",
+          "id": "ESR1"
+        }
+      },
+      {
+        "data": {
+          "name": "BAD",
+          "label": "BAD",
+          "color": "#FFFFFF",
+          "id": "BAD"
+        }
+      },
+      {
+        "data": {
+          "name": "BRAF",
+          "label": "BRAF",
+          "color": "#FFFFFF",
+          "id": "BRAF"
+        }
+      },
+      {
+        "data": {
+          "name": "MYC",
+          "label": "MYC",
+          "color": "#9CAEFF",
+          "id": "MYC"
+        }
+      },
+      {
+        "data": {
+          "name": "RPS6KB1",
+          "label": "RPS6KB1",
+          "color": "#FFFFFF",
+          "id": "RPS6KB1"
+        }
+      },
+      {
+        "data": {
+          "name": "RPS6",
+          "label": "RPS6",
+          "color": "#FFFFFF",
+          "id": "RPS6"
+        }
+      },
+      {
+        "data": {
+          "name": "GSK3A",
+          "label": "GSK3A",
+          "color": "#FFFFFF",
+          "id": "GSK3A"
+        }
+      },
+      {
+        "data": {
+          "name": "CCND1",
+          "label": "CCND1",
+          "color": "#9BAEFF",
+          "id": "CCND1"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "AKT1",
+          "target": "ESR1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "ESR1",
+          "target": "AKT1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "AKT1",
+          "target": "BAD",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "BRAF",
+          "target": "BAD",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "AKT1",
+          "target": "MYC",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "RPS6KB1",
+          "target": "RPS6",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "AKT1",
+          "target": "RPS6KB1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "RPS6KB1",
+          "target": "AKT1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "RPS6KB1",
+          "target": "GSK3A",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "RPS6KB1",
+          "target": "ESR1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "AKT1",
+          "target": "BRAF",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "BRAF",
+          "target": "AKT1",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      },
+      {
+        "data": {
+          "source": "ESR1",
+          "target": "CCND1",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "ESR1",
+          "target": "MYC",
+          "interactionType": "upregulates-expression",
+          "color": "#00ff00",
+          "lty": 2
+        }
+      },
+      {
+        "data": {
+          "source": "AKT1",
+          "target": "GSK3A",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      }
+    ]
+  }
+}

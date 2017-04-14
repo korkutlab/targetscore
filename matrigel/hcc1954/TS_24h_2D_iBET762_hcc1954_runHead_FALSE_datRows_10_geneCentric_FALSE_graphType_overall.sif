@@ -1,0 +1,8 @@
+PARTICIPANT_A	INTERACTION_TYPE	PARTICIPANT_B	URIS	SITES
+Cox2.R.C_GBL1033859	phosphorylates	GSK.3b_pS9.R.V_GBL1033831		
+ER.alpha.R.V_GBL1033879	upregulates-expression	Cox2.R.C_GBL1033859		
+Cyclin.D1.R.V_GBL1033878	upregulates-expression	ER.alpha.R.V_GBL1033879		
+ER.alpha.R.V_GBL1033879	upregulates-expression	Cyclin.D1.R.V_GBL1033878		
+ER.alpha.R.V_GBL1033879	upregulates-expression	c.Myc.R.C_GBL1033885		
+Snail.M.QC_GBL1033897	downregulates-expression	c.Met.M.QC_GBL1033899		
+c.Myc.R.C_GBL1033885	downregulates-expression	Cyclin.D1.R.V_GBL1033878		

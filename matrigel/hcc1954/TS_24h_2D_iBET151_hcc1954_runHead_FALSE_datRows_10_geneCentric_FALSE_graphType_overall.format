@@ -1,0 +1,11 @@
+componentType	componentLabel	componentProperty	rgbColor
+node	all-nodes	color	255 255 255
+node	c.Met.M.QC_GBL1033899	color	91 122 255
+node	Akt_pS473.R.V_GBL1033793	color	101 130 255
+node	EGFR_pY1173.R.V_GBL1033695	color	108 135 255
+node	Caveolin.1.R.V_GBL1033687	color	73 107 255
+node	Cox2.R.C_GBL1033859	color	71 105 255
+node	c.Myc.R.C_GBL1033885	color	40 80 255
+node	Tuberin_pT1462.R.V_GBL1033730	color	114 141 255
+node	Snail.M.QC_GBL1033897	color	98 128 255
+node	Cyclin.D1.R.V_GBL1033878	color	114 140 255

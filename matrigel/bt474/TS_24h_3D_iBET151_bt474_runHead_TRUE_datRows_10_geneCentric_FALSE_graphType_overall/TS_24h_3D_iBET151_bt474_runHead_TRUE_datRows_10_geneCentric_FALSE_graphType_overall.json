@@ -1,0 +1,34 @@
+{
+  "data": {},
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "name": "EGFR.R.V_GBL1033837",
+          "label": "EGFR.R.V",
+          "color": "#FF603B",
+          "id": "EGFR.R.V_GBL1033837"
+        }
+      },
+      {
+        "data": {
+          "name": "Src_pY527.R.V_GBL1033726",
+          "label": "Src_pY527.R.V",
+          "color": "#FF8467",
+          "id": "Src_pY527.R.V_GBL1033726"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "source": "EGFR.R.V_GBL1033837",
+          "target": "Src_pY527.R.V_GBL1033726",
+          "interactionType": "phosphorylates",
+          "color": "#00ff00",
+          "lty": 1
+        }
+      }
+    ]
+  }
+}
