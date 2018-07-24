@@ -15,7 +15,10 @@ Depends:
     paxtoolsr (>= 1.4.3),
     igraph,
     zeptosensUtils,
-    heatmap3
+    heatmap3,
+    glasso,
+    matrixStats,
+    GeneNet
 Suggests:
     knitr
 VignetteBuilder: knitr
