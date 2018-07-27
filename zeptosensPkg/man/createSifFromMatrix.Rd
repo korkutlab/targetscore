@@ -4,13 +4,15 @@
 \alias{createSifFromMatrix}
 \title{Create sif from network matrix.}
 \usage{
-createSifFromMatrix(t.net)
+createSifFromMatrix(t.net, genelist)
 }
 \arguments{
-\item{t.net}{p*p gene correlation network matrix #}
+\item{t.net}{p*p Gaussian gene Network matrix estimated.}
+
+\item{genelist}{gene name list corresponding to the Gaussian gene Network estimated.}
 }
 \value{
-edgelist decription dataframe contain upperstream gene to downstream gene.#
+edgelist decription dataframe contain G(V,E) including Vertex and Edges(1 positive/-1 negative) edgevalue and vertex number of Gaussian Graphical Model.
 }
 \description{
 Create sif from network matrix.
