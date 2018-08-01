@@ -16,7 +16,7 @@ runCrossValidation(data, boot.time, rho, kappa)
 \item{kappa}{scaler parameter}
 }
 \value{
-result lists of positive predictive values, negative predictive values,sensitivity, specificity,false discovery rate
+result lists of positive predictive values, negative predictive values,sensitivity, specificity,for random network and the network predicted with the algorithm.
 }
 \description{
 Run 10-fold Cross validation for data through the current algorythm.

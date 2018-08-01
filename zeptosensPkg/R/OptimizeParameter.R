@@ -1,6 +1,6 @@
 #' Choose the optimal regulization parameter and scale paramter.
 #' 
-#' @param data input expression data. Gene in coloumns and samples in row. 
+#' @param data input expression data. Gene in coloumns and samples in row. Wih colnames as gene tags and rownames as sample tags.
 #' @param prior Prior information matrix corresponde to the input variance covariance matrix of the data.
 #' @return Parameter list of regulization parameter decided by the prior information and the algorithmn lowest BIC.Including regularize parameter as rho, scale parameter as kappa, and regulization matrix decided.
 #' @concept zeptosensPkg
@@ -11,7 +11,7 @@ OptimizeParameter<-function(data,prior){
          bic <- matrix(NA,100,100)
          kappa<-rho
          rho_m=c()
-         a=c()
+        g.result=c()
          U=matrix(1,nrow(prior1),ncol(prior1))
          p_off_d=c()
 for(i in 1:100){
