@@ -1,7 +1,7 @@
 #' Predicted Directional GeneNetwork
 #' 
 #' @param data input expression data. Coloumns as the gene, rows as the sample.With colnames as the gene tags, rownames as the sample tags.
-#' @param prior prior information matrix in form of p*p gene interaction matrix.Colnames and rownames as the gene tags.Coloumns and rows correspond to the data matrix gene tags.
+#' @param prior prior information matrix with colnames and rownames as the gene tags.
 #' @param rho regulization parameter
 #' @param kappa scaler parameter
 #' @return estimated.network include list of estimated directional partial correlation gene network rho as the regulization parametwe and kappa as the scaler parameter.
@@ -9,6 +9,12 @@
 #' @export
 
 predictDirectionalNetwork=function(data,prior,rho,kappa,cut.off){
+    index=colnames(prior[,which(colnames(prior)%in%colnames(data))])#match the data
+    
+    data=data[,index]
+    prior=prior[index,index]
+    prior=ifelse(prior!=0,1,0)#information matrix of prior
+    
     U=matrix(1,ncol(data),ncol(data))
     rho_m=rho*U-kappa*prior
     pc=cov(data) 

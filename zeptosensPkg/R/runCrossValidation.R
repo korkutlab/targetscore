@@ -1,13 +1,20 @@
 #' Run 10-fold Cross validation for data through the current algorythm.
 #' 
 #' @param data input expression data. Coloumns as the gene, rows as the sample.With colnames as the gene tags, rownames as the sample tags.
+#' @param prior prior information matrix with colnames and rownames as the gene tags.
 #' @param boot.time Bootstrap time mannually set.
 #' @param rho regulization parameter
 #' @param kappa scaler parameter
 #' @return result lists of positive predictive values, negative predictive values,sensitivity, specificity,for random network and the network predicted with the algorithm.
 #' @concept zeptosensPkg
 #' @export
-runCrossValidation=function(data,boot.time,rho,kappa,cut.off){
+runCrossValidation=function(data,prior,boot.time,rho,kappa,cut.off){
+    index=colnames(prior[,which(colnames(prior)%in%colnames(data))])#match the data
+    
+    data=data[,index]
+    prior=prior[index,index]
+    prior=ifelse(prior!=0,1,0)#information matrix of prior
+    
     score1.tp=array(0,dim = c(boot.time,1))
     score1.fp=array(0,dim = c(boot.time,1))
     score1.fn=array(0,dim = c(boot.time,1))
