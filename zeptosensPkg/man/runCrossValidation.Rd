@@ -4,10 +4,12 @@
 \alias{runCrossValidation}
 \title{Run 10-fold Cross validation for data through the current algorythm.}
 \usage{
-runCrossValidation(data, boot.time, rho, kappa)
+runCrossValidation(data, prior, boot.time, rho, kappa, cut.off)
 }
 \arguments{
-\item{data}{input expression data. Coloumns as the gene, rows as the sample.With colnames as the gene names, rownames as the sample tags.}
+\item{data}{input expression data. Coloumns as the gene, rows as the sample.With colnames as the gene tags, rownames as the sample tags.}
+
+\item{prior}{prior information matrix with colnames and rownames as the gene tags.}
 
 \item{boot.time}{Bootstrap time mannually set.}
 

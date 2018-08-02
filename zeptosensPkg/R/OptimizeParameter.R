@@ -18,7 +18,7 @@ optimizeParameter<-function(data,prior){
          kappa<-rho
          rho_m=c()
         g.result=c()
-         U=matrix(1,nrow(prior1),ncol(prior1))
+         U=matrix(1,nrow(prior),ncol(prior))
          p_off_d=c()
 for(i in 1:100){
     for(j in 1:i){
