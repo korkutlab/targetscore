@@ -17,6 +17,4 @@ edgelist decription dataframe contain G(V,E) including Vertex and Edges(1 positi
 \description{
 Create sif from network matrix.
 }
-\concept{
-zeptosensPkg
-}
+\concept{zeptosensPkg}

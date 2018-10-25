@@ -52,6 +52,4 @@ directory will be created in. Pass null to use default.}
 \description{
 Generate Causality Graph
 }
-\concept{
-zeptosensPkg
-}
+\concept{zeptosensPkg}

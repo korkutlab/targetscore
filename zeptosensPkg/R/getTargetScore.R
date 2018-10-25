@@ -129,7 +129,7 @@ getTargetScore <- function(wk,wks,dist_ind,inter,nDose, nProt, proteomicResponse
     write.table(pts, file = targetScorePValueFile, quote = FALSE, sep="\t")
     
     # RETURN RESULTS ----
-    results <- list(ts = ts, wk = wk, tsd = tsd, q = q, wks=wks)
+    results <- list(ts = ts, wk = wk, tsd = tsd, q = q, wks=wks,pts=pts)
     
     return(results)
 } 

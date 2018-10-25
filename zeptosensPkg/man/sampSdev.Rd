@@ -18,6 +18,4 @@ sampSdev(nSample, nProt, nDose, nX)
 \description{
 stdev over all samples
 }
-\concept{
-zeptosensPkg
-}
+\concept{zeptosensPkg}

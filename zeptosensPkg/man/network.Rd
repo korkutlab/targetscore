@@ -25,6 +25,4 @@ Network from signedPC
 \examples{
 
 }
-\concept{
-zeptosensPkg
-}
+\concept{zeptosensPkg}

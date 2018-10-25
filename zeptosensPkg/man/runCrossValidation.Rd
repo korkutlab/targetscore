@@ -23,6 +23,4 @@ result lists of positive predictive values, negative predictive values,sensitivi
 \description{
 Run 10-fold Cross validation for data through the current algorythm.
 }
-\concept{
-zeptosensPkg
-}
+\concept{zeptosensPkg}

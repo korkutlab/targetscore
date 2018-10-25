@@ -55,6 +55,4 @@ missing: For phosp and dephosp based wk, there is no 'exact match' between known
 \examples{
 
 }
-\concept{
-zeptosensPkg
-}
+\concept{zeptosensPkg}

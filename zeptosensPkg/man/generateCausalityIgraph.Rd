@@ -15,6 +15,4 @@ igraph graph object
 \description{
 Generate igraph Graph from Causality Analysis Results
 }
-\concept{
-zeptosensPkg
-}
+\concept{zeptosensPkg}

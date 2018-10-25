@@ -1,8 +1,9 @@
-#' Choose the optimal regulization parameter and scale paramter.
+#' Choose the optimal regulization parameter and scale paramter for prior information adjusted network construction.
 #' 
-#' @param data input expression data. Gene in coloumns and samples in row. Wih colnames as gene tags and rownames as sample tags.
-#' @param prior Prior information matrix,with colnames and rownames as gene tags.
-#' @return Parameter list of regulization parameter decided by the prior information and the algorithmn lowest BIC.Including regularize parameter as rho, scale parameter as kappa, and regulization matrix decided.
+#' @param data input expression data frame. Gene in coloumns and samples in row. Wih colnames as gene tags and rownames as sample tags.
+#' @param prior Prior information data frame ,with colnames and rownames as gene tags.With colnames and rownames as gene tags.
+#' @return Parameter list of regulization parameter decided by the prior information and the algorithmn lowest BIC.Including regularize parameter(L1 norm parameter) as rho, scale parameter(decided how much prior information contribute) as kappa, and regulization matrix for the expression data.
+#' @examples optimizeParameter(data=GeneExpresssion,prior=Priorindormation)
 #' @concept zeptosensPkg
 #' @export
 optimizeParameter<-function(data,prior){

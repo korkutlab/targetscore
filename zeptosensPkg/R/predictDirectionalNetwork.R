@@ -47,6 +47,6 @@ predictDirectionalNetwork=function(data,prior,rho,kappa,cut.off){
     }
     #cutoff at cutoff point
     t.edges.rhoadjusted.d=ifelse(abs(t.edges.rhoadjusted.d)>cut.off,t.edges.rhoadjusted.d,0)
-    estimated.network=list(t.edges.rhoadjusted.d,rho,kappa)
+    estimated.network=list(edge=t.edges.rhoadjusted.d,rho,kappa)
     return(estimated.network)
 }

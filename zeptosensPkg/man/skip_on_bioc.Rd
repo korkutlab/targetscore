@@ -9,6 +9,4 @@ skip_on_bioc()
 \description{
 Extension on testthat code
 }
-\concept{
-paxtoolsr
-}
+\concept{paxtoolsr}

@@ -15,6 +15,4 @@ an igraph object
 \description{
 Parse Causality Results to igraph
 }
-\concept{
-zeptosensPkg
-}
+\concept{zeptosensPkg}

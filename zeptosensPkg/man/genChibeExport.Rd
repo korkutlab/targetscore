@@ -17,6 +17,4 @@ genChibeExport(antibodies, antibodyMapFilename = NULL,
 \description{
 Generate ChiBE Export
 }
-\concept{
-zeptosensPkg
-}
+\concept{zeptosensPkg}

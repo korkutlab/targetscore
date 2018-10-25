@@ -29,6 +29,4 @@ results <- searchListOfVectors(q, lst)
 names(results) <- q
 
 }
-\concept{
-rcellminerUtils
-}
+\concept{rcellminerUtils}

@@ -2,21 +2,22 @@
 % Please edit documentation in R/optimizeParameter.R
 \name{optimizeParameter}
 \alias{optimizeParameter}
-\title{Choose the optimal regulization parameter and scale paramter.}
+\title{Choose the optimal regulization parameter and scale paramter for prior information adjusted network construction.}
 \usage{
 optimizeParameter(data, prior)
 }
 \arguments{
-\item{data}{input expression data. Gene in coloumns and samples in row. Wih colnames as gene tags and rownames as sample tags.}
+\item{data}{input expression data frame. Gene in coloumns and samples in row. Wih colnames as gene tags and rownames as sample tags.}
 
-\item{prior}{Prior information matrix,with colnames and rownames as gene tags.}
+\item{prior}{Prior information data frame ,with colnames and rownames as gene tags.With colnames and rownames as gene tags.}
 }
 \value{
-Parameter list of regulization parameter decided by the prior information and the algorithmn lowest BIC.Including regularize parameter as rho, scale parameter as kappa, and regulization matrix decided.
+Parameter list of regulization parameter decided by the prior information and the algorithmn lowest BIC.Including regularize parameter(L1 norm parameter) as rho, scale parameter(decided how much prior information contribute) as kappa, and regulization matrix for the expression data.
 }
 \description{
-Choose the optimal regulization parameter and scale paramter.
+Choose the optimal regulization parameter and scale paramter for prior information adjusted network construction.
 }
-\concept{
-zeptosensPkg
+\examples{
+optimizeParameter(data=GeneExpresssion,prior=Priorindormation)
 }
+\concept{zeptosensPkg}

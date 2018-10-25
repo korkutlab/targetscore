@@ -31,6 +31,4 @@ a data.frame, columns 1-2 are indicies of the edgelist participants,
 \description{
 Match a vector of genes to a SIF network
 }
-\concept{
-zeptosensPkg
-}
+\concept{zeptosensPkg}

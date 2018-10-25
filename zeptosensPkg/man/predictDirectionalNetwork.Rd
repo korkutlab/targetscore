@@ -21,6 +21,4 @@ estimated.network include list of estimated directional partial correlation gene
 \description{
 Predicted Directional GeneNetwork
 }
-\concept{
-zeptosensPkg
-}
+\concept{zeptosensPkg}
