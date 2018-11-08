@@ -1,15 +1,15 @@
 #' Run 10-fold Cross validation for data through the current algorythm.
 #' 
-#' @param data input expression data. Coloumns as the gene, rows as the sample.With colnames as the gene tags, rownames as the sample tags.
+#' @param data input expression data. Coloumns as the gene, rows as the observations. With colnames as the gene tags, rownames as the sample barcodes.
 #' @param prior prior information matrix with colnames and rownames as the gene tags.
 #' @param boot.time Bootstrap time mannually set.
 #' @param rho regulization parameter
 #' @param kappa scaler parameter
-#' @param cut.off the cut.off poingt for edge.value
-#' @return result lists of positive predictive values, negative predictive values,sensitivity, specificity,for random network and the network predicted with the algorithm.
+#' @param cut.off the cut.off poingt for edge.value.Default value at 0.05.
+#' @return result lists of bootstrap cross validation for random network(scorer) and the network predicted with the algorithm.As in the list(score1).
 #' @concept zeptosensPkg
 #' @export
-runCrossValidation=function(data,prior,boot.time,rho,kappa,cut.off){
+runCrossValidation=function(data,prior,boot.time,rho,kappa,cut.off=0.05){
     index=colnames(prior[,which(colnames(prior)%in%colnames(data))])#match the data
     
     data=data[,index]
@@ -77,99 +77,92 @@ runCrossValidation=function(data,prior,boot.time,rho,kappa,cut.off){
         t.net.r=ifelse( col(random.pcor)!=row(random.pcor)&random.pcor>0,1,
                         ifelse(row(random.pcor)!=col(random.pcor)&random.pcor<0,-1,0))
         
-        # validation data correlation
-        valid.cor=cor(valid_data) #pearson correlation
+        # validation data signal
+        valid.mean=colMedians(as.matrix(valid_data))
+        valid.std=colSds(as.matrix(valid_data))
         
-        ##cutoff point as the mean sdv
-        mean.v=median(cor(train_data))
-        std.v=sd(cor(train_data))
-        
-        valid.pcor <-ifelse(col(valid.cor)!=row(valid.cor)&valid.cor>=mean.v+std.v,1,
-                            ifelse(col(valid.cor)!=row(valid.cor)&valid.cor<=mean.v-std.v,-1,0))
+        valid.sig <-ifelse(valid_data>=valid.mean+valid.std,1,
+                           ifelse(valid_data<=valid.mean-valid.std,-1,0))
         
         #10 fold cross validation as comparisn of the trainning network with the signal of the valid data  
-        score1.1=0
-        score1.2=0
-        score1.3=0
-        score1.4=0
+        score1.1=array(0,dim = c(nrow(valid_data),1))
+        score1.2=array(0,dim = c(nrow(valid_data),1))
         
-        score_r.1=0
-        score_r.2=0
-        score_r.3=0
-        score_r.4=0
+        score_r.1=array(0,dim = c(nrow(valid_data),1))
+        score_r.2=array(0,dim = c(nrow(valid_data),1))
+       
+        #valid_data signal
+         for(a in 1:nrow(valid_data)){
+            valid.pcor.d=array(0,dim = c(ncol(valid_data),ncol(valid_data)))
+            valid.pcor=array(0,dim = c(ncol(valid_data),ncol(valid_data)))
+            for(i in 1:ncol(valid_data)){
+                for(j in 1:ncol(valid_data)){
+                    if(valid.sig[a,i]==1&valid.sig[a,j]==1)
+                    {valid.pcor[i,j]=1  
+                    valid.pcor.d[i,j]=1}
+                    if(valid.sig[a,i]==-1&valid.sig[a,j]==-1)
+                    {valid.pcor[i,j]=1
+                    valid.pcor.d[i,j]=1}
+                    if(valid.sig[a,i]==1&valid.sig[a,j]==-1)
+                    {valid.pcor[i,j]=-1
+                    valid.pcor.d[i,j]=-1}
+                    if(valid.sig[a,i]==-1&valid.sig[a,j]==1)
+                    {valid.pcor[i,j]=-1
+                    valid.pcor.d[i,j]=-1}
+                    if(valid.sig[a,i]==1&valid.sig[a,j]==0)
+                    {valid.pcor[i,j]=0
+                    valid.pcor.d[i,j]=0}
+                    if(valid.sig[a,i]==-1&valid.sig[a,j]==0)
+                    {valid.pcor[i,j]=0
+                    valid.pcor.d[i,j]=0}
+                    if(valid.sig[a,i]==0&valid.sig[a,j]==1)
+                    {valid.pcor[i,j]=0
+                    valid.pcor.d[i,j]=NA}
+                    if(valid.sig[a,i]==0&valid.sig[a,j]==-1)
+                    {valid.pcor[i,j]=0
+                    valid.pcor.d[i,j]=NA}
+                    if(valid.sig[a,i]==0&valid.sig[a,j]==0)
+                    {valid.pcor[i,j]=NA
+                    valid.pcor.d[i,j]=NA}
+                }
+            }   
+            valid.pcor.d=ifelse( col(valid.pcor.d)==row(valid.pcor.d),NA,valid.pcor.d)
+            valid.pcor=ifelse( col(valid.pcor)==row(valid.pcor),NA,valid.pcor)
         
-        #True Positive#
-        for(t in 1:nrow(valid.pcor)){
-            for(p in 1:ncol(valid.pcor)){
-                if(valid.pcor[t,p]==t.net.rhoadjusted.d[t,p]&valid.pcor[t,p]!=0){
-                    score1.1=score1.1+1
-                }
-                if(valid.pcor[t,p]==t.net.r[t,p]&valid.pcor[t,p]!=0){
-                    score_r.1=score_r.1+1
-                }
-            }}
-        
-        #False Positive
-        for(t in 1:nrow(valid.pcor)){
-            for(p in 1:ncol(valid.pcor)){
-                if(valid.pcor[t,p]!=t.net.rhoadjusted.d[t,p]&t.net.rhoadjusted.d[t,p]!=0&valid.pcor[t,p]!=0){
-                    score1.2=score1.2+1
-                }
-        
-                if(valid.pcor[t,p]!=t.net.r[t,p]&t.net.r[t,p]!=0){
-                    score_r.2=score_r.2+1
-                }
-            }}
-        
-        #False Negative#
-        for(t in 1:nrow(valid.pcor)){
-            for(p in 1:ncol(valid.pcor)){
-                if(valid.pcor[t,p]!=t.net.rhoadjusted.d[t,p]&t.net.rhoadjusted.d[t,p]==0){
-                    score1.3=score1.3+1
-                }
+            #True Positive#(#1)
+            for(t in 1:ncol(valid_data)){
+                for(p in 1:ncol(valid_data)){
+                    if(valid.pcor.d[t,p]==t.net.rhoadjusted.d[t,p]&is.na(valid.pcor.d[t,p])==F&t.net.rhoadjusted.d[t,p]!=0){
+                        score1.1[a]=score1.1[a]+1
+                    }
+                    if(valid.pcor[t,p]==t.net.r[t,p]&is.na(valid.pcor[t,p])==F&t.net.r[t,p]!=0){
+                        score_r.1[a]=score_r.1[a]+1
+                    }
+                }}
             
-                if(valid.pcor[t,p]!=t.net.r[t,p]&t.net.r[t,p]==0){
-                    score_r.3=score_r.3+1
-                }
-            }}
+            #False Positive(#0)
+            for(t in 1:nrow(valid.pcor)){
+                for(p in 1:ncol(valid.pcor)){
+                    if(valid.pcor.d[t,p]!=t.net.rhoadjusted.d[t,p]&is.na(valid.pcor.d[t,p])==F&t.net.rhoadjusted.d[t,p]!=0){
+                        score1.2[a]=score1.2[a]+1
+                    }
+                    if(valid.pcor[t,p]!=t.net.r[t,p]&is.na(valid.pcor[t,p])==F&t.net.r[t,p]!=0){
+                        score_r.2[a]=score_r.2[a]+1
+                    }
+                }}
+         }  
+        #Score for each boot.time
         
-        #True Negative#
-        for(t in 1:nrow(valid.pcor)){
-            for(p in 1:ncol(valid.pcor)){
-                if(valid.pcor[t,p]==t.net.rhoadjusted.d[t,p]&valid.pcor[t,p]==0){
-                    score1.4=score1.4+1
-                }
-            
-                if(valid.pcor[t,p]==t.net.r[t,p]&valid.pcor[t,p]==0){
-                    score_r.4=score_r.4+1
-                }
-            }}
-        #score in table###and the explaination##3
+        score1.tp[r]=mean(score1.1)
+        score1.fp[r]=mean(score1.2)
         
-        score1.tp[r]=score1.1
-        score1.fp[r]=score1.2
-        score1.fn[r]=score1.3
-        score1.tn[r]=score1.4
-        
-        scorer.tp[r]=score_r.1
-        scorer.fp[r]=score_r.2
-        scorer.fn[r]=score_r.3
-        scorer.tn[r]=score_r.4
+        scorer.tp[r]=mean(score_r.1)
+        scorer.fp[r]=mean(score_r.2)
     }
     
-    sensitivity1=mean(score1.tp/(score1.tp+score1.fn))#estimated directional network
-    specificity1=mean(score1.tn/(score1.fp+score1.tn))
-    ppv1=mean(score1.tp/(score1.tp+score1.fp))
-    npv1=mean(score1.tn/(score1.tn+score1.fn))
-    fdr1=mean(score1.fp/(score1.tp+score1.fp))
+    score1=mean(score1.tp/(score1.tp+score1.fp))#rho with directional prior
+    scorer=mean(scorer.tp/(scorer.tp+scorer.fp))#rho without prior
     
-    sensitivityr=mean(scorer.tp/(scorer.tp+scorer.fn))#random network
-    specificityr=mean(scorer.tn/(scorer.fp+scorer.tn))
-    ppvr=mean(scorer.tp/(scorer.tp+scorer.fp))
-    npvr=mean(scorer.tn/(scorer.tn+scorer.fn))
-    fdrr=mean(scorer.fp/(scorer.tp+scorer.fp))
-    
-    result=list(sensitivity=sensitivity,specificity=specificity,ppv=ppv1,npv=npv1,fdr=fdr1,
-                sensitivityr=sensitivityr,specificityr=specificityr,ppvr=ppvr,npvr=npvr,fdrr=fdrr)
+    result=list(score1=score1,scorer=scorer)
     return(result)
 }
