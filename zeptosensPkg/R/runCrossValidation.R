@@ -5,6 +5,7 @@
 #' @param boot.time Bootstrap time mannually set.
 #' @param rho regulization parameter
 #' @param kappa scaler parameter
+#' @param cut.off the cut.off poingt for edge.value
 #' @return result lists of positive predictive values, negative predictive values,sensitivity, specificity,for random network and the network predicted with the algorithm.
 #' @concept zeptosensPkg
 #' @export
@@ -111,7 +112,7 @@ runCrossValidation=function(data,prior,boot.time,rho,kappa,cut.off){
         #False Positive
         for(t in 1:nrow(valid.pcor)){
             for(p in 1:ncol(valid.pcor)){
-                if(valid.pcor[t,p]!=t.net.rhoadjusted.d[t,p]&t.net.rhoadjusted.d[t,p]!=0){
+                if(valid.pcor[t,p]!=t.net.rhoadjusted.d[t,p]&t.net.rhoadjusted.d[t,p]!=0&valid.pcor[t,p]!=0){
                     score1.2=score1.2+1
                 }
         
