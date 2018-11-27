@@ -3,13 +3,11 @@
 #' @param data input expression data. Coloumns as the gene, rows as the observations. With colnames as the gene tags, rownames as the sample barcodes.
 #' @param prior prior information matrix with colnames and rownames as the gene tags.
 #' @param boot.time Bootstrap time mannually set.
-#' @param rho regulization parameter
-#' @param kappa scaler parameter
-#' @param cut.off the cut.off poingt for edge.value.Default value at 0.05.
+#' @param cut.off the cut.off point for edge.value.Default value at 0.05.
 #' @return result lists of bootstrap cross validation for random network(scorer) and the network predicted with the algorithm.As in the list(score1).
 #' @concept zeptosensPkg
 #' @export
-runCrossValidation=function(data,prior,boot.time,rho,kappa,cut.off=0.05){
+runCrossValidation=function(data,prior,boot.time,cut.off=0.05){
     index=colnames(prior[,which(colnames(prior)%in%colnames(data))])#match the data
     
     data=data[,index]
@@ -33,12 +31,35 @@ runCrossValidation=function(data,prior,boot.time,rho,kappa,cut.off=0.05){
         valid_data=data[valid_n,]
         train_data=data[-valid_n,]
         
-        #set up the parameters for regulization
-        rho=rho
-        kappa=kappa
+        pc=cov(train_data)
+        #get the parameters for regulization from training data
         U=matrix(1,nrow(prior),ncol(prior))
         rho_m=rho*U-kappa*prior
-        pc=cov(train_data) 
+        
+        Covmatrix=cov(data)
+        rho <- seq(0.01,1,length=100)
+        bic <- matrix(NA,100,100)
+        kappa<-rho
+        rho_m=c()
+        g.result=c()
+        U=matrix(1,nrow(prior),ncol(prior))
+        p_off_d=c()
+        for(i in 1:100){
+            for(j in 1:i){
+                rho_m=rho[i]*U-kappa[j]*prior
+                g.result  <- glasso(Covmatrix,rho_m)
+                p_off_d <- sum(g.result$wi!=0 & col(Covmatrix)<row(Covmatrix))
+                bic[i,j]  <- -2*(g.result$loglik) + p_off_d*log(nrow(data))
+            }
+        }
+        for(i in 1:100){
+            for(j in 1:100){
+                if(bic[i,j]==min(bic)){
+                    rho=rho[i]
+                    kappa=kappa[j]
+                }
+            }}
+        rho_m=rho*U-kappa*prior
         #Network construction with directional prior information
         sigma.matrix<-glasso(pc,rho=rho_m)$wi
         pcor.matrix=matrix(0,nrow=ncol(data),ncol=ncol(data))

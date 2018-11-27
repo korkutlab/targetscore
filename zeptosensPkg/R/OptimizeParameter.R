@@ -31,13 +31,10 @@ for(i in 1:100){
         colnames(bic)=kappa
     }
 }
-for(i in 1:100){
-    for(j in 1:100){
-    if(bic[i,j]==min(bic)){
-        rho=rho[i]
-        kappa=kappa[j]
-    }
-}}
+ pos=which(bic==min(bic,na.rm = TRUE),arr.ind=T)
+ rho=rho[pos[1]]
+ kappa=kappa[pos[2]]
+
  rho_m=rho*U-kappa*prior
  parameters=list(rho_m,rho,kappa,bic)
 return(parameters)
