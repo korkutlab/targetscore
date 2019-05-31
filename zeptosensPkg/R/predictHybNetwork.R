@@ -66,7 +66,7 @@ predictHybNetwork<-function(data,prior, cut_off=0.1,proteomicResponses,nProt,max
     sigma.matrix=tmp$wi
     niter=tmp$niter
     print(niter)# if niter = 10,000
-    if(niter=10000){
+    if(niter==10000){
       stop("ERROR: Algorithmn does not convergence!")
     }
     
