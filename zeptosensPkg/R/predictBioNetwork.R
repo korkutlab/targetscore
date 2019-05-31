@@ -1,4 +1,4 @@
-#' Network from signedPC
+#' Predict Network from signedPC (Bio-inferred network)
 #' 
 #' @param nProt TBA
 #' @param proteomicResponses TBA
@@ -11,7 +11,7 @@
 #' 
 #' @concept zeptosensPkg
 #' @export
-network <- function(nProt,proteomicResponses,maxDist,antibodyMapFile=NULL,distFile=NULL,verbose=F){
+predictBioNetwork <- function(nProt,proteomicResponses,maxDist,antibodyMapFile=NULL,distFile=NULL,verbose=F){
 
     # match Ab names to gene names & posttranslational modifications
     if(is.null(antibodyMapFile)) {
@@ -108,10 +108,10 @@ network <- function(nProt,proteomicResponses,maxDist,antibodyMapFile=NULL,distFi
     #    results <- read.table(file="results_network1.txt",header=T)
     results <- read.table(system.file("extdata", "filteredSignedPc.txt", package="zeptosensPkg"), sep="\t", header=TRUE, fill=TRUE)    
     #    write.table(results, file="results_network1.txt",quote=F)
-    dephosp <- filterSif(results, interactionTypes="dephosphorylates")
-    phosp <- filterSif(results, interactionTypes="phosphorylates")
-    dwnexp <- filterSif(results, interactionTypes="downregulates-expression")
-    upexp <- filterSif(results, interactionTypes="upregulates-expression")
+    dephosp <- paxtoolsr:::filterSif(results, interactionTypes="dephosphorylates")
+    phosp <- paxtoolsr:::filterSif(results, interactionTypes="phosphorylates")
+    dwnexp <- paxtoolsr:::filterSif(results, interactionTypes="downregulates-expression")
+    upexp <- paxtoolsr:::filterSif(results, interactionTypes="upregulates-expression")
     
     # NOTE: SIF has interaction type as column 2, edgelists (like distances) do 
     # not have this, so convert the SIF to an edgelist
