@@ -17,7 +17,7 @@ predictBioNetwork <- function(nProt,proteomicResponses,maxDist,antibodyMapFile=N
     if(is.null(antibodyMapFile)) {
         antibodyMapFile <- system.file("targetScoreData", "antibodyMap.txt", package = "zeptosensPkg")      
     }
-    mab_to_genes <- read.table(antibodyMapFile, sep = "\t", header = TRUE, stringsAsFactors = FALSE)
+    mab_to_genes <- antibodyMapFile
     
     if(verbose) {
         print(mab_to_genes)   
