@@ -15,7 +15,7 @@ getFsVals <- function(nProt,proteomicResponses,antibodyMapFile=NULL,fsValueFile=
     if(is.null(antibodyMapFile)) {
         antibodyMapFile <- system.file("targetScoreData", "antibodyMap.txt", package = "zeptosensPkg")      
     }
-    mab_to_genes <- read.table(antibodyMapFile, sep = "\t", header = TRUE, stringsAsFactors = FALSE)
+    mab_to_genes <- antibodyMapFile
     
     if(verbose) {
         print(mab_to_genes)   
@@ -49,20 +49,20 @@ getFsVals <- function(nProt,proteomicResponses,antibodyMapFile=NULL,fsValueFile=
     fs_value=mabFS*Cos_FS
     
     fs=data.frame(prot=mab_to_genes[idxAbMap, 1],fs=fs_value)
-        
+    
     #Uniqueness of fs value
     prot=as.character(unlist(unique(fs$prot)))
     fs=unique(fs)
-        
+    
     #match with antibody seq
     index=match(colnames(proteomicResponses),fs$prot)
     fs=fs[index,]
     
+    fs.override=fsValueFile
     #Override with Self setting/external fs value
     if(!is.null(fs.override)){
-    fs.override=read.table(fsValueFile,sep="\t", header=TRUE, fill=TRUE)
-    index=which(fs$prot%in%fs.override$prot)
-    fs[index,2]<-fs.override$fs
+        index=which(fs$prot%in%fs.override$prot)
+        fs[index,2]<-fs.override$fs
     }
     
     return(fs)
