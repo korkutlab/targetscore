@@ -34,32 +34,76 @@ library(ggrepel)
 
 ```{r}
   #file from input
-  #Drug File
-  DrugFile <- reactive({input$DrugData})
-  if (is.null(DrugFile))
-    return(NULL)
-  if(input$header4==T)
-  {DrugDat=read.csv(DrugFile$datapath, row.names =1 )}
-  if(input$header4==F)
-  {DrugDat=read.csv(DrugFile$datapath)}
+    #Drug File
+  DrugDat <- reactive({
+    DrugFile<-input$DrugData
+    if (is.null(DrugFile))
+       return(NULL)
+    if(input$header4==T){DrugDat=read.csv(DrugFile$datapath, row.names =1 )}
+    if(input$header4==F){DrugDat=read.csv(DrugFile$datapath)}
+    return(DrugDat)
+  })
   
   #AntibodyMap File
-  AntibodyMapFile <- reactive({input$Antibody})
+  AntiDat <- reactive({
+    AntibodyMapFile<-input$Antibody
   if (is.null(AntibodyMapFile))
     return(NULL)
   AntiDat <-read.csv(AntibodyMapFile$datapath, header = input$header1,stringsAsFactors = F )
+   return(AntiDat)
+  })
   
   #FS File
-  FSFile <- reactive({input$FsFile})
+  FSDat <- reactive({
+    FSFile<-input$FsFile
   if (is.null(FSFile))
     return(NULL)
   FSDat <-read.csv(FSFile$datapath, header = input$header3,stringsAsFactors = F )
+  return(FSDat)
+  })
   
-    #Global Signaling file
-  SigFile <- reactive({input$SigData})
+  #TSCalcType
+  TSCalcType <- reactive({
+  TSCalcType<-input$TSCalcType
+  return(TSCalcType)
+  })
+
+  #filename
+  fileName<-reactive({
+    fileName<-input$filename
+    return(fileName)
+    })
+  
+  #network algorithm
+  NetworkAlgorithmn <-reactive({
+    NetworkAlgorithmn<-input$NetworkAlgorithmn
+    return(NetworkAlgorithmn)})
+  
+  #Global Signaling file
+  SigDat <- reactive({
+    SigFile<-input$SigData
   if (is.null(SigFile))
     return(NULL)
   SigDat <-read.csv(SigFile$datapath, header = input$header2,stringsAsFactors = F )
+  return(SigDat)
+  })
+  
+  #nProt
+  nProt<-reactive({
+    nProt<-ncol(DrugDat())
+    return(nProt)
+    })
+  
+  #nCond
+  nCond<-reactive({
+    nCond<-nrow(DrugDat())
+    return(nCond)
+  })
+  #Line
+  nline<-reactive({
+    nline<-input$Line
+    return(nline)
+  })
 ```
 
 ## Set Parameters 
