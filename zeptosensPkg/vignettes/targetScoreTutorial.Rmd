@@ -1,0 +1,225 @@
+---
+title: "Using TargetScore"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Using TargetScore}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, echo=FALSE, warning=FALSE, message=FALSE}
+require("knitr")
+opts_knit$set(root.dir="..")
+opts_chunk$set(fig.align="center", fig.width=6, fig.height=6, dpi=300)
+```
+
+# Purpose 
+
+This tutorial describes the basic usage of TargetScore. 
+
+# Setup 
+
+## Load Packages 
+
+```{r}
+library(pheatmap)
+library(glasso)
+library(zeptosensPkg)
+library(zeptosensUtils)
+library(ggplot2)
+library(ggrepel)
+```
+
+## Load Data 
+
+```{r}
+  #file from input
+  #Drug File
+  DrugFile <- reactive({input$DrugData})
+  if (is.null(DrugFile))
+    return(NULL)
+  if(input$header4==T)
+  {DrugDat=read.csv(DrugFile$datapath, row.names =1 )}
+  if(input$header4==F)
+  {DrugDat=read.csv(DrugFile$datapath)}
+  
+  #AntibodyMap File
+  AntibodyMapFile <- reactive({input$Antibody})
+  if (is.null(AntibodyMapFile))
+    return(NULL)
+  AntiDat <-read.csv(AntibodyMapFile$datapath, header = input$header1,stringsAsFactors = F )
+  
+  #FS File
+  FSFile <- reactive({input$FsFile})
+  if (is.null(FSFile))
+    return(NULL)
+  FSDat <-read.csv(FSFile$datapath, header = input$header3,stringsAsFactors = F )
+  
+    #Global Signaling file
+  SigFile <- reactive({input$SigData})
+  if (is.null(SigFile))
+    return(NULL)
+  SigDat <-read.csv(SigFile$datapath, header = input$header2,stringsAsFactors = F )
+```
+
+## Set Parameters 
+
+```{r}
+
+  #TSCalcType
+  TSCalcType <- reactive({input$TSCalcType})
+
+  #filename
+  fileName<-reactive({input$filename})
+  
+  #network algorithm
+  NetworkAlgorithmn <-reactive({input$NetworkAlgorithmn})
+  
+    
+  #nProt
+  nProt<-reactive({ncol(DrugDat)})
+```
+
+# Run Target Score 
+
+```{r example, message=FALSE, warning=FALSE}
+
+  
+  #choosing the way to construct reference network
+  if (NetworkAlgorithmn=="Bio"){
+    
+    # reference network
+    network=zeptosensPkg:::predictBioNetwork(nProt =ncol(DrugDat),proteomicResponses = DrugDat,maxDist = 1,antibodyMapFile = AntiDat)
+    wk=network$wk
+    wks <- network$wks
+    dist_ind <- network$dist_ind
+    inter <- network$inter
+  }
+  
+  if(input$NetworkAlgorithmn=="Dat"){
+    network=zeptosensPkg:::predictDatNetwork(data =SigDat,nProt)
+    wk=network$wk
+    wks <- network$wks
+    dist_ind <- network$dist_ind
+    inter <- network$inter
+  }
+    #fs
+    if(is.null(FSFile))
+      {FsValue=zeptosensPkg:::getFsVals(nProt =ncol(DrugDat) ,proteomicResponses =DrugDat,antibodyMapFile = AntiDat)}
+    if(!is.null(FSFile))
+      {FsValue=zeptosensPkg:::getFsVals(nProt =ncol(DrugDat) ,proteomicResponses =DrugDat,fsValueFile=FSDat,antibodyMapFile = AntiDat)}
+    
+    #Calc TargetScore
+
+    targetScoreOutputFile <-"TS.txt"
+    matrixWkOutputFile <-"wk.txt"
+    signedMatrixWkOutputFile <-"wks.txt"
+    
+  if(TSCalcType=="LinebyLine"){
+      
+      #Calc Std
+      DrugDat[is.na(DrugDat)]<-0
+      stdev <- zeptosensPkg:::sampSdev(nSample=nrow(DrugDat),nProt=ncol(DrugDat),nDose=1,nX=DrugDat)
+      #normalization
+      proteomicResponses<- DrugDat
+      for(i in 1:nProt){
+        for (j in 1:nrow(proteomicResponses)){
+          proteomicResponses[j,i] <- (DrugDat[j,i]/stdev[i])      
+        }
+      }
+      
+      nProt<-ncol(DrugDat)
+      nCond<-nrow(DrugDat)
+      
+      #Bootstrap in Getting TargetScore
+      TS <- array(0,dim=c(nCond,nProt))
+      TS.p <- array(0,dim=c(nCond,nProt))
+      TS.q <- array(0,dim=c(nCond,nProt))
+      
+      nPerm=1000
+      
+      for(i in 1:nCond){
+        
+        results <- zeptosensPkg:::getTargetScore(wk=wk,
+                                                 wks=wks,
+                                                 dist_ind=dist_ind,
+                                                 inter=inter,
+                                                 nDose=1, 
+                                                 nProt=nProt, 
+                                                 proteomicResponses=proteomicResponses[i,], 
+                                                 maxDist=maxDist, 
+                                                 nPerm=nPerm,
+                                                 cellLine=fileName, 
+                                                 verbose=FALSE,fsFile=FsValue,
+                                                 targetScoreOutputFile=targetScoreOutputFile, 
+                                                 matrixWkOutputFile=matrixWkOutputFile,
+                                                 targetScoreQValueFile="q.txt", 
+                                                 targetScoreDoseFile="TS_d.txt",
+                                                 targetScorePValueFile="p.txt")
+        TS[i,]=results$ts
+        TS.p[i,]=results$pts
+        TS.q[i,]=results$q
+      }
+      colnames(TS)=colnames(DrugDat)
+      rownames(TS)=rownames(DrugDat)
+
+      colnames(TS.p)=colnames(DrugDat)
+      rownames(TS.p)=rownames(DrugDat)
+
+      colnames(TS.q)=colnames(DrugDat)
+      rownames(TS.q)=rownames(DrugDat) 
+  }
+      #get heatmap for Calculated TS
+output$TSheat <- renderPlot({
+        maxDat=max(as.matrix(TS))
+       minDat=min(as.matrix(TS))
+       bk <- c(seq(minDat,-0.01,by=0.01),seq(0,maxDat,by=0.01))
+       data=as.matrix(TS)
+       pheatmap(data,
+                scale = "none",
+                color = c(colorRampPalette(colors = c("navy","white"))(length(seq(minDat,-0.01,by=0.01))),colorRampPalette(colors = c("white","firebrick3"))(length(seq(0,maxDat,by=0.01)))),
+                legend_breaks=seq(minDat,maxDat,2),cellwidth = 2, cellheight = 2, fontsize=2, fontsize_row=2,
+                breaks=bk)
+})
+  #get vocanoplot
+  
+output$TSheat <- renderPlot({  
+  TS<- as.matrix(TS)
+  Padj<- as.matrix(TS.q)
+
+  if(nrow(Padj)!=nrow(TS)){
+    stop("ERROR:Tag of TS and Qvalue does not match.")
+  }
+  tmpDat <- data.frame(cbind(TS,-1*log10(Padj)))
+  colnames(tmpDat) <- c("TS","neglogQ")
+  
+  color <- ifelse(Padj>0.4,"not significant","significant")
+  rownames(color) <- rownames(TS)
+  tmpDat$labelnames <-  row.names(tmpDat)
+  sig01 <- subset(tmpDat, tmpDat$neglogQ > -1*log10(0.4))
+  siglabel <- sig01$labelnames
+  tmpDat$color <- color
+  
+  ggplot() +
+    geom_point(data=tmpDat, aes(x=TS, y=neglogQ, color=color), alpha=0.4, size=2) +
+    theme_bw() +
+    xlab("<TS>") + ylab("-log10 (Q-Value)") + ggtitle("")+
+    scale_color_manual(name="", values=c("black", "red"))+
+    geom_label_repel(data=sig01, aes(x=sig01$TS, y=sig01$neglogQ,label=siglabel), size=5)
+})
+  }
+```
+
+## Session Info
+
+```{r, eval=FALSE}
+sessionInfo()
+```
+
+
+
+
+
+
+
+
