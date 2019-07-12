@@ -2,11 +2,14 @@
 #' 
 #' @param data input expression data frame. Gene in coloumns and samples in row. Wih colnames as gene tags and rownames as sample tags.
 #' @param cut_off Manually Setup cut off value for the strength of edge. Default at 0.1.
+#' @param nProt Number of proteins included in the drug perturbation data.
+#' @param proteomicResponses Drug Perturbation data for analysis.
+#' @param maxDist TBA (default: 1)
 #' @return Parameter of regulization decided lowest BIC.Including regularize parameter(L1 norm parameter) as rho.
 #' @examples optimizeParameter(data=GeneExpresssion,prior=Priorindormation)
 #' @concept zeptosensPkg
 #' @export
-predictDatNetwork<-function(data,cut_off=0.1){
+predictDatNetwork<-function(data,cut_off=0.1,nProt,proteomicResponses,maxDist=1){
     Covmatrix=cov(data)
     
     #optimize penalty parameter rho
@@ -15,9 +18,9 @@ predictDatNetwork<-function(data,cut_off=0.1){
     g.result=c()
     p_off_d=c()
     for(i in 1:100){
-            g.result  <- glasso(Covmatrix,rho[i])
-            p_off_d <- sum(g.result$wi!=0 & col(Covmatrix)<row(Covmatrix))
-            bic[i]  <- -2*(g.result$loglik) + p_off_d*log(nrow(data))
+        g.result  <- glasso(Covmatrix,rho[i])
+        p_off_d <- sum(g.result$wi!=0 & col(Covmatrix)<row(Covmatrix))
+        bic[i]  <- -2*(g.result$loglik) + p_off_d*log(nrow(data))
     }
     parameter=rho[which.min(bic)]
     
@@ -25,8 +28,8 @@ predictDatNetwork<-function(data,cut_off=0.1){
     tmp=glasso(Covmatrix,rho = parameter)
     sigma.matrix=tmp$wi
     niter=tmp$niter
-    print(niter) # if niter = 10,000
-    if(niter == 10000){
+    print(niter)# if niter = 10,000
+    if(niter=10000){
         stop("ERROR: Algorithmn does not convergence!")
     }
     pcor.matrix=matrix(0,nrow=ncol(data),ncol=ncol(data))
@@ -49,9 +52,8 @@ predictDatNetwork<-function(data,cut_off=0.1){
     #Network to edgelist
     edgelist=zeptosensPkg:::createSifFromMatrix(t.net=t.net,genelist = colnames(t.net))
     
-    
     #network2 function into networkinfor 
-    networkInferred<-zeptosensPkg:::network2(wk=t.net,nProt=,proteomicResponses,maxDist=maxDist)
+    networkInferred<-zeptosensPkg:::network2(wk=t.net,nProt=nProt,proteomicResponses=proteomicResponses,maxDist=maxDist)
     wk<-networkInferred$wk
     wks<-networkInferred$wks
     dist_ind<-networkInferred$dist_ind
