@@ -49,8 +49,14 @@ predictDatNetwork<-function(data,cut_off=0.1){
     #Network to edgelist
     edgelist=zeptosensPkg:::createSifFromMatrix(t.net=t.net,genelist = colnames(t.net))
     
-    result=list(rho=rho,      nedges=nedges,
-                t.net=t.net,  edgelist=edgelist,
-                bic=bic)
+    
+    #network2 function into networkinfor 
+    networkInferred<-zeptosensPkg:::network2(wk=t.net,nProt=,proteomicResponses,maxDist=maxDist)
+    wk<-networkInferred$wk
+    wks<-networkInferred$wks
+    dist_ind<-networkInferred$dist_ind
+    inter<-networkInferred$inter
+    result=list(rho=rho,nedges=nedges, t.net=t.net,  edgelist=edgelist,bic=bic,
+                wk = wk,wks=wks, dist_ind=dist_ind, inter=inter)
     return(result)
 }
