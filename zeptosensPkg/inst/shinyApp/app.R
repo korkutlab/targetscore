@@ -252,6 +252,8 @@ ui <-navbarPage(
                             "Pooled" = "Pooled"),
                 selected = NULL),
     textInput("filename", "Filename", "file1"),
+    
+    #volcano plot line choice
     numericInput("Line","Line Number","1"),
     
     actionButton("Submit",label = "Submit/Update",icon = NULL,width = NULL)
@@ -271,11 +273,37 @@ ui <-navbarPage(
     #heatmap of the Data
     plotOutput("heatmap",height = 200,width = 1000)),
     
-    tabPanel("Calculated TargetScore",
+    tabPanel("TargetScore",
+             #heatmap of the Data
+             plotOutput("TSheat",height = 200,width = 1000)),
+    
+    tabPanel("VolcanoPlot of TargetScore",
     #Plots
-    plotOutput("vocanoplot"))
-  
-    ))),
+    plotOutput("volcanoplot"))
+  ))),
+tabPanel("CART Project",
+         sidebarPanel(
+           sidebarPanel(
+             selectInput("CancerType",label="Cancer Type (Disease type):",
+                         choices = c("Breast Cancer" = "BRCA",
+                                     "Ovarian Cancer"= "OV",
+                                     "Melanoma" = "SKCM"),
+                         selected = NULL),
+             selectInput("DrugType",label="Drug:",
+                         choices = c("MEKi" = "MEK inhibitor",
+                                     "PI3Ki"= "PI3K inhibitor",
+                                     "AKTi" = "AKT inhibitor"),
+                         selected = NULL),
+             selectInput("Dependence",label="TIME/ DOSE Dependence",
+                         choices = c("Time" = "TIME",
+                                     "Dose"= "Dose"),
+                         selected = NULL)
+           )
+         ),
+         mainPanel(
+           plotOutput("CARTvolcano"),
+           plotOutput("CARTheat")
+         )),
 tabPanel("About",
          mainPanel(
            p("Target Score is an under-development algorithm with current website version of V1.0.")
@@ -304,99 +332,153 @@ server <-function(input,output, session, stringsAsFactors){
   #Algorithm <- eventReactive(input$Submit,{input$NetworkAlgorithmn}) 
   #CalcType <- eventReactive(input$Submit,{input$TSCalcType}) 
   
-  #Data heatmap
-  output$heatmap <- renderPlot({
-    DrugFile <- input$DrugData
-    if (is.null(DrugFile))
-      return(NULL)
-    if(input$header4==T)
-    {DrugDat=read.csv(DrugFile$datapath, row.names =1 )}
-    if(input$header4==F)
-    {DrugDat=read.csv(DrugFile$datapath)}
-    
-    maxDat=max(as.matrix(DrugDat))
-    minDat=min(as.matrix(DrugDat))
-    bk <- c(seq(minDat,-0.01,by=0.01),seq(0,maxDat,by=0.01))
-    data=as.matrix(DrugDat)
-    pheatmap(data,
-             scale = "none",
-             color = c(colorRampPalette(colors = c("navy","white"))(length(seq(minDat,-0.01,by=0.01))),colorRampPalette(colors = c("white","firebrick3"))(length(seq(0,maxDat,by=0.01)))),
-             legend_breaks=seq(minDat,maxDat,2),cellwidth = 2, cellheight = 2, fontsize=2, fontsize_row=2,
-             breaks=bk)
-  })
-  
   #load in system file and Default value and the Default File
   
   #file from input
+  
   #Drug File
-  DrugFile <- reactive({input$DrugData})
-  if (is.null(DrugFile))
-    return(NULL)
-  if(input$header4==T)
-  {DrugDat=read.csv(DrugFile$datapath, row.names =1 )}
-  if(input$header4==F)
-  {DrugDat=read.csv(DrugFile$datapath)}
+  DrugDat <- reactive({
+    DrugFile<-input$DrugData
+    if (is.null(DrugFile))
+       return(NULL)
+    if(input$header4==T){DrugDat=read.csv(DrugFile$datapath, row.names =1 )}
+    if(input$header4==F){DrugDat=read.csv(DrugFile$datapath)}
+    return(DrugDat)
+  })
   
   #AntibodyMap File
-  AntibodyMapFile <- reactive({input$Antibody})
+  AntiDat <- reactive({
+    AntibodyMapFile<-input$Antibody
   if (is.null(AntibodyMapFile))
     return(NULL)
   AntiDat <-read.csv(AntibodyMapFile$datapath, header = input$header1,stringsAsFactors = F )
+   return(AntiDat)
+  })
   
   #FS File
-  FSFile <- reactive({input$FsFile})
+  FSDat <- reactive({
+    FSFile<-input$FsFile
   if (is.null(FSFile))
     return(NULL)
   FSDat <-read.csv(FSFile$datapath, header = input$header3,stringsAsFactors = F )
+  return(FSDat)
+  })
   
   #TSCalcType
-  TSCalcType <- reactive({input$TSCalcType})
+  TSCalcType <- reactive({
+  TSCalcType<-input$TSCalcType
+  return(TSCalcType)
+  })
 
   #filename
-  fileName<-reactive({input$filename})
+  fileName<-reactive({
+    fileName<-input$filename
+    return(fileName)
+    })
   
   #network algorithm
-  NetworkAlgorithmn <-reactive({input$NetworkAlgorithmn})
+  NetworkAlgorithmn <-reactive({
+    NetworkAlgorithmn<-input$NetworkAlgorithmn
+    return(NetworkAlgorithmn)})
   
   #Global Signaling file
-  SigFile <- reactive({input$SigData})
+  SigDat <- reactive({
+    SigFile<-input$SigData
   if (is.null(SigFile))
     return(NULL)
   SigDat <-read.csv(SigFile$datapath, header = input$header2,stringsAsFactors = F )
+  return(SigDat)
+  })
   
   #nProt
-  nProt<-reactive({ncol(DrugDat)})
+  nProt<-reactive({
+    nProt<-ncol(DrugDat())
+    return(nProt)
+    })
+  
+  #nCond
+  nCond<-reactive({
+    nCond<-nrow(DrugDat())
+    return(nCond)
+  })
+  #Line
+  nline<-reactive({
+    nline<-input$Line
+    return(nline)
+  })
   
   #choosing the way to construct reference network
-  if (NetworkAlgorithmn=="Bio"){
+NetworkInferred<-reactive({
+    NetworkAlgorithmn<-NetworkAlgorithmn()
+    DrugDat<-DrugDat()
+    AntiDat<-AntiDat()
+    SigDat<-SigDat()
+    nProt<-nProt()
     
+  if (NetworkAlgorithmn=="Bio"){
     # reference network
-    network=zeptosensPkg:::predictBioNetwork(nProt =ncol(DrugDat),proteomicResponses = DrugDat,maxDist = 1,antibodyMapFile = AntiDat)
+    network=zeptosensPkg:::predictBioNetwork(nProt =nProt,proteomicResponses = DrugDat,antibodyMapFile = AntiDat)
     wk=network$wk
     wks <- network$wks
     dist_ind <- network$dist_ind
     inter <- network$inter
   }
   
-  if(input$NetworkAlgorithmn=="Dat"){
-    network=zeptosensPkg:::predictDatNetwork(data =SigDat,nProt)
+  if(NetworkAlgorithmn=="Dat"){
+    network=zeptosensPkg:::predictDatNetwork(data =SigDat,nProt=nProt,proteomicResponses=DrugDat)
     wk=network$wk
     wks <- network$wks
     dist_ind <- network$dist_ind
     inter <- network$inter
   }
+  
+  if(NetworkAlgorithmn=="Hyb"){
+    # prior 
+    wk=zeptosensPkg:::predictBioNetwork(nProt =nProt,proteomicResponses = DrugDat,maxDist = 1,antibodyMapFile = AntiDat)
+    #Hyb
+    network=zeptosensPkg:::predictHybNetwork(data =SigDat,prior=wk,nProt=nProt,proteomicResponses=DrugDat)
+    
+    wk=network$wk
+    wks <- network$wks
+    dist_ind <- network$dist_ind
+    inter <- network$inter
+  }
+    NetworkInferred<-list(wk=wk,wks=wks,dist_ind=dist_ind,inter=inter)
+    return(NetworkInferred)
+  })
     #fs
-    if(is.null(FSFile))
-      {FsValue=zeptosensPkg:::getFsVals(nProt =ncol(DrugDat) ,proteomicResponses =DrugDat,antibodyMapFile = AntiDat)}
-    if(!is.null(FSFile))
-      {FsValue=zeptosensPkg:::getFsVals(nProt =ncol(DrugDat) ,proteomicResponses =DrugDat,fsValueFile=FSDat,antibodyMapFile = AntiDat)}
-    
-    #Calc TargetScore
+FsValue<-reactive({
+  DrugDat<-DrugDat()
+  AntiDat<-AntiDat()
+  nProt<-nProt()
+    if(is.null(input$FsFile))
+      {FsValue=zeptosensPkg:::getFsVals(nProt =nProt ,proteomicResponses =DrugDat,antibodyMapFile = AntiDat)}
+    if(!is.null(input$FsFile))
+      {FsValue=zeptosensPkg:::getFsVals(nProt =nProt ,proteomicResponses =DrugDat(),fsValueFile=FSDat,antibodyMapFile = AntiDat)}
+return(FsValue)
+  })
 
-    targetScoreOutputFile <-"TS.txt"
-    matrixWkOutputFile <-"wk.txt"
-    signedMatrixWkOutputFile <-"wks.txt"
-    
+    #Calc TargetScore
+TargetScore<-reactive({
+  
+  #call up reactive items
+  NetworkInferred<-NetworkInferred()
+  DrugDat<-DrugDat()
+  nProt<-nProt()
+  FsValue<-FsValue()
+  fileName<-fileName()
+  
+  #give output filename
+  targetScoreOutputFile <-paste0(fileName,"TS.txt")
+  matrixWkOutputFile <-paste0(fileName,"wk.txt")
+  signedMatrixWkOutputFile <-paste0(fileName,"wks.txt")
+  
+  #Network inferred
+  wk=NetworkInferred$wk
+  wks <- NetworkInferred$wks
+  dist_ind <- NetworkInferred$dist_ind
+  inter <- NetworkInferred$inter
+  
   if(TSCalcType=="LinebyLine"){
       
       #Calc Std
@@ -409,9 +491,6 @@ server <-function(input,output, session, stringsAsFactors){
           proteomicResponses[j,i] <- (DrugDat[j,i]/stdev[i])      
         }
       }
-      
-      nProt<-ncol(DrugDat)
-      nCond<-nrow(DrugDat)
       
       #Bootstrap in Getting TargetScore
       TS <- array(0,dim=c(nCond,nProt))
@@ -451,9 +530,78 @@ server <-function(input,output, session, stringsAsFactors){
       colnames(TS.q)=colnames(DrugDat)
       rownames(TS.q)=rownames(DrugDat) 
   }
-      #get heatmap for Calculated TS
+  
+  if(TSCalcType=="Pooled"){
+    
+    #Calc Std
+    DrugDat[is.na(DrugDat)]<-0
+    stdev <- zeptosensPkg:::sampSdev(nSample=nrow(DrugDat),nProt=ncol(DrugDat),nDose=1,nX=DrugDat)
+    #normalization
+    proteomicResponses<- DrugDat
+    for(i in 1:nProt){
+      for (j in 1:nrow(proteomicResponses)){
+        proteomicResponses[j,i] <- (DrugDat[j,i]/stdev[i])      
+      }
+    }
+    
+    nPerm=1000
+      
+      results <- zeptosensPkg:::getTargetScore(wk=wk,
+                                               wks=wks,
+                                               dist_ind=dist_ind,
+                                               inter=inter,
+                                               nDose=1, 
+                                               nProt=nProt, 
+                                               proteomicResponses=proteomicResponses, 
+                                               maxDist=maxDist, 
+                                               nPerm=nPerm,
+                                               cellLine=fileName, 
+                                               verbose=FALSE,fsFile=FsValue,
+                                               targetScoreOutputFile=targetScoreOutputFile, 
+                                               matrixWkOutputFile=matrixWkOutputFile,
+                                               targetScoreQValueFile="q.txt", 
+                                               targetScoreDoseFile="TS_d.txt",
+                                               targetScorePValueFile="p.txt")
+      TS=results$ts
+      TS.p=results$pts
+      TS.q=results$q
+    
+    colnames(TS)=colnames(DrugDat)
+    
+    colnames(TS.p)=colnames(DrugDat)
+    
+    colnames(TS.q)=colnames(DrugDat)
+  }
+    TS.r<-list(TS=TS,TS.p=TS.p,TS.q=TS.q)
+    return(TS.r)
+})
+
+#Data heatmap
+output$heatmap <- renderPlot({
+  DrugFile <- input$DrugData
+  if (is.null(DrugFile))
+    return(NULL)
+  if(input$header4==T)
+  {DrugDat=read.csv(DrugFile$datapath, row.names =1 )}
+  if(input$header4==F)
+  {DrugDat=read.csv(DrugFile$datapath)}
+  
+  maxDat=max(as.matrix(DrugDat))
+  minDat=min(as.matrix(DrugDat))
+  bk <- c(seq(minDat,-0.01,by=0.01),seq(0,maxDat,by=0.01))
+  data=as.matrix(DrugDat)
+  pheatmap(data,
+           scale = "none",
+           color = c(colorRampPalette(colors = c("navy","white"))(length(seq(minDat,-0.01,by=0.01))),colorRampPalette(colors = c("white","firebrick3"))(length(seq(0,maxDat,by=0.01)))),
+           legend_breaks=seq(minDat,maxDat,2),cellwidth = 2, cellheight = 2, fontsize=2, fontsize_row=2,
+           breaks=bk)
+})      
+
+#get heatmap for Calculated TS
 output$TSheat <- renderPlot({
-        maxDat=max(as.matrix(TS))
+       TS.r=TS.r()
+       TS=TS.r$TS
+       maxDat=max(as.matrix(TS))
        minDat=min(as.matrix(TS))
        bk <- c(seq(minDat,-0.01,by=0.01),seq(0,maxDat,by=0.01))
        data=as.matrix(TS)
@@ -463,32 +611,37 @@ output$TSheat <- renderPlot({
                 legend_breaks=seq(minDat,maxDat,2),cellwidth = 2, cellheight = 2, fontsize=2, fontsize_row=2,
                 breaks=bk)
 })
-  #get vocanoplot
-  
-output$TSheat <- renderPlot({  
-  TS<- as.matrix(TS)
-  Padj<- as.matrix(TS.q)
 
-  if(nrow(Padj)!=nrow(TS)){
-    stop("ERROR:Tag of TS and Qvalue does not match.")
-  }
-  tmpDat <- data.frame(cbind(TS,-1*log10(Padj)))
-  colnames(tmpDat) <- c("TS","neglogQ")
+#get volcanoplot
   
-  color <- ifelse(Padj>0.4,"not significant","significant")
-  rownames(color) <- rownames(TS)
-  tmpDat$labelnames <-  row.names(tmpDat)
-  sig01 <- subset(tmpDat, tmpDat$neglogQ > -1*log10(0.4))
-  siglabel <- sig01$labelnames
-  tmpDat$color <- color
-  
-  ggplot() +
-    geom_point(data=tmpDat, aes(x=TS, y=neglogQ, color=color), alpha=0.4, size=2) +
-    theme_bw() +
-    xlab("<TS>") + ylab("-log10 (Q-Value)") + ggtitle("")+
-    scale_color_manual(name="", values=c("black", "red"))+
-    geom_label_repel(data=sig01, aes(x=sig01$TS, y=sig01$neglogQ,label=siglabel), size=5)
-})
+output$volcanoplot <- renderPlot({  
+  TS.r=TS.r()
+  nline=nline()
+   TS=TS.r$TS[nline,]
+   TS.q=TS$TS.q[nline,]
+   TS<- as.matrix(TS)
+   Padj<- as.matrix(TS.q)
+# 
+   if(nrow(Padj)!=nrow(TS)){
+     stop("ERROR:Tag of TS and Qvalue does not match.")
+   }
+   tmpDat <- data.frame(cbind(TS,-1*log10(Padj)))
+   colnames(tmpDat) <- c("TS","neglogQ")
+#   
+   color <- ifelse(Padj>0.4,"not significant","significant")
+   rownames(color) <- rownames(TS)
+   tmpDat$labelnames <-  row.names(tmpDat)
+   sig01 <- subset(tmpDat, tmpDat$neglogQ > -1*log10(0.4))
+   siglabel <- sig01$labelnames
+   tmpDat$color <- color
+#   
+   ggplot() +
+     geom_point(data=tmpDat, aes(x=TS, y=neglogQ, color=color), alpha=0.4, size=2) +
+     theme_bw() +
+     xlab("<TS>") + ylab("-log10 (Q-Value)") + ggtitle("")+
+     scale_color_manual(name="", values=c("black", "red"))+
+     geom_label_repel(data=sig01, aes(x=sig01$TS, y=sig01$neglogQ,label=siglabel), size=5)
+ })
   }
 
 shinyApp(server = server,ui=ui)
