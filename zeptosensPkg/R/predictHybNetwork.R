@@ -8,10 +8,13 @@
 #' @param nProt number of Proteins contained in the data.
 #' @return "parameters" as the Parameter list of regulization parameter decided by the prior information and the algorithmn lowest BIC.Including regularize parameter(L1 norm parameter) as "rho", scale parameter(decided how much prior information contribute) as "kappa", and regulization matrix for the expression data as "rho_m". 
 #' @return "bic"as the Model's BIC matrix for differnet regularization parameters.
-#' @return "network" as the predicted network. 
+#' @return "wk" as the predicted network. 
+#' @return "wks" TBA
+#' @return "dist_ind" TBA
+#' @return "inter" TBA
 #' @return "edgelist" as the edgelist for predicted network.
 #' @return "nedges" as the number of edges of the predicted network.
-#' @examples optimizeParameter(data=GeneExpresssion,prior=Priorindormation)
+#' @examples predictHybNetwork(data=GeneExpresssion,prior=Priorinformation,proteomicResponses=proteomicResponses,nProt=nProt)
 #' @concept zeptosensPkg
 #' @export
 predictHybNetwork<-function(data,prior, cut_off=0.1,proteomicResponses,nProt,maxDist=1){

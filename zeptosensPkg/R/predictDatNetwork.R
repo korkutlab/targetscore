@@ -29,7 +29,7 @@ predictDatNetwork<-function(data,cut_off=0.1,nProt,proteomicResponses,maxDist=1)
     sigma.matrix=tmp$wi
     niter=tmp$niter
     print(niter)# if niter = 10,000
-    if(niter=10000){
+    if(niter==10000){
         stop("ERROR: Algorithmn does not convergence!")
     }
     pcor.matrix=matrix(0,nrow=ncol(data),ncol=ncol(data))
