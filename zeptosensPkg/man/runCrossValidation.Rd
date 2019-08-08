@@ -2,25 +2,24 @@
 % Please edit documentation in R/runCrossValidation.R
 \name{runCrossValidation}
 \alias{runCrossValidation}
-\title{Run 10-fold Cross validation for data through the current algorythm.}
+\title{Run Cross validation for data through the chosen algorithm.}
 \usage{
-runCrossValidation(data, prior, boot.time, rho, kappa, cut.off)
+runCrossValidation(data, prior, boot.time = 1000, cut.off = 0.1,
+  fold = 5)
 }
 \arguments{
 \item{data}{input expression data. Coloumns as the gene, rows as the sample.With colnames as the gene tags, rownames as the sample tags.}
 
 \item{prior}{prior information matrix with colnames and rownames as the gene tags.}
 
-\item{boot.time}{Bootstrap time mannually set.}
+\item{boot.time}{Bootstrap time mannually set.Default at 1000.}
 
-\item{rho}{regulization parameter}
-
-\item{kappa}{scaler parameter}
+\item{fold}{The fold for training and test dataset. Default at 5.}
 }
 \value{
-result lists of positive predictive values, negative predictive values,sensitivity, specificity,for random network and the network predicted with the algorithm.
+result of validation score. for random network and the network predicted with the algorithm.
 }
 \description{
-Run 10-fold Cross validation for data through the current algorythm.
+Run Cross validation for data through the chosen algorithm.
 }
 \concept{zeptosensPkg}
