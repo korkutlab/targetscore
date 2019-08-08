@@ -17,8 +17,12 @@
 #' @examples predictHybNetwork(data=GeneExpresssion,prior=Priorinformation,proteomicResponses=proteomicResponses,nProt=nProt)
 #' @concept zeptosensPkg
 #' @export
-predictHybNetwork<-function(data,prior, cut_off=0.1,proteomicResponses,nProt,maxDist=1){
-    
+predictHybNetwork<-function(data,prior="SignedPC", cut_off=0.1,proteomicResponses,nProt,maxDist=1,antibodyMapFile){
+  if(prior=="SignedPC"){
+    wk=zeptosensPkg:::predictBioNetwork(nProt = 304 ,proteomicResponses = proteomicResponses,maxDist = 1,antibodyMapFile =antibodyMapFile)$wk
+    prior=wk
+  }  
+  
     #HybNetwork
     
     index=colnames(prior[,which(colnames(prior)%in%colnames(data))])#match the data
@@ -126,14 +130,14 @@ predictHybNetwork<-function(data,prior, cut_off=0.1,proteomicResponses,nProt,max
     index3=match(colnames(prior),colnames(network.total))
     network.total=network.total[index3,index3]
     
-    edgelist.total=zeptosensPkg:::createSifFromMatrix(t.net = network.total,genelist = colnames(network.total1))
+    edgelist.total=zeptosensPkg:::createSifFromMatrix(t.net = network.total,genelist = colnames(network.total))
     
     #number of edges
     nedges=sum(network.total!=0)
      
     #
     wk=network.total
-    networks <- network2(wk=wk,nProt=nProt, 
+    networks <- zeptosensPkg:::network2(wk=wk,nProt=nProt, 
                          proteomicResponses=proteomicResponses,
                          maxDist=maxDist)
     wk <- networks$wk
@@ -144,6 +148,6 @@ predictHybNetwork<-function(data,prior, cut_off=0.1,proteomicResponses,nProt,max
     #return result
     result=list(parameters=parameters,nedges=nedges, inter=inter,
                 wk=wk,wks=wks, dist_ind=dist_ind, edgelist=edgelist.total,
-                bic=bic,)
+                bic=bic)
     return(result)
 }
