@@ -17,8 +17,8 @@
 #' @examples predictHybNetwork(data=GeneExpresssion,prior=Priorinformation,proteomicResponses=proteomicResponses,nProt=nProt)
 #' @concept zeptosensPkg
 #' @export
-predictHybNetwork<-function(data,prior="SignedPC", cut_off=0.1,proteomicResponses,nProt,maxDist=1,antibodyMapFile){
-  if(prior=="SignedPC"){
+predictHybNetwork<-function(data,prior=NULL, cut_off=0.1,proteomicResponses,nProt,maxDist=1,antibodyMapFile){
+  if(is.null(prior)){
     wk=zeptosensPkg:::predictBioNetwork(nProt = 304 ,proteomicResponses = proteomicResponses,maxDist = 1,antibodyMapFile =antibodyMapFile)$wk
     prior=wk
   }  
