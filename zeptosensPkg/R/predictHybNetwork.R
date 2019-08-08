@@ -45,11 +45,11 @@ predictHybNetwork<-function(data,prior, cut_off=0.1,proteomicResponses,nProt,max
     kappa<-rho
     rho_m=c()
     g.result=c()
-    U=matrix(1,nrow(prior),ncol(prior))
+    U=matrix(1,nrow(prior1),ncol(prior1))
     p_off_d=c()
   for(i in 1:100){
     for(j in 1:i){
-        rho_m=rho[i]*U-kappa[j]*prior
+        rho_m=rho[i]*U-kappa[j]*prior1
         g.result  <- glasso(Covmatrix,rho_m)
         p_off_d <- sum(g.result$wi!=0 & col(Covmatrix)<row(Covmatrix))
         bic[i,j]  <- -2*(g.result$loglik) + p_off_d*log(nrow(data))
