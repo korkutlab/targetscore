@@ -1,3 +1,7 @@
+#####################################################
+#######       Update Module       ###################
+#####################################################
+
 # library(rsconnect)
 # rsconnect::setAccountInfo(name='hithut', token='B512E4272720432CD9C6F5E47388416D', secret='/Y5XUfYMz02GGocWAcE/vQ+AsSrhpfEA8mBSk8Gl')
 # rsconnect::deployApp()
@@ -13,16 +17,9 @@ library(zeptosensPkg)
 library(zeptosensUtils)
 library(ggplot2)
 library(ggrepel)
-#should be a navbarPageindicating to three tabPanels: Data,App,About
-#navbarPage(title="",
-# tabPanel("tab1","contents"),
-# navbarMenu(title="More",
-# tabPanel ("tab2","contents"),
-# tabPanel ("tab3","contents")
-#   ))
-#
-#
+
 ui <-navbarPage(
+  #Theme Add In
   #theme="bootstrap.min.css",
   #Or
   #tags$head(
@@ -30,9 +27,7 @@ ui <-navbarPage(
   #)
   #Or
   #tags$style(HTML("p{color:red;}"))
-  #Or
-  #tags$h1("TITLE",style="color:red;")
-  #
+  
   #Header
   "Target Score",
   tabPanel("Get Start",
@@ -287,7 +282,30 @@ tabPanel("CART Project",
              selectInput("CancerType",label="Cancer Type (Disease type):",
                          choices = c("Breast Cancer" = "BRCA",
                                      "Ovarian Cancer"= "OV",
-                                     "Melanoma" = "SKCM"),
+                                     "Melanoma" = "SKCM",
+                                     "Prostate carcinoma" = "PRAD",
+                                     "Sarcoma" = "SARC",
+                                     "Esophageal carcinoma" = "ESCA",
+                                     "B-cell Lymphoma" = "DLBC",
+                                     "Uterine Endometrial Carcinoma" = "UCEC",
+                                     "Uterine Carcinosarcoma" = "UCS",
+                                     "Sarcoma" = "SARC",
+                                     "Lung adenocarcinoma" = "LUAD",
+                                     "rhabdomyosarcoma" = "rhabdomyosarcoma",
+                                     "Pancreatic adenocarcinoma" = "PAAD",
+                                     "Prostate adenocarcinoma" = "PRAD",
+                                     "Glioma" = "GBMLGG",
+                                     "Head and Neck squamous cell carcinoma" = "HNSC",
+                                     "Colon adenocarcinoma" = "COAD",
+                                     "Kidney cell carcinoma" = "KIRP",
+                                     "Unknown" = "NA"
+                                     ),
+                         selected = NULL),
+             selectInput("Cellline",label="Cell Line :",
+                         choices = c("OV2008" = "OV2008"
+                                     
+         
+                                     ),
                          selected = NULL),
              selectInput("DrugType",label="Drug:",
                          choices = c("MEKi" = "MEK inhibitor",

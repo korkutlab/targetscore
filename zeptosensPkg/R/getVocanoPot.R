@@ -9,7 +9,7 @@
 #' @concept zeptosensPkg
 #' @export
 
-getVocanoPlot=function(TS,Qvalue,filename,path=NULL){
+getVocanoPlot=function(TS,Qvalue,filename,path=NULL,SigValue=0.4){
     TS<- as.matrix(TS) 
     Padj<- as.matrix(Qvalue)
     
@@ -20,10 +20,10 @@ getVocanoPlot=function(TS,Qvalue,filename,path=NULL){
     tmpDat <- data.frame(cbind(TS,-1*log10(Padj)))
     colnames(tmpDat) <- c("TS","neglogQ")
     
-    color <- ifelse(Padj>0.4,"not significant","significant")
+    color <- ifelse(Padj>SigValue,"not significant","significant")
     rownames(color) <- rownames(TS)
     tmpDat$labelnames <-  row.names(tmpDat)
-    sig01 <- subset(tmpDat, tmpDat$neglogQ > -1*log10(0.4))
+    sig01 <- subset(tmpDat, tmpDat$neglogQ > -1*log10(SigValue))
     siglabel <- sig01$labelnames
     tmpDat$color <- color
     
