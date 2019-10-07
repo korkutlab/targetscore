@@ -364,7 +364,7 @@ server <-function(input,output, session, stringsAsFactors){
     return(DrugDat)
   })
   
-  #AntibodyMap File
+  #AntibodyMap File (Default at System file) 
   AntiDat <- reactive({
     AntibodyMapFile<-input$Antibody
   if (is.null(AntibodyMapFile))
@@ -477,7 +477,7 @@ return(FsValue)
   })
 
     #Calc TargetScore
-TargetScore<-reactive({
+TS.r<-reactive({
   
   #call up reactive items
   NetworkInferred<-NetworkInferred()
