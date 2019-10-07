@@ -250,7 +250,8 @@ ui <-navbarPage(
     
     #volcano plot line choice
     numericInput("Line","Line Number","1"),
-    numericInput("maxDist","Maximum Protein Distance","1"),
+    #max distance of protein network 
+    numericInput("max_Dist","Maximum Protein Distance","1"),
     
     actionButton("Submit",label = "Submit/Update",icon = NULL,width = NULL)
 
@@ -359,7 +360,7 @@ server <-function(input,output, session, stringsAsFactors){
   DrugDat <- reactive({
     DrugFile<-input$DrugData
     if (is.null(DrugFile))
-       return(NULL)
+    return(NULL)
     if(input$header4==T){DrugDat=read.csv(DrugFile$datapath, row.names =1 )}
     if(input$header4==F){DrugDat=read.csv(DrugFile$datapath)}
     return(DrugDat)
@@ -369,7 +370,8 @@ server <-function(input,output, session, stringsAsFactors){
   AntiDat <- reactive({
     AntibodyMapFile<-input$Antibody
   if (is.null(AntibodyMapFile))
-    return(NULL)
+  AntiDat<-system.file("targetScoreData", "antibodyMapfile_08092019.txt", package = "zeptosensPkg")
+  if (!is.null(AntibodyMapFile))
   AntiDat <-read.csv(AntibodyMapFile$datapath, header = input$header1,stringsAsFactors = F )
    return(AntiDat)
   })
@@ -428,7 +430,7 @@ server <-function(input,output, session, stringsAsFactors){
   
   #maxDist
   maxDist<-reactive({
-    maxDist<-input$maxDist
+    maxDist<-input$max_Dist
     return(maxDist)
   })
   #choosing the way to construct reference network
@@ -442,7 +444,7 @@ NetworkInferred<-reactive({
     
   if (NetworkAlgorithmn=="Bio"){
     # reference network
-    network=zeptosensPkg:::predictBioNetwork(nProt =nProt,proteomicResponses = DrugDat,antibodyMapFile = AntiDat)
+    network=zeptosensPkg:::predictBioNetwork(nProt =nProt,proteomicResponses = DrugDat,antibodyMapFile = AntiDat,maxDist = maxDist)
     wk=network$wk
     wks <- network$wks
     dist_ind <- network$dist_ind
@@ -450,7 +452,7 @@ NetworkInferred<-reactive({
   }
   
   if(NetworkAlgorithmn=="Dat"){
-    network=zeptosensPkg:::predictDatNetwork(data =SigDat,nProt=nProt,proteomicResponses=DrugDat)
+    network=zeptosensPkg:::predictDatNetwork(data =SigDat,nProt=nProt,proteomicResponses=DrugDat,maxDist = maxDist)
     wk=network$wk
     wks <- network$wks
     dist_ind <- network$dist_ind

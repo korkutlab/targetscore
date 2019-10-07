@@ -60,5 +60,5 @@ predictDatNetwork<-function(data,cut_off=0.1,nProt,proteomicResponses,maxDist=1)
     inter<-networkInferred$inter
     result=list(rho=rho,nedges=nedges, t.net=t.net,  edgelist=edgelist,bic=bic,
                 wk = wk,wks=wks, dist_ind=dist_ind, inter=inter)
-    return(result)
+   return(result)
 }
