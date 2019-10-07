@@ -250,6 +250,7 @@ ui <-navbarPage(
     
     #volcano plot line choice
     numericInput("Line","Line Number","1"),
+    numericInput("maxDist","Maximum Protein Distance","1"),
     
     actionButton("Submit",label = "Submit/Update",icon = NULL,width = NULL)
 
@@ -425,6 +426,11 @@ server <-function(input,output, session, stringsAsFactors){
     return(nline)
   })
   
+  #maxDist
+  maxDist<-reactive({
+    maxDist<-input$maxDist
+    return(maxDist)
+  })
   #choosing the way to construct reference network
 NetworkInferred<-reactive({
     NetworkAlgorithmn<-NetworkAlgorithmn()
@@ -432,6 +438,7 @@ NetworkInferred<-reactive({
     AntiDat<-AntiDat()
     SigDat<-SigDat()
     nProt<-nProt()
+    maxDist<-maxDist()
     
   if (NetworkAlgorithmn=="Bio"){
     # reference network
@@ -452,7 +459,7 @@ NetworkInferred<-reactive({
   
   if(NetworkAlgorithmn=="Hyb"){
     # prior 
-    wk=zeptosensPkg:::predictBioNetwork(nProt =nProt,proteomicResponses = DrugDat,maxDist = 1,antibodyMapFile = AntiDat)
+    wk=zeptosensPkg:::predictBioNetwork(nProt =nProt,proteomicResponses = DrugDat,maxDist = maxDist,antibodyMapFile = AntiDat)
     #Hyb
     network=zeptosensPkg:::predictHybNetwork(data =SigDat,prior=wk,nProt=nProt,proteomicResponses=DrugDat)
     
@@ -485,6 +492,7 @@ TS.r<-reactive({
   nProt<-nProt()
   FsValue<-FsValue()
   fileName<-fileName()
+  maxDist<-maxDist()
   
   #give output filename
   targetScoreOutputFile <-paste0(fileName,"TS.txt")
