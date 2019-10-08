@@ -242,9 +242,9 @@ ui <-navbarPage(
   
     #TS calc type choice:
   
-    selectInput("TSCalcType","Target Score Calculation type",
-                choices = c("LinebyLine" = "LinebyLine",
-                            "Pooled" = "Pooled"),
+    selectInput("TSCalcType",label="Target Score Calculation type:",
+                choices = c("Line by Line" = "lnl",
+                            "Pooled" = "pop"),
                 selected = NULL),
     textInput("filename", "Filename", "file1"),
     
@@ -266,7 +266,7 @@ ui <-navbarPage(
     #Results showing in Tabs (can use navlistPanel to show on left)
     tabsetPanel(
     tabPanel("Test module",
-             dataTableOutput("Test")),
+             textOutput("Test")),
     
     tabPanel("Antibody Map",
              dataTableOutput("AntiMap")),
@@ -392,16 +392,16 @@ server <-function(input,output, session, stringsAsFactors){
   FSDat <- reactive({
     FSFile<-input$FsFile
   if (is.null(FSFile))
-    return(NULL)
+  return(NULL)
     if(input$header3==T){FSDat <-read.csv(FSFile$datapath,header = T,stringsAsFactors = F )}
-    if(input$header3==F){FSDat <-read.csv(FSFile$datapath,stringsAsFactors = F )}
+    if(input$header3==F){FSDat <-read.csv(FSFile$datapath,header = F,stringsAsFactors = F )}
   return(FSDat)
   })
   
   #TSCalcType
-  TSCalcType <- reactive({
-  TSCalcType<-input$TSCalcType
-  return(TSCalcType)
+  TSType <- reactive({
+  TSType<-input$TSCalcType
+  return(TSType)
   })
 
   #filename
@@ -494,12 +494,12 @@ NetworkInferred<-reactive({
 FsValue<-reactive({
   DrugData<-DrugDat()
   AntiData<-AntiDat()
-  FS_value<-FSDat()
   nPro<-nProt()
-    if(is.null(input$FsFile))
+  FS_Dat<-FSDat()
+  if(is.null(FS_Dat))
       {FsValue=zeptosensPkg:::getFsVals(nProt =nPro ,proteomicResponses =DrugData,antibodyMapFile = AntiData)}
-    if(!is.null(input$FsFile))
-      {FsValue=zeptosensPkg:::getFsVals(nProt =nPro ,proteomicResponses =DrugData,fsValueFile=FS_value,antibodyMapFile = AntiData)}
+  if(!is.null(FS_Dat))
+      {FsValue=zeptosensPkg:::getFsVals(nProt =nPro ,proteomicResponses =DrugData,fsValueFile=FS_Dat,antibodyMapFile = AntiData)}
 return(FsValue)
   })
 
@@ -507,57 +507,61 @@ return(FsValue)
 TS.r<-reactive({
   
   #call up reactive items
-  NetworkInferred<-NetworkInferred()
-  DrugDat<-DrugDat()
-  nProt<-nProt()
-  FsValue<-FsValue()
-  fileName<-fileName()
-  maxDist<-maxDist()
+  TS_Type<-TSType()
+  Network_Inferred<-NetworkInferred()
+  DrugData<-DrugDat()
+  nPro<-nProt()
+  nCon<-nCond()
+  Fs_Value<-FSDat() ###Warning :#Shoule be changed back to FsValue when FsValue() Reactive Back to Work ###
+  file_Name<-fileName()
+  maxiDist<-maxDist()
   
   #give output filename
-  targetScoreOutputFile <-paste0(fileName,"TS.txt")
-  matrixWkOutputFile <-paste0(fileName,"wk.txt")
-  signedMatrixWkOutputFile <-paste0(fileName,"wks.txt")
+  targetScoreOutputFile <-paste0(file_Name,"TS.txt")
+  matrixWkOutputFile <-paste0(file_Name,"wk.txt")
+  signedMatrixWkOutputFile <-paste0(file_Name,"wks.txt")
   
   #Network inferred
-  wk=NetworkInferred$wk
-  wks <- NetworkInferred$wks
-  dist_ind <- NetworkInferred$dist_ind
-  inter <- NetworkInferred$inter
+  wk=Network_Inferred$wk
+  wks <- Network_Inferred$wks
+  dist_ind <- Network_Inferred$dist_ind
+  inter <- Network_Inferred$inter
   
-  if(TSCalcType=="LinebyLine"){
+  if(TS_Type=="lnl"){
       
-      #Calc Std
-      DrugDat[is.na(DrugDat)]<-0
-      stdev <- zeptosensPkg:::sampSdev(nSample=nrow(DrugDat),nProt=ncol(DrugDat),nDose=1,nX=DrugDat)
-      #normalization
-      proteomicResponses<- DrugDat
-      for(i in 1:nProt){
-        for (j in 1:nrow(proteomicResponses)){
-          proteomicResponses[j,i] <- (DrugDat[j,i]/stdev[i])      
-        }
-      }
-      
+      DrugData[is.na(DrugData)]<-0
+
+     #Calc Std (Normalization request)
+      # stdev <- zeptosensPkg:::sampSdev(nSample=nrow(DrugData),nProt=ncol(DrugData),nDose=1,nX=DrugData)
+      # #normalization
+      # proteomicResponses<- DrugData
+      # for(i in 1:nProt){
+      #   for (j in 1:nrow(proteomicResponses)){
+      #     proteomicResponses[j,i] <- (DrugData[j,i]/stdev[i])      
+      #   }
+      # }
+      # 
+    proteomicResponses<-DrugData
       #Bootstrap in Getting TargetScore
-      TS <- array(0,dim=c(nCond,nProt))
-      TS.p <- array(0,dim=c(nCond,nProt))
-      TS.q <- array(0,dim=c(nCond,nProt))
+      TS <- array(0,dim=c(nCon,nPro))
+      TS.p <- array(0,dim=c(nCon,nPro))
+      TS.q <- array(0,dim=c(nCon,nPro))
       
       nPerm=1000
       
-      for(i in 1:nCond){
+      for(i in 1:nCon){
         
         results <- zeptosensPkg:::getTargetScore(wk=wk,
                                                  wks=wks,
                                                  dist_ind=dist_ind,
                                                  inter=inter,
                                                  nDose=1, 
-                                                 nProt=nProt, 
+                                                 nProt=nPro, 
                                                  proteomicResponses=proteomicResponses[i,], 
-                                                 maxDist=maxDist, 
+                                                 maxDist=maxiDist, 
                                                  nPerm=nPerm,
-                                                 cellLine=fileName, 
-                                                 verbose=FALSE,fsFile=FsValue,
+                                                 cellLine=file_Name, 
+                                                 verbose=FALSE,fsFile=Fs_Value,
                                                  targetScoreOutputFile=targetScoreOutputFile, 
                                                  matrixWkOutputFile=matrixWkOutputFile,
                                                  targetScoreQValueFile="q.txt", 
@@ -567,26 +571,26 @@ TS.r<-reactive({
         TS.p[i,]=results$pts
         TS.q[i,]=results$q
       }
-      colnames(TS)=colnames(DrugDat)
-      rownames(TS)=rownames(DrugDat)
+      colnames(TS)=colnames(DrugData)
+      rownames(TS)=rownames(DrugData)
 
-      colnames(TS.p)=colnames(DrugDat)
-      rownames(TS.p)=rownames(DrugDat)
+      colnames(TS.p)=colnames(DrugData)
+      rownames(TS.p)=rownames(DrugData)
 
-      colnames(TS.q)=colnames(DrugDat)
-      rownames(TS.q)=rownames(DrugDat) 
+      colnames(TS.q)=colnames(DrugData)
+      rownames(TS.q)=rownames(DrugData) 
   }
   
-  if(TSCalcType=="Pooled"){
+  if(TS_Type=="pop"){
     
     #Calc Std
-    DrugDat[is.na(DrugDat)]<-0
-    stdev <- zeptosensPkg:::sampSdev(nSample=nrow(DrugDat),nProt=ncol(DrugDat),nDose=1,nX=DrugDat)
+    DrugData[is.na(DrugData)]<-0
+    stdev <- zeptosensPkg:::sampSdev(nSample=nrow(DrugData),nProt=ncol(DrugData),nDose=1,nX=DrugData)
     #normalization
-    proteomicResponses<- DrugDat
+    proteomicResponses<- DrugData
     for(i in 1:nProt){
       for (j in 1:nrow(proteomicResponses)){
-        proteomicResponses[j,i] <- (DrugDat[j,i]/stdev[i])      
+        proteomicResponses[j,i] <- (DrugData[j,i]/stdev[i])      
       }
     }
     
@@ -597,12 +601,12 @@ TS.r<-reactive({
                                                dist_ind=dist_ind,
                                                inter=inter,
                                                nDose=1, 
-                                               nProt=nProt, 
+                                               nProt=nPro, 
                                                proteomicResponses=proteomicResponses, 
-                                               maxDist=maxDist, 
+                                               maxDist=maxiDist, 
                                                nPerm=nPerm,
-                                               cellLine=fileName, 
-                                               verbose=FALSE,fsFile=FsValue,
+                                               cellLine=file_Name, 
+                                               verbose=FALSE,fsFile=Fs_Value,
                                                targetScoreOutputFile=targetScoreOutputFile, 
                                                matrixWkOutputFile=matrixWkOutputFile,
                                                targetScoreQValueFile="q.txt", 
@@ -612,11 +616,11 @@ TS.r<-reactive({
       TS.p=results$pts
       TS.q=results$q
     
-    colnames(TS)=colnames(DrugDat)
+    colnames(TS)=colnames(DrugData)
     
-    colnames(TS.p)=colnames(DrugDat)
+    colnames(TS.p)=colnames(DrugData)
     
-    colnames(TS.q)=colnames(DrugDat)
+    colnames(TS.q)=colnames(DrugData)
   }
     TS.r<-list(TS=TS,TS.p=TS.p,TS.q=TS.q)
     return(TS.r)
@@ -659,7 +663,7 @@ output$Edgelist<- renderDataTable({
 ###########                                Test module                                        #############################
 ###########################################################################################################################
 output$Test <- renderDataTable({
-  Data <- FsValue()
+  data <- FsValue()
 }) 
 
 ###########################################################################################################################
@@ -674,8 +678,8 @@ output$Test <- renderDataTable({
 ###########################################################################################################################
 
 output$TSheat <- renderPlot({
-       TS.r=TS.r()
-       TS=TS.r$TS
+       TSr=TS.r()
+       TS=TSr$TS
        maxDat=max(as.matrix(TS))
        minDat=min(as.matrix(TS))
        bk <- c(seq(minDat,-0.01,by=0.01),seq(0,maxDat,by=0.01))
