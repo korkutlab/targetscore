@@ -36,8 +36,9 @@ calcTargetScore <- function(wk, wks, dist_ind, inter, nDose, nProt, proteomicRes
   #     fsFile <- system.file("targetScoreData", "fs.txt", package = "zeptosensPkg")
   # }
 
-  fs <- read.table(fsFile, header = TRUE, stringsAsFactors = FALSE, sep = "\t")
-
+  #fs <- read.table(fsFile, header = TRUE, stringsAsFactors = FALSE, sep = "\t")
+  fs<-fsFile
+  
   if (verbose) {
     print(fs)
   }
