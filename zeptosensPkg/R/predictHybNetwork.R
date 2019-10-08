@@ -1,6 +1,6 @@
 #' Choose the optimal regulization parameter and scale paramter for prior information adjusted network construction.
 #' 
-#' @param data input expression data frame. Gene in coloumns and samples in row. Wih colnames as gene tags and rownames as sample tags.
+#' @param data input Global Signaling expression data frame(TCGA rppa Data for example). Gene in coloumns and samples in row. Wih colnames as gene tags and rownames as sample tags.
 #' @param prior Prior information data frame ,with colnames and rownames as gene tags.With colnames and rownames as gene tags. Can be inferred from predictBioNetwork or any network resources.
 #' @param cut_off Manually set up cut off value for strength of edge. Default at 0.1.
 #' @param maxDist Maximun distance for the network. Default at 1.

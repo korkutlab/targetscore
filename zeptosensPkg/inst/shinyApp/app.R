@@ -194,7 +194,7 @@ ui <-navbarPage(
    #Global signaling data
    column(3,
    wellPanel(
-    fileInput("SigData","Attach your Global Signaling File (.csv)",
+    fileInput("Sig","Attach your Global Signaling File (.csv)",
               buttonLabel = "Browse...",
               placeholder = "No file selected",
               accept = c(
@@ -266,12 +266,21 @@ ui <-navbarPage(
     #Results showing in Tabs (can use navlistPanel to show on left)
     tabsetPanel(
     tabPanel("Test module",
-    dataTableOutput("Test")),
+             textOutput("Test")),
+    
+    tabPanel("Antibody Map",
+             dataTableOutput("AntiMap")),
+    
     tabPanel("Functional Score Value",
              dataTableOutput("FS_value")),
+    
     tabPanel("Heatmap",
     #heatmap of the Data
     plotOutput("heatmap",height = 200,width = 1000)),
+    
+    tabPanel("Edgelist of Network",
+             #Edgelist of the Data
+             dataTableOutput("Edgelist")),
     
     tabPanel("TargetScore",
              #heatmap of the Data
@@ -384,7 +393,7 @@ server <-function(input,output, session, stringsAsFactors){
     FSFile<-input$FsFile
   if (is.null(FSFile))
     return(NULL)
-    if(input$header3==T){FSDat <-read.csv(FSFile$datapath,row.names = 1,stringsAsFactors = F )}
+    if(input$header3==T){FSDat <-read.csv(FSFile$datapath,header = T,stringsAsFactors = F )}
     if(input$header3==F){FSDat <-read.csv(FSFile$datapath,stringsAsFactors = F )}
   return(FSDat)
   })
@@ -408,10 +417,11 @@ server <-function(input,output, session, stringsAsFactors){
   
   #Global Signaling file
   SigDat <- reactive({
-    SigFile<-input$SigData
+    SigFile<-input$Sig
   if (is.null(SigFile))
     return(NULL)
-  SigDat <-read.csv(SigFile$datapath, header = input$header2,stringsAsFactors = F )
+  if(input$header2==T){SigDat <-read.csv(SigFile$datapath, row.names = 1,stringsAsFactors = F )}
+  if(input$header2==F){SigDat <-read.csv(SigFile$datapath,header=F,stringsAsFactors = F )}
   return(SigDat)
   })
   
@@ -468,7 +478,7 @@ NetworkInferred<-reactive({
   
   if(NetworkAlgo=="Hyb"){
     # prior 
-    wk=zeptosensPkg:::predictBioNetwork(nProt =nPro,proteomicResponses = DrugData,maxDist = maxiDist,antibodyMapFile = AntiData)
+    wk=zeptosensPkg:::predictBioNetwork(nProt =nPro,proteomicResponses = DrugData,maxDist = maxiDist,antibodyMapFile = AntiData)$wk
     #Hyb
     network=zeptosensPkg:::predictHybNetwork(data =SigData,prior=wk,nProt=nPro,proteomicResponses=DrugData)
     
@@ -626,16 +636,29 @@ output$heatmap <- renderPlot({
            breaks=bk)
 }) 
 
+###########################################################################################################################
+###########                                Data Table module                                  #############################
+###########################################################################################################################
+
+
 output$FS_value <- renderDataTable({
   Data <- FSDat()
+}) 
+
+output$AntiMap <- renderDataTable({
+  Data <- AntiDat()
+}) 
+
+output$Edgelist<- renderDataTable({
+  Data <- NetworkInferred()
+  Edgelist<-zeptosensPkg:::createSifFromMatrix(t.net = Data$wk, genelist=colnames(Data$wk)) 
 }) 
 ###########################################################################################################################
 ###########                                Test module                                        #############################
 ###########################################################################################################################
-output$Test <- renderDataTable({
-  Data <- AntiDat()
+output$Test <- renderText({
+  Data <- nProt()
 }) 
-
 
 ###########################################################################################################################
 ###########                                network visualization module                       #############################
