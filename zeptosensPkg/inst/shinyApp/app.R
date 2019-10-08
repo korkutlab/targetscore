@@ -266,7 +266,7 @@ ui <-navbarPage(
     #Results showing in Tabs (can use navlistPanel to show on left)
     tabsetPanel(
     tabPanel("Test module",
-             textOutput("Test")),
+             dataTableOutput("Test")),
     
     tabPanel("Antibody Map",
              dataTableOutput("AntiMap")),
@@ -494,11 +494,12 @@ NetworkInferred<-reactive({
 FsValue<-reactive({
   DrugData<-DrugDat()
   AntiData<-AntiDat()
+  FS_value<-FSDat()
   nPro<-nProt()
     if(is.null(input$FsFile))
       {FsValue=zeptosensPkg:::getFsVals(nProt =nPro ,proteomicResponses =DrugData,antibodyMapFile = AntiData)}
     if(!is.null(input$FsFile))
-      {FsValue=zeptosensPkg:::getFsVals(nProt =nPro ,proteomicResponses =DrugData,fsValueFile=FSDat,antibodyMapFile = AntiData)}
+      {FsValue=zeptosensPkg:::getFsVals(nProt =nPro ,proteomicResponses =DrugData,fsValueFile=FS_value,antibodyMapFile = AntiData)}
 return(FsValue)
   })
 
@@ -653,11 +654,12 @@ output$Edgelist<- renderDataTable({
   Data <- NetworkInferred()
   Edgelist<-zeptosensPkg:::createSifFromMatrix(t.net = Data$wk, genelist=colnames(Data$wk)) 
 }) 
+
 ###########################################################################################################################
 ###########                                Test module                                        #############################
 ###########################################################################################################################
-output$Test <- renderText({
-  Data <- nProt()
+output$Test <- renderDataTable({
+  Data <- FsValue()
 }) 
 
 ###########################################################################################################################

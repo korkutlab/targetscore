@@ -54,16 +54,17 @@ getFsVals <- function(nProt,proteomicResponses,antibodyMapFile=NULL,fsValueFile=
     prot=as.character(unlist(unique(fs$prot)))
     fs=unique(fs)
     
-    #match with antibody seq
-    index=match(colnames(proteomicResponses),fs$prot)
-    fs=fs[index,]
-    
+   
     fs.override=fsValueFile
     #Override with Self setting/external fs value
     if(!is.null(fs.override)){
         index=which(fs$prot%in%fs.override$prot)
         fs[index,2]<-fs.override$fs
     }
+    
+    #match with antibody seq
+    index=match(colnames(proteomicResponses),fs$prot)
+    fs=fs[index,]
     
     return(fs)
 }
