@@ -265,7 +265,10 @@ ui <-navbarPage(
     
     #Results showing in Tabs (can use navlistPanel to show on left)
     tabsetPanel(
-
+    tabPanel("Test module",
+    dataTableOutput("Test")),
+    tabPanel("Functional Score Value",
+             dataTableOutput("FS_value")),
     tabPanel("Heatmap",
     #heatmap of the Data
     plotOutput("heatmap",height = 200,width = 1000)),
@@ -381,7 +384,8 @@ server <-function(input,output, session, stringsAsFactors){
     FSFile<-input$FsFile
   if (is.null(FSFile))
     return(NULL)
-  FSDat <-read.csv(FSFile$datapath, header = input$header3,stringsAsFactors = F )
+    if(input$header3==T){FSDat <-read.csv(FSFile$datapath,row.names = 1,stringsAsFactors = F )}
+    if(input$header3==F){FSDat <-read.csv(FSFile$datapath,stringsAsFactors = F )}
   return(FSDat)
   })
   
@@ -413,13 +417,15 @@ server <-function(input,output, session, stringsAsFactors){
   
   #nProt
   nProt<-reactive({
-    nProt<-ncol(DrugDat())
+    data<-DrugDat()
+    nProt<-ncol(data)
     return(nProt)
     })
   
   #nCond
   nCond<-reactive({
-    nCond<-nrow(DrugDat())
+    data<-DrugDat()
+    nCond<-nrow(data)
     return(nCond)
   })
   #Line
@@ -433,37 +439,38 @@ server <-function(input,output, session, stringsAsFactors){
     maxDist<-input$max_Dist
     return(maxDist)
   })
+  
   #choosing the way to construct reference network
 NetworkInferred<-reactive({
-    NetworkAlgorithmn<-NetworkAlgorithmn()
-    DrugDat<-DrugDat()
-    AntiDat<-AntiDat()
-    SigDat<-SigDat()
-    nProt<-nProt()
-    maxDist<-maxDist()
+    NetworkAlgo<-NetworkAlgorithmn()
+    DrugData<-DrugDat()
+    AntiData<-AntiDat()
+    SigData<-SigDat()
+    nPro<-nProt()
+    maxiDist<-maxDist()
     
-  if (NetworkAlgorithmn=="Bio"){
+  if (NetworkAlgo=="Bio"){
     # reference network
-    network=zeptosensPkg:::predictBioNetwork(nProt =nProt,proteomicResponses = DrugDat,antibodyMapFile = AntiDat,maxDist = maxDist)
+    network=zeptosensPkg:::predictBioNetwork(nProt =nPro,proteomicResponses = DrugData,antibodyMapFile = AntiData,maxDist = maxiDist)
     wk=network$wk
     wks <- network$wks
     dist_ind <- network$dist_ind
     inter <- network$inter
   }
   
-  if(NetworkAlgorithmn=="Dat"){
-    network=zeptosensPkg:::predictDatNetwork(data =SigDat,nProt=nProt,proteomicResponses=DrugDat,maxDist = maxDist)
+  if(NetworkAlgo=="Dat"){
+    network=zeptosensPkg:::predictDatNetwork(data =SigData,nProt=nPro,proteomicResponses=DrugData,maxDist = maxiDist)
     wk=network$wk
     wks <- network$wks
     dist_ind <- network$dist_ind
     inter <- network$inter
   }
   
-  if(NetworkAlgorithmn=="Hyb"){
+  if(NetworkAlgo=="Hyb"){
     # prior 
-    wk=zeptosensPkg:::predictBioNetwork(nProt =nProt,proteomicResponses = DrugDat,maxDist = maxDist,antibodyMapFile = AntiDat)
+    wk=zeptosensPkg:::predictBioNetwork(nProt =nPro,proteomicResponses = DrugData,maxDist = maxiDist,antibodyMapFile = AntiData)
     #Hyb
-    network=zeptosensPkg:::predictHybNetwork(data =SigDat,prior=wk,nProt=nProt,proteomicResponses=DrugDat)
+    network=zeptosensPkg:::predictHybNetwork(data =SigData,prior=wk,nProt=nPro,proteomicResponses=DrugData)
     
     wk=network$wk
     wks <- network$wks
@@ -475,13 +482,13 @@ NetworkInferred<-reactive({
   })
     #fs
 FsValue<-reactive({
-  DrugDat<-DrugDat()
-  AntiDat<-AntiDat()
-  nProt<-nProt()
+  DrugData<-DrugDat()
+  AntiData<-AntiDat()
+  nPro<-nProt()
     if(is.null(input$FsFile))
-      {FsValue=zeptosensPkg:::getFsVals(nProt =nProt ,proteomicResponses =DrugDat,antibodyMapFile = AntiDat)}
+      {FsValue=zeptosensPkg:::getFsVals(nProt =nPro ,proteomicResponses =DrugData,antibodyMapFile = AntiData)}
     if(!is.null(input$FsFile))
-      {FsValue=zeptosensPkg:::getFsVals(nProt =nProt ,proteomicResponses =DrugDat(),fsValueFile=FSDat,antibodyMapFile = AntiDat)}
+      {FsValue=zeptosensPkg:::getFsVals(nProt =nPro ,proteomicResponses =DrugData,fsValueFile=FSDat,antibodyMapFile = AntiData)}
 return(FsValue)
   })
 
@@ -606,26 +613,41 @@ TS.r<-reactive({
 
 #Data heatmap
 output$heatmap <- renderPlot({
-  DrugFile <- input$DrugData
-  if (is.null(DrugFile))
-    return(NULL)
-  if(input$header4==T)
-  {DrugDat=read.csv(DrugFile$datapath, row.names =1 )}
-  if(input$header4==F)
-  {DrugDat=read.csv(DrugFile$datapath)}
+  DrugFile <- DrugDat()
   
-  maxDat=max(as.matrix(DrugDat))
-  minDat=min(as.matrix(DrugDat))
+  maxDat=max(as.matrix(DrugFile))
+  minDat=min(as.matrix(DrugFile))
   bk <- c(seq(minDat,-0.01,by=0.01),seq(0,maxDat,by=0.01))
-  data=as.matrix(DrugDat)
+  data=as.matrix(DrugFile)
   pheatmap(data,
            scale = "none",
            color = c(colorRampPalette(colors = c("navy","white"))(length(seq(minDat,-0.01,by=0.01))),colorRampPalette(colors = c("white","firebrick3"))(length(seq(0,maxDat,by=0.01)))),
            legend_breaks=seq(minDat,maxDat,2),cellwidth = 2, cellheight = 2, fontsize=2, fontsize_row=2,
            breaks=bk)
-})      
+}) 
 
-#get heatmap for Calculated TS
+output$FS_value <- renderDataTable({
+  Data <- FSDat()
+}) 
+###########################################################################################################################
+###########                                Test module                                        #############################
+###########################################################################################################################
+output$Test <- renderDataTable({
+  Data <- AntiDat()
+}) 
+
+
+###########################################################################################################################
+###########                                network visualization module                       #############################
+###########################################################################################################################
+
+
+
+
+###########################################################################################################################
+###########                                TS heatmap module                                 #############################
+###########################################################################################################################
+
 output$TSheat <- renderPlot({
        TS.r=TS.r()
        TS=TS.r$TS
@@ -640,8 +662,10 @@ output$TSheat <- renderPlot({
                 breaks=bk)
 })
 
-#get volcanoplot
-  
+###########################################################################################################################
+###########                                TS Volcano plot module                             #############################
+###########################################################################################################################
+
 output$volcanoplot <- renderPlot({  
   TS.r=TS.r()
   nline=nline()
@@ -670,7 +694,7 @@ output$volcanoplot <- renderPlot({
      scale_color_manual(name="", values=c("black", "red"))+
      geom_label_repel(data=sig01, aes(x=sig01$TS, y=sig01$neglogQ,label=siglabel), size=5)
  })
-  }
+}
 
 shinyApp(server = server,ui=ui)
 
