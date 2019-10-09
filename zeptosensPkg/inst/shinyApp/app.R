@@ -461,7 +461,7 @@ NetworkInferred<-reactive({
     
   if (NetworkAlgo=="Bio"){
     # reference network
-    network=zeptosensPkg:::predictBioNetwork(nProt =nPro,proteomicResponses = DrugData,antibodyMapFile = AntiData,maxDist = maxiDist)
+    network=zeptosensPkg::predictBioNetwork(nProt =nPro,proteomicResponses = DrugData,antibodyMapFile = AntiData,maxDist = maxiDist)
     wk=network$wk
     wks <- network$wks
     dist_ind <- network$dist_ind
@@ -469,7 +469,7 @@ NetworkInferred<-reactive({
   }
   
   if(NetworkAlgo=="Dat"){
-    network=zeptosensPkg:::predictDatNetwork(data =SigData,nProt=nPro,proteomicResponses=DrugData,maxDist = maxiDist)
+    network=zeptosensPkg::predictDatNetwork(data =SigData,nProt=nPro,proteomicResponses=DrugData,maxDist = maxiDist)
     wk=network$wk
     wks <- network$wks
     dist_ind <- network$dist_ind
@@ -478,9 +478,9 @@ NetworkInferred<-reactive({
   
   if(NetworkAlgo=="Hyb"){
     # prior 
-    wk=zeptosensPkg:::predictBioNetwork(nProt =nPro,proteomicResponses = DrugData,maxDist = maxiDist,antibodyMapFile = AntiData)$wk
+    wk=zeptosensPkg::predictBioNetwork(nProt =nPro,proteomicResponses = DrugData,maxDist = maxiDist,antibodyMapFile = AntiData)$wk
     #Hyb
-    network=zeptosensPkg:::predictHybNetwork(data =SigData,prior=wk,nProt=nPro,proteomicResponses=DrugData)
+    network=zeptosensPkg::predictHybNetwork(data =SigData,prior=wk,nProt=nPro,proteomicResponses=DrugData)
     
     wk=network$wk
     wks <- network$wks
@@ -497,9 +497,9 @@ FsValue<-reactive({
   nPro<-nProt()
   FS_Dat<-FSDat()
   if(is.null(FS_Dat))
-      {FsValue=zeptosensPkg:::getFsVals(nProt =nPro ,proteomicResponses =DrugData,antibodyMapFile = AntiData)}
+      {FsValue=zeptosensPkg::getFsVals(nProt =nPro ,proteomicResponses =DrugData,antibodyMapFile = AntiData)}
   if(!is.null(FS_Dat))
-      {FsValue=zeptosensPkg:::getFsVals(nProt =nPro ,proteomicResponses =DrugData,fsValueFile=FS_Dat,antibodyMapFile = AntiData)}
+      {FsValue=zeptosensPkg::getFsVals(nProt =nPro ,proteomicResponses =DrugData,fsValueFile=FS_Dat,antibodyMapFile = AntiData)}
 return(FsValue)
   })
 
@@ -532,7 +532,7 @@ TS.r<-reactive({
       DrugData[is.na(DrugData)]<-0
 
      #Calc Std (Normalization request)
-      # stdev <- zeptosensPkg:::sampSdev(nSample=nrow(DrugData),nProt=ncol(DrugData),nDose=1,nX=DrugData)
+      # stdev <- zeptosensPkg::sampSdev(nSample=nrow(DrugData),nProt=ncol(DrugData),nDose=1,nX=DrugData)
       # #normalization
       # proteomicResponses<- DrugData
       # for(i in 1:nProt){
@@ -551,7 +551,7 @@ TS.r<-reactive({
       
       for(i in 1:nCon){
         
-        results <- zeptosensPkg:::getTargetScore(wk=wk,
+        results <- zeptosensPkg::getTargetScore(wk=wk,
                                                  wks=wks,
                                                  dist_ind=dist_ind,
                                                  inter=inter,
@@ -585,7 +585,7 @@ TS.r<-reactive({
     
     #Calc Std
     DrugData[is.na(DrugData)]<-0
-    stdev <- zeptosensPkg:::sampSdev(nSample=nrow(DrugData),nProt=ncol(DrugData),nDose=1,nX=DrugData)
+    stdev <- zeptosensPkg::sampSdev(nSample=nrow(DrugData),nProt=ncol(DrugData),nDose=1,nX=DrugData)
     #normalization
     proteomicResponses<- DrugData
     for(i in 1:nProt){
@@ -596,7 +596,7 @@ TS.r<-reactive({
     
     nPerm=1000
       
-      results <- zeptosensPkg:::getTargetScore(wk=wk,
+      results <- zeptosensPkg::getTargetScore(wk=wk,
                                                wks=wks,
                                                dist_ind=dist_ind,
                                                inter=inter,
@@ -656,7 +656,7 @@ output$AntiMap <- renderDataTable({
 
 output$Edgelist<- renderDataTable({
   Data <- NetworkInferred()
-  Edgelist<-zeptosensPkg:::createSifFromMatrix(t.net = Data$wk, genelist=colnames(Data$wk)) 
+  Edgelist<-zeptosensPkg::createSifFromMatrix(t.net = Data$wk, genelist=colnames(Data$wk)) 
 }) 
 
 ###########################################################################################################################
@@ -696,32 +696,17 @@ output$TSheat <- renderPlot({
 ###########################################################################################################################
 
 output$volcanoplot <- renderPlot({  
-  TS.r=TS.r()
-  nline=nline()
-   TS=TS.r$TS[nline,]
-   TS.q=TS$TS.q[nline,]
-   TS<- as.matrix(TS)
-   Padj<- as.matrix(TS.q)
+  TSr=TS.r()
+  n_line=nline()
+  TS=TSr$TS[n_line,]
+  TS.q=TSr$TS.q[nline,]
+  TS<- as.matrix(TS)
+  Padj<- as.matrix(TS.q)
 # 
    if(nrow(Padj)!=nrow(TS)){
      stop("ERROR:Tag of TS and Qvalue does not match.")
    }
-   tmpDat <- data.frame(cbind(TS,-1*log10(Padj)))
-   colnames(tmpDat) <- c("TS","neglogQ")
-#   
-   color <- ifelse(Padj>0.4,"not significant","significant")
-   rownames(color) <- rownames(TS)
-   tmpDat$labelnames <-  row.names(tmpDat)
-   sig01 <- subset(tmpDat, tmpDat$neglogQ > -1*log10(0.4))
-   siglabel <- sig01$labelnames
-   tmpDat$color <- color
-#   
-   ggplot() +
-     geom_point(data=tmpDat, aes(x=TS, y=neglogQ, color=color), alpha=0.4, size=2) +
-     theme_bw() +
-     xlab("<TS>") + ylab("-log10 (Q-Value)") + ggtitle("")+
-     scale_color_manual(name="", values=c("black", "red"))+
-     geom_label_repel(data=sig01, aes(x=sig01$TS, y=sig01$neglogQ,label=siglabel), size=5)
+  getVolcanoPlot(TS=TS,Qvalue = TS.q,filename = rownames(TSr)[nline],path="")
  })
 }
 
