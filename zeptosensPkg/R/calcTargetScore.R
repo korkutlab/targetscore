@@ -2,7 +2,7 @@
 #'
 #' @param wk TBA
 #' @param wks TBA
-#' @param dist_ind TBA
+#' @param distInd TBA
 #' @param inter TBA
 #' @param nDose TBA
 #' @param nProt TBA
@@ -29,7 +29,8 @@
 #'
 #' @concept zeptosensPkg
 #' @export
-calcTargetScore <- function(wk, wks, dist_ind, inter, nDose, nProt, proteomicResponses, maxDist = 1, cellLine, verbose = TRUE,
+calcTargetScore <- function(wk, wks, distInd, inter, nDose, nProt, proteomicResponses, 
+                            maxDist = 1, cellLine, verbose = TRUE,
                             tsFactor = 1, fsFile, antibodyMapFile = NULL, distFile = NULL) {
   # LOAD & RANDOMIZE INTERNAL DATA ---- read function score
   # if(is.null(fsFile)) {
@@ -44,10 +45,15 @@ calcTargetScore <- function(wk, wks, dist_ind, inter, nDose, nProt, proteomicRes
   }
 
   # calculate TS for each dose
-  #    print(nDose)
-  tsd <- matrix(0, nrow = nDose, ncol = nProt, dimnames = list(rownames(proteomicResponses), colnames(proteomicResponses)))
-  tsp <- array(0:0, dim = c(nDose, nProt, nProt), dimnames = list(rownames(proteomicResponses), colnames(proteomicResponses), colnames(proteomicResponses)))
-  ts <- matrix(0, ncol = nProt, nrow = 1, dimnames = list("targetScore", colnames(proteomicResponses)))
+  # print(nDose)
+  tsd <- matrix(0, nrow = nDose, ncol = nProt, 
+                dimnames = list(rownames(proteomicResponses), 
+                                colnames(proteomicResponses)))
+  tsp <- array(0:0, dim = c(nDose, nProt, nProt), 
+               dimnames = list(rownames(proteomicResponses), 
+                               colnames(proteomicResponses), colnames(proteomicResponses)))
+  ts <- matrix(0, ncol = nProt, nrow = 1, 
+               dimnames = list("targetScore", colnames(proteomicResponses)))
 
   for (i in 1:nDose) {
     # downstream (target)
@@ -56,8 +62,8 @@ calcTargetScore <- function(wk, wks, dist_ind, inter, nDose, nProt, proteomicRes
       #            for (k in 1:nProt) {
       k <- as.numeric(inter[j, 1])
       l <- as.numeric(inter[j, 2])
-      #        tsp[i,k,j] <- tsFactor*(2^-(dist_ind[k, j])) * proteomicResponses[i, k] * wk[k, j]
-      tsp[i, k, l] <- tsFactor * (2^-(dist_ind[k, l])) * proteomicResponses[i, k] * wk[k, l]
+      #        tsp[i,k,j] <- tsFactor*(2^-(distInd[k, j])) * proteomicResponses[i, k] * wk[k, j]
+      tsp[i, k, l] <- tsFactor * (2^-(distInd[k, l])) * proteomicResponses[i, k] * wk[k, l]
 
       #            }
       #            tsd[i, j] <- fs[j, 2] * (proteomicResponses[i, j] + (tsp[i, j]))

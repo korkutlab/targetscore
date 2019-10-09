@@ -1,17 +1,19 @@
 #' Choose the optimal regulization parameter and scale paramter for prior information adjusted network construction.
 #'
-#' @param data input Global Signaling expression data frame(TCGA rppa Data for example). Gene in coloumns and samples in row. Wih colnames as gene tags and rownames as sample tags.
-#' @param prior Prior information data frame ,with colnames and rownames as gene tags.With colnames and rownames as gene tags. Can be inferred from predictBioNetwork or any network resources.
+#' @param data input Global Signaling expression data frame(TCGA rppa Data for example). 
+#' Gene in coloumns and samples in row. Wih colnames as gene tags and rownames as sample tags.
+#' @param prior Prior information data frame ,with colnames and rownames as gene tags. 
+#' With colnames and rownames as gene tags. Can be inferred from predictBioNetwork or any network resources.
 #' @param cut_off Manually set up cut off value for strength of edge. Default at 0.1.
 #' @param maxDist Maximun distance for the network. Default at 1.
 #' @param proteomicResponses RPPA data tested for drug pertubation.
 #' @param nProt number of Proteins contained in the data.
 #' @param antibodyMapFile TBA
-#' @return "parameters" as the Parameter list of regulization parameter decided by the prior information and the algorithmn lowest BIC.Including regularize parameter(L1 norm parameter) as "rho", scale parameter(decided how much prior information contribute) as "kappa", and regulization matrix for the expression data as "rho_m".
+#' @return "parameters" as the Parameter list of regulization parameter decided by the prior information and the algorithmn lowest BIC.Including regularize parameter(L1 norm parameter) as "rho", scale parameter(decided how much prior information contribute) as "kappa", and regulization matrix for the expression data as "rhoM".
 #' @return "bic"as the Model's BIC matrix for differnet regularization parameters.
 #' @return "wk" as the predicted network.
 #' @return "wks" TBA
-#' @return "dist_ind" TBA
+#' @return "distInd" TBA
 #' @return "inter" TBA
 #' @return "edgelist" as the edgelist for predicted network.
 #' @return "nedges" as the number of edges of the predicted network.
@@ -49,16 +51,16 @@ predictHybNetwork <- function(data, prior = NULL, cut_off = 0.1, proteomicRespon
   rho <- seq(0.01, 1, length = 100)
   bic <- matrix(NA, 100, 100)
   kappa <- rho
-  rho_m <- c()
-  g.result <- c()
-  U <- matrix(1, nrow(prior2), ncol(prior2))
-  p_off_d <- c()
+  rhoM <- c()
+  gResult <- c()
+  u <- matrix(1, nrow(prior2), ncol(prior2))
+  pOffD <- c()
   for (i in 1:100) {
     for (j in 1:i) {
-      rho_m <- rho[i] * U - kappa[j] * prior2
-      g.result <- glasso(Covmatrix, rho_m)
-      p_off_d <- sum(g.result$wi != 0 & col(Covmatrix) < row(Covmatrix))
-      bic[i, j] <- -2 * (g.result$loglik) + p_off_d * log(nrow(data))
+      rhoM <- rho[i] * u - kappa[j] * prior2
+      gResult <- glasso(Covmatrix, rhoM)
+      pOffD <- sum(gResult$wi != 0 & col(Covmatrix) < row(Covmatrix))
+      bic[i, j] <- -2 * (gResult$loglik) + pOffD * log(nrow(data))
       bic <- as.data.frame(bic)
       rownames(bic) <- rho
       colnames(bic) <- kappa
@@ -67,11 +69,11 @@ predictHybNetwork <- function(data, prior = NULL, cut_off = 0.1, proteomicRespon
   pos <- which(bic == min(bic, na.rm = TRUE), arr.ind = T)
   rho <- rho[pos[1]]
   kappa <- kappa[pos[2]]
-  rho_m <- rho * U - kappa * prior2
-  parameters <- list(rho_m = rho_m, rho = rho, kappa = kappa)
+  rhoM <- rho * u - kappa * prior2
+  parameters <- list(rhoM = rhoM, rho = rho, kappa = kappa)
 
   # Estimated inverse covariance (precision)
-  tmp <- glasso(Covmatrix, rho = rho_m)
+  tmp <- glasso(Covmatrix, rho = rhoM)
   sigma.matrix <- tmp$wi
   niter <- tmp$niter
   print(niter) # if niter = 10,000
@@ -129,17 +131,17 @@ predictHybNetwork <- function(data, prior = NULL, cut_off = 0.1, proteomicRespon
   part2 <- prior3[which(rownames(prior3) %in% index), colnames(prior) %in% index.extra]
   part3 <- prior3[which(rownames(prior3) %in% index.extra), which(colnames(prior) %in% index.extra)]
 
-  network.total <- cbind(rbind(network, part1), rbind(part2, part3))
-  index3 <- match(colnames(prior), colnames(network.total))
-  network.total <- network.total[index3, index3]
+  networkTotal <- cbind(rbind(network, part1), rbind(part2, part3))
+  index3 <- match(colnames(prior), colnames(networkTotal))
+  networkTotal <- networkTotal[index3, index3]
 
-  edgelist.total <- zeptosensPkg:::createSifFromMatrix(t.net = network.total, genelist = colnames(network.total))
+  edgelist.total <- zeptosensPkg:::createSifFromMatrix(t.net = networkTotal, genelist = colnames(networkTotal))
 
   # number of edges
-  nedges <- sum(network.total != 0)
+  nedges <- sum(networkTotal != 0)
 
   #
-  wk <- network.total
+  wk <- networkTotal
   networks <- zeptosensPkg:::network2(
     wk = wk, nProt = nProt,
     proteomicResponses = proteomicResponses,
@@ -147,13 +149,13 @@ predictHybNetwork <- function(data, prior = NULL, cut_off = 0.1, proteomicRespon
   )
   wk <- networks$wk
   wks <- networks$wks
-  dist_ind <- networks$dist_ind
+  distInd <- networks$distInd
   inter <- networks$inter
 
   # return result
   result <- list(
     parameters = parameters, nedges = nedges, inter = inter,
-    wk = wk, wks = wks, dist_ind = dist_ind, edgelist = edgelist.total,
+    wk = wk, wks = wks, distInd = distInd, edgelist = edgelist.total,
     bic = bic
   )
   return(result)

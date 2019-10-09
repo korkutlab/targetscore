@@ -4,7 +4,7 @@
 \alias{calcTargetScore}
 \title{Compute Target score for randomized data/compute P value for each TS given a network topology}
 \usage{
-calcTargetScore(wk, wks, dist_ind, inter, nDose, nProt, proteomicResponses,
+calcTargetScore(wk, wks, distInd, inter, nDose, nProt, proteomicResponses,
   maxDist = 1, cellLine, verbose = TRUE, tsFactor = 1, fsFile,
   antibodyMapFile = NULL, distFile = NULL)
 }
@@ -13,7 +13,7 @@ calcTargetScore(wk, wks, dist_ind, inter, nDose, nProt, proteomicResponses,
 
 \item{wks}{TBA}
 
-\item{dist_ind}{TBA}
+\item{distInd}{TBA}
 
 \item{inter}{TBA}
 
@@ -32,7 +32,7 @@ calcTargetScore(wk, wks, dist_ind, inter, nDose, nProt, proteomicResponses,
 \item{tsFactor}{a scaling factor for the pathway component in the target score}
 
 \item{fsFile}{Functional score file. A tab-delmited file with a header, each row is an
-antibody in the first column and functional score in the second column 
+antibody in the first column and functional score in the second column
 (i.e. 1 oncogene, 0 tumor supressor/oncogene, -1 tumor supressor characteristics)}
 
 \item{antibodyMapFile}{a listing of antibodies, their associated genes, and modification sites}

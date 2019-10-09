@@ -1,7 +1,8 @@
 #' predict data-driven only network.
 #'
-#' @param data input expression data frame. Gene in coloumns and samples in row. Wih colnames as gene tags and rownames as sample tags.
-#' @param cut_off Manually Setup cut off value for the strength of edge. Default at 0.1.
+#' @param data input expression data frame. Gene in coloumns and samples in row. 
+#' With colnames as gene tags and rownames as sample tags.
+#' @param cutOff Manually Setup cut off value for the strength of edge. Default at 0.1.
 #' @param nProt Number of proteins included in the drug perturbation data.
 #' @param proteomicResponses Drug Perturbation data for analysis.
 #' @param maxDist TBA (default: 1)
@@ -10,40 +11,40 @@
 #' optimizeParameter(data = GeneExpresssion, prior = Priorindormation)
 #' @concept zeptosensPkg
 #' @export
-predictDatNetwork <- function(data, cut_off = 0.1, nProt, proteomicResponses, maxDist = 1) {
-  Covmatrix <- cov(data)
+predictDatNetwork <- function(data, cutOff = 0.1, nProt, proteomicResponses, maxDist = 1) {
+  covmatrix <- cov(data)
 
   # optimize penalty parameter rho
   rho <- seq(0.01, 1, length = 100)
   bic <- rho
-  g.result <- c()
-  p_off_d <- c()
+  gResult <- NULL
+  pOffD <- NULL
   for (i in 1:100) {
-    g.result <- glasso(Covmatrix, rho[i])
-    p_off_d <- sum(g.result$wi != 0 & col(Covmatrix) < row(Covmatrix))
-    bic[i] <- -2 * (g.result$loglik) + p_off_d * log(nrow(data))
+    gResult <- glasso(covmatrix, rho[i])
+    pOffD <- sum(gResult$wi != 0 & col(covmatrix) < row(covmatrix))
+    bic[i] <- -2 * (gResult$loglik) + pOffD * log(nrow(data))
   }
   parameter <- rho[which.min(bic)]
 
   # Estimated inverse covariance (precision matrix)
-  tmp <- glasso(Covmatrix, rho = parameter)
-  sigma.matrix <- tmp$wi
+  tmp <- glasso(covmatrix, rho = parameter)
+  sigmaMatrix <- tmp$wi
   niter <- tmp$niter
   print(niter) # if niter = 10,000
   if (niter == 10000) {
     stop("ERROR: Algorithmn does not convergence!")
   }
-  pcor.matrix <- matrix(0, nrow = ncol(data), ncol = ncol(data))
+  pcorMatrix <- matrix(0, nrow = ncol(data), ncol = ncol(data))
   for (i in 1:ncol(data)) {
     for (j in 1:ncol(data)) {
-      pcor.matrix[i, j] <- -sigma.matrix[i, j] / sqrt(sigma.matrix[i, i] * sigma.matrix[j, j])
+      pcorMatrix[i, j] <- -sigmaMatrix[i, j] / sqrt(sigmaMatrix[i, i] * sigmaMatrix[j, j])
     }
   }
 
-  t.edges <- pcor.matrix
+  t.edges <- pcorMatrix
 
   # cut off small edge value edges
-  t.net <- as.data.frame(ifelse(abs(t.edges) >= cut_off & row(t.edges) != col(t.edges), t.edges, 0))
+  t.net <- as.data.frame(ifelse(abs(t.edges) >= cutOff & row(t.edges) != col(t.edges), t.edges, 0))
   colnames(t.net) <- colnames(data)
   rownames(t.net) <- colnames(data)
 
@@ -54,14 +55,16 @@ predictDatNetwork <- function(data, cut_off = 0.1, nProt, proteomicResponses, ma
   edgelist <- zeptosensPkg:::createSifFromMatrix(t.net = t.net, genelist = colnames(t.net))
 
   # network2 function into networkinfor
-  networkInferred <- zeptosensPkg:::network2(wk = t.net, nProt = nProt, proteomicResponses = proteomicResponses, maxDist = maxDist)
+  networkInferred <- zeptosensPkg:::network2(wk = t.net, nProt = nProt, 
+                                             proteomicResponses = proteomicResponses, 
+                                             maxDist = maxDist)
   wk <- networkInferred$wk
   wks <- networkInferred$wks
-  dist_ind <- networkInferred$dist_ind
+  distInd <- networkInferred$distInd
   inter <- networkInferred$inter
   result <- list(
     rho = rho, nedges = nedges, t.net = t.net, edgelist = edgelist, bic = bic,
-    wk = wk, wks = wks, dist_ind = dist_ind, inter = inter
+    wk = wk, wks = wks, distInd = distInd, inter = inter
   )
   return(result)
 }

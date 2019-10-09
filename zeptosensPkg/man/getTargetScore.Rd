@@ -4,7 +4,7 @@
 \alias{getTargetScore}
 \title{Target Score Pilot Run}
 \usage{
-getTargetScore(wk, wks, dist_ind, inter, nDose, nProt, proteomicResponses,
+getTargetScore(wk, wks, distInd, inter, nDose, nProt, proteomicResponses,
   maxDist = 1, nPerm, cellLine, targetScoreOutputFile = NULL,
   matrixWkOutputFile = NULL, targetScoreQValueFile = NULL,
   targetScoreDoseFile = NULL, randomTargetScoreFile = NULL,
@@ -16,7 +16,7 @@ getTargetScore(wk, wks, dist_ind, inter, nDose, nProt, proteomicResponses,
 
 \item{wks}{TBA}
 
-\item{dist_ind}{TBA}
+\item{distInd}{TBA}
 
 \item{inter}{TBA}
 

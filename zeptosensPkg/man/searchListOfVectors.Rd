@@ -27,6 +27,5 @@ lst <- list(1:3, 3:5, 3:7)
 q <- c(3, 5)
 results <- searchListOfVectors(q, lst)
 names(results) <- q
-
 }
 \concept{rcellminerUtils}

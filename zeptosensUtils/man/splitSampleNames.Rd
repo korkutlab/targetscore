@@ -15,7 +15,4 @@ data.frame a data.frame with the split sample names
 \description{
 Split Sample Names
 }
-\concept{
-zeptosens
-}
-
+\concept{zeptosens}

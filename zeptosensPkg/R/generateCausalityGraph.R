@@ -22,33 +22,39 @@
 #'   directory will be created in. Pass null to use default.
 #'
 #' @concept zeptosensPkg
+#' @importFrom rJava .jnew .jcheck 
 #' @export
-generateCausalityGraph <- function(platformFile, idColumn = "NodeName", symbolsColumn = "Symbol", sitesColumn = "Sites",
-                                   effectColumn = "Effect", valuesFile, valueColumn = "Value", valueThreshold, graphType = "compatible",
-                                   doSiteMatch = TRUE, siteMatchProximityThreshold = 0, siteEffectProximityThreshold = 0, geneCentric = TRUE,
-                                   colorSaturationValue = 10, outputFilePrefix, customNetworkDirectory = tempdir()) {
+generateCausalityGraph <- function(platformFile, idColumn = "NodeName", 
+                                   symbolsColumn = "Symbol", sitesColumn = "Sites",
+                                   effectColumn = "Effect", valuesFile, 
+                                   valueColumn = "Value", valueThreshold, 
+                                   graphType = "compatible",
+                                   doSiteMatch = TRUE, siteMatchProximityThreshold = 0,
+                                   siteEffectProximityThreshold = 0, geneCentric = TRUE,
+                                   colorSaturationValue = 10, outputFilePrefix, 
+                                   customNetworkDirectory = tempdir()) {
   command <- "generateCausalityGraph"
-  commandJStr <- .jnew("java/lang/String", command)
+  # commandJStr <- rJava::.jnew("java/lang/String", command)
 
-  platformFileJStr <- .jnew("java/lang/String", platformFile)
-  idColumnJStr <- .jnew("java/lang/String", idColumn)
-  symbolsColumnJStr <- .jnew("java/lang/String", symbolsColumn)
-  sitesColumnJStr <- .jnew("java/lang/String", sitesColumn)
-  effectColumnJStr <- .jnew("java/lang/String", effectColumn)
-  valuesFileJStr <- .jnew("java/lang/String", valuesFile)
-  valueColumnJStr <- .jnew("java/lang/String", valueColumn)
-  graphTypeJStr <- .jnew("java/lang/String", graphType)
-  outputFilePrefixJStr <- .jnew("java/lang/String", outputFilePrefix)
-  customNetworkDirectoryJStr <- .jnew("java/lang/String", customNetworkDirectory)
+  platformFileJStr <- rJava::.jnew("java/lang/String", platformFile)
+  idColumnJStr <- rJava::.jnew("java/lang/String", idColumn)
+  symbolsColumnJStr <- rJava::.jnew("java/lang/String", symbolsColumn)
+  sitesColumnJStr <- rJava::.jnew("java/lang/String", sitesColumn)
+  effectColumnJStr <- rJava::.jnew("java/lang/String", effectColumn)
+  valuesFileJStr <- rJava::.jnew("java/lang/String", valuesFile)
+  valueColumnJStr <- rJava::.jnew("java/lang/String", valueColumn)
+  graphTypeJStr <- rJava::.jnew("java/lang/String", graphType)
+  outputFilePrefixJStr <- rJava::.jnew("java/lang/String", outputFilePrefix)
+  customNetworkDirectoryJStr <- rJava::.jnew("java/lang/String", customNetworkDirectory)
 
-  .jcall(
+  rJava::.jcall(
     "org/panda/causalpath/run/CausalityAnalysisSingleMethodInterface", "V", command,
     platformFileJStr, idColumnJStr, symbolsColumnJStr, sitesColumnJStr, effectColumnJStr,
     valuesFileJStr, valueColumnJStr, valueThreshold, graphTypeJStr, doSiteMatch,
     as.integer(siteMatchProximityThreshold), as.integer(siteEffectProximityThreshold),
     geneCentric, colorSaturationValue, outputFilePrefixJStr, customNetworkDirectoryJStr
   )
-  .jcheck()
+  rJava::.jcheck()
 
   sifFile <- paste0(outputFilePrefix, ".sif")
   sifCols <- c("PARTICIPANT_A", "INTERACTION_TYPE", "PARTICIPANT_B", "URIS", "SITES")

@@ -4,8 +4,8 @@
 \alias{normalizeZeptosensData}
 \title{Normalize Zeptosens Data (#AK# Interrray normalization function )}
 \usage{
-normalizeZeptosensData(array1, array2, totalProteinLevels1, totalProteinLevels2,
-  controlProbeIndex, antibodyNum)
+normalizeZeptosensData(array1, array2, totalProteinLevels1,
+  totalProteinLevels2, controlProbeIndex, antibodyNum)
 }
 \arguments{
 \item{array1}{FIXME data frame, output readZeptosensExport}
@@ -26,7 +26,4 @@ Normalize Zeptosens Data (#AK# Interrray normalization function )
 \details{
 Normalize data using inter-array method
 }
-\concept{
-zeptosens
-}
-
+\concept{zeptosens}

@@ -14,25 +14,27 @@ network2 <- function(wk, nProt, proteomicResponses, maxDist, antibodyMapFile = N
     stop("ERROR: nProt is not equal to proteomicResponses column number")
   }
 
-  dist_ind <- matrix(Inf, ncol = nProt, nrow = nProt, dimnames = list(colnames(wk), colnames(wk))) # dist_ind(upstream,downstream)
+  # distInd(upstream,downstream)
+  distInd <- matrix(Inf, ncol = nProt, nrow = nProt, 
+                    dimnames = list(colnames(wk), colnames(wk))) 
   for (i in 1:nProt) {
     for (j in 1:nProt) {
       if (wk[i, j] != 0) {
-        dist_ind[i, j] <- 1
+        distInd[i, j] <- 1
       } else {
-        dist_ind[i, j] <- Inf
+        distInd[i, j] <- Inf
       }
     }
   }
 
 
-  write.table(dist_ind, file = "dist_ind.txt", quote = F)
+  write.table(distInd, file = "distInd.txt", quote = F)
   wk <- (wk / max(abs(wk))) * maxDist
   wks <- wk
 
   inter <- (which(wk != 0, arr.ind = T))
   print(inter)
-  networkInferred <- list(wk = wk, wks = wks, dist_ind = dist_ind, inter = inter)
+  networkInferred <- list(wk = wk, wks = wks, distInd = distInd, inter = inter)
 
   return(networkInferred)
 }

@@ -21,7 +21,4 @@ Normalize Zeptosens Data wrt unperturbed (or any other condition)
 \details{
 Normalize wrt ttl prt lvl
 }
-\concept{
-zeptosens
-}
-
+\concept{zeptosens}

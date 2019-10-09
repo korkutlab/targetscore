@@ -12,20 +12,20 @@ matchGenesToEdgelist(genes1, genes2 = NULL, annotEdgelist, antibodyVec,
 
 \item{genes2}{an optional vector if the source}
 
-\item{annotEdgelist}{a data.frame; the first two columns are interaction 
+\item{annotEdgelist}{a data.frame; the first two columns are interaction
 participants and the third column is an optional annotation}
 
-\item{antibodyVec}{a vector with the names of the antibodies (e.g. colnames(proteomicResponses)); 
+\item{antibodyVec}{a vector with the names of the antibodies (e.g. colnames(proteomicResponses));
 indicies returned from this function will be mapped to this vector}
 
-\item{useAnnot}{a boolean as to whether the optional annotation column values 
+\item{useAnnot}{a boolean as to whether the optional annotation column values
 in the annotEdgelist should outputted in the results}
 
 \item{verbose}{a boolean to show debugging information}
 }
 \value{
-a data.frame, columns 1-2 are indicies of the edgelist participants, 
-  column 3 is the annotation values for the edgelist, 4-5 the names of the 
+a data.frame, columns 1-2 are indicies of the edgelist participants,
+  column 3 is the annotation values for the edgelist, 4-5 the names of the
   edgelist participants
 }
 \description{

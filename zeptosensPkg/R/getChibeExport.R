@@ -1,7 +1,8 @@
 #' Generate ChiBE Export
 #'
 #' @param antibodies a vector of strings of antibody names
-#' @param antibodyMap a string, antibody map file name (default: NULL, if NULL then use zentosensPkg internal antibody map)
+#' @param antibodyMap a string, antibody map file name 
+#' (default: NULL, if NULL then use zentosensPkg internal antibody map)
 #' @param chibeFilename a string, the name of the file with gene/site information needed for ChiBE
 #'
 #' @concept zeptosensPkg

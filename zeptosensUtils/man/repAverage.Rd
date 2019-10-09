@@ -9,7 +9,7 @@ repAverage(array1)
 \arguments{
 \item{array1}{FIXME dataframe from readZeptosensExport}
 
-\item{average_rep}{}
+\item{averageRep}{FIXME}
 
 \item{controlProbeIndex}{row number that that contains the first control probe}
 
@@ -18,7 +18,4 @@ repAverage(array1)
 \description{
 average replicates Zeptosens Data
 }
-\concept{
-zeptosens
-}
-
+\concept{zeptosens}

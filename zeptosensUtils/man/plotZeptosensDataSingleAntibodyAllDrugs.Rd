@@ -32,7 +32,4 @@ plotZeptosensDataSingleAntibodyAllDrugs(normArray1, normArray2, antibodies,
 \description{
 Plot Zeptosens Data
 }
-\concept{
-zeptosens
-}
-
+\concept{zeptosens}

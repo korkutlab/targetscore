@@ -12,7 +12,4 @@ a data.frame with the built in antibody map
 \description{
 Get antibody map
 }
-\concept{
-zeptosens
-}
-
+\concept{zeptosens}

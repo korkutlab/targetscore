@@ -12,7 +12,8 @@ genChibeExport(antibodies, antibodyMapFilename = NULL,
 
 \item{chibeFilename}{a string, the name of the file with gene/site information needed for ChiBE}
 
-\item{antibodyMap}{a string, antibody map file name (default: NULL, if NULL then use zentosensPkg internal antibody map)}
+\item{antibodyMap}{a string, antibody map file name 
+(default: NULL, if NULL then use zentosensPkg internal antibody map)}
 }
 \description{
 Generate ChiBE Export

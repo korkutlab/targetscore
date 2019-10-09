@@ -12,13 +12,10 @@ convertIntermediateFormatToMatrix(arrayData, colsForRowNames)
 \item{colsForRowNames}{a vector of column numbers to be used for creating row names}
 }
 \value{
-a matrix with antibodies as the column names and row names using the user selected columns 
+a matrix with antibodies as the column names and row names using the user selected columns
   separated by underscores
 }
 \description{
 Convert Intermediate Format to Matrix
 }
-\concept{
-zeptosens
-}
-
+\concept{zeptosens}

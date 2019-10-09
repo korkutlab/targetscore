@@ -2,7 +2,7 @@
 #'
 #' @param wk TBA
 #' @param wks TBA
-#' @param dist_ind TBA
+#' @param distInd TBA
 #' @param inter TBA
 #' @param nDose TBA
 #' @param nProt TBA
@@ -30,16 +30,18 @@
 #'
 #' @concept zeptosensPkg
 #' @export
-getTargetScore <- function(wk, wks, dist_ind, inter, nDose, nProt, proteomicResponses, maxDist = 1, nPerm, cellLine, targetScoreOutputFile = NULL,
-                           matrixWkOutputFile = NULL, targetScoreQValueFile = NULL, targetScoreDoseFile = NULL,
-                           randomTargetScoreFile = NULL, targetScorePValueFile = NULL, verbose = TRUE, tsFactor = 1, fsFile,
-                           signedMatrixWkOutputFile = NULL) {
+getTargetScore <- function(wk, wks, distInd, inter, nDose, nProt, proteomicResponses, 
+                           maxDist = 1, nPerm, cellLine, targetScoreOutputFile = NULL,
+                           matrixWkOutputFile = NULL, targetScoreQValueFile = NULL, 
+                           targetScoreDoseFile = NULL, randomTargetScoreFile = NULL, 
+                           targetScorePValueFile = NULL, verbose = TRUE, tsFactor = 1, 
+                           fsFile, signedMatrixWkOutputFile = NULL) {
 
   # CALCULATE TARGET SCORE ----
   results <- calcTargetScore(
     wk = wk,
     wks = wks,
-    dist_ind = dist_ind,
+    distInd = distInd,
     inter = inter,
     nDose = nDose,
     nProt = nProt,
@@ -55,8 +57,11 @@ getTargetScore <- function(wk, wks, dist_ind, inter, nDose, nProt, proteomicResp
   tsd <- results$tsd
   wks <- results$wks
 
-  randTs <- matrix(0, nrow = nProt, ncol = nPerm) # random TS for each node over n permutations comes from randTargetScore.R
-  pts <- matrix(0, ncol = 1, nrow = nProt) # p value for a given target score computed over the distribution from randTS
+  # random TS for each node over n permutations comes from randTargetScore.R
+  randTs <- matrix(0, nrow = nProt, ncol = nPerm) 
+  
+  # p value for a given target score computed over the distribution from randTS
+  pts <- matrix(0, ncol = 1, nrow = nProt) 
 
   # CREATE Q-VALUES ----
   for (k in 1:nPerm) {
@@ -74,7 +79,7 @@ getTargetScore <- function(wk, wks, dist_ind, inter, nDose, nProt, proteomicResp
     randTs[, k] <- calcTargetScore(
       wk = wk,
       wks = wks,
-      dist_ind = dist_ind,
+      distInd = distInd,
       inter = inter,
       nDose = nDose,
       nProt = nProt,

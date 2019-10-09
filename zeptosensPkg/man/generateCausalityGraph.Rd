@@ -37,7 +37,7 @@ generateCausalityGraph(platformFile, idColumn = "NodeName",
 site number in the relation to match the site whose change is observed in the data (DEFAULT: 0)}
 
 \item{siteEffectProximityThreshold}{when the site effect is not known, we can approximate it with the known
-effect of proximate sites. This parameter sets the proximity threshold for using the proximate sites for that 
+effect of proximate sites. This parameter sets the proximity threshold for using the proximate sites for that
 prediction. (DEFAULT: 0)}
 
 \item{geneCentric}{A boolean option to produce a gene-centric (TRUE) or an antibody-centric (FALSE) graph}

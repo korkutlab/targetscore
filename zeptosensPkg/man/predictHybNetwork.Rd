@@ -4,11 +4,11 @@
 \alias{predictHybNetwork}
 \title{Choose the optimal regulization parameter and scale paramter for prior information adjusted network construction.}
 \usage{
-predictHybNetwork(data, prior, cut_off = 0.1, proteomicResponses, nProt,
-  maxDist = 1)
+predictHybNetwork(data, prior = NULL, cut_off = 0.1,
+  proteomicResponses, nProt, maxDist = 1, antibodyMapFile)
 }
 \arguments{
-\item{data}{input expression data frame. Gene in coloumns and samples in row. Wih colnames as gene tags and rownames as sample tags.}
+\item{data}{input Global Signaling expression data frame(TCGA rppa Data for example). Gene in coloumns and samples in row. Wih colnames as gene tags and rownames as sample tags.}
 
 \item{prior}{Prior information data frame ,with colnames and rownames as gene tags.With colnames and rownames as gene tags. Can be inferred from predictBioNetwork or any network resources.}
 
@@ -19,6 +19,8 @@ predictHybNetwork(data, prior, cut_off = 0.1, proteomicResponses, nProt,
 \item{nProt}{number of Proteins contained in the data.}
 
 \item{maxDist}{Maximun distance for the network. Default at 1.}
+
+\item{antibodyMapFile}{TBA}
 }
 \value{
 "parameters" as the Parameter list of regulization parameter decided by the prior information and the algorithmn lowest BIC.Including regularize parameter(L1 norm parameter) as "rho", scale parameter(decided how much prior information contribute) as "kappa", and regulization matrix for the expression data as "rho_m".
@@ -41,6 +43,6 @@ predictHybNetwork(data, prior, cut_off = 0.1, proteomicResponses, nProt,
 Choose the optimal regulization parameter and scale paramter for prior information adjusted network construction.
 }
 \examples{
-predictHybNetwork(data=GeneExpresssion,prior=Priorinformation,proteomicResponses=proteomicResponses,nProt=nProt)
+predictHybNetwork(data = GeneExpresssion, prior = Priorinformation, proteomicResponses = proteomicResponses, nProt = nProt)
 }
 \concept{zeptosensPkg}

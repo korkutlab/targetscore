@@ -4,16 +4,17 @@
 \alias{totalProteinNormalization}
 \title{Normalize Zeptosens Data wrt ttl protein level}
 \usage{
-totalProteinNormalization(Array1, totalProteinLevels1, nSamples, antibodyNum)
+totalProteinNormalization(array1, totalProteinLevels1, nSamples,
+  antibodyNum)
 }
 \arguments{
+\item{array1}{dataframe from readZeptosensExport function}
+
 \item{totalProteinLevels1}{total protein levels for array 1 (use read.xlsx2 format)}
 
 \item{nSamples}{samples/Ab}
 
 \item{antibodyNum}{number of antibodies on array}
-
-\item{array1}{dataframe from readZeptosensExport function}
 }
 \description{
 Normalize Zeptosens Data wrt ttl protein level
@@ -21,7 +22,4 @@ Normalize Zeptosens Data wrt ttl protein level
 \details{
 Normalize wrt ttl prt lvl
 }
-\concept{
-zeptosens
-}
-
+\concept{zeptosens}

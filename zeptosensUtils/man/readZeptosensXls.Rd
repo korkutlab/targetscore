@@ -15,7 +15,4 @@ a data.frame where columns have been classified as 'character' or 'numeric'
 \description{
 Reads the Zeptosens File (.xls) into a Data.Frame
 }
-\concept{
-zeptosens
-}
-
+\concept{zeptosens}

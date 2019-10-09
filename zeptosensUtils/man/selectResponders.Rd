@@ -19,7 +19,4 @@ FIXME
 \description{
 Peak selection
 }
-\concept{
-zeptosens
-}
-
+\concept{zeptosens}

@@ -8,7 +8,8 @@ runCrossValidation(data, prior, boot.time = 1000, cut.off = 0.1,
   fold = 5)
 }
 \arguments{
-\item{data}{input expression data. Coloumns as the gene, rows as the sample.With colnames as the gene tags, rownames as the sample tags.}
+\item{data}{input expression data. Coloumns as the gene, rows as the sample.With 
+colnames as the gene tags, rownames as the sample tags.}
 
 \item{prior}{prior information matrix with colnames and rownames as the gene tags.}
 

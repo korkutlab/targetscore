@@ -16,6 +16,6 @@ Parameter of regulization decided lowest BIC.Including regularize parameter(L1 n
 Choose the optimal regulization parameter for only data-driven network.
 }
 \examples{
-optimizeParameter(data=GeneExpresssion,prior=Priorindormation)
+optimizeParameter(data = GeneExpresssion, prior = Priorindormation)
 }
 \concept{zeptosensPkg}

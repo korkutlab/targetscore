@@ -1,90 +1,89 @@
-#' Read Zeptosens Export File 
-#' 
+#' Read Zeptosens Export File
+#'
 #' @param data Zeptosens data read in by readZeptosensXls
 #' @param sampleNameEntries FIXME, chracter string, perturbation conditions, #cell line etc (sampleNameEntries <- c('sNumber','sample', 'treatment', NA,'time',NA,NA,NA))#
-#' 
-#' @details 
-#' 
+#'
+#' @details
+#'
 #' Format: sNumber_sample_treatment_dose_time_replicate_date_notes
-#' 
-#' @examples 
-#' tmp <- readZeptosensExport(tmp, c('sNumber', NA, NA, 'sample', 'treatment', 'time', 'replicate'))
-#' 
+#'
+#' @examples
+#' tmp <- readZeptosensExport(tmp, c("sNumber", NA, NA, "sample", "treatment", "time", "replicate"))
 #' @concept zeptosens
 #' @export
 readZeptosensExport <- function(data, sampleNameEntries = NULL) {
-    message("NOTE: Sample Name in *_RFI_Export_Table.xls is assumed to be in the format sNumber_sample_treatment_dose_time_replicate_date_notes. Use 'sampleNameEntries' parameter to modify as described in documentation.")
-    
-    splitSampleNames <- splitSampleNames(data[, "Sample.Name"], sampleNameEntries)
-    
-    df <- NULL
-    
-    allCols <- c("sNumber", "sample", "treatment", "dose", "time", "replicate", "date", 
-        "notes", "antibody", "readout", "cv", "quality")
-    
-    for (i in 1:nrow(data)) {
-        tmpRow <- NULL
-        
-        for (col in allCols) {
-            if (col == "sNumber") {
-                tmpRow <- c(tmpRow, sNumber = splitSampleNames[i, col])
-            }
-            
-            if (col == "sample") {
-                tmpRow <- c(tmpRow, sample = splitSampleNames[i, col])
-            }
-            
-            if (col == "treatment") {
-                
-                tmpRow <- c(tmpRow, treatment = splitSampleNames[i, col])
-            }
-            
-            if (col == "dose") {
-                tmpRow <- c(tmpRow, dose = splitSampleNames[i, col])
-            }
-            
-            if (col == "time") {
-                
-                tmpRow <- c(tmpRow, time = splitSampleNames[i, col])
-            }
-            
-            if (col == "replicate") {
-                tmpRow <- c(tmpRow, replicate = splitSampleNames[i, col])
-            }
-            
-            if (col == "notes") {
-                tmpRow <- c(tmpRow, notes = splitSampleNames[i, col])
-            }
-            
-            if (col == "antibody") {
-                tmpRow <- c(tmpRow, antibody = data[i, "Analyte"])
-            }
-            
-            if (col == "readout") {
-                tmpRow <- c(tmpRow, readout = data[i, "RFI"])
-            }
-            
-            if (col == "cv") {
-                tmpRow <- c(tmpRow, cv = data[i, "RFI.CV"])
-            }
-            
-            if (col == "quality") {
-                tmpRow <- c(tmpRow, quality = data[i, "Class."])
-            }
-        }
-        
-        df <- rbind(df, tmpRow)
+  message("NOTE: Sample Name in *_RFI_Export_Table.xls is assumed to be in the format sNumber_sample_treatment_dose_time_replicate_date_notes. Use 'sampleNameEntries' parameter to modify as described in documentation.")
+
+  splitSampleNames <- splitSampleNames(data[, "Sample.Name"], sampleNameEntries)
+
+  df <- NULL
+
+  allCols <- c(
+    "sNumber", "sample", "treatment", "dose", "time", "replicate", "date",
+    "notes", "antibody", "readout", "cv", "quality"
+  )
+
+  for (i in 1:nrow(data)) {
+    tmpRow <- NULL
+
+    for (col in allCols) {
+      if (col == "sNumber") {
+        tmpRow <- c(tmpRow, sNumber = splitSampleNames[i, col])
+      }
+
+      if (col == "sample") {
+        tmpRow <- c(tmpRow, sample = splitSampleNames[i, col])
+      }
+
+      if (col == "treatment") {
+        tmpRow <- c(tmpRow, treatment = splitSampleNames[i, col])
+      }
+
+      if (col == "dose") {
+        tmpRow <- c(tmpRow, dose = splitSampleNames[i, col])
+      }
+
+      if (col == "time") {
+        tmpRow <- c(tmpRow, time = splitSampleNames[i, col])
+      }
+
+      if (col == "replicate") {
+        tmpRow <- c(tmpRow, replicate = splitSampleNames[i, col])
+      }
+
+      if (col == "notes") {
+        tmpRow <- c(tmpRow, notes = splitSampleNames[i, col])
+      }
+
+      if (col == "antibody") {
+        tmpRow <- c(tmpRow, antibody = data[i, "Analyte"])
+      }
+
+      if (col == "readout") {
+        tmpRow <- c(tmpRow, readout = data[i, "RFI"])
+      }
+
+      if (col == "cv") {
+        tmpRow <- c(tmpRow, cv = data[i, "RFI.CV"])
+      }
+
+      if (col == "quality") {
+        tmpRow <- c(tmpRow, quality = data[i, "Class."])
+      }
     }
-    
-    df <- as.data.frame(df, stringsAsFactors = FALSE)
-    
-    # Convert appropriate columns to numeric
-    numCols <- c("readout", "cv")
-    df[numCols] <- sapply(df[numCols], as.numeric)
-    
-    rownames(df) <- 1:nrow(df)
-    
-    return(df)
+
+    df <- rbind(df, tmpRow)
+  }
+
+  df <- as.data.frame(df, stringsAsFactors = FALSE)
+
+  # Convert appropriate columns to numeric
+  numCols <- c("readout", "cv")
+  df[numCols] <- sapply(df[numCols], as.numeric)
+
+  rownames(df) <- 1:nrow(df)
+
+  return(df)
 }
 
 # #' Read Zeptosens Export File #' #' @param inputFile TBA #' @param
@@ -119,7 +118,7 @@ readZeptosensExport <- function(data, sampleNameEntries = NULL) {
 # postTranslationModification activityState normal <- read.table('cellmix.txt')
 # for (i in 1:length(data[,1])) { if(data[i, 5] == 'Poor') { data[i, 3] = 0
 # data[i, 4] = 0 } } data.matrix <- as.matrix(data) annot.matrix <-
-# as.matrix(annot) datar <- array(dim=c(nab*ncond*ntime,7)) for(ab in 1:nab){ for
+# as.matrix(annot) datar <- array(dim=c(nab*ncond*ntime,7)) for(ab in 1:nab) { for
 # (k in 1:ct) { # print(k) datar[ct*(ab-1)+k,1]=data.matrix[ctr*(ab-1)+k,2]
 # datar[ct*(ab-1)+k,2]=annot.matrix[ab,1] datar[ct*(ab-1)+k,3]=annot.matrix[ab,2]
 # datar[ct*(ab-1)+k,4]=annot.matrix[ab,3] datar[ct*(ab-1)+k,5]=annot.matrix[ab,4]
@@ -137,4 +136,4 @@ readZeptosensExport <- function(data, sampleNameEntries = NULL) {
 # 1',ylab='replicate 2') title(main=paste('a2058 replicates \nCC=',cc))
 # dev.off() pdf('replicates_2.pdf') plot(g_datar[,6],g_datar[,7],xlab='replicate
 # 1',ylab='replicate 2',xlim=c(0,2),ylim=c(0,2)) title(main=paste('a2058
-# replicates\nCC=',cc)) dev.off() rm(list=ls()) } 
+# replicates\nCC=',cc)) dev.off() rm(list=ls()) }

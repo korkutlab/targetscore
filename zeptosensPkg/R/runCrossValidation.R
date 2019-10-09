@@ -1,13 +1,15 @@
 #' Run Cross validation for data through the chosen algorithm.
 #'
-#' @param data input expression data. Coloumns as the gene, rows as the sample.With colnames as the gene tags, rownames as the sample tags.
+#' @param data input expression data. Coloumns as the gene, rows as the sample.With 
+#' colnames as the gene tags, rownames as the sample tags.
 #' @param prior prior information matrix with colnames and rownames as the gene tags.
-#' @param boot.time Bootstrap time mannually set.Default at 1000.
+#' @param bootTime Bootstrap time mannually set.Default at 1000.
 #' @param fold The fold for training and test dataset. Default at 5.
 #' @return result of validation score. for random network and the network predicted with the algorithm.
+#' 
 #' @concept zeptosensPkg
 #' @export
-runCrossValidation <- function(data, prior, boot.time = 1000, cut.off = 0.1, fold = 5) {
+runCrossValidation <- function(data, prior, bootTime = 1000, cutOff = 0.1, fold = 5) {
   index <- colnames(prior[, which(colnames(prior) %in% colnames(data))]) # match the data
 
   data <- data[, index]
@@ -29,32 +31,32 @@ runCrossValidation <- function(data, prior, boot.time = 1000, cut.off = 0.1, fol
   # network construction
 
   # network construction(start here)
-  score1.tp <- array(0, dim = c(boot.time, 1))
-  score1.fp <- array(0, dim = c(boot.time, 1))
-  score1.fn <- array(0, dim = c(boot.time, 1))
-  score1.tn <- array(0, dim = c(boot.time, 1))
+  score1.tp <- array(0, dim = c(bootTime, 1))
+  score1.fp <- array(0, dim = c(bootTime, 1))
+  score1.fn <- array(0, dim = c(bootTime, 1))
+  score1.tn <- array(0, dim = c(bootTime, 1))
 
-  score2.tp <- array(0, dim = c(boot.time, 1))
-  score2.fp <- array(0, dim = c(boot.time, 1))
-  score2.fn <- array(0, dim = c(boot.time, 1))
-  score2.tn <- array(0, dim = c(boot.time, 1))
+  score2.tp <- array(0, dim = c(bootTime, 1))
+  score2.fp <- array(0, dim = c(bootTime, 1))
+  score2.fn <- array(0, dim = c(bootTime, 1))
+  score2.tn <- array(0, dim = c(bootTime, 1))
 
-  score3.tp <- array(0, dim = c(boot.time, 1))
-  score3.fp <- array(0, dim = c(boot.time, 1))
-  score3.fn <- array(0, dim = c(boot.time, 1))
-  score3.tn <- array(0, dim = c(boot.time, 1))
+  score3.tp <- array(0, dim = c(bootTime, 1))
+  score3.fp <- array(0, dim = c(bootTime, 1))
+  score3.fn <- array(0, dim = c(bootTime, 1))
+  score3.tn <- array(0, dim = c(bootTime, 1))
 
-  scorer.tp <- array(0, dim = c(boot.time, 1))
-  scorer.fp <- array(0, dim = c(boot.time, 1))
-  scorer.fn <- array(0, dim = c(boot.time, 1))
-  scorer.tn <- array(0, dim = c(boot.time, 1))
+  scorer.tp <- array(0, dim = c(bootTime, 1))
+  scorer.fp <- array(0, dim = c(bootTime, 1))
+  scorer.fn <- array(0, dim = c(bootTime, 1))
+  scorer.tn <- array(0, dim = c(bootTime, 1))
 
-  n_edges1 <- array(0, dim = c(boot.time, 1))
-  n_edges2 <- array(0, dim = c(boot.time, 1))
-  n_edges3 <- array(0, dim = c(boot.time, 1))
-  n_edgesr <- array(0, dim = c(boot.time, 1))
+  n_edges1 <- array(0, dim = c(bootTime, 1))
+  n_edges2 <- array(0, dim = c(bootTime, 1))
+  n_edges3 <- array(0, dim = c(bootTime, 1))
+  n_edgesr <- array(0, dim = c(bootTime, 1))
   # loop start here
-  for (r in 1:boot.time) {
+  for (r in 1:bootTime) {
 
     # Split the data into two parts
     valid_n <- sample(1:nrow(data), (1 / fold) * nrow(data), replace = F) # default fold=5
@@ -63,7 +65,9 @@ runCrossValidation <- function(data, prior, boot.time = 1000, cut.off = 0.1, fol
 
     # get the parameters for regulization from training data(glasso-with prior)
     pc <- cov(train_data)
-    rho <- seq(0.01, 1, length = 100) # range of rho should be (0,1) but according to save the time,set to (0,0.1) as tested
+    
+    # range of rho should be (0,1) but according to save the time,set to (0,0.1) as tested
+    rho <- seq(0.01, 1, length = 100) 
     bic <- matrix(NA, 100, 100)
     kappa <- rho
     rho_m <- c()
@@ -188,12 +192,14 @@ runCrossValidation <- function(data, prior, boot.time = 1000, cut.off = 0.1, fol
     n0_edges1[r] <- sum(t.net.rhoadjusted.d == 0)
     n0_edges2[r] <- sum(t.net.rhoadjusted2 == 0)
     n0_edges3[r] <- sum(t.net.rho == 0)
-    n0_edgesr[r] <- sum(t.net.r == 0)
+    n0Edgesr[r] <- sum(t.net.r == 0)
 
     # validation data network generation
     # get the parameters for regulization from valid data (glasso-with prior)
     pc <- cov(valid_data)
-    rho <- seq(0.01, 1, length = 100) # range of rho should be (0,1) but according to save the time,set to (0,0.1) as tested
+    
+    # range of rho should be (0,1) but according to save the time,set to (0,0.1) as tested
+    rho <- seq(0.01, 1, length = 100)
     bic <- matrix(NA, 100, 100)
     kappa <- rho
     rho_m <- c()
@@ -423,38 +429,39 @@ runCrossValidation <- function(data, prior, boot.time = 1000, cut.off = 0.1, fol
   }
   # loop end here,write out the result here with no overlap
   # true positive
-  score1.p <- mean(score1.tp / n_edges1)
-  score.b.1 <- score1.fn / n_edges1
+  score1P <- mean(score1.tp / n_edges1)
+  scoreB.1 <- score1.fn / n_edges1
   # false negative
   score1.f <- mean(score1.fn / n0_edges1)
   score0.b.1 <- score1.fn / n0_edges1
 
   # true positive
-  score2.p <- mean(score2.tp / n_edges2)
-  score.b.2 <- score2.tp / n_edges2
+  score2P <- mean(score2.tp / n_edges2)
+  scoreB.2 <- score2.tp / n_edges2
   # false negative
   score2.f <- mean(score2.fn / n0_edges2)
   score0.b.2 <- score1.fn / n0_edges2
 
   # true positive
   score3.p <- mean(score3.tp / n_edges3)
-  score.b.3 <- score3.tp / n_edges3
+  scoreB.3 <- score3.tp / n_edges3
   # false negative
   score3.f <- mean(score1.fn / n0_edges3)
   score0.b.3 <- score1.fn / n0_edges3
 
   # true positive
   scorer.p <- mean(scorer.tp / n_edgesr)
-  score.b.r <- scorer.tp / n_edgesr
+  scoreB.r <- scorer.tp / n_edgesr
   # false negative
-  scorer.f <- mean(scorer.fn / n0_edgesr)
-  score0.b.r <- scorer.fn / n0_edgesr
+  scorer.f <- mean(scorer.fn / n0Edgesr)
+  score0.b.r <- scorer.fn / n0Edgesr
 
   result <- list(
-    score1.p = score1.p, score.b.1 = score.b.1, score1.f = score1.f, score0.b.1 = score0.b.1,
-    score2.p = score2.p, score.b.2 = score.b.2, score2.f = score2.f, score0.b.2 = score0.b.2,
-    score3.p = score3.p, score.b.3 = score.b.3, score3.f = score3.f, score0.b.3 = score0.b.3,
-    scorer.p = scorer.p, score.b.r = score.b.r, scorer.f = scorer.f, score0.b.r = score0.b.r
+    score1P = score1P, scoreB.1 = scoreB.1, score1.f = score1.f, score0.b.1 = score0.b.1,
+    score2P = score2P, scoreB.2 = scoreB.2, score2.f = score2.f, score0.b.2 = score0.b.2,
+    score3.p = score3.p, scoreB.3 = scoreB.3, score3.f = score3.f, score0.b.3 = score0.b.3,
+    scorer.p = scorer.p, scoreB.r = scoreB.r, scorer.f = scorer.f, score0.b.r = score0.b.r
   )
+  
   return(result)
 }

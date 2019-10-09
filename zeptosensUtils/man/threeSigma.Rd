@@ -23,7 +23,4 @@ FIXME
 \description{
 Peak selection w/ 6 sigma of base
 }
-\concept{
-zeptosens
-}
-
+\concept{zeptosens}

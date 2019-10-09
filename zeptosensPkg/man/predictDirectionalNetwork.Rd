@@ -7,16 +7,19 @@
 predictDirectionalNetwork(data, prior, rho, kappa, cut.off)
 }
 \arguments{
-\item{data}{input expression data. Coloumns as the gene, rows as the sample.With colnames as the gene tags, rownames as the sample tags.}
+\item{data}{input expression data. Coloumns as the gene, rows as the sample. 
+With colnames as the gene tags, rownames as the sample tags.}
 
-\item{prior}{prior information matrix with colnames and rownames as the gene tags. Can extracted from predictBioNetwork function or inferred from any resources.}
+\item{prior}{prior information matrix with colnames and rownames as the gene tags. 
+Can extracted from predictBioNetwork function or inferred from any resources.}
 
 \item{rho}{regulization parameter}
 
 \item{kappa}{scaler parameter}
 }
 \value{
-estimated.network include list of estimated directional partial correlation gene network rho as the regulization parametwe and kappa as the scaler parameter.
+estimated.network include list of estimated directional partial correlation 
+gene network rho as the regulization parametwe and kappa as the scaler parameter.
 }
 \description{
 Predicted Directional GeneNetwork

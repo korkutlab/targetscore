@@ -16,7 +16,7 @@ sampSdev <- function(nSample, nProt, nDose, nX) {
   sSdev <- array(0:0, dim = c(nDose, nProt))
   sSdev2 <- array(0:0, dim = c(nProt))
 
-  #    for (i in 1:nSample){
+  #    for (i in 1:nSample) {
 
   for (j in 1:nProt) {
     for (k in 1:nDose) {
@@ -24,7 +24,7 @@ sampSdev <- function(nSample, nProt, nDose, nX) {
     }
   }
   #    }
-  #    for (i in 1:nSample*nDose){
+  #    for (i in 1:nSample*nDose) {
 
   for (j in 1:nProt) {
     sSdev2[j] <- sd(nX[1:(nSample * nDose), j])
