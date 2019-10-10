@@ -1,4 +1,4 @@
-#' Choose the optimal regulization parameter and scale paramter for prior information adjusted network construction.
+#' Choose the optimal regulization parameter and scale paramter for adjusted-glasso algorithm network construction.
 #'
 #' @param data input expression data frame. Gene in coloumns and samples in row. 
 #' With colnames as gene tags and rownames as sample tags.
