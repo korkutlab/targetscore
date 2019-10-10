@@ -11,7 +11,7 @@
 #'
 #' @concept zeptosensPkg
 #' @export
-predictBioNetwork <- function(nProt, proteomicResponses, maxDist, 
+predictBioNetwork <- function(nProt, proteomicResponses, maxDist,
                               antibodyMapFile = NULL, distFile = NULL, verbose = F) {
 
   # match Ab names to gene names & posttranslational modifications
@@ -80,10 +80,12 @@ predictBioNetwork <- function(nProt, proteomicResponses, maxDist,
   # distList[is.na(distList[, 1]), 3] <- 100
   # distList[is.na(distList[, 2]), 3] <- 100
   # distList[, 1]
-  
+
   # distInd(upstream,downstream)
-  distInd <- matrix(Inf, ncol = nProt, nrow = nProt, 
-                     dimnames = list(colnames(proteomicResponses), colnames(proteomicResponses))) 
+  distInd <- matrix(Inf,
+    ncol = nProt, nrow = nProt,
+    dimnames = list(colnames(proteomicResponses), colnames(proteomicResponses))
+  )
 
   for (i in 1:length(distList[, 1])) {
     distInd[distList[i, 1], distList[i, 2]] <- distList[i, 3]
@@ -112,10 +114,12 @@ predictBioNetwork <- function(nProt, proteomicResponses, maxDist,
 
   #    results <- downloadSignedPC(forceCache=TRUE)
   #    results <- read.table(file="results_network1.txt",header=T)
-  results <- read.table(system.file("extdata", "filteredSignedPc.txt", 
-                                    package = "zeptosensPkg"), 
-                        sep = "\t", 
-                        header = TRUE, fill = TRUE)
+  results <- read.table(system.file("extdata", "filteredSignedPc.txt",
+    package = "zeptosensPkg"
+  ),
+  sep = "\t",
+  header = TRUE, fill = TRUE
+  )
   #    write.table(results, file="results_network1.txt",quote=F)
   dephosp <- paxtoolsr:::filterSif(results, interactionTypes = "dephosphorylates")
   phosp <- paxtoolsr:::filterSif(results, interactionTypes = "phosphorylates")
@@ -133,10 +137,14 @@ predictBioNetwork <- function(nProt, proteomicResponses, maxDist,
   # mabToGenes_c <- mabToGenes[which(mabToGenes$Effect == "c"), ]
 
   # define wk
-  wk <- matrix(0, ncol = nProt, nrow = nProt, 
-               dimnames = list(colnames(proteomicResponses), colnames(proteomicResponses))) 
-  wks <- matrix(0, ncol = nProt, nrow = nProt, 
-                dimnames = list(colnames(proteomicResponses), colnames(proteomicResponses))) 
+  wk <- matrix(0,
+    ncol = nProt, nrow = nProt,
+    dimnames = list(colnames(proteomicResponses), colnames(proteomicResponses))
+  )
+  wks <- matrix(0,
+    ncol = nProt, nrow = nProt,
+    dimnames = list(colnames(proteomicResponses), colnames(proteomicResponses))
+  )
 
   # upregulation expression, wk=1
   # upexpGene1 <- pmatch(upexp[, 1], mabToGenes_c[measured_genes, 4], duplicates.ok = TRUE)

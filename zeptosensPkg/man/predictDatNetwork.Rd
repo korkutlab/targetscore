@@ -8,7 +8,8 @@ predictDatNetwork(data, cutOff = 0.1, nProt, proteomicResponses,
   maxDist = 1)
 }
 \arguments{
-\item{data}{input expression data frame. Gene in coloumns and samples in row. Wih colnames as gene tags and rownames as sample tags.}
+\item{data}{input expression data frame. Gene in coloumns and samples in row.
+With colnames as gene tags and rownames as sample tags.}
 
 \item{cutOff}{Manually Setup cut off value for the strength of edge. Default at 0.1.}
 

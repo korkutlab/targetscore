@@ -2,9 +2,9 @@
 #'
 #' @param nProt number of proteins tested within the data.
 #' @param proteomicResponses Proteomic responses as drug pertubation.
-#' @param antibodyMapFile a listing of antibodies, their associated genes, 
+#' @param antibodyMapFile a listing of antibodies, their associated genes,
 #' and modification sites
-#' @param fsValueFile a listing of functional scores for each gene manually set up 
+#' @param fsValueFile a listing of functional scores for each gene manually set up
 #' for overriding COSMIC Database given value, the modification path. (.txt)
 #' @param verbose Default as FALSE. If given TRUE, will print out the gene seq mapped with Antibody Map File.
 #' @examples
@@ -45,8 +45,9 @@ getFsVals <- function(nProt, proteomicResponses, antibodyMapFile = NULL, fsValue
   mabValue <- mabToGenes[idxAbMap, 6]
   mabFS <- ifelse(mabValue == "a", 1, ifelse(mabValue == "i", -1, ifelse(mabValue == "c", 1, 0)))
 
-  cancerRole <- read.table(system.file("extdata", "Cosmic.txt", package = "zeptosensPkg"), 
-                           sep = "\t", header = TRUE, fill = TRUE)
+  cancerRole <- read.table(system.file("extdata", "Cosmic.txt", package = "zeptosensPkg"),
+    sep = "\t", header = TRUE, fill = TRUE
+  )
   cosFS <- cancerRole[mabGenes, ]$fs
 
   fsValue <- mabFS * cosFS

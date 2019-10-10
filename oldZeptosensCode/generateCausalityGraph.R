@@ -22,16 +22,16 @@
 #'   directory will be created in. Pass null to use default.
 #'
 #' @concept zeptosensPkg
-#' @importFrom rJava .jnew .jcheck 
+#' @importFrom rJava .jnew .jcheck
 #' @export
-generateCausalityGraph <- function(platformFile, idColumn = "NodeName", 
+generateCausalityGraph <- function(platformFile, idColumn = "NodeName",
                                    symbolsColumn = "Symbol", sitesColumn = "Sites",
-                                   effectColumn = "Effect", valuesFile, 
-                                   valueColumn = "Value", valueThreshold, 
+                                   effectColumn = "Effect", valuesFile,
+                                   valueColumn = "Value", valueThreshold,
                                    graphType = "compatible",
                                    doSiteMatch = TRUE, siteMatchProximityThreshold = 0,
                                    siteEffectProximityThreshold = 0, geneCentric = TRUE,
-                                   colorSaturationValue = 10, outputFilePrefix, 
+                                   colorSaturationValue = 10, outputFilePrefix,
                                    customNetworkDirectory = tempdir()) {
   command <- "generateCausalityGraph"
   # commandJStr <- rJava::.jnew("java/lang/String", command)

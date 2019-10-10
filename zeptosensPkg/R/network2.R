@@ -15,8 +15,10 @@ network2 <- function(wk, nProt, proteomicResponses, maxDist, antibodyMapFile = N
   }
 
   # distInd(upstream,downstream)
-  distInd <- matrix(Inf, ncol = nProt, nrow = nProt, 
-                    dimnames = list(colnames(wk), colnames(wk))) 
+  distInd <- matrix(Inf,
+    ncol = nProt, nrow = nProt,
+    dimnames = list(colnames(wk), colnames(wk))
+  )
   for (i in 1:nProt) {
     for (j in 1:nProt) {
       if (wk[i, j] != 0) {

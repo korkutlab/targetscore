@@ -3,7 +3,7 @@
 #' @param results generateCausalityGraph() results; list with sif and format data.frames
 #'
 #' @return an igraph object
-#' 
+#'
 #' @importFrom paxtoolsr loadSifInIgraph
 #' @importFrom igraph V E ends set_vertex_attr
 #' @concept zeptosensPkg
@@ -23,8 +23,8 @@ parseCausalityToIgraph <- function(results) {
   # g <- set_vertex_attr(g, "label", index = V(g), value=V(g)$name)
 
   # Get node colors
-  formatTmp <- subset(results$format, componentProperty == "color" & 
-                      componentType == "node", select = c(componentLabel, rgbColor))
+  formatTmp <- subset(results$format, componentProperty == "color" &
+    componentType == "node", select = c(componentLabel, rgbColor))
 
   nodeColors <- NULL
 
@@ -45,7 +45,7 @@ parseCausalityToIgraph <- function(results) {
   }
 
   # Get edge colors
-  # formatTmp <- subset(results$format, componentProperty == "color" & 
+  # formatTmp <- subset(results$format, componentProperty == "color" &
   # componentType == "edge", select = c(componentLabel, rgbColor))
 
   edgeColors <- NULL

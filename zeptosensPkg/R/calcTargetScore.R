@@ -29,7 +29,7 @@
 #'
 #' @concept zeptosensPkg
 #' @export
-calcTargetScore <- function(wk, wks, distInd, inter, nDose, nProt, proteomicResponses, 
+calcTargetScore <- function(wk, wks, distInd, inter, nDose, nProt, proteomicResponses,
                             maxDist = 1, cellLine, verbose = TRUE,
                             tsFactor = 1, fsFile, antibodyMapFile = NULL, distFile = NULL) {
   # LOAD & RANDOMIZE INTERNAL DATA ---- read function score
@@ -37,23 +37,33 @@ calcTargetScore <- function(wk, wks, distInd, inter, nDose, nProt, proteomicResp
   #     fsFile <- system.file("targetScoreData", "fs.txt", package = "zeptosensPkg")
   # }
 
-  #fs <- read.table(fsFile, header = TRUE, stringsAsFactors = FALSE, sep = "\t")
-  fs<-fsFile
-  
+  # fs <- read.table(fsFile, header = TRUE, stringsAsFactors = FALSE, sep = "\t")
+  fs <- fsFile
+
   if (verbose) {
     print(fs)
   }
 
   # calculate TS for each dose
   # print(nDose)
-  tsd <- matrix(0, nrow = nDose, ncol = nProt, 
-                dimnames = list(rownames(proteomicResponses), 
-                                colnames(proteomicResponses)))
-  tsp <- array(0:0, dim = c(nDose, nProt, nProt), 
-               dimnames = list(rownames(proteomicResponses), 
-                               colnames(proteomicResponses), colnames(proteomicResponses)))
-  ts <- matrix(0, ncol = nProt, nrow = 1, 
-               dimnames = list("targetScore", colnames(proteomicResponses)))
+  tsd <- matrix(0,
+    nrow = nDose, ncol = nProt,
+    dimnames = list(
+      rownames(proteomicResponses),
+      colnames(proteomicResponses)
+    )
+  )
+  tsp <- array(0:0,
+    dim = c(nDose, nProt, nProt),
+    dimnames = list(
+      rownames(proteomicResponses),
+      colnames(proteomicResponses), colnames(proteomicResponses)
+    )
+  )
+  ts <- matrix(0,
+    ncol = nProt, nrow = 1,
+    dimnames = list("targetScore", colnames(proteomicResponses))
+  )
 
   for (i in 1:nDose) {
     # downstream (target)

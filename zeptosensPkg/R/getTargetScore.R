@@ -30,11 +30,11 @@
 #'
 #' @concept zeptosensPkg
 #' @export
-getTargetScore <- function(wk, wks, distInd, inter, nDose, nProt, proteomicResponses, 
+getTargetScore <- function(wk, wks, distInd, inter, nDose, nProt, proteomicResponses,
                            maxDist = 1, nPerm, cellLine, targetScoreOutputFile = NULL,
-                           matrixWkOutputFile = NULL, targetScoreQValueFile = NULL, 
-                           targetScoreDoseFile = NULL, randomTargetScoreFile = NULL, 
-                           targetScorePValueFile = NULL, verbose = TRUE, tsFactor = 1, 
+                           matrixWkOutputFile = NULL, targetScoreQValueFile = NULL,
+                           targetScoreDoseFile = NULL, randomTargetScoreFile = NULL,
+                           targetScorePValueFile = NULL, verbose = TRUE, tsFactor = 1,
                            fsFile, signedMatrixWkOutputFile = NULL) {
 
   # CALCULATE TARGET SCORE ----
@@ -58,10 +58,10 @@ getTargetScore <- function(wk, wks, distInd, inter, nDose, nProt, proteomicRespo
   wks <- results$wks
 
   # random TS for each node over n permutations comes from randTargetScore.R
-  randTs <- matrix(0, nrow = nProt, ncol = nPerm) 
-  
+  randTs <- matrix(0, nrow = nProt, ncol = nPerm)
+
   # p value for a given target score computed over the distribution from randTS
-  pts <- matrix(0, ncol = 1, nrow = nProt) 
+  pts <- matrix(0, ncol = 1, nrow = nProt)
 
   # CREATE Q-VALUES ----
   for (k in 1:nPerm) {

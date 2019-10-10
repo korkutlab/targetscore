@@ -7,10 +7,12 @@
 optimizeParameter2(data)
 }
 \arguments{
-\item{data}{input expression data frame. Gene in coloumns and samples in row. Wih colnames as gene tags and rownames as sample tags.}
+\item{data}{input expression data frame. Gene in coloumns and samples in row.
+With colnames as gene tags and rownames as sample tags.}
 }
 \value{
-Parameter of regulization decided lowest BIC.Including regularize parameter(L1 norm parameter) as rho.
+Parameter of regulization decided lowest BIC.Including regularize parameter
+(L1 norm parameter) as rho.
 }
 \description{
 Choose the optimal regulization parameter for only data-driven network.

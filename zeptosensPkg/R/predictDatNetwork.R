@@ -1,6 +1,6 @@
 #' predict data-driven only network.
 #'
-#' @param data input expression data frame. Gene in coloumns and samples in row. 
+#' @param data input expression data frame. Gene in coloumns and samples in row.
 #' With colnames as gene tags and rownames as sample tags.
 #' @param cutOff Manually Setup cut off value for the strength of edge. Default at 0.1.
 #' @param nProt Number of proteins included in the drug perturbation data.
@@ -55,9 +55,11 @@ predictDatNetwork <- function(data, cutOff = 0.1, nProt, proteomicResponses, max
   edgelist <- zeptosensPkg:::createSifFromMatrix(t.net = t.net, genelist = colnames(t.net))
 
   # network2 function into networkinfor
-  networkInferred <- zeptosensPkg:::network2(wk = t.net, nProt = nProt, 
-                                             proteomicResponses = proteomicResponses, 
-                                             maxDist = maxDist)
+  networkInferred <- zeptosensPkg:::network2(
+    wk = t.net, nProt = nProt,
+    proteomicResponses = proteomicResponses,
+    maxDist = maxDist
+  )
   wk <- networkInferred$wk
   wks <- networkInferred$wks
   distInd <- networkInferred$distInd

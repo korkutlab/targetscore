@@ -1,12 +1,12 @@
 #' Choose the optimal regulization parameter and scale paramter for adjusted-glasso algorithm network construction.
 #'
-#' @param data input expression data frame. Gene in coloumns and samples in row. 
+#' @param data input expression data frame. Gene in coloumns and samples in row.
 #' With colnames as gene tags and rownames as sample tags.
-#' @param prior Prior information data frame ,with colnames and rownames as gene tags. 
+#' @param prior Prior information data frame ,with colnames and rownames as gene tags.
 #' With colnames and rownames as gene tags.
 #' @return Parameter list of regulization parameter decided by the prior information and the algorithmn lowest BIC.
-#' Including regularize parameter(L1 norm parameter) as rho, scale parameter 
-#' (decided how much prior information contribute) as kappa, and regulization matrix 
+#' Including regularize parameter(L1 norm parameter) as rho, scale parameter
+#' (decided how much prior information contribute) as kappa, and regulization matrix
 #' for the expression data and Model's BIC matrix for differnet regularization parameters.
 #' @concept zeptosensPkg
 #' @export

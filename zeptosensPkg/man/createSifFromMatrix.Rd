@@ -12,7 +12,7 @@ createSifFromMatrix(tNet, genelist)
 \item{genelist}{gene name list corresponding to the Gaussian gene Network estimated.}
 }
 \value{
-edgelist description data.frame contain G(V,E) including Vertex and Edges 
+edgelist description data.frame contain G(V,E) including Vertex and Edges
 (1 positive/-1 negative) edgevalue and vertex number of Gaussian Graphical Model.
 }
 \description{

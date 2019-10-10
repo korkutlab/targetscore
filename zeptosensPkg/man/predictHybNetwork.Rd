@@ -8,9 +8,11 @@ predictHybNetwork(data, prior = NULL, cut_off = 0.1,
   proteomicResponses, nProt, maxDist = 1, antibodyMapFile)
 }
 \arguments{
-\item{data}{input Global Signaling expression data frame(TCGA rppa Data for example). Gene in coloumns and samples in row. Wih colnames as gene tags and rownames as sample tags.}
+\item{data}{input Global Signaling expression data frame(TCGA rppa Data for example).
+Gene in coloumns and samples in row. Wih colnames as gene tags and rownames as sample tags.}
 
-\item{prior}{Prior information data frame ,with colnames and rownames as gene tags.With colnames and rownames as gene tags. Can be inferred from predictBioNetwork or any network resources.}
+\item{prior}{Prior information data frame ,with colnames and rownames as gene tags.
+With colnames and rownames as gene tags. Can be inferred from predictBioNetwork or any network resources.}
 
 \item{cut_off}{Manually set up cut off value for strength of edge. Default at 0.1.}
 
@@ -23,7 +25,7 @@ predictHybNetwork(data, prior = NULL, cut_off = 0.1,
 \item{antibodyMapFile}{TBA}
 }
 \value{
-"parameters" as the Parameter list of regulization parameter decided by the prior information and the algorithmn lowest BIC.Including regularize parameter(L1 norm parameter) as "rho", scale parameter(decided how much prior information contribute) as "kappa", and regulization matrix for the expression data as "rho_m".
+"parameters" as the Parameter list of regulization parameter decided by the prior information and the algorithmn lowest BIC.Including regularize parameter(L1 norm parameter) as "rho", scale parameter(decided how much prior information contribute) as "kappa", and regulization matrix for the expression data as "rhoM".
 
 "bic"as the Model's BIC matrix for differnet regularization parameters.
 
@@ -31,7 +33,7 @@ predictHybNetwork(data, prior = NULL, cut_off = 0.1,
 
 "wks" TBA
 
-"dist_ind" TBA
+"distInd" TBA
 
 "inter" TBA
 

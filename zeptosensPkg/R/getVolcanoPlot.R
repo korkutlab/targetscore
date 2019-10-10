@@ -1,8 +1,8 @@
-#' Plot volcano plot of Target Score Result. 
-#' As Significant Proteins (p value< Defalut or Manually set value) will show in red. 
+#' Plot volcano plot of Target Score Result.
+#' As Significant Proteins (p value< Defalut or Manually set value) will show in red.
 #' The inverse log 10 of Target Score q value and Target Score calculated were shown.
 #'
-#' @param ts input Target Score calculated for each protein data frame. 
+#' @param ts input Target Score calculated for each protein data frame.
 #' Gene in coloumns and samples in row. Wih colnames as gene tags and rownames as sample tags.
 #' @param qValue input Target Score q value calculated for each protein data frame.
 #' Gene in coloumns and samples in row. Wih colnames as gene tags and rownames as sample tags.

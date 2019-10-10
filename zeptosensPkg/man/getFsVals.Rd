@@ -12,11 +12,13 @@ getFsVals(nProt, proteomicResponses, antibodyMapFile = NULL,
 
 \item{proteomicResponses}{Proteomic responses as drug pertubation.}
 
-\item{antibodyMapFile}{a listing of antibodies, their associated genes, and modification sites}
+\item{antibodyMapFile}{a listing of antibodies, their associated genes,
+and modification sites}
 
-\item{fsValueFile}{a listing of functional scores for each gene Manually set up for overriding Cosmic Database given value, the modification path. (.txt)}
+\item{fsValueFile}{a listing of functional scores for each gene manually set up
+for overriding COSMIC Database given value, the modification path. (.txt)}
 
-\item{verbose}{Defult as Fault.If given True, will print out the gene seq mapped with Antibody Map File.}
+\item{verbose}{Default as FALSE. If given TRUE, will print out the gene seq mapped with Antibody Map File.}
 }
 \description{
 Extracted functional score value from COMIC/ONCODRIVE Database. Can be override with Manually set functional score.

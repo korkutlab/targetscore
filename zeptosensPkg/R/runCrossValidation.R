@@ -1,12 +1,12 @@
 #' Run Cross validation for data through the chosen algorithm.
 #'
-#' @param data input expression data. Coloumns as the gene, rows as the sample.With 
+#' @param data input expression data. Coloumns as the gene, rows as the sample.With
 #' colnames as the gene tags, rownames as the sample tags.
 #' @param prior prior information matrix with colnames and rownames as the gene tags.
 #' @param bootTime Bootstrap time mannually set.Default at 1000.
 #' @param fold The fold for training and test dataset. Default at 5.
 #' @return result of validation score. for random network and the network predicted with the algorithm.
-#' 
+#'
 #' @concept zeptosensPkg
 #' @export
 runCrossValidation <- function(data, prior, bootTime = 1000, cutOff = 0.1, fold = 5) {
@@ -65,9 +65,9 @@ runCrossValidation <- function(data, prior, bootTime = 1000, cutOff = 0.1, fold 
 
     # get the parameters for regulization from training data(glasso-with prior)
     pc <- cov(train_data)
-    
+
     # range of rho should be (0,1) but according to save the time,set to (0,0.1) as tested
-    rho <- seq(0.01, 1, length = 100) 
+    rho <- seq(0.01, 1, length = 100)
     bic <- matrix(NA, 100, 100)
     kappa <- rho
     rho_m <- c()
@@ -197,7 +197,7 @@ runCrossValidation <- function(data, prior, bootTime = 1000, cutOff = 0.1, fold 
     # validation data network generation
     # get the parameters for regulization from valid data (glasso-with prior)
     pc <- cov(valid_data)
-    
+
     # range of rho should be (0,1) but according to save the time,set to (0,0.1) as tested
     rho <- seq(0.01, 1, length = 100)
     bic <- matrix(NA, 100, 100)
@@ -462,6 +462,6 @@ runCrossValidation <- function(data, prior, bootTime = 1000, cutOff = 0.1, fold 
     score3.p = score3.p, scoreB.3 = scoreB.3, score3.f = score3.f, score0.b.3 = score0.b.3,
     scorer.p = scorer.p, scoreB.r = scoreB.r, scorer.f = scorer.f, score0.b.r = score0.b.r
   )
-  
+
   return(result)
 }
