@@ -14,5 +14,5 @@ linters: with_defaults(
   trailing_whitespace_linter=NULL,
   T_and_F_symbol_linter=NULL,
   undesirable_function_linter=NULL,
-  object_name_linter("camelCase"),
+  object_name_linter("snake_case"),
   cyclocomp_linter=NULL)
