@@ -9,7 +9,6 @@ Description: A statistical pathway analysis method that 1) reveals pathways invo
 License: LGPL-3
 LazyData: false
 Imports: 
-    paxtoolsr (>= 1.4.3),
     glasso,
     GeneNet,
     ggplot2,
