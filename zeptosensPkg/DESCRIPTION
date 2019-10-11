@@ -1,11 +1,11 @@
 Package: zeptosensPkg
 Type: Package
 Title: zeptosensPkg
-Version: 0.99.4
+Version: 0.99.5
 Date: 2019-10-10
 Author: Augustin Luna, Anil Korkut
 Maintainer: Augustin Luna <lunaa@cbio.mskcc.org>
-Description: TODO
+Description: A statistical pathway analysis method that 1) reveals pathways involved in drug activity and adaptive resistance and 2) nominates combination therapies to down regulate the resistance pathways. 
 License: LGPL-3
 LazyData: false
 Imports: 

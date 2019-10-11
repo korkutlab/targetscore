@@ -6,8 +6,6 @@
 #' @return Parameter of regulization decided lowest BIC. Including regularize parameter
 #' (L1 norm parameter) as rho.
 #'
-#' @examples
-#' optimizeParameter(data = GeneExpresssion, prior = Priorindormation)
 #' @importFrom glasso glasso
 #'
 #' @concept zeptosensPkg

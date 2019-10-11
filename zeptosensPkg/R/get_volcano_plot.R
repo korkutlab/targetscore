@@ -12,8 +12,6 @@
 #'
 #' @return volcano Plots with indicated filename and path.
 #'
-#' @examples
-#' optimizeParameter(data = GeneExpresssion, prior = Priorindormation)
 #' @importFrom ggplot2 ggsave ggplot aes xlab theme_bw ggtitle xlab ylab geom_point scale_color_manual
 #' @importFrom ggrepel geom_label_repel
 #' @importFrom utils write.csv

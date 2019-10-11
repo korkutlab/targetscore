@@ -40,7 +40,7 @@ get_target_score <- function(wk, wks, dist_ind, inter, n_dose, n_prot, proteomic
                              fs_file, signed_matrix_wk_output_file = NULL) {
 
   # CALCULATE TARGET SCORE ----
-  results <- calcTargetScore(
+  results <- calc_target_score(
     wk = wk,
     wks = wks,
     dist_ind = dist_ind,
@@ -78,7 +78,7 @@ get_target_score <- function(wk, wks, dist_ind, inter, n_dose, n_prot, proteomic
     # (proteomic_responses[,j])
     for (i in 1:nrow(rand_proteomic_responses)) rand_proteomic_responses[i, ] <- sample(proteomic_responses[i, ])
 
-    rand_ts[, k] <- calcTargetScore(
+    rand_ts[, k] <- calc_target_score(
       wk = wk,
       wks = wks,
       dist_ind = dist_ind,

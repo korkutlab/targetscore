@@ -1,17 +1,20 @@
 #' Network for adjusted-glasso
+#'
 #' @param wk The upload network constructed In matrix form.
 #' @param n_prot number of proteins tested.
 #' @param proteomic_responses TODO
+#' @param max_dist TODO
+#' @param antibody_map_file TODO
 #' @param dist_file A distance file an edgelist with a third column which is the network distance
 #'   between the genes in the interaction
+#' @param verbose logical, whether to show additional debugging information
 #'
 #' @importFrom utils write.table
 #'
 #' @concept zeptosensPkg
 #' @export
-network2 <- function(wk, n_prot, proteomic_responses, max_dist, antibody_map_file = NULL, 
+network2 <- function(wk, n_prot, proteomic_responses, max_dist, antibody_map_file = NULL,
                      dist_file = NULL, verbose = FALSE) {
-  
   if (n_prot != ncol(proteomic_responses)) {
     stop("ERROR: n_prot is not equal to proteomic_responses column number")
   }

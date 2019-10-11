@@ -14,8 +14,14 @@ network2(wk, n_prot, proteomic_responses, max_dist,
 
 \item{proteomic_responses}{TODO}
 
+\item{max_dist}{TODO}
+
+\item{antibody_map_file}{TODO}
+
 \item{dist_file}{A distance file an edgelist with a third column which is the network distance
 between the genes in the interaction}
+
+\item{verbose}{logical, whether to show additional debugging information}
 }
 \description{
 Network for adjusted-glasso

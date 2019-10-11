@@ -9,8 +9,6 @@
 #'
 #' @return Parameter of regulization decided lowest BIC.Including regularize parameter(L1 norm parameter) as rho.
 #'
-#' @examples
-#' optimizeParameter(data = GeneExpresssion, prior = Priorindormation)
 #' @importFrom glasso glasso
 #'
 #' @concept zeptosensPkg
@@ -56,7 +54,7 @@ predict_dat_network <- function(data, cut_off = 0.1, n_prot, proteomic_responses
   nedges <- sum(t_net != 0)
 
   # Network to edgelist
-  edgelist <- zeptosensPkg::createSifFromMatrix(t_net = t_net, genelist = colnames(t_net))
+  edgelist <- zeptosensPkg::create_sif_from_matrix(t_net = t_net, genelist = colnames(t_net))
 
   # network2 function into networkinfor
   network_inferred <- zeptosensPkg::network2(

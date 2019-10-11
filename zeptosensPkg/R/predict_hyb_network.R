@@ -1,32 +1,28 @@
 #' Choose the optimal regulization parameter and scale paramter for prior information adjusted network construction.
 #'
 #' @param data input Global Signaling expression data frame(TCGA rppa Data for example).
-#' Gene in coloumns and samples in row. Wih colnames as gene tags and rownames as sample tags.
+#' Gene in coloumns and samples in row. With colnames as gene tags and rownames as sample tags.
 #' @param prior Prior information data frame ,with colnames and rownames as gene tags.
-#' With colnames and rownames as gene tags. Can be inferred from predictBioNetwork or any network resources.
+#' With colnames and rownames as gene tags. Can be inferred from predict_bio_network() or any network resources.
 #' @param cut_off Manually set up cut off value for strength of edge. Default at 0.1.
 #' @param max_dist Maximun distance for the network. Default at 1.
 #' @param proteomic_responses RPPA data tested for drug pertubation.
 #' @param n_prot number of Proteins contained in the data.
 #' @param antibody_map_file TODO
 #'
-#' @return "parameters" as the Parameter list of regulization parameter decided by the prior information
-#' and the algorithmn lowest BIC.Including regularize parameter(L1 norm parameter) as "rho", scale parameter
+#' @return a list is returned with the following entries:
+#' * "parameters" as the parameter list of regulization parameter decided by the prior information
+#' and the algorithmn lowest BIC. Including regularize parameter(L1 norm parameter) as "rho", scale parameter
 #' (decided how much prior information contribute) as "kappa", and regulization matrix for the expression
 #' data as "rho_m".
-#' @return "bic"as the Model's BIC matrix for differnet regularization parameters.
-#' @return "wk" as the predicted network.
-#' @return "wks" TODO
-#' @return "dist_ind" TODO
-#' @return "inter" TODO
-#' @return "edgelist" as the edgelist for predicted network.
-#' @return "nedges" as the number of edges of the predicted network.
+#' * "bic"as the Model's BIC matrix for differnet regularization parameters.
+#' * "wk" as the predicted network.
+#' * "wks" TODO
+#' * "dist_ind" TODO
+#' * "inter" TODO
+#' * "edgelist" as the edgelist for predicted network.
+#' * "nedges" as the number of edges of the predicted network.
 #'
-#' @examples
-#' predictHybNetwork(
-#'   data = GeneExpresssion, prior = Priorinformation,
-#'   proteomic_responses = proteomic_responses, n_prot = n_prot
-#' )
 #' @importFrom glasso glasso
 #' @importFrom stats cov median na.omit
 #'
@@ -35,7 +31,7 @@
 predict_hyb_network <- function(data, prior = NULL, cut_off = 0.1, proteomic_responses, n_prot,
                                 max_dist = 1, antibody_map_file) {
   if (is.null(prior)) {
-    tmp <- zeptosensPkg::predictBioNetwork(
+    tmp <- zeptosensPkg::predict_bio_network(
       n_prot = 304,
       proteomic_responses = proteomic_responses,
       max_dist = 1,
@@ -153,7 +149,7 @@ predict_hyb_network <- function(data, prior = NULL, cut_off = 0.1, proteomic_res
   index3 <- match(colnames(prior), colnames(network_total))
   network_total <- network_total[index3, index3]
 
-  edgelist_total <- zeptosensPkg::createSifFromMatrix(t_net = network_total, genelist = colnames(network_total))
+  edgelist_total <- zeptosensPkg::create_sif_from_matrix(t_net = network_total, genelist = colnames(network_total))
 
   # number of edges
   nedges <- sum(network_total != 0)
