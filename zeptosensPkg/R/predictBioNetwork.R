@@ -1,104 +1,105 @@
 #' Predict Network from signedPC (Bio-inferred network)
 #'
-#' @param nProt TBA
-#' @param proteomicResponses TBA
-#' @param maxDist TBA (default: 1)
-#' @param antibodyMapFile a listing of antibodies, their associated genes, and modification sites
-#' @param distFile A distance file an edgelist with a third column which is the network distance
+#' @param n_prot TODO
+#' @param proteomic_responses TODO
+#' @param max_dist TODO (default: 1)
+#' @param antibody_map_file a listing of antibodies, their associated genes, and modification sites
+#' @param dist_file A distance file an edgelist with a third column which is the network distance
 #'   between the genes in the interaction
+#' @param verbose whether to show debugging information
 #'
-#' @examples
-#'
+#' @importFrom utils write.table
+#' 
 #' @concept zeptosensPkg
 #' @export
-predictBioNetwork <- function(nProt, proteomicResponses, maxDist,
-                              antibodyMapFile = NULL, distFile = NULL, verbose = F) {
+predictBioNetwork <- function(n_prot, proteomic_responses, max_dist,
+                              antibody_map_file = NULL, dist_file = NULL, verbose = FALSE) {
 
   # match Ab names to gene names & posttranslational modifications
-  if (is.null(antibodyMapFile)) {
-    antibodyMapFile <- system.file("targetScoreData", "antibodyMap.txt", package = "zeptosensPkg")
+  if (is.null(antibody_map_file)) {
+    antibody_map_file <- system.file("targetScoreData", "antibodyMap.txt", package = "zeptosensPkg")
   }
-  mabToGenes <- antibodyMapFile
+  mab_to_genes <- antibody_map_file
 
   if (verbose) {
-    print(mabToGenes)
+    print(mab_to_genes)
   }
 
   # pathway distance matrix
-  if (is.null(distFile)) {
-    distFile <- system.file("targetScoreData", "distances.txt", package = "zeptosensPkg")
+  if (is.null(dist_file)) {
+    dist_file <- system.file("targetScoreData", "distances.txt", package = "zeptosensPkg")
   }
 
-  tmpDist <- read.table(distFile, sep = "\t", header = TRUE, stringsAsFactors = FALSE)
+  tmp_dist <- read.table(dist_file, sep = "\t", header = TRUE, stringsAsFactors = FALSE)
 
-  if (nProt != ncol(proteomicResponses)) {
-    stop("ERROR: nProt is not equal to proteomicResponses column number")
+  if (n_prot != ncol(proteomic_responses)) {
+    stop("ERROR: n_prot is not equal to proteomic_responses column number")
   }
 
-  # Filter dist to only keep those with a distance less than maxDist
-  idx <- which(tmpDist[, 3] <= maxDist)
-  dist <- tmpDist[idx, ]
+  # Filter dist to only keep those with a distance less than max_dist
+  idx <- which(tmp_dist[, 3] <= max_dist)
+  dist <- tmp_dist[idx, ]
   # dist
-  idxAbMap <- which(mabToGenes[, 1] %in% colnames(proteomicResponses))
-  #    print(mabToGenes[, 1])
-  #    print(colnames(proteomicResponses))
-  #    print(unique(mabToGenes[idxAbMap,]))
-  #    if(length(idxAbMap) < nProt) {
-  #    print(length(unique(mabToGenes[idxAbMap,1])))
-  if (length(idxAbMap) < nProt) {
-    #        print(length(idxAbMap))
+  idx_ab_map <- which(mab_to_genes[, 1] %in% colnames(proteomic_responses))
+  #    print(mab_to_genes[, 1])
+  #    print(colnames(proteomic_responses))
+  #    print(unique(mab_to_genes[idx_ab_map,]))
+  #    if(length(idx_ab_map) < n_prot) {
+  #    print(length(unique(mab_to_genes[idx_ab_map,1])))
+  if (length(idx_ab_map) < n_prot) {
+    #        print(length(idx_ab_map))
     stop("ERROR: Not all columns in data were matched in antibody map")
   }
-  #    print((unique(mabToGenes[idxAbMap, 1])))
-  if (length(unique(mabToGenes[idxAbMap, 1])) != nProt) {
-    print(unique(mabToGenes[idxAbMap, 1]))
+  #    print((unique(mab_to_genes[idx_ab_map, 1])))
+  if (length(unique(mab_to_genes[idx_ab_map, 1])) != n_prot) {
+    print(unique(mab_to_genes[idx_ab_map, 1]))
     stop("ERROR: Mismatch in the number of selected antibodies and the number of proteomic responses")
   }
 
   # Used by matchGenesToEdgelist to account for the cases where multiple entries for the same antibody
   # exist in the antibody map
-  antibodyMapSubset <- mabToGenes[idxAbMap, ]
+  # antibody_map_subset <- mab_to_genes[idx_ab_map, ]
 
-  mabGenes <- mabToGenes[idxAbMap, 4]
-  names(mabGenes) <- mabToGenes[idxAbMap, 1]
+  mab_genes <- mab_to_genes[idx_ab_map, 4]
+  names(mab_genes) <- mab_to_genes[idx_ab_map, 1]
 
-  distList <- matchGenesToEdgelist(
-    genes1 = mabGenes, genes2 = NULL, annotEdgelist = dist,
-    antibodyVec = colnames(proteomicResponses), useAnnot = TRUE, verbose = TRUE
+  dist_list <- matchGenesToEdgelist(
+    genes1 = mab_genes, genes2 = NULL, annot_edgelist = dist,
+    antibody_vec = colnames(proteomic_responses), use_annot = TRUE, verbose = TRUE
   )
 
 
   # # Get interactions for measured genes
-  # dist_gene1 <- pmatch(dist[, 1], mabToGenes[measured_genes, 4], duplicates.ok = TRUE)
-  # dist_gene1Name <- mabToGenes[measured_genes, 4][dist_gene1]
-  # dist_gene2 <- pmatch(dist[, 2], mabToGenes[measured_genes, 4], duplicates.ok = TRUE)
-  # dist_gene2Name <- mabToGenes[measured_genes, 4][dist_gene2]
+  # dist_gene1 <- pmatch(dist[, 1], mab_to_genes[measured_genes, 4], duplicates.ok = TRUE)
+  # dist_gene1Name <- mab_to_genes[measured_genes, 4][dist_gene1]
+  # dist_gene2 <- pmatch(dist[, 2], mab_to_genes[measured_genes, 4], duplicates.ok = TRUE)
+  # dist_gene2Name <- mab_to_genes[measured_genes, 4][dist_gene2]
   #
   # # distance framework
-  # distList <- data.frame(dist_gene1=dist_gene1, dist_gene2=dist_gene2, dist=dist[, 3],
+  # dist_list <- data.frame(dist_gene1=dist_gene1, dist_gene2=dist_gene2, dist=dist[, 3],
   #                         dist_gene1Name=dist_gene1Name, dist_gene2Name=dist_gene2Name, stringsAsFactors = FALSE)
-  # distList[is.na(distList[, 1]), 3] <- 100
-  # distList[is.na(distList[, 2]), 3] <- 100
-  # distList[, 1]
+  # dist_list[is.na(dist_list[, 1]), 3] <- 100
+  # dist_list[is.na(dist_list[, 2]), 3] <- 100
+  # dist_list[, 1]
 
-  # distInd(upstream,downstream)
-  distInd <- matrix(Inf,
-    ncol = nProt, nrow = nProt,
-    dimnames = list(colnames(proteomicResponses), colnames(proteomicResponses))
+  # dist_ind(upstream,downstream)
+  dist_ind <- matrix(Inf,
+    ncol = n_prot, nrow = n_prot,
+    dimnames = list(colnames(proteomic_responses), colnames(proteomic_responses))
   )
 
-  for (i in 1:length(distList[, 1])) {
-    distInd[distList[i, 1], distList[i, 2]] <- distList[i, 3]
+  for (i in 1:length(dist_list[, 1])) {
+    dist_ind[dist_list[i, 1], dist_list[i, 2]] <- dist_list[i, 3]
 
-    if (distInd[distList[i, 1], distList[i, 2]] > maxDist) {
-      distInd[distList[i, 1], distList[i, 2]] <- Inf
+    if (dist_ind[dist_list[i, 1], dist_list[i, 2]] > max_dist) {
+      dist_ind[dist_list[i, 1], dist_list[i, 2]] <- Inf
     }
 
-    if (distInd[distList[i, 1], distList[i, 2]] == 0) {
-      distInd[distList[i, 1], distList[i, 2]] <- Inf
+    if (dist_ind[dist_list[i, 1], dist_list[i, 2]] == 0) {
+      dist_ind[dist_list[i, 1], dist_list[i, 2]] <- Inf
     }
   }
-  write.table(distInd, file = "distInd.txt", quote = F)
+  write.table(dist_ind, file = "dist_ind.txt", quote = FALSE)
   # cov318 results ~2100
 
   ### get the network product### phospFile <- system.file('SignedPC', 'phosphorylates.txt',
@@ -120,11 +121,11 @@ predictBioNetwork <- function(nProt, proteomicResponses, maxDist,
   sep = "\t",
   header = TRUE, fill = TRUE
   )
-  #    write.table(results, file="results_network1.txt",quote=F)
-  dephosp <- paxtoolsr:::filterSif(results, interactionTypes = "dephosphorylates")
-  phosp <- paxtoolsr:::filterSif(results, interactionTypes = "phosphorylates")
-  dwnexp <- paxtoolsr:::filterSif(results, interactionTypes = "downregulates-expression")
-  upexp <- paxtoolsr:::filterSif(results, interactionTypes = "upregulates-expression")
+  # write.table(results, file="results_network1.txt",quote=F)
+  dephosp <- paxtoolsr::filterSif(results, interactionTypes = "dephosphorylates")
+  phosp <- paxtoolsr::filterSif(results, interactionTypes = "phosphorylates")
+  dwnexp <- paxtoolsr::filterSif(results, interactionTypes = "downregulates-expression")
+  upexp <- paxtoolsr::filterSif(results, interactionTypes = "upregulates-expression")
 
   # NOTE: SIF has interaction type as column 2, edgelists (like distances) do
   # not have this, so convert the SIF to an edgelist
@@ -134,101 +135,101 @@ predictBioNetwork <- function(nProt, proteomicResponses, maxDist,
   upexp <- upexp[, c(1, 3)]
 
   # only concentration nodes are included in up & downregulation
-  # mabToGenes_c <- mabToGenes[which(mabToGenes$Effect == "c"), ]
+  # mabToGenes_c <- mab_to_genes[which(mab_to_genes$Effect == "c"), ]
 
   # define wk
   wk <- matrix(0,
-    ncol = nProt, nrow = nProt,
-    dimnames = list(colnames(proteomicResponses), colnames(proteomicResponses))
+    ncol = n_prot, nrow = n_prot,
+    dimnames = list(colnames(proteomic_responses), colnames(proteomic_responses))
   )
   wks <- matrix(0,
-    ncol = nProt, nrow = nProt,
-    dimnames = list(colnames(proteomicResponses), colnames(proteomicResponses))
+    ncol = n_prot, nrow = n_prot,
+    dimnames = list(colnames(proteomic_responses), colnames(proteomic_responses))
   )
 
   # upregulation expression, wk=1
-  # upexpGene1 <- pmatch(upexp[, 1], mabToGenes_c[measured_genes, 4], duplicates.ok = TRUE)
-  # upexpGene2 <- pmatch(upexp[, 3], mabToGenes_c[measured_genes, 4], duplicates.ok = TRUE)
-  # upexpGene <- cbind(upexpGene1, upexpGene2)
+  # upexp_gene1 <- pmatch(upexp[, 1], mabToGenes_c[measured_genes, 4], duplicates.ok = TRUE)
+  # upexp_gene2 <- pmatch(upexp[, 3], mabToGenes_c[measured_genes, 4], duplicates.ok = TRUE)
+  # upexp_gene <- cbind(upexp_gene1, upexp_gene2)
 
   # Define genes by their effects
-  tmpIdxC <- intersect(idxAbMap, which(mabToGenes$Effect == "c"))
-  tmpIdxAC <- intersect(idxAbMap, which(mabToGenes$Effect != "i"))
-  tmpIdxAI <- intersect(idxAbMap, which(mabToGenes$Effect != "c"))
-  tmpIdxA <- intersect(idxAbMap, which(mabToGenes$Effect == "a"))
+  tmp_idx_c <- intersect(idx_ab_map, which(mab_to_genes$Effect == "c"))
+  tmp_idx_ac <- intersect(idx_ab_map, which(mab_to_genes$Effect != "i"))
+  tmp_idx_ai <- intersect(idx_ab_map, which(mab_to_genes$Effect != "c"))
+  tmp_idx_a <- intersect(idx_ab_map, which(mab_to_genes$Effect == "a"))
 
-  tmpGenesC <- mabToGenes[tmpIdxC, 4]
-  tmpGenesA <- mabToGenes[tmpIdxAC, 4]
-  tmpGenesD <- mabToGenes[tmpIdxAI, 4]
-  tmpGenesAo <- mabToGenes[tmpIdxA, 4]
+  tmp_genes_c <- mab_to_genes[tmp_idx_c, 4]
+  tmp_genes_a <- mab_to_genes[tmp_idx_ac, 4]
+  tmp_genes_d <- mab_to_genes[tmp_idx_ai, 4]
+  tmp_genes_ao <- mab_to_genes[tmp_idx_a, 4]
 
-  names(tmpGenesC) <- mabToGenes[tmpIdxC, 1]
-  names(tmpGenesA) <- mabToGenes[tmpIdxAC, 1]
-  names(tmpGenesD) <- mabToGenes[tmpIdxAI, 1]
-  names(tmpGenesAo) <- mabToGenes[tmpIdxA, 1]
+  names(tmp_genes_c) <- mab_to_genes[tmp_idx_c, 1]
+  names(tmp_genes_a) <- mab_to_genes[tmp_idx_ac, 1]
+  names(tmp_genes_d) <- mab_to_genes[tmp_idx_ai, 1]
+  names(tmp_genes_ao) <- mab_to_genes[tmp_idx_a, 1]
 
   # only concentration and act. phospho nodes are included in up & downregulation
-  upexpGene <- matchGenesToEdgelist(
-    genes1 = tmpGenesA, genes2 = tmpGenesC, annotEdgelist = upexp,
-    antibodyVec = colnames(proteomicResponses), useAnnot = FALSE, verbose = verbose
+  upexp_gene <- matchGenesToEdgelist(
+    genes1 = tmp_genes_a, genes2 = tmp_genes_c, annot_edgelist = upexp,
+    antibody_vec = colnames(proteomic_responses), use_annot = FALSE, verbose = verbose
   )
 
   for (i in 1:length(upexp[, 1])) {
-    wk[upexpGene[i, 1], upexpGene[i, 2]] <- 1
-    wks[upexpGene[i, 1], upexpGene[i, 2]] <- 1
+    wk[upexp_gene[i, 1], upexp_gene[i, 2]] <- 1
+    wks[upexp_gene[i, 1], upexp_gene[i, 2]] <- 1
 
-    #        print(upexpGene[i, 1])
+    #        print(upexp_gene[i, 1])
   }
 
   # downregulation expression, wk=-1
-  dwnexpGene <- matchGenesToEdgelist(
-    genes1 = tmpGenesA, genes2 = tmpGenesC, annotEdgelist = dwnexp,
-    antibodyVec = colnames(proteomicResponses), useAnnot = FALSE, verbose = verbose
+  dwnexp_gene <- matchGenesToEdgelist(
+    genes1 = tmp_genes_a, genes2 = tmp_genes_c, annot_edgelist = dwnexp,
+    antibody_vec = colnames(proteomic_responses), use_annot = FALSE, verbose = verbose
   )
   # cov318 results in 15
 
   for (i in 1:length(dwnexp[, 1])) {
-    wk[dwnexpGene[i, 1], dwnexpGene[i, 2]] <- -1
-    wks[dwnexpGene[i, 1], dwnexpGene[i, 2]] <- -1
+    wk[dwnexp_gene[i, 1], dwnexp_gene[i, 2]] <- -1
+    wks[dwnexp_gene[i, 1], dwnexp_gene[i, 2]] <- -1
   }
 
   # phosphorylates wk=1 only active and concentration states are upstream
-  # mabToGenes_a <- mabToGenes[which(mabToGenes$Effect != "i"), ]
-  # mabToGenes_d <- mabToGenes[which(mabToGenes$Sites != "c"), ]
-  # phosGene1 <- pmatch(phosp[, 1], mabToGenes_a[measured_genes, 4], duplicates.ok = TRUE)
-  # phosGene2 <- pmatch(phosp[, 3], mabToGenes_d[measured_genes, 4], duplicates.ok = TRUE)
-  # phosGene <- cbind(phosGene1, phosGene2)
+  # mabToGenes_a <- mab_to_genes[which(mab_to_genes$Effect != "i"), ]
+  # mabToGenes_d <- mab_to_genes[which(mab_to_genes$Sites != "c"), ]
+  # phos_gene1 <- pmatch(phosp[, 1], mabToGenes_a[measured_genes, 4], duplicates.ok = TRUE)
+  # phos_gene2 <- pmatch(phosp[, 3], mabToGenes_d[measured_genes, 4], duplicates.ok = TRUE)
+  # phos_gene <- cbind(phos_gene1, phos_gene2)
 
-  phosGene <- matchGenesToEdgelist(
-    genes1 = tmpGenesAo, genes2 = tmpGenesD, annotEdgelist = phosp,
-    antibodyVec = colnames(proteomicResponses), useAnnot = FALSE, verbose = verbose
+  phos_gene <- matchGenesToEdgelist(
+    genes1 = tmp_genes_ao, genes2 = tmp_genes_d, annot_edgelist = phosp,
+    antibody_vec = colnames(proteomic_responses), use_annot = FALSE, verbose = verbose
   )
   # cov318 13 results
 
-  for (i in 1:length(phosGene[, 1])) {
-    wk[phosGene[i, 1], phosGene[i, 2]] <- 1
-    wks[phosGene[i, 1], phosGene[i, 2]] <- 2
+  for (i in 1:length(phos_gene[, 1])) {
+    wk[phos_gene[i, 1], phos_gene[i, 2]] <- 1
+    wks[phos_gene[i, 1], phos_gene[i, 2]] <- 2
   }
 
   # dephosphorylates wk=-1 only active and concentration states are upstream
-  # mabToGenes_a <- mabToGenes[which(mabToGenes$Effect != "i"), ]
-  # mabToGenes_d <- mabToGenes[which(mabToGenes$Sites != "c"), ]
-  # dephosGene1 <- pmatch(dephosp[, 1], mabToGenes_a[measured_genes, 4], duplicates.ok = TRUE)
-  # dephosGene2 <- pmatch(dephosp[, 3], mabToGenes_d[measured_genes, 4], duplicates.ok = TRUE)
-  # dephosGene <- cbind(dephosGene1, dephosGene2)
+  # mabToGenes_a <- mab_to_genes[which(mab_to_genes$Effect != "i"), ]
+  # mabToGenes_d <- mab_to_genes[which(mab_to_genes$Sites != "c"), ]
+  # dephos_gene1 <- pmatch(dephosp[, 1], mabToGenes_a[measured_genes, 4], duplicates.ok = TRUE)
+  # dephos_gene2 <- pmatch(dephosp[, 3], mabToGenes_d[measured_genes, 4], duplicates.ok = TRUE)
+  # dephos_gene <- cbind(dephos_gene1, dephos_gene2)
 
-  dephosGene <- matchGenesToEdgelist(
-    genes1 = tmpGenesA, genes2 = tmpGenesD, annotEdgelist = dephosp,
-    antibodyVec = colnames(proteomicResponses), useAnnot = FALSE, verbose = verbose
+  dephos_gene <- matchGenesToEdgelist(
+    genes1 = tmp_genes_a, genes2 = tmp_genes_d, annot_edgelist = dephosp,
+    antibody_vec = colnames(proteomic_responses), use_annot = FALSE, verbose = verbose
   )
 
-  for (i in 1:length(dephosGene[, 1])) {
-    wk[dephosGene[i, 1], dephosGene[i, 2]] <- -1
-    wks[dephosGene[i, 1], dephosGene[i, 2]] <- -2
+  for (i in 1:length(dephos_gene[, 1])) {
+    wk[dephos_gene[i, 1], dephos_gene[i, 2]] <- -1
+    wks[dephos_gene[i, 1], dephos_gene[i, 2]] <- -2
   }
-  inter <- (which(wk != 0, arr.ind = T))
+  inter <- (which(wk != 0, arr.ind = TRUE))
   print(inter)
-  networks <- list(wk = wk, wks = wks, distInd = distInd, inter = inter)
+  networks <- list(wk = wk, wks = wks, dist_ind = dist_ind, inter = inter)
 
   return(networks)
 }

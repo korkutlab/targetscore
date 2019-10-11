@@ -5,25 +5,40 @@
 #' @param prior Prior information data frame ,with colnames and rownames as gene tags.
 #' With colnames and rownames as gene tags. Can be inferred from predictBioNetwork or any network resources.
 #' @param cut_off Manually set up cut off value for strength of edge. Default at 0.1.
-#' @param maxDist Maximun distance for the network. Default at 1.
-#' @param proteomicResponses RPPA data tested for drug pertubation.
-#' @param nProt number of Proteins contained in the data.
-#' @param antibodyMapFile TBA
-#' @return "parameters" as the Parameter list of regulization parameter decided by the prior information and the algorithmn lowest BIC.Including regularize parameter(L1 norm parameter) as "rho", scale parameter(decided how much prior information contribute) as "kappa", and regulization matrix for the expression data as "rhoM".
+#' @param max_dist Maximun distance for the network. Default at 1.
+#' @param proteomic_responses RPPA data tested for drug pertubation.
+#' @param n_prot number of Proteins contained in the data.
+#' @param antibody_map_file TODO
+#' 
+#' @return "parameters" as the Parameter list of regulization parameter decided by the prior information 
+#' and the algorithmn lowest BIC.Including regularize parameter(L1 norm parameter) as "rho", scale parameter 
+#' (decided how much prior information contribute) as "kappa", and regulization matrix for the expression 
+#' data as "rho_m".
 #' @return "bic"as the Model's BIC matrix for differnet regularization parameters.
 #' @return "wk" as the predicted network.
-#' @return "wks" TBA
-#' @return "distInd" TBA
-#' @return "inter" TBA
+#' @return "wks" TODO
+#' @return "dist_ind" TODO
+#' @return "inter" TODO
 #' @return "edgelist" as the edgelist for predicted network.
 #' @return "nedges" as the number of edges of the predicted network.
+#' 
 #' @examples
-#' predictHybNetwork(data = GeneExpresssion, prior = Priorinformation, proteomicResponses = proteomicResponses, nProt = nProt)
+#' predictHybNetwork(data = GeneExpresssion, prior = Priorinformation, 
+#'                   proteomic_responses = proteomic_responses, n_prot = n_prot)
+#' 
+#' @importFrom glasso glasso 
+#' @importFrom stats cov median na.omit
+#' 
 #' @concept zeptosensPkg
 #' @export
-predictHybNetwork <- function(data, prior = NULL, cut_off = 0.1, proteomicResponses, nProt, maxDist = 1, antibodyMapFile) {
+predictHybNetwork <- function(data, prior = NULL, cut_off = 0.1, proteomic_responses, n_prot, 
+                              max_dist = 1, antibody_map_file) {
   if (is.null(prior)) {
-    wk <- zeptosensPkg:::predictBioNetwork(nProt = 304, proteomicResponses = proteomicResponses, maxDist = 1, antibodyMapFile = antibodyMapFile)$wk
+    tmp <- zeptosensPkg::predictBioNetwork(n_prot = 304, 
+                                          proteomic_responses = proteomic_responses, 
+                                          max_dist = 1, 
+                                          antibody_map_file = antibody_map_file)
+    wk <- tmp$wk
     prior <- wk
   }
 
@@ -47,115 +62,115 @@ predictHybNetwork <- function(data, prior = NULL, cut_off = 0.1, proteomicRespon
   prior2 <- ifelse(prior2 != 0, 1, 0)
 
   # getting the best tuning parameter from BIC minimization
-  Covmatrix <- cov(data)
+  covmatrix <- cov(data)
   rho <- seq(0.01, 1, length = 100)
   bic <- matrix(NA, 100, 100)
   kappa <- rho
-  rhoM <- c()
-  gResult <- c()
+  rho_m <- NULL
+  g_result <- NULL
   u <- matrix(1, nrow(prior2), ncol(prior2))
-  pOffD <- c()
+  p_off_d <- NULL
   for (i in 1:100) {
     for (j in 1:i) {
-      rhoM <- rho[i] * u - kappa[j] * prior2
-      gResult <- glasso(Covmatrix, rhoM)
-      pOffD <- sum(gResult$wi != 0 & col(Covmatrix) < row(Covmatrix))
-      bic[i, j] <- -2 * (gResult$loglik) + pOffD * log(nrow(data))
+      rho_m <- rho[i] * u - kappa[j] * prior2
+      g_result <- glasso(covmatrix, rho_m)
+      p_off_d <- sum(g_result$wi != 0 & col(covmatrix) < row(covmatrix))
+      bic[i, j] <- -2 * (g_result$loglik) + p_off_d * log(nrow(data))
       bic <- as.data.frame(bic)
       rownames(bic) <- rho
       colnames(bic) <- kappa
     }
   }
-  pos <- which(bic == min(bic, na.rm = TRUE), arr.ind = T)
+  pos <- which(bic == min(bic, na.rm = TRUE), arr.ind = TRUE)
   rho <- rho[pos[1]]
   kappa <- kappa[pos[2]]
-  rhoM <- rho * u - kappa * prior2
-  parameters <- list(rhoM = rhoM, rho = rho, kappa = kappa)
+  rho_m <- rho * u - kappa * prior2
+  parameters <- list(rho_m = rho_m, rho = rho, kappa = kappa)
 
   # Estimated inverse covariance (precision)
-  tmp <- glasso(Covmatrix, rho = rhoM)
-  sigma.matrix <- tmp$wi
+  tmp <- glasso(covmatrix, rho = rho_m)
+  sigma_matrix <- tmp$wi
   niter <- tmp$niter
   print(niter) # if niter = 10,000
   if (niter == 10000) {
     stop("ERROR: Algorithmn does not convergence!")
   }
 
-  pcor.matrix <- matrix(0, nrow = ncol(data), ncol = ncol(data))
+  pcor_matrix <- matrix(0, nrow = ncol(data), ncol = ncol(data))
   for (i in 1:ncol(data)) {
     for (j in 1:ncol(data)) {
-      pcor.matrix[i, j] <- -sigma.matrix[i, j] / sqrt(sigma.matrix[i, i] * sigma.matrix[j, j])
+      pcor_matrix[i, j] <- -sigma_matrix[i, j] / sqrt(sigma_matrix[i, i] * sigma_matrix[j, j])
     }
   }
 
-  t.edges <- pcor.matrix
+  t_edges <- pcor_matrix
 
   # cut off = cut off value
-  t.net <- as.data.frame(ifelse(abs(t.edges) >= cut_off & row(t.edges) != col(t.edges), t.edges, 0))
-  colnames(t.net) <- colnames(data)
-  rownames(t.net) <- colnames(data)
+  t_net <- as.data.frame(ifelse(abs(t_edges) >= cut_off & row(t_edges) != col(t_edges), t_edges, 0))
+  colnames(t_net) <- colnames(data)
+  rownames(t_net) <- colnames(data)
 
   # directed network
   # get direction for the network as the bigger covariance estimated indicated the upper stream gene;
-  t.net.d <- matrix(0, nrow = nrow(t.net), ncol = ncol(t.net))
-  for (i in 1:ncol(t.net)) {
-    for (j in 1:nrow(t.net)) {
+  t_net_d <- matrix(0, nrow = nrow(t_net), ncol = ncol(t_net))
+  for (i in 1:ncol(t_net)) {
+    for (j in 1:nrow(t_net)) {
       if (prior1[i, j] != 0 & prior1[j, i] == 0) {
-        t.net.d[i, j] <- t.net.d[i, j]
+        t_net_d[i, j] <- t_net_d[i, j]
       }
       if (prior1[i, j] == 0 & prior1[j, i] == 0) {
-        t.net.d[i, j] <- t.net[i, j]
-        t.net.d[j, i] <- t.net[j, i]
+        t_net_d[i, j] <- t_net[i, j]
+        t_net_d[j, i] <- t_net[j, i]
       }
       if (prior1[i, j] != 0 & prior1[j, i] != 0) {
-        t.net.d[i, j] <- t.net[i, j]
-        t.net.d[j, i] <- t.net[j, i]
+        t_net_d[i, j] <- t_net[i, j]
+        t_net_d[j, i] <- t_net[j, i]
       }
     }
   }
-  colnames(t.net.d) <- colnames(data)
-  rownames(t.net.d) <- colnames(data)
+  colnames(t_net_d) <- colnames(data)
+  rownames(t_net_d) <- colnames(data)
 
   # Inferred missing proteins from bio-network
-  network <- t.net.d
+  network <- t_net_d
   index2 <- which(colnames(prior) %in% index)
-  prior1.extra <- prior[-index2, -index2]
-  index.extra <- colnames(prior1.extra)
+  prior1_extra <- prior[-index2, -index2]
+  index_extra <- colnames(prior1_extra)
 
   # with the edgevalue(prior information have the value of the median(abd(netowrk)))
   prior3 <- as.data.frame(prior * median(abs(c(na.omit(c(ifelse(network != 0, network, NA)))))))
   colnames(prior3) <- colnames(prior)
   rownames(prior3) <- rownames(prior)
 
-  part1 <- prior3[which(rownames(prior3) %in% index.extra), which(colnames(prior) %in% index)]
-  part2 <- prior3[which(rownames(prior3) %in% index), colnames(prior) %in% index.extra]
-  part3 <- prior3[which(rownames(prior3) %in% index.extra), which(colnames(prior) %in% index.extra)]
+  part1 <- prior3[which(rownames(prior3) %in% index_extra), which(colnames(prior) %in% index)]
+  part2 <- prior3[which(rownames(prior3) %in% index), colnames(prior) %in% index_extra]
+  part3 <- prior3[which(rownames(prior3) %in% index_extra), which(colnames(prior) %in% index_extra)]
 
-  networkTotal <- cbind(rbind(network, part1), rbind(part2, part3))
-  index3 <- match(colnames(prior), colnames(networkTotal))
-  networkTotal <- networkTotal[index3, index3]
+  network_total <- cbind(rbind(network, part1), rbind(part2, part3))
+  index3 <- match(colnames(prior), colnames(network_total))
+  network_total <- network_total[index3, index3]
 
-  edgelist.total <- zeptosensPkg:::createSifFromMatrix(t.net = networkTotal, genelist = colnames(networkTotal))
+  edgelist_total <- zeptosensPkg::createSifFromMatrix(t_net = network_total, genelist = colnames(network_total))
 
   # number of edges
-  nedges <- sum(networkTotal != 0)
+  nedges <- sum(network_total != 0)
 
   #
-  wk <- networkTotal
-  networks <- zeptosensPkg:::network2(
-    wk = wk, nProt = nProt,
-    proteomicResponses = proteomicResponses,
-    maxDist = maxDist
+  wk <- network_total
+  networks <- zeptosensPkg::network2(
+    wk = wk, n_prot = n_prot,
+    proteomic_responses = proteomic_responses,
+    max_dist = max_dist
   )
   wk <- networks$wk
   wks <- networks$wks
-  distInd <- networks$distInd
+  dist_ind <- networks$dist_ind
   inter <- networks$inter
 
   # return result
   result <- list(
     parameters = parameters, nedges = nedges, inter = inter,
-    wk = wk, wks = wks, distInd = distInd, edgelist = edgelist.total,
+    wk = wk, wks = wks, dist_ind = dist_ind, edgelist = edgelist_total,
     bic = bic
   )
   return(result)

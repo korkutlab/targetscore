@@ -1,92 +1,88 @@
 #' Compute Target score for randomized data/compute P value for each TS given a network topology
 #'
-#' @param wk TBA
-#' @param wks TBA
-#' @param distInd TBA
-#' @param inter TBA
-#' @param nDose TBA
-#' @param nProt TBA
-#' @param proteomicResponses TBA
-#' @param maxDist TBA (default: 1)
-#' @param cellLine TBA
-#' @param targetScoreOutputFile a filename to write target score results (default: NULL)
-#' @param matrixWkOutputFile TBA
+#' @param wk TODO
+#' @param wks TODO
+#' @param dist_ind TODO
+#' @param inter TODO
+#' @param n_dose TODO
+#' @param n_prot TODO
+#' @param proteomic_responses TODO
+#' @param max_dist TODO (default: 1)
+#' @param cell_line TODO
 #' @param verbose a boolean to show debugging information
-#' @param fsFile Functional score file. A tab-delmited file with a header, each row is an
+#' @param fs_file Functional score file. A tab-delmited file with a header, each row is an
 #'   antibody in the first column and functional score in the second column
 #'   (i.e. 1 oncogene, 0 tumor supressor/oncogene, -1 tumor supressor characteristics)
-#' @param antibodyMapFile a listing of antibodies, their associated genes, and modification sites
-#' @param distFile A distance file an edgelist with a third column which is the network distance
+#' @param antibody_map_file a listing of antibodies, their associated genes, and modification sites
+#' @param dist_file A distance file an edgelist with a third column which is the network distance
 #'   between the genes in the interaction
-#' @param tsFactor a scaling factor for the pathway component in the target score
+#' @param ts_factor a scaling factor for the pathway component in the target score
 #'
 #' @details
 #' data: multiple dose single drug perturbation
 #' ts: integral_dose(fs*(xi+sigma_j(2^p*xj*product_k(wk))))
 #' missing: For phosp and dephosp based wk, there is no 'exact match' between known and measured phospho-sites
 #'
-#' @examples
-#'
 #' @concept zeptosensPkg
 #' @export
-calcTargetScore <- function(wk, wks, distInd, inter, nDose, nProt, proteomicResponses,
-                            maxDist = 1, cellLine, verbose = TRUE,
-                            tsFactor = 1, fsFile, antibodyMapFile = NULL, distFile = NULL) {
+calcTargetScore <- function(wk, wks, dist_ind, inter, n_dose, n_prot, proteomic_responses,
+                            max_dist = 1, cell_line, verbose = TRUE,
+                            ts_factor = 1, fs_file, antibody_map_file = NULL, dist_file = NULL) {
   # LOAD & RANDOMIZE INTERNAL DATA ---- read function score
-  # if(is.null(fsFile)) {
-  #     fsFile <- system.file("targetScoreData", "fs.txt", package = "zeptosensPkg")
+  # if(is.null(fs_file)) {
+  #     fs_file <- system.file("targetScoreData", "fs.txt", package = "zeptosensPkg")
   # }
 
-  # fs <- read.table(fsFile, header = TRUE, stringsAsFactors = FALSE, sep = "\t")
-  fs <- fsFile
+  # fs <- read.table(fs_file, header = TRUE, stringsAsFactors = FALSE, sep = "\t")
+  fs <- fs_file
 
   if (verbose) {
     print(fs)
   }
 
   # calculate TS for each dose
-  # print(nDose)
+  # print(n_dose)
   tsd <- matrix(0,
-    nrow = nDose, ncol = nProt,
+    nrow = n_dose, ncol = n_prot,
     dimnames = list(
-      rownames(proteomicResponses),
-      colnames(proteomicResponses)
+      rownames(proteomic_responses),
+      colnames(proteomic_responses)
     )
   )
   tsp <- array(0:0,
-    dim = c(nDose, nProt, nProt),
+    dim = c(n_dose, n_prot, n_prot),
     dimnames = list(
-      rownames(proteomicResponses),
-      colnames(proteomicResponses), colnames(proteomicResponses)
+      rownames(proteomic_responses),
+      colnames(proteomic_responses), colnames(proteomic_responses)
     )
   )
   ts <- matrix(0,
-    ncol = nProt, nrow = 1,
-    dimnames = list("targetScore", colnames(proteomicResponses))
+    ncol = n_prot, nrow = 1,
+    dimnames = list("targetScore", colnames(proteomic_responses))
   )
 
-  for (i in 1:nDose) {
+  for (i in 1:n_dose) {
     # downstream (target)
     for (j in 1:nrow(inter)) {
       # upstream
-      #            for (k in 1:nProt) {
+      # for (k in 1:n_prot) {
       k <- as.numeric(inter[j, 1])
       l <- as.numeric(inter[j, 2])
-      #        tsp[i,k,j] <- tsFactor*(2^-(distInd[k, j])) * proteomicResponses[i, k] * wk[k, j]
-      tsp[i, k, l] <- tsFactor * (2^-(distInd[k, l])) * proteomicResponses[i, k] * wk[k, l]
+      #        tsp[i,k,j] <- ts_factor*(2^-(dist_ind[k, j])) * proteomic_responses[i, k] * wk[k, j]
+      tsp[i, k, l] <- ts_factor * (2^-(dist_ind[k, l])) * proteomic_responses[i, k] * wk[k, l]
 
       #            }
-      #            tsd[i, j] <- fs[j, 2] * (proteomicResponses[i, j] + (tsp[i, j]))
+      #            tsd[i, j] <- fs[j, 2] * (proteomic_responses[i, j] + (tsp[i, j]))
     }
   }
-  for (i in 1:nDose) {
-    for (j in 1:nProt) {
-      tsd[i, j] <- fs[j, 2] * (proteomicResponses[i, j] + sum(tsp[i, 1:nProt, j]))
+  for (i in 1:n_dose) {
+    for (j in 1:n_prot) {
+      tsd[i, j] <- fs[j, 2] * (proteomic_responses[i, j] + sum(tsp[i, 1:n_prot, j]))
     }
   }
 
   ts <- colSums(tsd)
-  # colnames(ts) <- colnames(proteomicResponses) rownames(ts) <- rownames(proteomicResponses)
+  # colnames(ts) <- colnames(proteomic_responses) rownames(ts) <- rownames(proteomic_responses)
   results <- list(ts = ts, wk = wk, tsd = tsd, wks = wks)
   return(results)
 }

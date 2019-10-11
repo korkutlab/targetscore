@@ -1,34 +1,31 @@
 #' stdev over all samples
-#' @param nX vertically merged data from all samples rows condition columns proteins
-#' @param nSample number of samples
-#' @param nProt number of proteins
-#' @param nCond number of consitions
+#' @param n_x vertically merged data from all samples rows condition columns proteins
+#' @param n_sample number of samples
+#' @param n_prot number of proteins
+#' @param n_dose number of doses 
+#' 
 #' @concept zeptosensPkg
 #' @export
-#'
-sampSdev <- function(nSample, nProt, nDose, nX) {
+sampSdev <- function(n_sample, n_prot, n_dose, n_x) {
+  #    n_prot
+  #    n_sample
+  #    n_condition
+  s_sdev <- array(0:0, dim = c(n_dose, n_prot))
+  s_sdev2 <- array(0:0, dim = c(n_prot))
 
+  #    for (i in 1:n_sample) {
 
-
-  #    nProt
-  #    nSample
-  #    nCondition
-  sSdev <- array(0:0, dim = c(nDose, nProt))
-  sSdev2 <- array(0:0, dim = c(nProt))
-
-  #    for (i in 1:nSample) {
-
-  for (j in 1:nProt) {
-    for (k in 1:nDose) {
-      sSdev[k, j] <- sd(nX[((k - 1) * nSample + 1):(k * nSample), j])
+  for (j in 1:n_prot) {
+    for (k in 1:n_dose) {
+      s_sdev[k, j] <- sd(n_x[((k - 1) * n_sample + 1):(k * n_sample), j])
     }
   }
   #    }
-  #    for (i in 1:nSample*nDose) {
+  #    for (i in 1:n_sample*n_dose) {
 
-  for (j in 1:nProt) {
-    sSdev2[j] <- sd(nX[1:(nSample * nDose), j])
+  for (j in 1:n_prot) {
+    s_sdev2[j] <- sd(n_x[1:(n_sample * n_dose), j])
   }
   #    }
-  return(sSdev2)
+  return(s_sdev2)
 }

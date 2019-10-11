@@ -1,73 +1,70 @@
 #' Extracted functional score value from COMIC/ONCODRIVE Database. Can be override with Manually set functional score.
 #'
-#' @param nProt number of proteins tested within the data.
-#' @param proteomicResponses Proteomic responses as drug pertubation.
-#' @param antibodyMapFile a listing of antibodies, their associated genes,
+#' @param n_prot number of proteins tested within the data.
+#' @param proteomic_responses Proteomic responses as drug pertubation.
+#' @param antibody_map_file a listing of antibodies, their associated genes,
 #' and modification sites
-#' @param fsValueFile a listing of functional scores for each gene manually set up
+#' @param fs_value_file a listing of functional scores for each gene manually set up
 #' for overriding COSMIC Database given value, the modification path. (.txt)
 #' @param verbose Default as FALSE. If given TRUE, will print out the gene seq mapped with Antibody Map File.
-#' @examples
-#'
+#' 
+#' @importFrom utils read.table 
+#' 
 #' @concept zeptosensPkg
 #' @export
-getFsVals <- function(nProt, proteomicResponses, antibodyMapFile = NULL, fsValueFile = NULL, verbose = F) {
-
+getFsVals <- function(n_prot, proteomic_responses, antibody_map_file = NULL, fs_value_file = NULL, verbose = FALSE) {
   # match Ab names to gene names & posttranslational modifications
-  if (is.null(antibodyMapFile)) {
-    antibodyMapFile <- system.file("targetScoreData", "antibodyMap.txt", package = "zeptosensPkg")
+  if (is.null(antibody_map_file)) {
+    antibody_map_file <- system.file("targetScoreData", "antibodyMap.txt", package = "zeptosensPkg")
   }
-  mabToGenes <- antibodyMapFile
+  mab_to_genes <- antibody_map_file
 
   if (verbose) {
-    print(mabToGenes)
+    print(mab_to_genes)
   }
 
-  if (nProt != ncol(proteomicResponses)) {
-    stop("ERROR: nProt is not equal to proteomicResponses column number")
+  if (n_prot != ncol(proteomic_responses)) {
+    stop("ERROR: n_prot is not equal to proteomic_responses column number")
   }
 
   # Match the protein names in the proteomicresponce with the AntibodyMapfile
-  idxAbMap <- which(mabToGenes[, 1] %in% colnames(proteomicResponses))
-  if (length(idxAbMap) < nProt) {
+  idx_ab_map <- which(mab_to_genes[, 1] %in% colnames(proteomic_responses))
+  if (length(idx_ab_map) < n_prot) {
     stop("ERROR: Not all columns in data were matched in antibody map")
   }
-  if (length(unique(mabToGenes[idxAbMap, 1])) != nProt) {
-    print(unique(mabToGenes[idxAbMap, 1]))
+  if (length(unique(mab_to_genes[idx_ab_map, 1])) != n_prot) {
+    print(unique(mab_to_genes[idx_ab_map, 1]))
     stop("ERROR: Mismatch in the number of selected antibodies and the number of proteomic responses")
   }
-  antibodyMapSubset <- mabToGenes[idxAbMap, ]
-
-  mabGenes <- mabToGenes[idxAbMap, 4]
-  names(mabGenes) <- mabToGenes[idxAbMap, 1]
+  
+  mab_genes <- mab_to_genes[idx_ab_map, 4]
+  names(mab_genes) <- mab_to_genes[idx_ab_map, 1]
 
   # Get FS value
-  mabValue <- mabToGenes[idxAbMap, 6]
-  mabFS <- ifelse(mabValue == "a", 1, ifelse(mabValue == "i", -1, ifelse(mabValue == "c", 1, 0)))
+  mab_value <- mab_to_genes[idx_ab_map, 6]
+  mab_fs <- ifelse(mab_value == "a", 1, ifelse(mab_value == "i", -1, ifelse(mab_value == "c", 1, 0)))
 
-  cancerRole <- read.table(system.file("extdata", "Cosmic.txt", package = "zeptosensPkg"),
+  cancer_role <- read.table(system.file("extdata", "Cosmic.txt", package = "zeptosensPkg"),
     sep = "\t", header = TRUE, fill = TRUE
   )
-  cosFS <- cancerRole[mabGenes, ]$fs
+  cos_fs <- cancer_role[mab_genes, ]$fs
 
-  fsValue <- mabFS * cosFS
+  fs_value <- mab_fs * cos_fs
 
-  fs <- data.frame(prot = mabToGenes[idxAbMap, 1], fs = fsValue)
+  fs <- data.frame(prot = mab_to_genes[idx_ab_map, 1], fs = fs_value)
 
   # Uniqueness of fs value
-  prot <- as.character(unlist(unique(fs$prot)))
   fs <- unique(fs)
 
-
-  fsOverride <- fsValueFile
+  fs_override <- fs_value_file
   # Override with Self setting/external fs value
-  if (!is.null(fsOverride)) {
-    index <- which(fs$prot %in% fsOverride$prot)
-    fs[index, 2] <- fsOverride$fs
+  if (!is.null(fs_override)) {
+    index <- which(fs$prot %in% fs_override$prot)
+    fs[index, 2] <- fs_override$fs
   }
 
   # match with antibody seq
-  index <- match(colnames(proteomicResponses), fs$prot)
+  index <- match(colnames(proteomic_responses), fs$prot)
   fs <- fs[index, ]
 
   return(fs)

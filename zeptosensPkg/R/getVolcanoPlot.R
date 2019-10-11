@@ -4,36 +4,43 @@
 #'
 #' @param ts input Target Score calculated for each protein data frame.
 #' Gene in coloumns and samples in row. Wih colnames as gene tags and rownames as sample tags.
-#' @param qValue input Target Score q value calculated for each protein data frame.
+#' @param q_value input Target Score q value calculated for each protein data frame.
 #' Gene in coloumns and samples in row. Wih colnames as gene tags and rownames as sample tags.
 #' @param filename Manually set filename of volcano Plot.
 #' @param path Plot Store path. Default at working environment.
+#' @param sig_value TODO
+#' 
 #' @return volcano Plots with indicated filename and path.
+#' 
 #' @examples
 #' optimizeParameter(data = GeneExpresssion, prior = Priorindormation)
+#' 
+#' @importFrom ggplot2 ggsave ggplot aes xlab theme_bw ggtitle xlab ylab geom_point scale_color_manual
+#' @importFrom ggrepel geom_label_repel
+#' @importFrom utils write.csv
+#' 
 #' @concept zeptosensPkg
 #' @export
-
-getVolcanoPlot <- function(ts, qValue, filename, path = NULL, sigValue = 0.4) {
+getVolcanoPlot <- function(ts, q_value, filename, path = NULL, sig_value = 0.4) {
   ts <- as.matrix(ts)
-  pAdj <- as.matrix(qValue)
+  p_adj <- as.matrix(q_value)
 
-  if (nrow(pAdj) != nrow(ts)) {
-    stop("ERROR:Tag of ts and qValue does not match.")
+  if (nrow(p_adj) != nrow(ts)) {
+    stop("ERROR:Tag of ts and q_value does not match.")
   }
 
-  tmpDat <- data.frame(cbind(ts, -1 * log10(pAdj)))
-  colnames(tmpDat) <- c("ts", "neglogQ")
+  tmp_dat <- data.frame(cbind(ts, -1 * log10(p_adj)))
+  colnames(tmp_dat) <- c("ts", "neglogQ")
 
-  color <- ifelse(pAdj > sigValue, "not significant", "significant")
+  color <- ifelse(p_adj > sig_value, "not significant", "significant")
   rownames(color) <- rownames(ts)
-  tmpDat$labelnames <- row.names(tmpDat)
-  sig01 <- subset(tmpDat, tmpDat$neglogQ > -1 * log10(sigValue))
+  tmp_dat$labelnames <- row.names(tmp_dat)
+  sig01 <- subset(tmp_dat, tmp_dat$neglogQ > -1 * log10(sig_value))
   siglabel <- sig01$labelnames
-  tmpDat$color <- color
+  tmp_dat$color <- color
 
   (p <- ggplot() +
-    geom_point(data = tmpDat, aes(x = ts, y = neglogQ, color = color), alpha = 0.4, size = 2) +
+    geom_point(data = tmp_dat, aes(x = ts, y = neglogQ, color = color), alpha = 0.4, size = 2) +
     theme_bw() +
     xlab("<ts>") + ylab("-log10 (Q-Value)") + ggtitle("") +
     scale_color_manual(name = "", values = c("black", "red")) +
@@ -42,8 +49,8 @@ getVolcanoPlot <- function(ts, qValue, filename, path = NULL, sigValue = 0.4) {
 
   plotname <- paste0(path, filename, ".pdf")
   ggsave(plotname, p)
-  tmpDatF <- cbind(tmpDat$ts, tmpDat$neglogQ)
-  colnames(tmpDatF) <- c("ts", "neglogQ")
+  tmp_dat_f <- cbind(tmp_dat$ts, tmp_dat$neglogQ)
+  colnames(tmp_dat_f) <- c("ts", "neglogQ")
   csvname <- paste0(path, filename, ".csv")
-  write.csv(tmpDatF, file = csvname)
+  write.csv(tmp_dat_f, file = csvname)
 }

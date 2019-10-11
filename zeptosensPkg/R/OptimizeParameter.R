@@ -4,10 +4,15 @@
 #' With colnames as gene tags and rownames as sample tags.
 #' @param prior Prior information data frame ,with colnames and rownames as gene tags.
 #' With colnames and rownames as gene tags.
+#' 
 #' @return Parameter list of regulization parameter decided by the prior information and the algorithmn lowest BIC.
 #' Including regularize parameter(L1 norm parameter) as rho, scale parameter
 #' (decided how much prior information contribute) as kappa, and regulization matrix
 #' for the expression data and Model's BIC matrix for differnet regularization parameters.
+#' 
+#' @importFrom glasso glasso
+#' @importFrom stats cov 
+#' 
 #' @concept zeptosensPkg
 #' @export
 optimizeParameter <- function(data, prior) {
@@ -21,26 +26,28 @@ optimizeParameter <- function(data, prior) {
   rho <- seq(0.01, 1, length = 100)
   bic <- matrix(NA, 100, 100)
   kappa <- rho
-  rhoM <- c()
-  gResult <- c()
+  rho_m <- NULL
+  g_result <- NULL
   u <- matrix(1, nrow(prior), ncol(prior))
-  pOffD <- c()
+  p_off_d <- NULL
   for (i in 1:100) {
     for (j in 1:i) {
-      rhoM <- rho[i] * u - kappa[j] * prior
-      gResult <- glasso(covmatrix, rhoM)
-      pOffD <- sum(gResult$wi != 0 & col(covmatrix) < row(covmatrix))
-      bic[i, j] <- -2 * (gResult$loglik) + pOffD * log(nrow(data))
+      rho_m <- rho[i] * u - kappa[j] * prior
+      g_result <- glasso(covmatrix, rho_m)
+      p_off_d <- sum(g_result$wi != 0 & col(covmatrix) < row(covmatrix))
+      bic[i, j] <- -2 * (g_result$loglik) + p_off_d * log(nrow(data))
       bic <- as.data.frame(bic)
       rownames(bic) <- rho
       colnames(bic) <- kappa
     }
   }
-  pos <- which(bic == min(bic, na.rm = TRUE), arr.ind = T)
+  
+  pos <- which(bic == min(bic, na.rm = TRUE), arr.ind = TRUE)
   rho <- rho[pos[1]]
   kappa <- kappa[pos[2]]
 
-  rhoM <- rho * u - kappa * prior
-  parameters <- list(rhoM, rho, kappa, bic)
+  rho_m <- rho * u - kappa * prior
+  parameters <- list(rho_m, rho, kappa, bic)
+  
   return(parameters)
 }
