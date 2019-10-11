@@ -11,3 +11,5 @@ zeptosensPkg/inst/shinyApp/p.txt
 zeptosensPkg/inst/shinyApp/q.txt
 zeptosensPkg/inst/shinyApp/randts.txt
 zeptosensPkg/inst/shinyApp/TS_d.txt
+zeptosensPkg.Rcheck
+zeptosensPkg_*.tar.gz

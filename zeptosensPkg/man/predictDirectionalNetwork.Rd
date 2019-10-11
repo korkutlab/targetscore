@@ -4,7 +4,7 @@
 \alias{predictDirectionalNetwork}
 \title{Predicted Directional GeneNetwork}
 \usage{
-predictDirectionalNetwork(data, prior, rho, kappa, cut.off)
+predictDirectionalNetwork(data, prior, rho, kappa, cut_off)
 }
 \arguments{
 \item{data}{input expression data. Coloumns as the gene, rows as the sample.
@@ -16,9 +16,11 @@ Can extracted from predictBioNetwork function or inferred from any resources.}
 \item{rho}{regulization parameter}
 
 \item{kappa}{scaler parameter}
+
+\item{cut_off}{TODO}
 }
 \value{
-estimatedNetwork include list of estimated directional partial correlation
+estimated_network include list of estimated directional partial correlation
 gene network rho as the regulization parametwe and kappa as the scaler parameter.
 }
 \description{

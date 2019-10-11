@@ -4,16 +4,18 @@
 \alias{runCrossValidation}
 \title{Run Cross validation for data through the chosen algorithm.}
 \usage{
-runCrossValidation(data, prior, bootTime = 1000, cutOff = 0.1,
+runCrossValidation(data, prior, boot_time = 1000, cut_off = 0.1,
   fold = 5)
 }
 \arguments{
-\item{data}{input expression data. Coloumns as the gene, rows as the sample.With
+\item{data}{input expression data. Coloumns as the gene, rows as the sample.With 
 colnames as the gene tags, rownames as the sample tags.}
 
 \item{prior}{prior information matrix with colnames and rownames as the gene tags.}
 
-\item{bootTime}{Bootstrap time mannually set.Default at 1000.}
+\item{boot_time}{Bootstrap time mannually set.Default at 1000.}
+
+\item{cut_off}{TODO}
 
 \item{fold}{The fold for training and test dataset. Default at 5.}
 }

@@ -4,10 +4,10 @@
 \alias{createSifFromMatrix}
 \title{Create sif from network matrix.}
 \usage{
-createSifFromMatrix(tNet, genelist)
+createSifFromMatrix(t_net, genelist)
 }
 \arguments{
-\item{tNet}{p*p Gaussian gene Network matrix estimated.}
+\item{t_net}{p*p Gaussian gene Network matrix estimated.}
 
 \item{genelist}{gene name list corresponding to the Gaussian gene Network estimated.}
 }

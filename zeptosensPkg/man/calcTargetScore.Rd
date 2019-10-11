@@ -4,45 +4,45 @@
 \alias{calcTargetScore}
 \title{Compute Target score for randomized data/compute P value for each TS given a network topology}
 \usage{
-calcTargetScore(wk, wks, distInd, inter, nDose, nProt, proteomicResponses,
-  maxDist = 1, cellLine, verbose = TRUE, tsFactor = 1, fsFile,
-  antibodyMapFile = NULL, distFile = NULL)
+calcTargetScore(wk, wks, dist_ind, inter, n_dose, n_prot,
+  proteomic_responses, max_dist = 1, cell_line, verbose = TRUE,
+  ts_factor = 1, fs_file, antibody_map_file = NULL, dist_file = NULL)
 }
 \arguments{
-\item{wk}{TBA}
+\item{wk}{TODO}
 
-\item{wks}{TBA}
+\item{wks}{TODO}
 
-\item{distInd}{TBA}
+\item{dist_ind}{TODO}
 
-\item{inter}{TBA}
+\item{inter}{TODO}
 
-\item{nDose}{TBA}
+\item{n_dose}{TODO}
 
-\item{nProt}{TBA}
+\item{n_prot}{TODO}
 
-\item{proteomicResponses}{TBA}
+\item{proteomic_responses}{TODO}
 
-\item{maxDist}{TBA (default: 1)}
+\item{max_dist}{TODO (default: 1)}
 
-\item{cellLine}{TBA}
+\item{cell_line}{TODO}
 
 \item{verbose}{a boolean to show debugging information}
 
-\item{tsFactor}{a scaling factor for the pathway component in the target score}
+\item{ts_factor}{a scaling factor for the pathway component in the target score}
 
-\item{fsFile}{Functional score file. A tab-delmited file with a header, each row is an
+\item{fs_file}{Functional score file. A tab-delmited file with a header, each row is an
 antibody in the first column and functional score in the second column
 (i.e. 1 oncogene, 0 tumor supressor/oncogene, -1 tumor supressor characteristics)}
 
-\item{antibodyMapFile}{a listing of antibodies, their associated genes, and modification sites}
+\item{antibody_map_file}{a listing of antibodies, their associated genes, and modification sites}
 
-\item{distFile}{A distance file an edgelist with a third column which is the network distance
+\item{dist_file}{A distance file an edgelist with a third column which is the network distance
 between the genes in the interaction}
 
-\item{targetScoreOutputFile}{a filename to write target score results (default: NULL)}
+\item{target_score_output_file}{a filename to write target score results (default: NULL)}
 
-\item{matrixWkOutputFile}{TBA}
+\item{matrix_wk_output_file}{TODO}
 }
 \description{
 Compute Target score for randomized data/compute P value for each TS given a network topology
@@ -51,8 +51,5 @@ Compute Target score for randomized data/compute P value for each TS given a net
 data: multiple dose single drug perturbation
 ts: integral_dose(fs*(xi+sigma_j(2^p*xj*product_k(wk))))
 missing: For phosp and dephosp based wk, there is no 'exact match' between known and measured phospho-sites
-}
-\examples{
-
 }
 \concept{zeptosensPkg}

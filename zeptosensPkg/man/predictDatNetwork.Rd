@@ -4,20 +4,20 @@
 \alias{predictDatNetwork}
 \title{predict data-driven only network.}
 \usage{
-predictDatNetwork(data, cutOff = 0.1, nProt, proteomicResponses,
-  maxDist = 1)
+predictDatNetwork(data, cut_off = 0.1, n_prot, proteomic_responses,
+  max_dist = 1)
 }
 \arguments{
 \item{data}{input expression data frame. Gene in coloumns and samples in row.
 With colnames as gene tags and rownames as sample tags.}
 
-\item{cutOff}{Manually Setup cut off value for the strength of edge. Default at 0.1.}
+\item{cut_off}{Manually Setup cut off value for the strength of edge. Default at 0.1.}
 
-\item{nProt}{Number of proteins included in the drug perturbation data.}
+\item{n_prot}{Number of proteins included in the drug perturbation data.}
 
-\item{proteomicResponses}{Drug Perturbation data for analysis.}
+\item{proteomic_responses}{Drug Perturbation data for analysis.}
 
-\item{maxDist}{TBA (default: 1)}
+\item{max_dist}{TODO (default: 1)}
 }
 \value{
 Parameter of regulization decided lowest BIC.Including regularize parameter(L1 norm parameter) as rho.
@@ -27,5 +27,6 @@ predict data-driven only network.
 }
 \examples{
 optimizeParameter(data = GeneExpresssion, prior = Priorindormation)
+
 }
 \concept{zeptosensPkg}

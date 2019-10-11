@@ -11,7 +11,7 @@ optimizeParameter2(data)
 With colnames as gene tags and rownames as sample tags.}
 }
 \value{
-Parameter of regulization decided lowest BIC.Including regularize parameter
+Parameter of regulization decided lowest BIC. Including regularize parameter
 (L1 norm parameter) as rho.
 }
 \description{
@@ -19,5 +19,6 @@ Choose the optimal regulization parameter for only data-driven network.
 }
 \examples{
 optimizeParameter(data = GeneExpresssion, prior = Priorindormation)
+
 }
 \concept{zeptosensPkg}

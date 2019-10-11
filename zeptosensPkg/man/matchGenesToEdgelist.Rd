@@ -4,22 +4,22 @@
 \alias{matchGenesToEdgelist}
 \title{Match a vector of genes to a SIF network}
 \usage{
-matchGenesToEdgelist(genes1, genes2 = NULL, annotEdgelist, antibodyVec,
-  useAnnot = FALSE, verbose = FALSE)
+matchGenesToEdgelist(genes1, genes2 = NULL, annot_edgelist, antibody_vec,
+  use_annot = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{genes1}{a vector of genes}
 
 \item{genes2}{an optional vector if the source}
 
-\item{annotEdgelist}{a data.frame; the first two columns are interaction
+\item{annot_edgelist}{a data.frame; the first two columns are interaction
 participants and the third column is an optional annotation}
 
-\item{antibodyVec}{a vector with the names of the antibodies (e.g. colnames(proteomicResponses));
+\item{antibody_vec}{a vector with the names of the antibodies (e.g. colnames(proteomicResponses));
 indicies returned from this function will be mapped to this vector}
 
-\item{useAnnot}{a boolean as to whether the optional annotation column values
-in the annotEdgelist should outputted in the results}
+\item{use_annot}{a boolean as to whether the optional annotation column values
+in the annot_edgelist should outputted in the results}
 
 \item{verbose}{a boolean to show debugging information}
 }

@@ -4,23 +4,20 @@
 \alias{network2}
 \title{Network for adjusted-glasso}
 \usage{
-network2(wk, nProt, proteomicResponses, maxDist, antibodyMapFile = NULL,
-  distFile = NULL, verbose = F)
+network2(wk, n_prot, proteomic_responses, max_dist,
+  antibody_map_file = NULL, dist_file = NULL, verbose = FALSE)
 }
 \arguments{
 \item{wk}{The upload network constructed In matrix form.}
 
-\item{nProt}{number of proteins tested.}
+\item{n_prot}{number of proteins tested.}
 
-\item{proteomicResponses}{TBA}
+\item{proteomic_responses}{TODO}
 
-\item{distFile}{A distance file an edgelist with a third column which is the network distance
+\item{dist_file}{A distance file an edgelist with a third column which is the network distance
 between the genes in the interaction}
 }
 \description{
 Network for adjusted-glasso
-}
-\examples{
-
 }
 \concept{zeptosensPkg}

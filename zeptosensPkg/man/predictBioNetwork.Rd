@@ -4,25 +4,24 @@
 \alias{predictBioNetwork}
 \title{Predict Network from signedPC (Bio-inferred network)}
 \usage{
-predictBioNetwork(nProt, proteomicResponses, maxDist,
-  antibodyMapFile = NULL, distFile = NULL, verbose = F)
+predictBioNetwork(n_prot, proteomic_responses, max_dist,
+  antibody_map_file = NULL, dist_file = NULL, verbose = FALSE)
 }
 \arguments{
-\item{nProt}{TBA}
+\item{n_prot}{TODO}
 
-\item{proteomicResponses}{TBA}
+\item{proteomic_responses}{TODO}
 
-\item{maxDist}{TBA (default: 1)}
+\item{max_dist}{TODO (default: 1)}
 
-\item{antibodyMapFile}{a listing of antibodies, their associated genes, and modification sites}
+\item{antibody_map_file}{a listing of antibodies, their associated genes, and modification sites}
 
-\item{distFile}{A distance file an edgelist with a third column which is the network distance
+\item{dist_file}{A distance file an edgelist with a third column which is the network distance
 between the genes in the interaction}
+
+\item{verbose}{whether to show debugging information}
 }
 \description{
 Predict Network from signedPC (Bio-inferred network)
-}
-\examples{
-
 }
 \concept{zeptosensPkg}

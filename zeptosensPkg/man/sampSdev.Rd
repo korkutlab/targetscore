@@ -4,16 +4,16 @@
 \alias{sampSdev}
 \title{stdev over all samples}
 \usage{
-sampSdev(nSample, nProt, nDose, nX)
+sampSdev(n_sample, n_prot, n_dose, n_x)
 }
 \arguments{
-\item{nSample}{number of samples}
+\item{n_sample}{number of samples}
 
-\item{nProt}{number of proteins}
+\item{n_prot}{number of proteins}
 
-\item{nX}{vertically merged data from all samples rows condition columns proteins}
+\item{n_dose}{number of doses}
 
-\item{nCond}{number of consitions}
+\item{n_x}{vertically merged data from all samples rows condition columns proteins}
 }
 \description{
 stdev over all samples

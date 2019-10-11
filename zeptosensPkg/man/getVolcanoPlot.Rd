@@ -6,18 +6,20 @@
 As Significant Proteins (p value< Defalut or Manually set value) will show in red.
 The inverse log 10 of Target Score q value and Target Score calculated were shown.}
 \usage{
-getVolcanoPlot(ts, qValue, filename, path = NULL, sigValue = 0.4)
+getVolcanoPlot(ts, q_value, filename, path = NULL, sig_value = 0.4)
 }
 \arguments{
 \item{ts}{input Target Score calculated for each protein data frame.
 Gene in coloumns and samples in row. Wih colnames as gene tags and rownames as sample tags.}
 
-\item{qValue}{input Target Score q value calculated for each protein data frame.
+\item{q_value}{input Target Score q value calculated for each protein data frame.
 Gene in coloumns and samples in row. Wih colnames as gene tags and rownames as sample tags.}
 
 \item{filename}{Manually set filename of volcano Plot.}
 
 \item{path}{Plot Store path. Default at working environment.}
+
+\item{sig_value}{TODO}
 }
 \value{
 volcano Plots with indicated filename and path.
@@ -29,5 +31,6 @@ The inverse log 10 of Target Score q value and Target Score calculated were show
 }
 \examples{
 optimizeParameter(data = GeneExpresssion, prior = Priorindormation)
+
 }
 \concept{zeptosensPkg}

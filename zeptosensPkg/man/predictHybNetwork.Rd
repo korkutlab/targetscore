@@ -5,7 +5,7 @@
 \title{Choose the optimal regulization parameter and scale paramter for prior information adjusted network construction.}
 \usage{
 predictHybNetwork(data, prior = NULL, cut_off = 0.1,
-  proteomicResponses, nProt, maxDist = 1, antibodyMapFile)
+  proteomic_responses, n_prot, max_dist = 1, antibody_map_file)
 }
 \arguments{
 \item{data}{input Global Signaling expression data frame(TCGA rppa Data for example).
@@ -16,26 +16,29 @@ With colnames and rownames as gene tags. Can be inferred from predictBioNetwork 
 
 \item{cut_off}{Manually set up cut off value for strength of edge. Default at 0.1.}
 
-\item{proteomicResponses}{RPPA data tested for drug pertubation.}
+\item{proteomic_responses}{RPPA data tested for drug pertubation.}
 
-\item{nProt}{number of Proteins contained in the data.}
+\item{n_prot}{number of Proteins contained in the data.}
 
-\item{maxDist}{Maximun distance for the network. Default at 1.}
+\item{max_dist}{Maximun distance for the network. Default at 1.}
 
-\item{antibodyMapFile}{TBA}
+\item{antibody_map_file}{TODO}
 }
 \value{
-"parameters" as the Parameter list of regulization parameter decided by the prior information and the algorithmn lowest BIC.Including regularize parameter(L1 norm parameter) as "rho", scale parameter(decided how much prior information contribute) as "kappa", and regulization matrix for the expression data as "rhoM".
+"parameters" as the Parameter list of regulization parameter decided by the prior information 
+and the algorithmn lowest BIC.Including regularize parameter(L1 norm parameter) as "rho", scale parameter 
+(decided how much prior information contribute) as "kappa", and regulization matrix for the expression 
+data as "rho_m".
 
 "bic"as the Model's BIC matrix for differnet regularization parameters.
 
 "wk" as the predicted network.
 
-"wks" TBA
+"wks" TODO
 
-"distInd" TBA
+"dist_ind" TODO
 
-"inter" TBA
+"inter" TODO
 
 "edgelist" as the edgelist for predicted network.
 
@@ -45,6 +48,8 @@ With colnames and rownames as gene tags. Can be inferred from predictBioNetwork 
 Choose the optimal regulization parameter and scale paramter for prior information adjusted network construction.
 }
 \examples{
-predictHybNetwork(data = GeneExpresssion, prior = Priorinformation, proteomicResponses = proteomicResponses, nProt = nProt)
+predictHybNetwork(data = GeneExpresssion, prior = Priorinformation, 
+                  proteomic_responses = proteomic_responses, n_prot = n_prot)
+
 }
 \concept{zeptosensPkg}

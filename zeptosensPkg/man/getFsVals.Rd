@@ -4,26 +4,23 @@
 \alias{getFsVals}
 \title{Extracted functional score value from COMIC/ONCODRIVE Database. Can be override with Manually set functional score.}
 \usage{
-getFsVals(nProt, proteomicResponses, antibodyMapFile = NULL,
-  fsValueFile = NULL, verbose = F)
+getFsVals(n_prot, proteomic_responses, antibody_map_file = NULL,
+  fs_value_file = NULL, verbose = FALSE)
 }
 \arguments{
-\item{nProt}{number of proteins tested within the data.}
+\item{n_prot}{number of proteins tested within the data.}
 
-\item{proteomicResponses}{Proteomic responses as drug pertubation.}
+\item{proteomic_responses}{Proteomic responses as drug pertubation.}
 
-\item{antibodyMapFile}{a listing of antibodies, their associated genes,
+\item{antibody_map_file}{a listing of antibodies, their associated genes,
 and modification sites}
 
-\item{fsValueFile}{a listing of functional scores for each gene manually set up
+\item{fs_value_file}{a listing of functional scores for each gene manually set up
 for overriding COSMIC Database given value, the modification path. (.txt)}
 
 \item{verbose}{Default as FALSE. If given TRUE, will print out the gene seq mapped with Antibody Map File.}
 }
 \description{
 Extracted functional score value from COMIC/ONCODRIVE Database. Can be override with Manually set functional score.
-}
-\examples{
-
 }
 \concept{zeptosensPkg}

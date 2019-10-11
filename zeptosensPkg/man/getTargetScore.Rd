@@ -4,51 +4,54 @@
 \alias{getTargetScore}
 \title{Target Score Pilot Run}
 \usage{
-getTargetScore(wk, wks, distInd, inter, nDose, nProt, proteomicResponses,
-  maxDist = 1, nPerm, cellLine, targetScoreOutputFile = NULL,
-  matrixWkOutputFile = NULL, targetScoreQValueFile = NULL,
-  targetScoreDoseFile = NULL, randomTargetScoreFile = NULL,
-  targetScorePValueFile = NULL, verbose = TRUE, tsFactor = 1, fsFile,
-  signedMatrixWkOutputFile = NULL)
+getTargetScore(wk, wks, dist_ind, inter, n_dose, n_prot,
+  proteomic_responses, max_dist = 1, n_perm, cell_line,
+  target_score_output_file = NULL, matrix_wk_output_file = NULL,
+  target_score_q_value_file = NULL, target_score_dose_file = NULL,
+  random_target_score_file = NULL, target_score_p_value_file = NULL,
+  verbose = TRUE, ts_factor = 1, fs_file,
+  signed_matrix_wk_output_file = NULL)
 }
 \arguments{
-\item{wk}{TBA}
+\item{wk}{TODO}
 
-\item{wks}{TBA}
+\item{wks}{TODO}
 
-\item{distInd}{TBA}
+\item{dist_ind}{TODO}
 
-\item{inter}{TBA}
+\item{inter}{TODO}
 
-\item{nDose}{TBA}
+\item{n_dose}{TODO}
 
-\item{nProt}{TBA}
+\item{n_prot}{TODO}
 
-\item{proteomicResponses}{TBA}
+\item{proteomic_responses}{TODO}
 
-\item{maxDist}{TBA (default: 1)}
+\item{max_dist}{TODO (default: 1)}
 
-\item{nPerm}{number of random TS calculations for building the null distribution}
+\item{n_perm}{number of random TS calculations for building the null distribution}
 
-\item{cellLine}{TBA}
+\item{cell_line}{TODO}
 
-\item{targetScoreOutputFile}{a filename to write total target score results (default: NULL)}
+\item{target_score_output_file}{a filename to write total target score results (default: NULL)}
 
-\item{matrixWkOutputFile}{TBA}
+\item{matrix_wk_output_file}{TODO}
 
-\item{targetScoreQValueFile}{a file namme to write statistical significance levels (default: NULL)}
+\item{target_score_q_value_file}{a filename to write statistical significance levels (default: NULL)}
 
-\item{targetScoreDoseFile}{a filename to write dose dependent target score results (default: NULL)}
+\item{target_score_dose_file}{a filename to write dose dependent target score results (default: NULL)}
 
-\item{targetScorePValueFile}{a file namme to write statistical significance levels (default: NULL)}
+\item{random_target_score_file}{TODO}
+
+\item{target_score_p_value_file}{a filename to write statistical significance levels (default: NULL)}
 
 \item{verbose}{a flag for debugging output}
 
-\item{tsFactor}{a scaling factor for the pathway component of the target score}
+\item{ts_factor}{a scaling factor for the pathway component of the target score}
 
-\item{fsFile}{a file with the functional score data}
+\item{fs_file}{a file with the functional score data}
 
-\item{signedMatrixWkOutputFile}{TBA}
+\item{signed_matrix_wk_output_file}{TODO}
 }
 \description{
 Target Score Pilot Run
@@ -58,8 +61,5 @@ data: multiple dose single drug perturbation
 ts: integral_dose(fs*(xi+sigma_j(2^p*xj*product_k(wk))))
 to be converted to integral_dose(fs*((xi/(stdev_xi)+sigma_j(2^p*((xj/stdev_xj)*product_k(wk))))
 missing: For phosp and dephosp based wk, there is no 'exact match' between known and measured phospho-sites
-}
-\examples{
-
 }
 \concept{zeptosensPkg}
