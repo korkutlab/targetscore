@@ -25,14 +25,14 @@ predictDatNetwork <- function(data, cut_off = 0.1, n_prot, proteomic_responses, 
   g_result <- NULL
   p_off_d <- NULL
   for (i in 1:100) {
-    g_result <- glasso(covmatrix, rho[i])
+    g_result <- glasso::glasso(covmatrix, rho[i])
     p_off_d <- sum(g_result$wi != 0 & col(covmatrix) < row(covmatrix))
     bic[i] <- -2 * (g_result$loglik) + p_off_d * log(nrow(data))
   }
   parameter <- rho[which.min(bic)]
 
   # Estimated inverse covariance (precision matrix)
-  tmp <- glasso(covmatrix, rho = parameter)
+  tmp <- glasso::glasso(covmatrix, rho = parameter)
   sigma_matrix <- tmp$wi
   niter <- tmp$niter
   print(niter) # if niter = 10,000

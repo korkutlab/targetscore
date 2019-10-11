@@ -48,7 +48,7 @@ getVolcanoPlot <- function(ts, q_value, filename, path = NULL, sig_value = 0.4) 
   )
 
   plotname <- paste0(path, filename, ".pdf")
-  ggsave(plotname, p)
+  ggplot2::ggsave(plotname, p)
   tmp_dat_f <- cbind(tmp_dat$ts, tmp_dat$neglogQ)
   colnames(tmp_dat_f) <- c("ts", "neglogQ")
   csvname <- paste0(path, filename, ".csv")

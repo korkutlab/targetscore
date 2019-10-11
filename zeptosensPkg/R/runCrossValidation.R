@@ -37,20 +37,20 @@ runCrossValidation <- function(data, prior, boot_time = 1000, cut_off = 0.1, fol
   # network construction
 
   # network construction(start here)
-  score_1_tp <- array(0, dim = c(boot_time, 1))
-  score_1_fp <- array(0, dim = c(boot_time, 1))
-  score_1_fn <- array(0, dim = c(boot_time, 1))
-  score_1_tn <- array(0, dim = c(boot_time, 1))
+  score1_tp <- array(0, dim = c(boot_time, 1))
+  score1_fp <- array(0, dim = c(boot_time, 1))
+  score1_fn <- array(0, dim = c(boot_time, 1))
+  score1_tn <- array(0, dim = c(boot_time, 1))
 
-  score_2_tp <- array(0, dim = c(boot_time, 1))
-  score_2_fp <- array(0, dim = c(boot_time, 1))
-  score_2_fn <- array(0, dim = c(boot_time, 1))
-  score_2_tn <- array(0, dim = c(boot_time, 1))
+  score2_tp <- array(0, dim = c(boot_time, 1))
+  score2_fp <- array(0, dim = c(boot_time, 1))
+  score2_fn <- array(0, dim = c(boot_time, 1))
+  score2_tn <- array(0, dim = c(boot_time, 1))
 
-  score_3_tp <- array(0, dim = c(boot_time, 1))
-  score_3_fp <- array(0, dim = c(boot_time, 1))
-  score_3_fn <- array(0, dim = c(boot_time, 1))
-  score_3_tn <- array(0, dim = c(boot_time, 1))
+  score3_tp <- array(0, dim = c(boot_time, 1))
+  score3_fp <- array(0, dim = c(boot_time, 1))
+  score3_fn <- array(0, dim = c(boot_time, 1))
+  score3_tn <- array(0, dim = c(boot_time, 1))
 
   scorer_tp <- array(0, dim = c(boot_time, 1))
   scorer_fp <- array(0, dim = c(boot_time, 1))
@@ -83,7 +83,7 @@ runCrossValidation <- function(data, prior, boot_time = 1000, cut_off = 0.1, fol
     for (i in 1:100) {
       for (j in 1:i) {
         rho_m <- rho[i] * u - kappa[j] * prior2
-        g_result <- glasso(pc, rho_m)
+        g_result <- glasso::glasso(pc, rho_m)
         p_off_d <- sum(g_result$wi != 0 & col(pc) < row(pc))
         bic[i, j] <- -2 * (g_result$loglik) + p_off_d * log(nrow(train_data))
       }
@@ -94,7 +94,7 @@ runCrossValidation <- function(data, prior, boot_time = 1000, cut_off = 0.1, fol
     rho_m <- rho * u - kappa * prior2
 
     # Network construction with directional & prior information (trainning data)
-    g_result <- glasso(pc, rho = rho_m)
+    g_result <- glasso::glasso(pc, rho = rho_m)
     sigma_matrix <- g_result$wi
     niter <- g_result$niter
     if (niter == 10000) {
@@ -108,7 +108,7 @@ runCrossValidation <- function(data, prior, boot_time = 1000, cut_off = 0.1, fol
     }
 
     # loglikelihood value of the training data
-    loglik_train <- g_result$loglik
+    #loglik_train <- g_result$loglik
 
     t_edges <- pcor_matrix
 
@@ -144,14 +144,14 @@ runCrossValidation <- function(data, prior, boot_time = 1000, cut_off = 0.1, fol
     p_off_d <- NULL
     pc <- var(train_data)
     for (i in 1:100) {
-      g_result <- glasso(pc, rho[i])
+      g_result <- glasso::glasso(pc, rho[i])
       p_off_d <- sum(g_result$wi != 0 & col(pc) < row(pc))
       bic[i] <- -2 * (g_result$loglik) + p_off_d * log(nrow(train_data))
     }
     best <- which.min(bic)
     rho <- rho[best]
     # get the network without prior
-    g_result <- glasso(pc, rho = rho)
+    g_result <- glasso::glasso(pc, rho = rho)
     sigma_matrix <- g_result$wi
     niter <- g_result$niter
 
@@ -171,7 +171,7 @@ runCrossValidation <- function(data, prior, boot_time = 1000, cut_off = 0.1, fol
 
     # network random
     eta_a <- sum(t_edges_rho != 0) / (ncol(train_data) * (ncol(train_data) - 1) * 2)
-    random_pcor <- ggm.simulate.pcor(ncol(data), etaA = eta_a)
+    random_pcor <- GeneNet::ggm.simulate.pcor(ncol(data), etaA = eta_a)
 
     # t_net in signaling way(0,1)
     t_net_rhoadjusted_d <- ifelse(col(t_net_rhoadjusted_d) != row(t_net_rhoadjusted_d) & t_net_rhoadjusted_d > 0, 1,
@@ -216,7 +216,7 @@ runCrossValidation <- function(data, prior, boot_time = 1000, cut_off = 0.1, fol
     for (i in 1:100) {
       for (j in 1:i) {
         rho_m <- rho[i] * u - kappa[j] * prior2
-        g_result <- glasso(pc, rho_m)
+        g_result <- glasso::glasso(pc, rho_m)
         p_off_d <- sum(g_result$wi != 0 & col(pc) < row(pc))
         bic[i, j] <- -2 * (g_result$loglik) + p_off_d * log(nrow(valid_data))
       }
@@ -227,7 +227,7 @@ runCrossValidation <- function(data, prior, boot_time = 1000, cut_off = 0.1, fol
     rho_m <- rho * u - kappa * prior2
 
     # Network construction with directional & prior information (valid_data)
-    g_result <- glasso(pc, rho = rho_m)
+    g_result <- glasso::glasso(pc, rho = rho_m)
     sigma_matrix <- g_result$wi
     niter <- g_result$niter
 
@@ -278,14 +278,14 @@ runCrossValidation <- function(data, prior, boot_time = 1000, cut_off = 0.1, fol
     p_off_d <- NULL
     pc <- var(valid_data)
     for (i in 1:100) {
-      g_result <- glasso(pc, rho[i])
+      g_result <- glasso::glasso(pc, rho[i])
       p_off_d <- sum(g_result$wi != 0 & col(pc) < row(pc))
       bic[i] <- -2 * (g_result$loglik) + p_off_d * log(nrow(valid_data))
     }
     best <- which.min(bic)
     rho <- rho[best]
     # get the network without prior
-    g_result <- glasso(pc, rho = rho)
+    g_result <- glasso::glasso(pc, rho = rho)
     sigma_matrix <- g_result$wi
     pcor_matrix <- matrix(0, nrow = ncol(data), ncol = ncol(data))
     for (i in 1:ncol(data)) {
@@ -299,7 +299,7 @@ runCrossValidation <- function(data, prior, boot_time = 1000, cut_off = 0.1, fol
 
     # random_network(valid_data)
 
-    random_pcor_valid <- ggm.simulate.pcor(ncol(data), etaA = sum(t_edges_rho_valid != 0) / 
+    random_pcor_valid <- GeneNet::ggm.simulate.pcor(ncol(data), etaA = sum(t_edges_rho_valid != 0) / 
                                              (ncol(valid_data) * (ncol(valid_data) - 1) * 2))
 
     # t_net in signaling way(0,1)
@@ -323,20 +323,20 @@ runCrossValidation <- function(data, prior, boot_time = 1000, cut_off = 0.1, fol
 
 
     # 5 fold cross validation as comparisn of the trainning network with the signal of the valid data
-    score_1_1 <- 0
-    score_1_2 <- 0
-    score_1_3 <- 0
-    score_1_4 <- 0
+    score1_1 <- 0
+    score1_2 <- 0
+    score1_3 <- 0
+    score1_4 <- 0
 
-    score_2_1 <- 0
-    score_2_2 <- 0
-    score_2_3 <- 0
-    score_2_4 <- 0
+    score2_1 <- 0
+    score2_2 <- 0
+    score2_3 <- 0
+    score2_4 <- 0
 
-    score_3_1 <- 0
-    score_3_2 <- 0
-    score_3_3 <- 0
-    score_3_4 <- 0
+    score3_1 <- 0
+    score3_2 <- 0
+    score3_3 <- 0
+    score3_4 <- 0
 
     score_r_1 <- 0
     score_r_2 <- 0
@@ -347,13 +347,13 @@ runCrossValidation <- function(data, prior, boot_time = 1000, cut_off = 0.1, fol
     for (t in 1:ncol(data)) {
       for (p in 1:ncol(data)) {
         if (t_net_rhoadjusted_d_valid[t, p] == t_net_rhoadjusted_d[t, p] & t_net_rhoadjusted_d_valid[t, p] != 0) {
-          score_1_1 <- score_1_1 + 1
+          score1_1 <- score1_1 + 1
         }
         if (t_net_rhoadjusted2_valid[t, p] == t_net_rhoadjusted2[t, p] & t_net_rhoadjusted2_valid[t, p] != 0) {
-          score_2_1 <- score_2_1 + 1
+          score2_1 <- score2_1 + 1
         }
         if (t_net_rho_valid[t, p] == t_net_rho[t, p] & t_net_rho_valid[t, p] != 0) {
-          score_3_1 <- score_3_1 + 1
+          score3_1 <- score3_1 + 1
         }
         if (t_net_r_valid[t, p] == t_net_r[t, p] & t_net_r_valid[t, p] != 0) {
           score_r_1 <- score_r_1 + 1
@@ -366,15 +366,15 @@ runCrossValidation <- function(data, prior, boot_time = 1000, cut_off = 0.1, fol
       for (p in 1:ncol(data)) {
         if (t_net_rhoadjusted_d_valid[t, p] != t_net_rhoadjusted_d[t, p] & 
             t_net_rhoadjusted_d[t, p] != 0 & t_net_rhoadjusted_d_valid[t, p] != 0) {
-          score_1_2 <- score_1_2 + 1
+          score1_2 <- score1_2 + 1
         }
         if (t_net_rhoadjusted2_valid[t, p] != t_net_rhoadjusted2[t, p] & 
             t_net_rhoadjusted2[t, p] != 0 & t_net_rhoadjusted2_valid[t, p] != 0) {
-          score_2_2 <- score_2_2 + 1
+          score2_2 <- score2_2 + 1
         }
         if (t_net_rho_valid[t, p] != t_net_rho[t, p] & t_net_rho[t, p] != 0 & 
             t_net_rho_valid[t, p] != 0) {
-          score_3_2 <- score_3_2 + 1
+          score3_2 <- score3_2 + 1
         }
         if (t_net_r_valid[t, p] != t_net_r[t, p] & t_net_r[t, p] != 0 & 
             t_net_r_valid[t, p] != 0) {
@@ -387,13 +387,13 @@ runCrossValidation <- function(data, prior, boot_time = 1000, cut_off = 0.1, fol
     for (t in 1:ncol(data)) {
       for (p in 1:ncol(data)) {
         if (t_net_rhoadjusted_d_valid[t, p] != t_net_rhoadjusted_d[t, p] & t_net_rhoadjusted_d[t, p] == 0) {
-          score_1_3 <- score_1_3 + 1
+          score1_3 <- score1_3 + 1
         }
         if (t_net_rhoadjusted2_valid[t, p] != t_net_rhoadjusted2[t, p] & t_net_rhoadjusted2[t, p] == 0) {
-          score_2_3 <- score_2_3 + 1
+          score2_3 <- score2_3 + 1
         }
         if (t_net_rho_valid[t, p] != t_net_rho[t, p] & t_net_rho[t, p] == 0) {
-          score_3_3 <- score_3_3 + 1
+          score3_3 <- score3_3 + 1
         }
         if (t_net_r_valid[t, p] != t_net_r[t, p] & t_net_r[t, p] == 0) {
           score_r_3 <- score_r_3 + 1
@@ -405,13 +405,13 @@ runCrossValidation <- function(data, prior, boot_time = 1000, cut_off = 0.1, fol
     for (t in 1:ncol(data)) {
       for (p in 1:ncol(data)) {
         if (t_net_rhoadjusted_d_valid[t, p] == t_net_rhoadjusted_d[t, p] & t_net_rhoadjusted_d_valid[t, p] == 0) {
-          score_1_4 <- score_1_4 + 1
+          score1_4 <- score1_4 + 1
         }
         if (t_net_rhoadjusted2_valid[t, p] == t_net_rhoadjusted2[t, p] & t_net_rhoadjusted2_valid[t, p] == 0) {
-          score_2_4 <- score_2_4 + 1
+          score2_4 <- score2_4 + 1
         }
         if (t_net_rho_valid[t, p] == t_net_rho[t, p] & t_net_rho_valid[t, p] == 0) {
-          score_3_4 <- score_3_4 + 1
+          score3_4 <- score3_4 + 1
         }
         if (t_net_r_valid[t, p] == t_net_r[t, p] & t_net_r_valid[t, p] == 0) {
           score_r_4 <- score_r_4 + 1
@@ -420,20 +420,20 @@ runCrossValidation <- function(data, prior, boot_time = 1000, cut_off = 0.1, fol
     }
     # score in table###and the explaination##3
 
-    score_1_tp[r] <- score_1_1
-    score_1_fp[r] <- score_1_2
-    score_1_fn[r] <- score_1_3
-    score_1_tn[r] <- score_1_4
+    score1_tp[r] <- score1_1
+    score1_fp[r] <- score1_2
+    score1_fn[r] <- score1_3
+    score1_tn[r] <- score1_4
 
-    score_2_tp[r] <- score_2_1
-    score_2_fp[r] <- score_2_2
-    score_2_fn[r] <- score_2_3
-    score_2_tn[r] <- score_2_4
+    score2_tp[r] <- score2_1
+    score2_fp[r] <- score2_2
+    score2_fn[r] <- score2_3
+    score2_tn[r] <- score2_4
 
-    score_3_tp[r] <- score_3_1
-    score_3_fp[r] <- score_3_2
-    score_3_fn[r] <- score_3_3
-    score_3_tn[r] <- score_3_4
+    score3_tp[r] <- score3_1
+    score3_fp[r] <- score3_2
+    score3_fn[r] <- score3_3
+    score3_tn[r] <- score3_4
 
     scorer_tp[r] <- score_r_1
     scorer_fp[r] <- score_r_2
@@ -442,38 +442,38 @@ runCrossValidation <- function(data, prior, boot_time = 1000, cut_off = 0.1, fol
   }
   # loop end here,write out the result here with no overlap
   # true positive
-  score_1_p <- mean(score_1_tp / n_edges1)
-  score_b_1 <- score_1_fn / n_edges1
+  score1_p <- mean(score1_tp / n_edges1)
+  score_b_1 <- score1_fn / n_edges1
   # false negative
-  score_1_f <- mean(score_1_fn / n0_edges1)
-  score_0_b1 <- score_1_fn / n0_edges1
+  score1_f <- mean(score1_fn / n0_edges1)
+  score0_b_1 <- score1_fn / n0_edges1
 
   # true positive
-  score_2_p <- mean(score_2_tp / n_edges2)
-  score_b_2 <- score_2_tp / n_edges2
+  score2_p <- mean(score2_tp / n_edges2)
+  score_b_2 <- score2_tp / n_edges2
   # false negative
-  score_2_f <- mean(score_2_fn / n0_edges2)
-  score_0_b_2 <- score_1_fn / n0_edges2
+  score2_f <- mean(score2_fn / n0_edges2)
+  score0_b_2 <- score1_fn / n0_edges2
 
   # true positive
-  score_3_p <- mean(score_3_tp / n_edges3)
-  score_b_3 <- score_3_tp / n_edges3
+  score3_p <- mean(score3_tp / n_edges3)
+  score_b_3 <- score3_tp / n_edges3
   # false negative
-  score_3_f <- mean(score_1_fn / n0_edges3)
-  score_0_b_3 <- score_1_fn / n0_edges3
+  score3_f <- mean(score1_fn / n0_edges3)
+  score0_b_3 <- score1_fn / n0_edges3
 
   # true positive
   scorer_p <- mean(scorer_tp / n_edgesr)
   score_b_r <- scorer_tp / n_edgesr
   # false negative
   scorer_f <- mean(scorer_fn / n0_edgesr)
-  score_0_b_r <- scorer_fn / n0_edgesr
+  score0_b_r <- scorer_fn / n0_edgesr
 
   result <- list(
-    score_1_p = score_1_p, score_b_1 = score_b_1, score_1_f = score_1_f, score_0_b_1 = score_0_b_1,
-    score_2_p = score_2_p, score_b_2 = score_b_2, score_2_f = score_2_f, score_0_b_2 = score_0_b_2,
-    score_3_p = score_3_p, score_b_3 = score_b_3, score_3_f = score_3_f, score_0_b_3 = score_0_b_3,
-    scorer_p = scorer_p, score_b_r = score_b_r, scorer_f = scorer_f, score_0_b_r = score_0_b_r
+    score1_p = score1_p, score_b_1 = score_b_1, score1_f = score1_f, score0_b_1 = score0_b_1,
+    score2_p = score2_p, score_b_2 = score_b_2, score2_f = score2_f, score0_b_2 = score0_b_2,
+    score3_p = score3_p, score_b_3 = score_b_3, score3_f = score3_f, score0_b_3 = score0_b_3,
+    scorer_p = scorer_p, score_b_r = score_b_r, scorer_f = scorer_f, score0_b_r = score0_b_r
   )
 
   return(result)

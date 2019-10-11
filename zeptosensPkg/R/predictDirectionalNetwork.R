@@ -24,7 +24,7 @@ predictDirectionalNetwork <- function(data, prior, rho, kappa, cut_off) {
   rho_m <- rho * u - kappa * prior
   pc <- cov(data)
   # Network construction with directional prior information
-  sigma_matrix <- glasso(pc, rho = rho_m)$wi
+  sigma_matrix <- glasso::glasso(pc, rho = rho_m)$wi
   pcor_matrix <- matrix(0, nrow = ncol(data), ncol = ncol(data))
   for (i in 1:ncol(data)) {
     for (j in 1:ncol(data)) {

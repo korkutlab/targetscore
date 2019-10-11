@@ -73,7 +73,7 @@ predictHybNetwork <- function(data, prior = NULL, cut_off = 0.1, proteomic_respo
   for (i in 1:100) {
     for (j in 1:i) {
       rho_m <- rho[i] * u - kappa[j] * prior2
-      g_result <- glasso(covmatrix, rho_m)
+      g_result <- glasso::glasso(covmatrix, rho_m)
       p_off_d <- sum(g_result$wi != 0 & col(covmatrix) < row(covmatrix))
       bic[i, j] <- -2 * (g_result$loglik) + p_off_d * log(nrow(data))
       bic <- as.data.frame(bic)
@@ -88,7 +88,7 @@ predictHybNetwork <- function(data, prior = NULL, cut_off = 0.1, proteomic_respo
   parameters <- list(rho_m = rho_m, rho = rho, kappa = kappa)
 
   # Estimated inverse covariance (precision)
-  tmp <- glasso(covmatrix, rho = rho_m)
+  tmp <- glasso::glasso(covmatrix, rho = rho_m)
   sigma_matrix <- tmp$wi
   niter <- tmp$niter
   print(niter) # if niter = 10,000

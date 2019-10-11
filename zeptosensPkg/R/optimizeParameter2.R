@@ -20,7 +20,7 @@ optimizeParameter2 <- function(data) {
   g_result <- NULL
   p_off_d <- NULL
   for (i in 1:100) {
-    g_result <- glasso(covmatrix, rho[i])
+    g_result <- glasso::glasso(covmatrix, rho[i])
     p_off_d <- sum(g_result$wi != 0 & col(covmatrix) < row(covmatrix))
     bic[i] <- -2 * (g_result$loglik) + p_off_d * log(nrow(data))
   }

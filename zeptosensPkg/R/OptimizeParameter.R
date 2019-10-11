@@ -33,7 +33,7 @@ optimizeParameter <- function(data, prior) {
   for (i in 1:100) {
     for (j in 1:i) {
       rho_m <- rho[i] * u - kappa[j] * prior
-      g_result <- glasso(covmatrix, rho_m)
+      g_result <- glasso::glasso(covmatrix, rho_m)
       p_off_d <- sum(g_result$wi != 0 & col(covmatrix) < row(covmatrix))
       bic[i, j] <- -2 * (g_result$loglik) + p_off_d * log(nrow(data))
       bic <- as.data.frame(bic)
