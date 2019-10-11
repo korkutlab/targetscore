@@ -2,11 +2,11 @@
 #' @param n_x vertically merged data from all samples rows condition columns proteins
 #' @param n_sample number of samples
 #' @param n_prot number of proteins
-#' @param n_dose number of doses 
-#' 
+#' @param n_dose number of doses
+#'
 #' @concept zeptosensPkg
 #' @export
-sampSdev <- function(n_sample, n_prot, n_dose, n_x) {
+samp_sdev <- function(n_sample, n_prot, n_dose, n_x) {
   #    n_prot
   #    n_sample
   #    n_condition

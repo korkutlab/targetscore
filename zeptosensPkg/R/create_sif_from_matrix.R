@@ -2,13 +2,13 @@
 #'
 #' @param t_net p*p Gaussian gene Network matrix estimated.
 #' @param genelist gene name list corresponding to the Gaussian gene Network estimated.
-#' 
+#'
 #' @return edgelist description data.frame contain G(V,E) including Vertex and Edges
 #' (1 positive/-1 negative) edgevalue and vertex number of Gaussian Graphical Model.
-#' 
+#'
 #' @concept zeptosensPkg
 #' @export
-createSifFromMatrix <- function(t_net, genelist) {
+create_sif_from_matrix <- function(t_net, genelist) {
   index <- genelist
   edge_number <- sum(t_net != 0)
   node1 <- array(0, dim = c(edge_number, 1))

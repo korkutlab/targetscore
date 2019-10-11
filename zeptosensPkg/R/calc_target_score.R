@@ -25,9 +25,9 @@
 #'
 #' @concept zeptosensPkg
 #' @export
-calcTargetScore <- function(wk, wks, dist_ind, inter, n_dose, n_prot, proteomic_responses,
-                            max_dist = 1, cell_line, verbose = TRUE,
-                            ts_factor = 1, fs_file, antibody_map_file = NULL, dist_file = NULL) {
+calc_target_score <- function(wk, wks, dist_ind, inter, n_dose, n_prot, proteomic_responses,
+                              max_dist = 1, cell_line, verbose = TRUE,
+                              ts_factor = 1, fs_file, antibody_map_file = NULL, dist_file = NULL) {
   # LOAD & RANDOMIZE INTERNAL DATA ---- read function score
   # if(is.null(fs_file)) {
   #     fs_file <- system.file("targetScoreData", "fs.txt", package = "zeptosensPkg")

@@ -6,17 +6,16 @@
 #' @param n_prot Number of proteins included in the drug perturbation data.
 #' @param proteomic_responses Drug Perturbation data for analysis.
 #' @param max_dist TODO (default: 1)
-#' 
+#'
 #' @return Parameter of regulization decided lowest BIC.Including regularize parameter(L1 norm parameter) as rho.
-#' 
+#'
 #' @examples
 #' optimizeParameter(data = GeneExpresssion, prior = Priorindormation)
-#' 
-#' @importFrom glasso glasso 
-#' 
+#' @importFrom glasso glasso
+#'
 #' @concept zeptosensPkg
 #' @export
-predictDatNetwork <- function(data, cut_off = 0.1, n_prot, proteomic_responses, max_dist = 1) {
+predict_dat_network <- function(data, cut_off = 0.1, n_prot, proteomic_responses, max_dist = 1) {
   covmatrix <- cov(data)
 
   # optimize penalty parameter rho

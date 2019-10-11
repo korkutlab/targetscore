@@ -26,18 +26,18 @@
 #' ts: integral_dose(fs*(xi+sigma_j(2^p*xj*product_k(wk))))
 #' to be converted to integral_dose(fs*((xi/(stdev_xi)+sigma_j(2^p*((xj/stdev_xj)*product_k(wk))))
 #' missing: For phosp and dephosp based wk, there is no 'exact match' between known and measured phospho-sites
-#' 
+#'
 #' @importFrom stats sd pnorm p.adjust
-#' @importFrom utils write.table 
+#' @importFrom utils write.table
 #'
 #' @concept zeptosensPkg
 #' @export
-getTargetScore <- function(wk, wks, dist_ind, inter, n_dose, n_prot, proteomic_responses,
-                           max_dist = 1, n_perm, cell_line, target_score_output_file = NULL,
-                           matrix_wk_output_file = NULL, target_score_q_value_file = NULL,
-                           target_score_dose_file = NULL, random_target_score_file = NULL,
-                           target_score_p_value_file = NULL, verbose = TRUE, ts_factor = 1,
-                           fs_file, signed_matrix_wk_output_file = NULL) {
+get_target_score <- function(wk, wks, dist_ind, inter, n_dose, n_prot, proteomic_responses,
+                             max_dist = 1, n_perm, cell_line, target_score_output_file = NULL,
+                             matrix_wk_output_file = NULL, target_score_q_value_file = NULL,
+                             target_score_dose_file = NULL, random_target_score_file = NULL,
+                             target_score_p_value_file = NULL, verbose = TRUE, ts_factor = 1,
+                             fs_file, signed_matrix_wk_output_file = NULL) {
 
   # CALCULATE TARGET SCORE ----
   results <- calcTargetScore(

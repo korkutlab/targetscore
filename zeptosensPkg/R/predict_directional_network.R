@@ -7,13 +7,13 @@
 #' @param rho regulization parameter
 #' @param kappa scaler parameter
 #' @param cut_off TODO
-#' 
+#'
 #' @return estimated_network include list of estimated directional partial correlation
 #' gene network rho as the regulization parametwe and kappa as the scaler parameter.
-#' 
+#'
 #' @concept zeptosensPkg
 #' @export
-predictDirectionalNetwork <- function(data, prior, rho, kappa, cut_off) {
+predict_directional_network <- function(data, prior, rho, kappa, cut_off) {
   index <- colnames(prior[, which(colnames(prior) %in% colnames(data))]) # match the data
 
   data <- data[, index]

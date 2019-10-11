@@ -7,12 +7,12 @@
 #' @param fs_value_file a listing of functional scores for each gene manually set up
 #' for overriding COSMIC Database given value, the modification path. (.txt)
 #' @param verbose Default as FALSE. If given TRUE, will print out the gene seq mapped with Antibody Map File.
-#' 
-#' @importFrom utils read.table 
-#' 
+#'
+#' @importFrom utils read.table
+#'
 #' @concept zeptosensPkg
 #' @export
-getFsVals <- function(n_prot, proteomic_responses, antibody_map_file = NULL, fs_value_file = NULL, verbose = FALSE) {
+get_fs_vals <- function(n_prot, proteomic_responses, antibody_map_file = NULL, fs_value_file = NULL, verbose = FALSE) {
   # match Ab names to gene names & posttranslational modifications
   if (is.null(antibody_map_file)) {
     antibody_map_file <- system.file("targetScoreData", "antibodyMap.txt", package = "zeptosensPkg")
@@ -36,7 +36,7 @@ getFsVals <- function(n_prot, proteomic_responses, antibody_map_file = NULL, fs_
     print(unique(mab_to_genes[idx_ab_map, 1]))
     stop("ERROR: Mismatch in the number of selected antibodies and the number of proteomic responses")
   }
-  
+
   mab_genes <- mab_to_genes[idx_ab_map, 4]
   names(mab_genes) <- mab_to_genes[idx_ab_map, 1]
 

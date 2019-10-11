@@ -9,19 +9,18 @@
 #' @param filename Manually set filename of volcano Plot.
 #' @param path Plot Store path. Default at working environment.
 #' @param sig_value TODO
-#' 
+#'
 #' @return volcano Plots with indicated filename and path.
-#' 
+#'
 #' @examples
 #' optimizeParameter(data = GeneExpresssion, prior = Priorindormation)
-#' 
 #' @importFrom ggplot2 ggsave ggplot aes xlab theme_bw ggtitle xlab ylab geom_point scale_color_manual
 #' @importFrom ggrepel geom_label_repel
 #' @importFrom utils write.csv
-#' 
+#'
 #' @concept zeptosensPkg
 #' @export
-getVolcanoPlot <- function(ts, q_value, filename, path = NULL, sig_value = 0.4) {
+get_volcano_plot <- function(ts, q_value, filename, path = NULL, sig_value = 0.4) {
   ts <- as.matrix(ts)
   p_adj <- as.matrix(q_value)
 

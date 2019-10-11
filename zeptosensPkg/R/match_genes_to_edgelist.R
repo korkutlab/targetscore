@@ -16,8 +16,8 @@
 #'
 #' @concept zeptosensPkg
 #' @export
-matchGenesToEdgelist <- function(genes1, genes2 = NULL, annot_edgelist, antibody_vec, 
-                                 use_annot = FALSE, verbose = FALSE) {
+match_genes_to_edgelist <- function(genes1, genes2 = NULL, annot_edgelist, antibody_vec,
+                                    use_annot = FALSE, verbose = FALSE) {
   results <- data.frame(
     gene1 = numeric(), gene2 = numeric(), annot = numeric(),
     gene1Name = character(), gene2Name = character(),

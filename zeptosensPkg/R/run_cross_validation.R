@@ -1,21 +1,21 @@
 #' Run Cross validation for data through the chosen algorithm.
 #'
-#' @param data input expression data. Coloumns as the gene, rows as the sample.With 
+#' @param data input expression data. Coloumns as the gene, rows as the sample.With
 #' colnames as the gene tags, rownames as the sample tags.
 #' @param prior prior information matrix with colnames and rownames as the gene tags.
 #' @param boot_time Bootstrap time mannually set.Default at 1000.
 #' @param fold The fold for training and test dataset. Default at 5.
 #' @param cut_off TODO
-#' 
+#'
 #' @return result of validation score. for random network and the network predicted with the algorithm.
 #'
 #' @importFrom glasso glasso
 #' @importFrom GeneNet ggm.simulate.pcor
 #' @importFrom stats var
-#' 
+#'
 #' @concept zeptosensPkg
 #' @export
-runCrossValidation <- function(data, prior, boot_time = 1000, cut_off = 0.1, fold = 5) {
+run_cross_validation <- function(data, prior, boot_time = 1000, cut_off = 0.1, fold = 5) {
   index <- colnames(prior[, which(colnames(prior) %in% colnames(data))]) # match the data
 
   data <- data[, index]
@@ -108,7 +108,7 @@ runCrossValidation <- function(data, prior, boot_time = 1000, cut_off = 0.1, fol
     }
 
     # loglikelihood value of the training data
-    #loglik_train <- g_result$loglik
+    # loglik_train <- g_result$loglik
 
     t_edges <- pcor_matrix
 
@@ -243,7 +243,7 @@ runCrossValidation <- function(data, prior, boot_time = 1000, cut_off = 0.1, fol
     }
 
     # loglikelihood value of valid data
-    #loglik_valid <- g_result$loglik
+    # loglik_valid <- g_result$loglik
 
     t_edges <- pcor_matrix
 
@@ -299,18 +299,18 @@ runCrossValidation <- function(data, prior, boot_time = 1000, cut_off = 0.1, fol
 
     # random_network(valid_data)
 
-    random_pcor_valid <- GeneNet::ggm.simulate.pcor(ncol(data), etaA = sum(t_edges_rho_valid != 0) / 
-                                             (ncol(valid_data) * (ncol(valid_data) - 1) * 2))
+    random_pcor_valid <- GeneNet::ggm.simulate.pcor(ncol(data), etaA = sum(t_edges_rho_valid != 0) /
+      (ncol(valid_data) * (ncol(valid_data) - 1) * 2))
 
     # t_net in signaling way(0,1)
-    t_net_rhoadjusted_d_valid <- ifelse(col(t_net_rhoadjusted_d_valid) != row(t_net_rhoadjusted_d_valid) & 
-                                          t_net_rhoadjusted_d_valid > 0, 1,
-      ifelse(row(t_net_rhoadjusted_d_valid) != col(t_net_rhoadjusted_d_valid) & t_net_rhoadjusted_d_valid < 0, -1, 0)
+    t_net_rhoadjusted_d_valid <- ifelse(col(t_net_rhoadjusted_d_valid) != row(t_net_rhoadjusted_d_valid) &
+      t_net_rhoadjusted_d_valid > 0, 1,
+    ifelse(row(t_net_rhoadjusted_d_valid) != col(t_net_rhoadjusted_d_valid) & t_net_rhoadjusted_d_valid < 0, -1, 0)
     )
 
-    t_net_rhoadjusted2_valid <- ifelse(col(t_net_rhoadjusted2_valid) != row(t_net_rhoadjusted2_valid) & 
-                                         t_net_rhoadjusted2_valid > 0, 1,
-      ifelse(row(t_net_rhoadjusted2_valid) != col(t_net_rhoadjusted2_valid) & t_net_rhoadjusted2_valid < 0, -1, 0)
+    t_net_rhoadjusted2_valid <- ifelse(col(t_net_rhoadjusted2_valid) != row(t_net_rhoadjusted2_valid) &
+      t_net_rhoadjusted2_valid > 0, 1,
+    ifelse(row(t_net_rhoadjusted2_valid) != col(t_net_rhoadjusted2_valid) & t_net_rhoadjusted2_valid < 0, -1, 0)
     )
 
     t_net_rho_valid <- ifelse(row(t_edges_rho_valid) != col(t_edges_rho_valid) & t_edges_rho_valid > 0, 1,
@@ -364,20 +364,20 @@ runCrossValidation <- function(data, prior, boot_time = 1000, cut_off = 0.1, fol
     # False Positive
     for (t in 1:ncol(data)) {
       for (p in 1:ncol(data)) {
-        if (t_net_rhoadjusted_d_valid[t, p] != t_net_rhoadjusted_d[t, p] & 
-            t_net_rhoadjusted_d[t, p] != 0 & t_net_rhoadjusted_d_valid[t, p] != 0) {
+        if (t_net_rhoadjusted_d_valid[t, p] != t_net_rhoadjusted_d[t, p] &
+          t_net_rhoadjusted_d[t, p] != 0 & t_net_rhoadjusted_d_valid[t, p] != 0) {
           score1_2 <- score1_2 + 1
         }
-        if (t_net_rhoadjusted2_valid[t, p] != t_net_rhoadjusted2[t, p] & 
-            t_net_rhoadjusted2[t, p] != 0 & t_net_rhoadjusted2_valid[t, p] != 0) {
+        if (t_net_rhoadjusted2_valid[t, p] != t_net_rhoadjusted2[t, p] &
+          t_net_rhoadjusted2[t, p] != 0 & t_net_rhoadjusted2_valid[t, p] != 0) {
           score2_2 <- score2_2 + 1
         }
-        if (t_net_rho_valid[t, p] != t_net_rho[t, p] & t_net_rho[t, p] != 0 & 
-            t_net_rho_valid[t, p] != 0) {
+        if (t_net_rho_valid[t, p] != t_net_rho[t, p] & t_net_rho[t, p] != 0 &
+          t_net_rho_valid[t, p] != 0) {
           score3_2 <- score3_2 + 1
         }
-        if (t_net_r_valid[t, p] != t_net_r[t, p] & t_net_r[t, p] != 0 & 
-            t_net_r_valid[t, p] != 0) {
+        if (t_net_r_valid[t, p] != t_net_r[t, p] & t_net_r[t, p] != 0 &
+          t_net_r_valid[t, p] != 0) {
           score_r_2 <- score_r_2 + 1
         }
       }

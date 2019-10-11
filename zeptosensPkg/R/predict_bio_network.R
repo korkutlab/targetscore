@@ -9,11 +9,11 @@
 #' @param verbose whether to show debugging information
 #'
 #' @importFrom utils write.table
-#' 
+#'
 #' @concept zeptosensPkg
 #' @export
-predictBioNetwork <- function(n_prot, proteomic_responses, max_dist,
-                              antibody_map_file = NULL, dist_file = NULL, verbose = FALSE) {
+predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
+                                antibody_map_file = NULL, dist_file = NULL, verbose = FALSE) {
 
   # match Ab names to gene names & posttranslational modifications
   if (is.null(antibody_map_file)) {
@@ -56,14 +56,14 @@ predictBioNetwork <- function(n_prot, proteomic_responses, max_dist,
     stop("ERROR: Mismatch in the number of selected antibodies and the number of proteomic responses")
   }
 
-  # Used by matchGenesToEdgelist to account for the cases where multiple entries for the same antibody
+  # Used by match_genes_to_edgelist to account for the cases where multiple entries for the same antibody
   # exist in the antibody map
   # antibody_map_subset <- mab_to_genes[idx_ab_map, ]
 
   mab_genes <- mab_to_genes[idx_ab_map, 4]
   names(mab_genes) <- mab_to_genes[idx_ab_map, 1]
 
-  dist_list <- matchGenesToEdgelist(
+  dist_list <- match_genes_to_edgelist(
     genes1 = mab_genes, genes2 = NULL, annot_edgelist = dist,
     antibody_vec = colnames(proteomic_responses), use_annot = TRUE, verbose = TRUE
   )
@@ -169,7 +169,7 @@ predictBioNetwork <- function(n_prot, proteomic_responses, max_dist,
   names(tmp_genes_ao) <- mab_to_genes[tmp_idx_a, 1]
 
   # only concentration and act. phospho nodes are included in up & downregulation
-  upexp_gene <- matchGenesToEdgelist(
+  upexp_gene <- match_genes_to_edgelist(
     genes1 = tmp_genes_a, genes2 = tmp_genes_c, annot_edgelist = upexp,
     antibody_vec = colnames(proteomic_responses), use_annot = FALSE, verbose = verbose
   )
@@ -182,7 +182,7 @@ predictBioNetwork <- function(n_prot, proteomic_responses, max_dist,
   }
 
   # downregulation expression, wk=-1
-  dwnexp_gene <- matchGenesToEdgelist(
+  dwnexp_gene <- match_genes_to_edgelist(
     genes1 = tmp_genes_a, genes2 = tmp_genes_c, annot_edgelist = dwnexp,
     antibody_vec = colnames(proteomic_responses), use_annot = FALSE, verbose = verbose
   )
@@ -200,7 +200,7 @@ predictBioNetwork <- function(n_prot, proteomic_responses, max_dist,
   # phos_gene2 <- pmatch(phosp[, 3], mabToGenes_d[measured_genes, 4], duplicates.ok = TRUE)
   # phos_gene <- cbind(phos_gene1, phos_gene2)
 
-  phos_gene <- matchGenesToEdgelist(
+  phos_gene <- match_genes_to_edgelist(
     genes1 = tmp_genes_ao, genes2 = tmp_genes_d, annot_edgelist = phosp,
     antibody_vec = colnames(proteomic_responses), use_annot = FALSE, verbose = verbose
   )
@@ -218,7 +218,7 @@ predictBioNetwork <- function(n_prot, proteomic_responses, max_dist,
   # dephos_gene2 <- pmatch(dephosp[, 3], mabToGenes_d[measured_genes, 4], duplicates.ok = TRUE)
   # dephos_gene <- cbind(dephos_gene1, dephos_gene2)
 
-  dephos_gene <- matchGenesToEdgelist(
+  dephos_gene <- match_genes_to_edgelist(
     genes1 = tmp_genes_a, genes2 = tmp_genes_d, annot_edgelist = dephosp,
     antibody_vec = colnames(proteomic_responses), use_annot = FALSE, verbose = verbose
   )

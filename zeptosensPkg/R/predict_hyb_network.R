@@ -9,10 +9,10 @@
 #' @param proteomic_responses RPPA data tested for drug pertubation.
 #' @param n_prot number of Proteins contained in the data.
 #' @param antibody_map_file TODO
-#' 
-#' @return "parameters" as the Parameter list of regulization parameter decided by the prior information 
-#' and the algorithmn lowest BIC.Including regularize parameter(L1 norm parameter) as "rho", scale parameter 
-#' (decided how much prior information contribute) as "kappa", and regulization matrix for the expression 
+#'
+#' @return "parameters" as the Parameter list of regulization parameter decided by the prior information
+#' and the algorithmn lowest BIC.Including regularize parameter(L1 norm parameter) as "rho", scale parameter
+#' (decided how much prior information contribute) as "kappa", and regulization matrix for the expression
 #' data as "rho_m".
 #' @return "bic"as the Model's BIC matrix for differnet regularization parameters.
 #' @return "wk" as the predicted network.
@@ -21,23 +21,26 @@
 #' @return "inter" TODO
 #' @return "edgelist" as the edgelist for predicted network.
 #' @return "nedges" as the number of edges of the predicted network.
-#' 
+#'
 #' @examples
-#' predictHybNetwork(data = GeneExpresssion, prior = Priorinformation, 
-#'                   proteomic_responses = proteomic_responses, n_prot = n_prot)
-#' 
-#' @importFrom glasso glasso 
+#' predictHybNetwork(
+#'   data = GeneExpresssion, prior = Priorinformation,
+#'   proteomic_responses = proteomic_responses, n_prot = n_prot
+#' )
+#' @importFrom glasso glasso
 #' @importFrom stats cov median na.omit
-#' 
+#'
 #' @concept zeptosensPkg
 #' @export
-predictHybNetwork <- function(data, prior = NULL, cut_off = 0.1, proteomic_responses, n_prot, 
-                              max_dist = 1, antibody_map_file) {
+predict_hyb_network <- function(data, prior = NULL, cut_off = 0.1, proteomic_responses, n_prot,
+                                max_dist = 1, antibody_map_file) {
   if (is.null(prior)) {
-    tmp <- zeptosensPkg::predictBioNetwork(n_prot = 304, 
-                                          proteomic_responses = proteomic_responses, 
-                                          max_dist = 1, 
-                                          antibody_map_file = antibody_map_file)
+    tmp <- zeptosensPkg::predictBioNetwork(
+      n_prot = 304,
+      proteomic_responses = proteomic_responses,
+      max_dist = 1,
+      antibody_map_file = antibody_map_file
+    )
     wk <- tmp$wk
     prior <- wk
   }
