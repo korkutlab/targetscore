@@ -3,10 +3,10 @@
 #' The inverse log 10 of Target Score q value and Target Score calculated were shown.
 #'
 #' @param ts input Target Score calculated for each protein data frame.
-#' Gene in coloumns and samples in row. Wih colnames as gene tags and rownames as sample tags.
+#' Gene in coloumns and samples in row. With colnames as gene tags and rownames as sample tags.
 #' @param q_value input Target Score q value calculated for each protein data frame.
-#' Gene in coloumns and samples in row. Wih colnames as gene tags and rownames as sample tags.
-#' @param filename Manually set filename of volcano Plot.
+#' Gene in coloumns and samples in row. With colnames as gene tags and rownames as sample tags.
+#' @param filename Manually set filename of volcano plot.
 #' @param path Plot Store path. Default at working environment.
 #' @param sig_value  Manually set significant cut-off value for log10(q_value). (Default at 0.4)
 #'
