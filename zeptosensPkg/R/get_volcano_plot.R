@@ -8,7 +8,7 @@
 #' Gene in coloumns and samples in row. Wih colnames as gene tags and rownames as sample tags.
 #' @param filename Manually set filename of volcano Plot.
 #' @param path Plot Store path. Default at working environment.
-#' @param sig_value TODO
+#' @param sig_value  Manually set significant cut-off value for log10(q_value). (Default at 0.4)
 #'
 #' @return volcano Plots with indicated filename and path.
 #'
