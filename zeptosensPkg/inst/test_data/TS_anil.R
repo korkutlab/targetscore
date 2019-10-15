@@ -10,6 +10,8 @@ library(metap)
 library(ggrepel)
 library(pheatmap)
 
+# FIXME fs.csv or fs.txt
+
 # SET PARAMETERS ----
 # data_dir <- "../data(ts)/ts_anil"
 # protein_list_dir <- "../data(ts)/Protein_Name_List"
