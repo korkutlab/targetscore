@@ -44,10 +44,10 @@ get_volcano_plot <- function(ts, q_value, filename, path = NULL, sig_value = 0.4
     geom_label_repel(data = sig01, aes(x = sig01$ts, y = sig01$neglogQ, label = siglabel), size = 5)
   )
 
-  plotname <- paste0(path, filename, ".pdf")
+  plotname <- file.path(path, paste0(filename, ".pdf"))
   ggplot2::ggsave(plotname, p)
   tmp_dat_f <- cbind(tmp_dat$ts, tmp_dat$neglogQ)
   colnames(tmp_dat_f) <- c("ts", "neglogQ")
-  csvname <- paste0(path, filename, ".csv")
+  csvname <- file.path(path, paste0(filename, ".csv"))
   write.csv(tmp_dat_f, file = csvname)
 }
