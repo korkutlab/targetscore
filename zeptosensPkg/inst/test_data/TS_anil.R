@@ -10,6 +10,8 @@ library(metap)
 library(ggrepel)
 library(pheatmap)
 
+set.seed(1)
+
 # FIXME fs.csv or fs.txt
 
 # SET PARAMETERS ----

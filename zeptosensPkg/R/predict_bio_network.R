@@ -103,7 +103,7 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
   }
 
   # FIXME
-  write.table(dist_ind, file = "dist_ind.txt", quote = FALSE)
+  # write.table(dist_ind, file = "dist_ind.txt", quote = FALSE)
   # cov318 results ~2100
 
   ### get the network product### phospFile <- system.file('SignedPC', 'phosphorylates.txt',
