@@ -14,9 +14,9 @@ linters: with_defaults(
   trailing_whitespace_linter=NULL,
   undesirable_function_linter=NULL,
   object_name_linter("snake_case"),
-  cyclocomp_linter=NULL, 
+  cyclocomp_linter=NULL,
   commas_linter=NULL,
   undesirable_operator_linter=undesirable_operator_linter(),
-  unneeded_concatenation_linter, 
+  unneeded_concatenation_linter,
   T_and_F_symbol_linter)
-exclusions: list("inst/shinyApp/app.R", "vignettes/target_score_tutorial.Rmd")
+exclusions: list("inst/shinyApp/app.R", "vignettes/target_score_tutorial.Rmd", "inst/test_data/TS_anil.R")

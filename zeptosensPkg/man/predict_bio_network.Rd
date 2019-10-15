@@ -21,6 +21,9 @@ between the genes in the interaction}
 
 \item{verbose}{whether to show debugging information}
 }
+\value{
+TODO
+}
 \description{
 Predict Network from signedPC (Bio-inferred network)
 }

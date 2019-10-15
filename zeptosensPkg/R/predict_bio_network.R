@@ -8,6 +8,8 @@
 #'   between the genes in the interaction
 #' @param verbose whether to show debugging information
 #'
+#' @return TODO
+#'
 #' @importFrom utils write.table
 #'
 #' @concept zeptosensPkg
@@ -227,8 +229,13 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
     wk[dephos_gene[i, 1], dephos_gene[i, 2]] <- -1
     wks[dephos_gene[i, 1], dephos_gene[i, 2]] <- -2
   }
+
   inter <- (which(wk != 0, arr.ind = TRUE))
-  print(inter)
+
+  if (verbose) {
+    print(inter)
+  }
+
   networks <- list(wk = wk, wks = wks, dist_ind = dist_ind, inter = inter)
 
   return(networks)
