@@ -15,19 +15,20 @@ library(pheatmap)
 # protein_list_dir <- "../data(ts)/Protein_Name_List"
 data_dir <- "inst/test_data"
 resource_dir <- "inst/targetscoreData"
+output_dir <- "inst/test_data/output"
 max_dist <- 1 # changing this value requires additional work to compute product(wk). This is not a priority
 
 # READ ANTIBODY FILE ----
-antibody_map_file <- read.table(file_path(resource_dir, "antibodyMapFile.txt"),
+antibody_map_file <- read.table(file.path(resource_dir, "antibodyMapFile.txt"),
   sep = "\t",
-  header = TRUE, stringsAsFactors = FALSEALSE
+  header = TRUE, stringsAsFactors = FALSE
 )
 
 # READ IN DATA ----
 sample1 <- "BT474"
 
 # Read proteomic response for cellline1
-proteomic_responses <- read.csv(file_path(data_dir, "BT474.csv"), row.names = 1) # n_prot=304
+proteomic_responses <- read.csv(file.path(data_dir, "BT474.csv"), row.names = 1) # n_prot=304
 
 n_prot <- 304
 proteomic_responses <- proteomic_responses
@@ -50,21 +51,28 @@ dist_ind <- network$dist_ind
 inter <- network$inter
 
 # adjust for fs.txt as the functional node
-fs <- read.csv(file_path(resource_dir, "fs.csv"), header = TRUE, stringsAsFactors = FALSEALSE)
+fs <- read.csv(file.path(resource_dir, "fs.csv"), header = TRUE, stringsAsFactors = FALSE)
 
 # BT474 ----
 # Calculate Target Score
 n_prot <- ncol(proteomic_responses)
 n_cond <- nrow(proteomic_responses)
-target_score_output_file <- paste0(sample1, "_ts_bt474.txt")
-matrix_wk_output_file <- "wk_BT474.txt"
-signedmatrix_wk_output_file <- "wks_BT474.txt"
+target_score_output_file <- file.path(output_dir, "ts_bt474.txt")
+matrix_wk_output_file <- file.path(output_dir, "wk_BT474.txt")
+signedmatrix_wk_output_file <- file.path(output_dir, "wks_BT474.txt")
+
+target_score_q_value_file <- file.path(output_dir, paste0(sample1, "_q.txt"))
+target_score_dose_file <- file.path(output_dir, paste0(sample1, "_ts_d.txt"))
+target_score_p_value_file <- file.path(output_dir, paste0(sample1, "_p.txt"))
+
+
+paste0(sample1, "_q.txt")
 
 ts <- array(0, dim = c(n_cond, n_prot))
 ts_p <- array(0, dim = c(n_cond, n_prot))
 ts_q <- array(0, dim = c(n_cond, n_prot))
 
-n_perm <- 100
+n_perm <- 25
 
 for (i in 1:n_cond) {
   results <- zeptosensPkg::get_target_score(
@@ -78,13 +86,13 @@ for (i in 1:n_cond) {
     max_dist = max_dist,
     n_perm = n_perm,
     cell_line = sample1,
-    verbose = FALSEALSE,
-    fs_file = FALSEile.path(resource_dir, "fs.txt"),
+    verbose = FALSE,
+    fs_file = file.path(resource_dir, "fs.txt"),
     target_score_output_file = target_score_output_file,
     matrix_wk_output_file = matrix_wk_output_file,
-    target_score_q_value_file = paste0(sample1, "_q.txt"),
-    target_score_dose_file = paste0(sample1, "_ts_d.txt"),
-    target_score_p_value_file = paste0(sample1, "_p.txt")
+    target_score_q_value_file = target_score_q_value_file,
+    target_score_dose_file = target_score_dose_file,
+    target_score_p_value_file = target_score_p_value_file
   )
 
   ts[i, ] <- results$ts
@@ -92,9 +100,10 @@ for (i in 1:n_cond) {
   ts_q[i, ] <- results$q
 }
 
+# WHY THIS?
 colnames(ts) <- colnames(proteomic_responses)
 ts <- data.frame(rownames(proteomic_responses), ts)
-write.csv(ts, file = file.path(data_dir, "ts_bt474.csv"), row.names = FALSE)
+write.csv(ts, file = file.path(output_dir, "ts_bt474.csv"), row.names = FALSE)
 
 colnames(ts_p) <- colnames(proteomic_responses)
 ts_p <- data.frame(rownames(proteomic_responses), ts_p)
@@ -110,7 +119,10 @@ ts_bt474 <- read.csv(file.path(data_dir, "ts_bt474.csv"), row.names = 1)
 data <- ts_bt474
 
 bk <- c(seq(-4, -0.1, by = 0.01), seq(0, 5.5, by = 0.01))
-p <- pheatmap(data,
+
+filename <- file.path(data_dir, "heatmap_BT474_pdf")
+pdf(filename)
+pheatmap(data,
   scale = "none",
   color = c(
     colorRampPalette(colors = c("navy", "white"))(length(seq(-4, -0.1, by = 0.01))),
@@ -119,7 +131,7 @@ p <- pheatmap(data,
   legend_breaks = seq(-4, 5.5, 2), cellwidth = 1, cellheight = 1, fontsize = 1, fontsize_row = 1,
   breaks = bk
 )
-ggsave(file.path(data_dir, "heatmap_BT474_pdf"), p)
+dev.off()
 
 # Volcano Plot
 ## BT474
@@ -132,9 +144,8 @@ for (i in 1:nrow(data)) {
   get_volcano_plot(ts = data[i, ], q_value = data_p[i, ], filename = rownames(data)[i], path = data_dir)
 }
 
-#####  Subnetwork for top30 proteins ###############
-
-#######  BT474
+# Subnetwork for Top 30 Proteins ----
+##  BT474
 data <- read.csv(file.path(data_dir, "ts_bt474.csv"), row.names = 1)
 
 # mcl1
