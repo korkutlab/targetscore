@@ -50,6 +50,10 @@ wks <- network$wks
 dist_ind <- network$dist_ind
 inter <- network$inter
 
+# FIXME: NECESSARY? ADDED AL
+write.csv(wk, file.path(output_dir, "wk.csv"))
+write.csv(dist_ind, file.path(output_dir, "wk.csv"))
+
 # adjust for fs.txt as the functional node
 fs <- read.csv(file.path(resource_dir, "fs.csv"), header = TRUE, stringsAsFactors = FALSE)
 
@@ -64,9 +68,6 @@ signedmatrix_wk_output_file <- file.path(output_dir, "wks_BT474.txt")
 target_score_q_value_file <- file.path(output_dir, paste0(sample1, "_q.txt"))
 target_score_dose_file <- file.path(output_dir, paste0(sample1, "_ts_d.txt"))
 target_score_p_value_file <- file.path(output_dir, paste0(sample1, "_p.txt"))
-
-
-paste0(sample1, "_q.txt")
 
 ts <- array(0, dim = c(n_cond, n_prot))
 ts_p <- array(0, dim = c(n_cond, n_prot))
@@ -100,27 +101,30 @@ for (i in 1:n_cond) {
   ts_q[i, ] <- results$q
 }
 
-# WHY THIS?
+# FIXME: WHY THIS?
 colnames(ts) <- colnames(proteomic_responses)
 ts <- data.frame(rownames(proteomic_responses), ts)
 write.csv(ts, file = file.path(output_dir, "ts_bt474.csv"), row.names = FALSE)
 
 colnames(ts_p) <- colnames(proteomic_responses)
 ts_p <- data.frame(rownames(proteomic_responses), ts_p)
-write.csv(ts_p, file = file.path(data_dir, "ts_bt474_pvalue.csv"), row.names = FALSE)
+write.csv(ts_p, file = file.path(output_dir, "ts_bt474_pvalue.csv"), row.names = FALSE)
 
 colnames(ts_q) <- colnames(proteomic_responses)
 ts_q <- data.frame(rownames(proteomic_responses), ts_q)
-write.csv(ts_q, file = file.path(data_dir, "ts_bt474_qvalue.csv"), row.names = FALSE)
+write.csv(ts_q, file = file.path(output_dir, "ts_bt474_qvalue.csv"), row.names = FALSE)
+
+# FIXME dist_ind.txt, randts.txt
 
 # PLOT ----
 # Heatmap
-ts_bt474 <- read.csv(file.path(data_dir, "ts_bt474.csv"), row.names = 1)
+ts_bt474 <- read.csv(file.path(output_dir, "ts_bt474.csv"), row.names = 1)
 data <- ts_bt474
 
 bk <- c(seq(-4, -0.1, by = 0.01), seq(0, 5.5, by = 0.01))
 
-filename <- file.path(data_dir, "heatmap_BT474_pdf")
+# FIXME
+filename <- file.path(output_dir, "heatmap_BT474_pdf")
 pdf(filename)
 pheatmap(data,
   scale = "none",
@@ -135,18 +139,18 @@ dev.off()
 
 # Volcano Plot
 ## BT474
-data <- read.csv(file.path(data_dir, "ts_bt474.csv"), row.names = 1)
-data_p <- read.csv(file.path(data_dir, "ts_bt474_qvalue.csv"), row.names = 1)
+data <- read.csv(file.path(output_dir, "ts_bt474.csv"), row.names = 1)
+data_p <- read.csv(file.path(output_dir, "ts_bt474_qvalue.csv"), row.names = 1)
 data <- as.matrix(data)
 data_p <- as.matrix(data_p)
 
 for (i in 1:nrow(data)) {
-  get_volcano_plot(ts = data[i, ], q_value = data_p[i, ], filename = rownames(data)[i], path = data_dir)
+  get_volcano_plot(ts = data[i, ], q_value = data_p[i, ], filename = rownames(data)[i], path = output_dir)
 }
 
 # Subnetwork for Top 30 Proteins ----
 ##  BT474
-data <- read.csv(file.path(data_dir, "ts_bt474.csv"), row.names = 1)
+data <- read.csv(file.path(output_dir, "ts_bt474.csv"), row.names = 1)
 
 # mcl1
 data <- t(data[1, ])
@@ -154,12 +158,13 @@ data <- data.frame(data = data, prot = rownames(data))
 data <- data[order(data$BT474_MCL1, decreasing = TRUE), ]
 data_30 <- data.frame(prot = rownames(data)[1:30], ts = data$BT474_MCL1[1:30])
 
-wk <- read.csv(file = file.path(data_dir, "wk.csv"), row.names = 1)
+# WHY wk.csv read
+wk <- read.csv(file = file.path(output_dir, "wk.csv"), row.names = 1)
 index <- which(colnames(wk) %in% data_30$prot)
 subnet <- wk[index, index]
-edgelist_subnet <- zeptosensPkg::createSifFromMatrix(t.net = subnet, genelist = colnames(subnet))
+edgelist_subnet <- zeptosensPkg::create_sif_from_matrix(t_net = subnet, genelist = colnames(subnet))
 write.table(edgelist_subnet,
-  file.path(data_dir, "signed_pc_BT474_MCL1_TOP30_positive_subnet.txt"),
+  file.path(output_dir, "signed_pc_BT474_MCL1_TOP30_positive_subnet.txt"),
   quote = FALSE,
   row.names = FALSE
 )
@@ -167,29 +172,29 @@ write.table(edgelist_subnet,
 data <- data[order(data$BT474_MCL1, decreasing = FALSE), ]
 data_30 <- data.frame(prot = rownames(data)[1:30], ts = data$BT474_MCL1[1:30])
 
-wk <- read.csv(file = file.path(data_dir, "wk.csv"), row.names = 1)
+wk <- read.csv(file = file.path(output_dir, "wk.csv"), row.names = 1)
 index <- which(colnames(wk) %in% data_30$prot)
 subnet <- wk[index, index]
-edgelist_subnet <- zeptosensPkg::createSifFromMatrix(t.net = subnet, genelist = colnames(subnet))
+edgelist_subnet <- zeptosensPkg::create_sif_from_matrix(t_net = subnet, genelist = colnames(subnet))
 write.table(edgelist_subnet,
-  file.path(data_dir, "signed_pc_BT474_MCL1_TOP30_negative_subnet.txt"),
+  file.path(output_dir, "signed_pc_BT474_MCL1_TOP30_negative_subnet.txt"),
   quote = FALSE,
   row.names = FALSE
 )
 
 # COMB
-data <- read.csv(file.path(data_dir, "ts_bt474.csv"), row.names = 1)
+data <- read.csv(file.path(output_dir, "ts_bt474.csv"), row.names = 1)
 data <- t(data[2, ])
 data <- data.frame(data = data, prot = rownames(data))
 data <- data[order(data$BT474_comb, decreasing = TRUE), ]
 data_30 <- data.frame(prot = rownames(data)[1:30], ts = data$BT474_comb[1:30])
 
-wk <- read.csv(file = file.path(data_dir, "wk.csv"), row.names = 1)
+wk <- read.csv(file = file.path(output_dir, "wk.csv"), row.names = 1)
 index <- which(colnames(wk) %in% data_30$prot)
 subnet <- wk[index, index]
-edgelist_subnet <- zeptosensPkg::createSifFromMatrix(t.net = subnet, genelist = colnames(subnet))
+edgelist_subnet <- zeptosensPkg::create_sif_from_matrix(t_net = subnet, genelist = colnames(subnet))
 write.table(edgelist_subnet,
-  file.path(data_dir, "signed_pc_BT474_COMB_TOP30_positive_subnet.txt"),
+  file.path(output_dir, "signed_pc_BT474_COMB_TOP30_positive_subnet.txt"),
   quote = FALSE,
   row.names = FALSE
 )
@@ -197,12 +202,12 @@ write.table(edgelist_subnet,
 data <- data[order(data$BT474_comb, decreasing = FALSE), ]
 data_30 <- data.frame(prot = rownames(data)[1:30], ts = data$BT474_comb[1:30])
 
-wk <- read.csv(file = file.path(data_dir, "wk.csv"), row.names = 1)
+wk <- read.csv(file = file.path(output_dir, "wk.csv"), row.names = 1)
 index <- which(colnames(wk) %in% data_30$prot)
 subnet <- wk[index, index]
-edgelist_subnet <- zeptosensPkg::createSifFromMatrix(t.net = subnet, genelist = colnames(subnet))
+edgelist_subnet <- zeptosensPkg::create_sif_from_matrix(t_net = subnet, genelist = colnames(subnet))
 write.table(edgelist_subnet,
-  file.path(data_dir, "signed_pc_BT474_COMB_TOP30_negative_subnet.txt"),
+  file.path(output_dir, "signed_pc_BT474_COMB_TOP30_negative_subnet.txt"),
   quote = FALSE,
   row.names = FALSE
 )

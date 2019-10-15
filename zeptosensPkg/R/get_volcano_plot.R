@@ -23,7 +23,7 @@ get_volcano_plot <- function(ts, q_value, filename, path = NULL, sig_value = 0.4
   p_adj <- as.matrix(q_value)
 
   if (nrow(p_adj) != nrow(ts)) {
-    stop("ERROR:Tag of ts and q_value does not match.")
+    stop("ERROR: Tag of ts and q_value does not match.")
   }
 
   tmp_dat <- data.frame(cbind(ts, -1 * log10(p_adj)))

@@ -101,6 +101,8 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
       dist_ind[dist_list[i, 1], dist_list[i, 2]] <- Inf
     }
   }
+
+  # FIXME
   write.table(dist_ind, file = "dist_ind.txt", quote = FALSE)
   # cov318 results ~2100
 

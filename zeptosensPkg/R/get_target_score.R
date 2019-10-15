@@ -135,11 +135,11 @@ get_target_score <- function(wk, wks, dist_ind, inter, n_dose, n_prot, proteomic
   rownames(rand_ts) <- colnames(proteomic_responses)
   rownames(pts) <- colnames(proteomic_responses)
 
-  write.table(rand_ts, file = "randts.txt", quote = FALSE, sep = "\t")
+  # FIXME WHAT FILES ARE ACTUALLY NEEDED?
   write.table(pts, file = target_score_p_value_file, quote = FALSE, sep = "\t")
 
   # RETURN RESULTS ----
-  results <- list(ts = ts, wk = wk, tsd = tsd, q = q, wks = wks, pts = pts)
+  results <- list(ts = ts, wk = wk, tsd = tsd, q = q, wks = wks, pts = pts, rand_ts = rand_ts)
 
   return(results)
 }

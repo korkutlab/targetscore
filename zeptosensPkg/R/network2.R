@@ -34,7 +34,6 @@ network2 <- function(wk, n_prot, proteomic_responses, max_dist, antibody_map_fil
     }
   }
 
-  write.table(dist_ind, file = "dist_ind.txt", quote = FALSE)
   wk <- (wk / max(abs(wk))) * max_dist
   wks <- wk
 
