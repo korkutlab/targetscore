@@ -19,4 +19,4 @@ linters: with_defaults(
   undesirable_operator_linter=undesirable_operator_linter(),
   unneeded_concatenation_linter,
   T_and_F_symbol_linter)
-exclusions: list("inst/shinyApp/app.R", "vignettes/target_score_tutorial.Rmd", "inst/test_data/TS_anil.R")
+exclusions: list("inst/shinyApp/app.R", "vignettes/target_score_tutorial.Rmd")
