@@ -1,19 +1,25 @@
 #' Compute Target score for randomized data/compute P value for each TS given a network topology
 #'
-#' @param wk TODO
-#' @param wks TODO
-#' @param dist_ind TODO
-#' @param inter TODO
-#' @param n_dose TODO
-#' @param n_prot TODO
-#' @param proteomic_responses TODO
-#' @param max_dist TODO (default: 1)
-#' @param cell_line TODO
+#' @param wk Inference network constructed in matrix form with edge strength value estimated.
+#' Can be extracted directly from predict_bio_network,predict_dat_network or predictt_hyb_network
+#' function. Where predict_bio_network edge value default at 1 for upregulate and -1 for down regulate.
+#' @param wks Inference network constructed in matrix form with edge strength value estimated.
+#' Can be extracted directly from predict_bio_network,predict_dat_network or predictt_hyb_network
+#' function. Where predict_bio_network edge value default at 1 for upregulate, -1 for down regulate,
+#' 2 for phosphorylation and -2 for dephosphorylation.
+#' @param dist_ind A distance file of edgelist with a third column as the network distance
+#'   between the genes in the interaction
+#' @param inter Edgelist of inferred network.
+#' @param n_dose Dose number of input data.
+#' @param n_prot Antibody number of input data.
+#' @param proteomic_responses Input drug perturbation data. With columns as antibody, rows as samples.
+#' @param max_dist Maximum edge strength value.(Default at 1)
+#' @param cell_line Cell lines labels included in input file.
 #' @param verbose a boolean to show debugging information
 #' @param fs_file Functional score file. A tab-delmited file with a header, each row is an
 #'   antibody in the first column and functional score in the second column
 #'   (i.e. 1 oncogene, 0 tumor supressor/oncogene, -1 tumor supressor characteristics)
-#' @param antibody_map_file a listing of antibodies, their associated genes, and modification sites
+#' @param antibody_map_file A list of antibodies, their associated genes, and modification sites with effect.
 #' @param dist_file A distance file an edgelist with a third column which is the network distance
 #'   between the genes in the interaction
 #' @param ts_factor a scaling factor for the pathway component in the target score

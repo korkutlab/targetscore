@@ -1,14 +1,21 @@
 #' Predict Network from signedPC (Bio-inferred network)
 #'
-#' @param n_prot TODO
-#' @param proteomic_responses TODO
-#' @param max_dist TODO (default: 1)
-#' @param antibody_map_file a listing of antibodies, their associated genes, and modification sites
+#' @param n_prot Antibody number of input data.
+#' @param proteomic_responses Input drug perturbation data. With columns as antibody, rows as samples.
+#' @param max_dist Maximum edge strength value.(Default at 1)
+#' @param antibody_map_file A list of antibodies, their associated genes, modification sites and effect.
 #' @param dist_file A distance file an edgelist with a third column which is the network distance
 #'   between the genes in the interaction
 #' @param verbose whether to show debugging information
 #'
-#' @return TODO
+#' @return a list is returned with the following entries:
+#' * "wk" inferred network matrix form with edge strength value default at 1 for
+#' upregulate and -1 for down regulate.
+#' * "wks" as inferred network matrix form with edge strength value default at 1 for
+#' upregulate and -1 for down regulate and 2 for phosphorylation and -2 for dephosphorylation.
+#' * "dist_ind" A distance file of edgelist with a third column as the network distance
+#' between the genes in the interaction.
+#' * "inter" file as edgelist of inferred network.
 #'
 #' @importFrom utils write.table
 #'

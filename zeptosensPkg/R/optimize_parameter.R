@@ -2,8 +2,8 @@
 #'
 #' @param data input expression data frame. Gene in coloumns and samples in row.
 #' With colnames as gene tags and rownames as sample tags.
-#' @param prior Prior information data frame ,with colnames and rownames as gene tags.
-#' With colnames and rownames as gene tags.
+#' @param prior Prior information matrix of gene interaction, with colnames and rownames as gene tags.
+#' With colnames and rownames as gene tags.Can be inferred from Public data source (for example:SignedPC).
 #'
 #' @return Parameter list of regulization parameter decided by the prior information and the algorithmn lowest BIC.
 #' Including regularize parameter(L1 norm parameter) as rho, scale parameter

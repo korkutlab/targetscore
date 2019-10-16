@@ -4,11 +4,11 @@
 #' Gene in coloumns and samples in row. With colnames as gene tags and rownames as sample tags.
 #' @param prior Prior information data frame ,with colnames and rownames as gene tags.
 #' With colnames and rownames as gene tags. Can be inferred from predict_bio_network() or any network resources.
-#' @param cut_off Manually set up cut off value for strength of edge. Default at 0.1.
-#' @param max_dist Maximun distance for the network. Default at 1.
+#' @param cut_off Manually set up cut off value for strength of edge. (Default at 0.1)
+#' @param max_dist Maximum edge strength value.(Default at 1)
 #' @param proteomic_responses RPPA data tested for drug pertubation.
-#' @param n_prot number of Proteins contained in the data.
-#' @param antibody_map_file TODO
+#' @param n_prot Antibody number of input data.
+#' @param antibody_map_file A list of antibodies, their associated genes, modification sites and effect.
 #'
 #' @return a list is returned with the following entries:
 #' * "parameters" as the parameter list of regulization parameter decided by the prior information
@@ -16,10 +16,12 @@
 #' (decided how much prior information contribute) as "kappa", and regulization matrix for the expression
 #' data as "rho_m".
 #' * "bic"as the Model's BIC matrix for differnet regularization parameters.
-#' * "wk" as the predicted network.
-#' * "wks" TODO
-#' * "dist_ind" TODO
-#' * "inter" TODO
+#' * "wk" inferred network matrix form with edge strength value estimated as the partial correlation.
+#' * "wks" inferred network matrix form with edge strength value estimated as the partial correlation.
+#'  Same as wk in predict_hyb_network.
+#' * "dist_ind" A distance file of edgelist with a third column as the network distance between the genes
+#'  in the interaction.
+#' * "inter" file as edgelist of inferred network.
 #' * "edgelist" as the edgelist for predicted network.
 #' * "nedges" as the number of edges of the predicted network.
 #'

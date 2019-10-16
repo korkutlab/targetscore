@@ -3,9 +3,9 @@
 #' @param data input expression data frame. Gene in coloumns and samples in row.
 #' With colnames as gene tags and rownames as sample tags.
 #' @param cut_off Manually Setup cut off value for the strength of edge. Default at 0.1.
-#' @param n_prot Number of proteins included in the drug perturbation data.
-#' @param proteomic_responses Drug Perturbation data for analysis.
-#' @param max_dist TODO (default: 1)
+#' @param n_prot Antibody number of input data.
+#' @param proteomic_responses Input drug perturbation data. With columns as antibody, rows as samples.
+#' @param max_dist Maximum edge strength value.(Default at 1)
 #'
 #' @return Parameter of regulization decided lowest BIC.Including regularize parameter(L1 norm parameter) as rho.
 #'

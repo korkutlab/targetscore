@@ -1,8 +1,8 @@
 #' stdev over all samples
 #' @param n_x vertically merged data from all samples rows condition columns proteins
-#' @param n_sample number of samples
-#' @param n_prot number of proteins
-#' @param n_dose number of doses
+#' @param n_sample samples number of input data.
+#' @param n_prot Antibody number of input data.
+#' @param n_dose doses number of input data.
 #'
 #' @concept zeptosensPkg
 #' @export

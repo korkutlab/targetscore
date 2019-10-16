@@ -2,9 +2,9 @@
 #' As Significant Proteins (p value< Defalut or Manually set value) will show in red.
 #' The inverse log 10 of Target Score q value and Target Score calculated were shown.
 #'
-#' @param ts input Target Score calculated for each protein data frame.
+#' @param ts input Target Score calculated for each antibody data frame.
 #' Gene in coloumns and samples in row. With colnames as gene tags and rownames as sample tags.
-#' @param q_value input Target Score q value calculated for each protein data frame.
+#' @param q_value input Target Score q value calculated for each antibody data frame.
 #' Gene in coloumns and samples in row. With colnames as gene tags and rownames as sample tags.
 #' @param filename Manually set filename of volcano plot.
 #' @param path Plot Store path. Default at working environment.

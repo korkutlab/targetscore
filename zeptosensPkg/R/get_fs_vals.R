@@ -1,9 +1,8 @@
 #' Extracted functional score value from COMIC/ONCODRIVE Database. Can be override with Manually set functional score.
 #'
-#' @param n_prot number of proteins tested within the data.
-#' @param proteomic_responses Proteomic responses as drug pertubation.
-#' @param antibody_map_file a listing of antibodies, their associated genes,
-#' and modification sites
+#' @param n_prot Antibody number of input data.
+#' @param proteomic_responses Input drug perturbation data. With columns as antibody, rows as samples.
+#' @param antibody_map_file A list of antibodies, their associated genes, modification sites and effect.
 #' @param fs_value_file a listing of functional scores for each gene manually set up
 #' for overriding COSMIC Database given value, the modification path. (.txt)
 #' @param verbose Default as FALSE. If given TRUE, will print out the gene seq mapped with Antibody Map File.

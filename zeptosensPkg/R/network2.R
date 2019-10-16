@@ -1,10 +1,12 @@
 #' Network for adjusted-glasso
 #'
-#' @param wk The upload network constructed In matrix form.
-#' @param n_prot number of proteins tested.
-#' @param proteomic_responses TODO
-#' @param max_dist TODO
-#' @param antibody_map_file TODO
+#' @param wk Inference network constructed in matrix form with edge strength value estimated.
+#' Can be extracted directly from predict_bio_network,predict_dat_network or predictt_hyb_network
+#' function. Where predict_bio_network edge value default at 1 for upregulate and -1 for down regulate.
+#' @param n_prot Antibody number of input data.
+#' @param proteomic_responses Input drug perturbation data. With columns as antibody, rows as samples.
+#' @param max_dist Maximum edge strength value.(Default at 1)
+#' @param antibody_map_file A list of antibodies, their associated genes, modification sites and effect.
 #' @param dist_file A distance file an edgelist with a third column which is the network distance
 #'   between the genes in the interaction
 #' @param verbose logical, whether to show additional debugging information

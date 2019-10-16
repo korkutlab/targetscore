@@ -2,10 +2,11 @@
 #'
 #' @param data input expression data. Coloumns as the gene, rows as the sample.With
 #' colnames as the gene tags, rownames as the sample tags.
-#' @param prior prior information matrix with colnames and rownames as the gene tags.
+#' @param prior Prior information data frame ,with colnames and rownames as gene tags.
+#' With colnames and rownames as gene tags. Can be inferred from predict_bio_network() or any network resources.
 #' @param boot_time Bootstrap time mannually set.Default at 1000.
 #' @param fold The fold for training and test dataset. Default at 5.
-#' @param cut_off TODO
+#' @param cut_off Manually set up cut off value for strength of edge. (Default at 0.1)
 #'
 #' @return result of validation score. for random network and the network predicted with the algorithm.
 #'
