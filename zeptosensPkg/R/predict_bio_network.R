@@ -3,7 +3,7 @@
 #' @param n_prot Antibody number of input data.
 #' @param proteomic_responses Input drug perturbation data. With columns as antibody, rows as samples.
 #' @param max_dist Maximum edge strength value.(Default at 1)
-#' @param antibody_map_file A list of antibodies, their associated genes, modification sites and effect.
+#' @param mab_to_genes A list of antibodies, their associated genes, modification sites and effect.
 #' @param dist_file A distance file an edgelist with a third column which is the network distance
 #'   between the genes in the interaction
 #' @param verbose whether to show debugging information
@@ -22,14 +22,7 @@
 #' @concept zeptosensPkg
 #' @export
 predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
-                                antibody_map_file = NULL, dist_file = NULL, verbose = FALSE) {
-
-  # match Ab names to gene names & posttranslational modifications
-  if (is.null(antibody_map_file)) {
-    antibody_map_file <- system.file("targetScoreData", "antibodyMap.txt", package = "zeptosensPkg")
-  }
-  mab_to_genes <- antibody_map_file
-
+                                mab_to_genes, dist_file = NULL, verbose = FALSE) {
   if (verbose) {
     print(mab_to_genes)
   }

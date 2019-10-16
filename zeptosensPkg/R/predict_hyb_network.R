@@ -8,7 +8,7 @@
 #' @param max_dist Maximum edge strength value.(Default at 1)
 #' @param proteomic_responses RPPA data tested for drug pertubation.
 #' @param n_prot Antibody number of input data.
-#' @param antibody_map_file A list of antibodies, their associated genes, modification sites and effect.
+#' @param mab_to_genes A list of antibodies, their associated genes, modification sites and effect.
 #'
 #' @return a list is returned with the following entries:
 #' * "parameters" as the parameter list of regulization parameter decided by the prior information
@@ -31,13 +31,13 @@
 #' @concept zeptosensPkg
 #' @export
 predict_hyb_network <- function(data, prior = NULL, cut_off = 0.1, proteomic_responses, n_prot,
-                                max_dist = 1, antibody_map_file) {
+                                max_dist = 1, mab_to_genes) {
   if (is.null(prior)) {
     tmp <- zeptosensPkg::predict_bio_network(
       n_prot = 304,
       proteomic_responses = proteomic_responses,
       max_dist = 1,
-      antibody_map_file = antibody_map_file
+      mab_to_genes = mab_to_genes
     )
     wk <- tmp$wk
     prior <- wk

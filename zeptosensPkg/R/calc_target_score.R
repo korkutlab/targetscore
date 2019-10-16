@@ -19,7 +19,6 @@
 #' @param fs_file Functional score file. A tab-delmited file with a header, each row is an
 #'   antibody in the first column and functional score in the second column
 #'   (i.e. 1 oncogene, 0 tumor supressor/oncogene, -1 tumor supressor characteristics)
-#' @param antibody_map_file A list of antibodies, their associated genes, and modification sites with effect.
 #' @param dist_file A distance file an edgelist with a third column which is the network distance
 #'   between the genes in the interaction
 #' @param ts_factor a scaling factor for the pathway component in the target score
@@ -33,7 +32,7 @@
 #' @export
 calc_target_score <- function(wk, wks, dist_ind, inter, n_dose, n_prot, proteomic_responses,
                               max_dist = 1, cell_line, verbose = TRUE,
-                              ts_factor = 1, fs_file, antibody_map_file = NULL, dist_file = NULL) {
+                              ts_factor = 1, fs_file, dist_file = NULL) {
   # LOAD & RANDOMIZE INTERNAL DATA ---- read function score
   # if(is.null(fs_file)) {
   #     fs_file <- system.file("targetScoreData", "fs.txt", package = "zeptosensPkg")
