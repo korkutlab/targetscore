@@ -23,7 +23,7 @@ output_dir <- "inst/test_data/output"
 max_dist <- 1 # changing this value requires additional work to compute product(wk). This is not a priority
 
 # READ ANTIBODY FILE ----
-antibody_map_file <- read.table(file.path(resource_dir, "antibodyMapFile.txt"),
+mab_to_genes <- read.table(file.path(resource_dir, "antibodyMapFile.txt"),
   sep = "\t",
   header = TRUE, stringsAsFactors = FALSE
 )
@@ -37,7 +37,6 @@ proteomic_responses <- read.csv(file.path(data_dir, "BT474.csv"), row.names = 1)
 n_prot <- 304
 proteomic_responses <- proteomic_responses
 max_dist <- 1
-antibody_map_file <- antibody_map_file
 dist_file <- NULL
 verbose <- FALSE
 
@@ -46,7 +45,16 @@ network <- zeptosensPkg::predict_bio_network(
   n_prot = dim(proteomic_responses)[2],
   proteomic_responses = proteomic_responses,
   max_dist = 1,
-  antibody_map_file = antibody_map_file
+  mab_to_genes = mab_to_genes
+)
+
+source("~/default/workspaceNotSynced/zeptosenspkg/zeptosensPkg/R/predictBioNetwork.R")
+source("~/default/workspaceNotSynced/zeptosenspkg/zeptosensPkg/R/matchGenesToEdgelist.R")
+network_org <- predictBioNetwork(
+  nProt = dim(proteomic_responses)[2],
+  proteomicResponses = proteomic_responses,
+  maxDist = 1,
+  antibodyMapFile = mab_to_genes
 )
 
 wk <- network$wk # sum(wk!=0)=834
@@ -77,7 +85,7 @@ ts <- array(0, dim = c(n_cond, n_prot))
 ts_p <- array(0, dim = c(n_cond, n_prot))
 ts_q <- array(0, dim = c(n_cond, n_prot))
 
-n_perm <- 25
+n_perm <- 1000
 
 for (i in 1:n_cond) {
   results <- zeptosensPkg::get_target_score(
@@ -117,8 +125,6 @@ write.csv(ts_p, file = file.path(output_dir, "ts_bt474_pvalue.csv"), row.names =
 colnames(ts_q) <- colnames(proteomic_responses)
 ts_q <- data.frame(rownames(proteomic_responses), ts_q)
 write.csv(ts_q, file = file.path(output_dir, "ts_bt474_qvalue.csv"), row.names = FALSE)
-
-# FIXME dist_ind.txt, randts.txt
 
 # PLOT ----
 # Heatmap
