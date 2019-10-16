@@ -1,8 +1,8 @@
 Package: zeptosensPkg
 Type: Package
 Title: zeptosensPkg
-Version: 0.99.5
-Date: 2019-10-10
+Version: 0.99.6
+Date: 2019-10-16
 Author: Augustin Luna, Anil Korkut
 Maintainer: Augustin Luna <lunaa@cbio.mskcc.org>
 Description: A statistical pathway analysis method that 1) reveals pathways involved in drug activity and adaptive resistance and 2) nominates combination therapies to down regulate the resistance pathways. 
@@ -14,10 +14,10 @@ Imports:
     ggplot2,
     ggrepel
 Depends:
-    R (>= 3.1.1)
+    R (>= 3.5.0)
 Suggests:
-    knitr
+    knitr,
+    testthat (>= 2.1.0)
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
 Encoding: UTF-8
-

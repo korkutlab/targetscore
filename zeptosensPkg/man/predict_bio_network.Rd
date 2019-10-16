@@ -4,17 +4,17 @@
 \alias{predict_bio_network}
 \title{Predict Network from signedPC (Bio-inferred network)}
 \usage{
-predict_bio_network(n_prot, proteomic_responses, max_dist,
-  antibody_map_file = NULL, dist_file = NULL, verbose = FALSE)
+predict_bio_network(n_prot, proteomic_responses, max_dist, mab_to_genes,
+  dist_file = NULL, verbose = FALSE)
 }
 \arguments{
-\item{n_prot}{TODO}
+\item{n_prot}{Antibody number of input data.}
 
-\item{proteomic_responses}{TODO}
+\item{proteomic_responses}{Input drug perturbation data. With columns as antibody, rows as samples.}
 
-\item{max_dist}{TODO (default: 1)}
+\item{max_dist}{Maximum edge strength value.(Default at 1)}
 
-\item{antibody_map_file}{a listing of antibodies, their associated genes, and modification sites}
+\item{mab_to_genes}{A list of antibodies, their associated genes, modification sites and effect.}
 
 \item{dist_file}{A distance file an edgelist with a third column which is the network distance
 between the genes in the interaction}
@@ -22,7 +22,14 @@ between the genes in the interaction}
 \item{verbose}{whether to show debugging information}
 }
 \value{
-TODO
+a list is returned with the following entries:
+* "wk" inferred network matrix form with edge strength value default at 1 for
+upregulate and -1 for down regulate.
+* "wks" as inferred network matrix form with edge strength value default at 1 for
+upregulate and -1 for down regulate and 2 for phosphorylation and -2 for dephosphorylation.
+* "dist_ind" A distance file of edgelist with a third column as the network distance
+between the genes in the interaction.
+* "inter" file as edgelist of inferred network.
 }
 \description{
 Predict Network from signedPC (Bio-inferred network)

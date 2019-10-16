@@ -4,19 +4,19 @@
 \alias{network2}
 \title{Network for adjusted-glasso}
 \usage{
-network2(wk, n_prot, proteomic_responses, max_dist,
-  antibody_map_file = NULL, dist_file = NULL, verbose = FALSE)
+network2(wk, n_prot, proteomic_responses, max_dist, dist_file = NULL,
+  verbose = FALSE)
 }
 \arguments{
-\item{wk}{The upload network constructed In matrix form.}
+\item{wk}{Inference network constructed in matrix form with edge strength value estimated.
+Can be extracted directly from predict_bio_network,predict_dat_network or predictt_hyb_network
+function. Where predict_bio_network edge value default at 1 for upregulate and -1 for down regulate.}
 
-\item{n_prot}{number of proteins tested.}
+\item{n_prot}{Antibody number of input data.}
 
-\item{proteomic_responses}{TODO}
+\item{proteomic_responses}{Input drug perturbation data. With columns as antibody, rows as samples.}
 
-\item{max_dist}{TODO}
-
-\item{antibody_map_file}{TODO}
+\item{max_dist}{Maximum edge strength value.(Default at 1)}
 
 \item{dist_file}{A distance file an edgelist with a third column which is the network distance
 between the genes in the interaction}

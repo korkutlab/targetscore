@@ -4,16 +4,15 @@
 \alias{get_fs_vals}
 \title{Extracted functional score value from COMIC/ONCODRIVE Database. Can be override with Manually set functional score.}
 \usage{
-get_fs_vals(n_prot, proteomic_responses, antibody_map_file = NULL,
+get_fs_vals(n_prot, proteomic_responses, mab_to_genes,
   fs_value_file = NULL, verbose = FALSE)
 }
 \arguments{
-\item{n_prot}{number of proteins tested within the data.}
+\item{n_prot}{Antibody number of input data.}
 
-\item{proteomic_responses}{Proteomic responses as drug pertubation.}
+\item{proteomic_responses}{Input drug perturbation data. With columns as antibody, rows as samples.}
 
-\item{antibody_map_file}{a listing of antibodies, their associated genes,
-and modification sites}
+\item{mab_to_genes}{A list of antibodies, their associated genes, modification sites and effect.}
 
 \item{fs_value_file}{a listing of functional scores for each gene manually set up
 for overriding COSMIC Database given value, the modification path. (.txt)}

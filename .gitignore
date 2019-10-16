@@ -14,3 +14,6 @@ zeptosensPkg/inst/shinyApp/TS_d.txt
 zeptosensPkg.Rcheck
 zeptosensPkg_*.tar.gz
 zeptosensPkg/inst/test_data/output
+zeptosensPkg/inst/test_data/output_s2
+zeptosensPkg/inst/test_data/output_s3
+zeptosensPkg/inst/test_data/output_s1

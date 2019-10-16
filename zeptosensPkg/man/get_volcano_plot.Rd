@@ -9,10 +9,10 @@ The inverse log 10 of Target Score q value and Target Score calculated were show
 get_volcano_plot(ts, q_value, filename, path = NULL, sig_value = 0.4)
 }
 \arguments{
-\item{ts}{input Target Score calculated for each protein data frame.
+\item{ts}{input Target Score calculated for each antibody data frame.
 Gene in coloumns and samples in row. With colnames as gene tags and rownames as sample tags.}
 
-\item{q_value}{input Target Score q value calculated for each protein data frame.
+\item{q_value}{input Target Score q value calculated for each antibody data frame.
 Gene in coloumns and samples in row. With colnames as gene tags and rownames as sample tags.}
 
 \item{filename}{Manually set filename of volcano plot.}

@@ -13,11 +13,11 @@ With colnames as gene tags and rownames as sample tags.}
 
 \item{cut_off}{Manually Setup cut off value for the strength of edge. Default at 0.1.}
 
-\item{n_prot}{Number of proteins included in the drug perturbation data.}
+\item{n_prot}{Antibody number of input data.}
 
-\item{proteomic_responses}{Drug Perturbation data for analysis.}
+\item{proteomic_responses}{Input drug perturbation data. With columns as antibody, rows as samples.}
 
-\item{max_dist}{TODO (default: 1)}
+\item{max_dist}{Maximum edge strength value.(Default at 1)}
 }
 \value{
 Parameter of regulization decided lowest BIC.Including regularize parameter(L1 norm parameter) as rho.

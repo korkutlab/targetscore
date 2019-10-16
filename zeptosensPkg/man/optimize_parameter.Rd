@@ -10,8 +10,8 @@ optimize_parameter(data, prior)
 \item{data}{input expression data frame. Gene in coloumns and samples in row.
 With colnames as gene tags and rownames as sample tags.}
 
-\item{prior}{Prior information data frame ,with colnames and rownames as gene tags.
-With colnames and rownames as gene tags.}
+\item{prior}{Prior information matrix of gene interaction, with colnames and rownames as gene tags.
+With colnames and rownames as gene tags.Can be inferred from Public data source (for example:SignedPC).}
 }
 \value{
 Parameter list of regulization parameter decided by the prior information and the algorithmn lowest BIC.

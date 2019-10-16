@@ -5,7 +5,7 @@
 \title{Choose the optimal regulization parameter and scale paramter for prior information adjusted network construction.}
 \usage{
 predict_hyb_network(data, prior = NULL, cut_off = 0.1,
-  proteomic_responses, n_prot, max_dist = 1, antibody_map_file)
+  proteomic_responses, n_prot, max_dist = 1, mab_to_genes)
 }
 \arguments{
 \item{data}{input Global Signaling expression data frame(TCGA rppa Data for example).
@@ -14,15 +14,15 @@ Gene in coloumns and samples in row. With colnames as gene tags and rownames as 
 \item{prior}{Prior information data frame ,with colnames and rownames as gene tags.
 With colnames and rownames as gene tags. Can be inferred from predict_bio_network() or any network resources.}
 
-\item{cut_off}{Manually set up cut off value for strength of edge. Default at 0.1.}
+\item{cut_off}{Manually set up cut off value for strength of edge. (Default at 0.1)}
 
 \item{proteomic_responses}{RPPA data tested for drug pertubation.}
 
-\item{n_prot}{number of Proteins contained in the data.}
+\item{n_prot}{Antibody number of input data.}
 
-\item{max_dist}{Maximun distance for the network. Default at 1.}
+\item{max_dist}{Maximum edge strength value.(Default at 1)}
 
-\item{antibody_map_file}{TODO}
+\item{mab_to_genes}{A list of antibodies, their associated genes, modification sites and effect.}
 }
 \value{
 a list is returned with the following entries:
@@ -31,10 +31,12 @@ and the algorithmn lowest BIC. Including regularize parameter(L1 norm parameter)
 (decided how much prior information contribute) as "kappa", and regulization matrix for the expression
 data as "rho_m".
 * "bic"as the Model's BIC matrix for differnet regularization parameters.
-* "wk" as the predicted network.
-* "wks" TODO
-* "dist_ind" TODO
-* "inter" TODO
+* "wk" inferred network matrix form with edge strength value estimated as the partial correlation.
+* "wks" inferred network matrix form with edge strength value estimated as the partial correlation.
+ Same as wk in predict_hyb_network.
+* "dist_ind" A distance file of edgelist with a third column as the network distance between the genes
+ in the interaction.
+* "inter" file as edgelist of inferred network.
 * "edgelist" as the edgelist for predicted network.
 * "nedges" as the number of edges of the predicted network.
 }

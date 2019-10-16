@@ -7,11 +7,11 @@
 samp_sdev(n_sample, n_prot, n_dose, n_x)
 }
 \arguments{
-\item{n_sample}{number of samples}
+\item{n_sample}{samples number of input data.}
 
-\item{n_prot}{number of proteins}
+\item{n_prot}{Antibody number of input data.}
 
-\item{n_dose}{number of doses}
+\item{n_dose}{doses number of input data.}
 
 \item{n_x}{vertically merged data from all samples rows condition columns proteins}
 }

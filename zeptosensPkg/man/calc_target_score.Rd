@@ -6,26 +6,32 @@
 \usage{
 calc_target_score(wk, wks, dist_ind, inter, n_dose, n_prot,
   proteomic_responses, max_dist = 1, cell_line, verbose = TRUE,
-  ts_factor = 1, fs_file, antibody_map_file = NULL, dist_file = NULL)
+  ts_factor = 1, fs_file, dist_file = NULL)
 }
 \arguments{
-\item{wk}{TODO}
+\item{wk}{Inference network constructed in matrix form with edge strength value estimated.
+Can be extracted directly from predict_bio_network,predict_dat_network or predictt_hyb_network
+function. Where predict_bio_network edge value default at 1 for upregulate and -1 for down regulate.}
 
-\item{wks}{TODO}
+\item{wks}{Inference network constructed in matrix form with edge strength value estimated.
+Can be extracted directly from predict_bio_network,predict_dat_network or predictt_hyb_network
+function. Where predict_bio_network edge value default at 1 for upregulate, -1 for down regulate,
+2 for phosphorylation and -2 for dephosphorylation.}
 
-\item{dist_ind}{TODO}
+\item{dist_ind}{A distance file of edgelist with a third column as the network distance
+between the genes in the interaction}
 
-\item{inter}{TODO}
+\item{inter}{Edgelist of inferred network.}
 
-\item{n_dose}{TODO}
+\item{n_dose}{Dose number of input data.}
 
-\item{n_prot}{TODO}
+\item{n_prot}{Antibody number of input data.}
 
-\item{proteomic_responses}{TODO}
+\item{proteomic_responses}{Input drug perturbation data. With columns as antibody, rows as samples.}
 
-\item{max_dist}{TODO (default: 1)}
+\item{max_dist}{Maximum edge strength value.(Default at 1)}
 
-\item{cell_line}{TODO}
+\item{cell_line}{Cell lines labels included in input file.}
 
 \item{verbose}{a boolean to show debugging information}
 
@@ -34,8 +40,6 @@ calc_target_score(wk, wks, dist_ind, inter, n_dose, n_prot,
 \item{fs_file}{Functional score file. A tab-delmited file with a header, each row is an
 antibody in the first column and functional score in the second column
 (i.e. 1 oncogene, 0 tumor supressor/oncogene, -1 tumor supressor characteristics)}
-
-\item{antibody_map_file}{a listing of antibodies, their associated genes, and modification sites}
 
 \item{dist_file}{A distance file an edgelist with a third column which is the network distance
 between the genes in the interaction}
