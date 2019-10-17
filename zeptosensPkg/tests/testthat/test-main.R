@@ -55,7 +55,6 @@ test_that("predict_bio_network", {
     mab_to_genes = mab_to_genes
   )
 
-
   network_org <- readRDS(system.file("test_data_files", "predict_bio_network_network_output.rds",
     package = "zeptosensPkg"
   ))
@@ -64,4 +63,18 @@ test_that("predict_bio_network", {
   expect_identical(network$wks, network_org$wks)
   expect_identical(network$dist_ind, network_org$dist_ind)
   expect_identical(network$inter, network_org$inter)
+})
+
+test_that("create_sif_from_matrix", {
+  network_org <- readRDS(system.file("test_data_files", "predict_bio_network_network_output.rds",
+    package = "zeptosensPkg"
+  ))
+
+  wk_org <- readRDS(system.file("test_data_files", "create_sif_from_matrix_output.rds",
+    package = "zeptosensPkg"
+  ))
+
+  edgelist_wk <- create_sif_from_matrix(t_net = network_org$wk, genelist = colnames(network_org$wk))
+
+  expect_identical(edgelist_wk, wk_org)
 })
