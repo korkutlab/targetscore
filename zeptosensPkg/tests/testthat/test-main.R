@@ -33,3 +33,21 @@ test_that("match_genes_to_edgelist", {
 
   expect_equal(dist_list, snapshot)
 })
+
+test_that("match_genes_to_edgelist", {
+  # TMP
+
+  # dist_list <- match_genes_to_edgelist(
+  #     genes1 = mab_genes,
+  #     genes2 = NULL,
+  #     annot_edgelist = dist,
+  #     antibody_vec = colnames(proteomic_responses),
+  #     use_annot = TRUE,
+  #     verbose = TRUE
+  # )
+  #
+  # snapshot_file <- system.file("test_data_files", "match_genes_to_edgelist_test_output.rds", package = "zeptosensPkg")
+  # snapshot <- readRDS(snapshot_file)
+  #
+  # expect_equal(dist_list, snapshot)
+})

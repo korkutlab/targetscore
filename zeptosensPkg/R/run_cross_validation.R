@@ -384,7 +384,7 @@ run_cross_validation <- function(data, prior, boot_time = 1000, cut_off = 0.1, f
       }
     }
 
-    # False Negative#
+    # False Negative
     for (t in 1:ncol(data)) {
       for (p in 1:ncol(data)) {
         if (t_net_rhoadjusted_d_valid[t, p] != t_net_rhoadjusted_d[t, p] & t_net_rhoadjusted_d[t, p] == 0) {
@@ -402,7 +402,7 @@ run_cross_validation <- function(data, prior, boot_time = 1000, cut_off = 0.1, f
       }
     }
 
-    # True Negative#
+    # True Negative
     for (t in 1:ncol(data)) {
       for (p in 1:ncol(data)) {
         if (t_net_rhoadjusted_d_valid[t, p] == t_net_rhoadjusted_d[t, p] & t_net_rhoadjusted_d_valid[t, p] == 0) {

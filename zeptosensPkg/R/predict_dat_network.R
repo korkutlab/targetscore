@@ -66,9 +66,11 @@ predict_dat_network <- function(data, cut_off = 0.1, n_prot, proteomic_responses
   wks <- network_inferred$wks
   dist_ind <- network_inferred$dist_ind
   inter <- network_inferred$inter
+
   result <- list(
     rho = rho, nedges = nedges, t_net = t_net, edgelist = edgelist, bic = bic,
     wk = wk, wks = wks, dist_ind = dist_ind, inter = inter
   )
+
   return(result)
 }
