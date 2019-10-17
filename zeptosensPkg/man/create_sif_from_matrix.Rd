@@ -13,7 +13,7 @@ create_sif_from_matrix(t_net, genelist)
 }
 \value{
 Edgelist description data.frame contain G(V,E) including Vertex and Edges
-(1 positive/-1 negative) edgevalue and vertex number of Gaussian Graphical Model.
+(1 positive/-1 negative) edgevalue (the strength of association) and vertices numbers from the graph
 }
 \description{
 Create sif from network matrix.

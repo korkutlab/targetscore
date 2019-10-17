@@ -4,7 +4,7 @@
 #' @param genelist Gene name list corresponding to the Gaussian gene Network estimated.
 #'
 #' @return Edgelist description data.frame contain G(V,E) including Vertex and Edges
-#' (1 positive/-1 negative) edgevalue and vertex number of Gaussian Graphical Model.
+#' (1 positive/-1 negative) edgevalue (the strength of association) and vertices numbers from the graph
 #'
 #' @concept zeptosensPkg
 #' @export
@@ -32,6 +32,6 @@ create_sif_from_matrix <- function(t_net, genelist) {
     }
   }
   edgelist <- as.data.frame(cbind(node1, edges, node2, edges_value, node1_n, node2_n))
-  colnames(edgelist) <- c("node1", "edges", "node2", "edge.value", "node1_n", "node2_n")
+  colnames(edgelist) <- c("node1", "edges", "node2", "edge_value", "node1_n", "node2_n")
   return(edgelist)
 }
