@@ -21,7 +21,7 @@ function. Where predict_bio_network edge value default at 1 for upregulate, -1 f
 \item{dist_ind}{A distance file of edgelist with a third column as the network distance
 between the genes in the interaction}
 
-\item{inter}{Edgelist of inferred network.}
+\item{inter}{Edgelist of inferred network}
 
 \item{n_dose}{Dose number of input data.}
 

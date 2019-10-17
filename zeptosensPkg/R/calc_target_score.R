@@ -9,7 +9,7 @@
 #' 2 for phosphorylation and -2 for dephosphorylation.
 #' @param dist_ind A distance file of edgelist with a third column as the network distance
 #'   between the genes in the interaction
-#' @param inter Edgelist of inferred network.
+#' @param inter Edgelist of inferred network
 #' @param n_dose Dose number of input data.
 #' @param n_prot Antibody number of input data.
 #' @param proteomic_responses Input drug perturbation data. With columns as antibody, rows as samples.
