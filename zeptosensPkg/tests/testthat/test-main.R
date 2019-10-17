@@ -31,23 +31,37 @@ test_that("match_genes_to_edgelist", {
   snapshot_file <- system.file("test_data_files", "match_genes_to_edgelist_test_output.rds", package = "zeptosensPkg")
   snapshot <- readRDS(snapshot_file)
 
-  expect_equal(dist_list, snapshot)
+  expect_identical(dist_list, snapshot)
 })
 
-test_that("match_genes_to_edgelist", {
-  # TMP
+test_that("predict_bio_network", {
+  skip_on_cran()
 
-  # dist_list <- match_genes_to_edgelist(
-  #     genes1 = mab_genes,
-  #     genes2 = NULL,
-  #     annot_edgelist = dist,
-  #     antibody_vec = colnames(proteomic_responses),
-  #     use_annot = TRUE,
-  #     verbose = TRUE
-  # )
-  #
-  # snapshot_file <- system.file("test_data_files", "match_genes_to_edgelist_test_output.rds", package = "zeptosensPkg")
-  # snapshot <- readRDS(snapshot_file)
-  #
-  # expect_equal(dist_list, snapshot)
+  # READ ANTIBODY FILE ----
+  mab_to_genes <- read.table(system.file("targetscoreData", "antibodyMapFile.txt", package = "zeptosensPkg"),
+    sep = "\t",
+    header = TRUE,
+    stringsAsFactors = FALSE
+  )
+
+  # Read proteomic response for cellline1
+  proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "zeptosensPkg"), row.names = 1)
+
+  # Extract network
+  network <- zeptosensPkg::predict_bio_network(
+    n_prot = dim(proteomic_responses)[2],
+    proteomic_responses = proteomic_responses,
+    max_dist = 1,
+    mab_to_genes = mab_to_genes
+  )
+
+
+  network_org <- readRDS(system.file("test_data_files", "predict_bio_network_network_output.rds",
+    package = "zeptosensPkg"
+  ))
+
+  expect_identical(network$wk, network_org$wk)
+  expect_identical(network$wks, network_org$wks)
+  expect_identical(network$dist_ind, network_org$dist_ind)
+  expect_identical(network$inter, network_org$inter)
 })
