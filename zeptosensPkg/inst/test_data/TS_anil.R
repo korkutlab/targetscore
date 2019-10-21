@@ -21,44 +21,45 @@ set.seed(1)
 data_dir <- "inst/test_data"
 resource_dir <- "inst/targetscoreData"
 output_dir <- "inst/test_data/output3"
+
+n_prot <- 304
 max_dist <- 1 # changing this value requires additional work to compute product(wk). This is not a priority
+verbose <- FALSE
 
 # READ ANTIBODY FILE ----
 mab_to_genes <- read.table(file.path(resource_dir, "antibodyMapFile.txt"),
   sep = "\t",
-  header = TRUE, stringsAsFactors = FALSE
+  header = TRUE,
+  stringsAsFactors = FALSE
 )
 
 # READ IN DATA ----
-sample1 <- "BT474"
-
 # Read proteomic response for cellline1
 proteomic_responses <- read.csv(file.path(data_dir, "BT474.csv"), row.names = 1) # n_prot=304
 
-n_prot <- 304
-proteomic_responses <- proteomic_responses
-max_dist <- 1
-dist_file <- NULL
-verbose <- FALSE
-
 # Extract network
 network <- zeptosensPkg::predict_bio_network(
-  n_prot = dim(proteomic_responses)[2],
+  n_prot = n_prot,
   proteomic_responses = proteomic_responses,
-  max_dist = 1,
+  max_dist = max_dist,
   mab_to_genes = mab_to_genes
 )
 
 saveRDS(network, file.path(output_dir, "bt474_network.rds"))
 
-source("~/default/workspaceNotSynced/zeptosenspkg/zeptosensPkg/R/predictBioNetwork.R")
-source("~/default/workspaceNotSynced/zeptosenspkg/zeptosensPkg/R/matchGenesToEdgelist.R")
-network_org <- predictBioNetwork(
-  nProt = dim(proteomic_responses)[2],
-  proteomicResponses = proteomic_responses,
-  maxDist = 1,
-  antibodyMapFile = mab_to_genes
-)
+# source("~/default/workspaceNotSynced/zeptosenspkg/zeptosensPkg/R/predictBioNetwork.R")
+# source("~/default/workspaceNotSynced/zeptosenspkg/zeptosensPkg/R/matchGenesToEdgelist.R")
+# network_org <- predictBioNetwork(
+#   nProt = n_prot,
+#   proteomicResponses = proteomic_responses,
+#   maxDist = 1,
+#   antibodyMapFile = mab_to_genes
+# )
+#
+# identical(network_org$wk, network$wk)
+# identical(network_org$wks, network$wks)
+# identical(network_org$dist_ind, network$dist_ind)
+# identical(network_org$inter, network$inter)
 
 wk <- network$wk
 wks <- network$wks
@@ -90,8 +91,7 @@ for (i in 1:n_cond) {
     proteomic_responses = proteomic_responses[i, ],
     max_dist = max_dist,
     n_perm = n_perm,
-    cell_line = sample1,
-    verbose = FALSE,
+    verbose = verbose,
     fs_file = file.path(resource_dir, "fs.txt")
   )
 
@@ -120,7 +120,7 @@ data <- results$ts
 
 bk <- c(seq(-4, -0.1, by = 0.01), seq(0, 5.5, by = 0.01))
 
-filename <- file.path(output_dir, "heatmap_BT474_pdf")
+filename <- file.path(output_dir, "heatmap_BT474.pdf")
 pdf(filename)
 pheatmap(data,
   scale = "none",
