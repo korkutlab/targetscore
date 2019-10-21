@@ -1,3 +1,26 @@
+---
+title: "Using TargetScore"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Using TargetScore}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, echo=FALSE, warning=FALSE, message=FALSE}
+require("knitr")
+opts_knit$set(root.dir = "..")
+opts_chunk$set(fig.align = "center", fig.width = 6, fig.height = 6, dpi = 300)
+```
+
+# Purpose 
+
+This tutorial describes the basic usage of TargetScore. 
+
+# Setup 
+## Load Packages 
+
+```{r}
 library(plyr)
 library(zeptosensPkg)
 library(data.table)
@@ -9,17 +32,15 @@ library(glasso)
 library(metap)
 library(ggrepel)
 library(pheatmap)
+```
 
-rm(list = ls(all.names = TRUE))
-set.seed(1)
+## Load Data 
 
-# FIXME fs.csv or fs.txt (CSV)
-
-# SET PARAMETERS ----
+```{r}
 # data_dir <- "../data(ts)/ts_anil"
 # protein_list_dir <- "../data(ts)/Protein_Name_List"
-data_dir <- "inst/test_data"
-resource_dir <- "inst/targetscoreData"
+data_dir <- system.file("test_data", package = "zeptosensPkg")
+resource_dir <- system.file("targetScoreData", package = "zeptosensPkg")
 output_dir <- "inst/test_data/output3"
 
 n_prot <- 304
@@ -33,13 +54,15 @@ mab_to_genes <- read.table(file.path(resource_dir, "antibodyMapFile.txt"),
   stringsAsFactors = FALSE
 )
 
-# READ IN DATA ----
 # Read proteomic response for cellline1
 proteomic_responses <- read.csv(file.path(data_dir, "BT474.csv"), row.names = 1) # n_prot=304
 
 # Read in functional scores
 fs <- read.csv(file.path(resource_dir, "fs.csv"), header = TRUE, stringsAsFactors = FALSE)
+```
 
+# Extract Network 
+```{r}
 # Extract network
 network <- zeptosensPkg::predict_bio_network(
   n_prot = n_prot,
@@ -49,22 +72,10 @@ network <- zeptosensPkg::predict_bio_network(
 )
 
 saveRDS(network, file.path(output_dir, "bt474_network.rds"))
+```
 
-# source("~/default/workspaceNotSynced/zeptosenspkg/zeptosensPkg/R/predictBioNetwork.R")
-# source("~/default/workspaceNotSynced/zeptosenspkg/zeptosensPkg/R/matchGenesToEdgelist.R")
-# network_org <- predictBioNetwork(
-#   nProt = n_prot,
-#   proteomicResponses = proteomic_responses,
-#   maxDist = 1,
-#   antibodyMapFile = mab_to_genes
-# )
-#
-# identical(network_org$wk, network$wk)
-# identical(network_org$wks, network$wks)
-# identical(network_org$dist_ind, network$dist_ind)
-# identical(network_org$inter, network$inter)
-
-# BT474 ----
+# Run Target Score 
+```{r example, message=FALSE, warning=FALSE}
 ## Calculate Target Score
 wk <- network$wk
 wks <- network$wks
@@ -126,8 +137,10 @@ rownames(ts_q) <- rownames(proteomic_responses)
 
 overall_results <- list(ts = ts, ts_p = ts_p, ts_q = ts_q)
 saveRDS(overall_results, file.path(output_dir, "bt474_results.rds"))
+```
 
-# PLOT ----
+# Plot 
+```{r}
 ## Heatmap
 results <- readRDS(file.path(output_dir, "bt474_results.rds"))
 data <- results$ts
@@ -210,3 +223,17 @@ write.table(edgelist_subnet,
   quote = FALSE,
   row.names = FALSE
 )
+```
+
+# Session Info
+```{r, eval=FALSE}
+sessionInfo()
+```
+
+
+
+
+
+
+
+
