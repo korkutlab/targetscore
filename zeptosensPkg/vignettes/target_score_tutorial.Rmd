@@ -230,10 +230,3 @@ write.table(edgelist_subnet,
 sessionInfo()
 ```
 
-
-
-
-
-
-
-
