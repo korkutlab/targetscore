@@ -10,7 +10,7 @@
 #'
 #' @concept zeptosensPkg
 #' @export
-optimize_parameter2 <- function(data) {
+optimize_parameter_dat <- function(data) {
   covmatrix <- cov(data)
   rho <- seq(0.01, 1, length = 100)
   bic <- rho

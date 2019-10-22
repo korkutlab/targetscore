@@ -15,7 +15,7 @@
 #'
 #' @concept zeptosensPkg
 #' @export
-optimize_parameter <- function(data, prior) {
+optimize_parameter_hybrid <- function(data, prior) {
   index <- colnames(prior[, which(colnames(prior) %in% colnames(data))]) # match the data
 
   data <- data[, index]
