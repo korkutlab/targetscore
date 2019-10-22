@@ -3,9 +3,9 @@
 #####################################################
 
 # library(rsconnect)
-# rsconnect::setAccountInfo(name='hithut', token='B512E4272720432CD9C6F5E47388416D', secret='/Y5XUfYMz02GGocWAcE/vQ+AsSrhpfEA8mBSk8Gl')
+# rsconnect::setAccountInfo(name='hithut', token='B512E4272720432CD9C6F5E47388416D',
+#   secret='/Y5XUfYMz02GGocWAcE/vQ+AsSrhpfEA8mBSk8Gl')
 # rsconnect::deployApp()
-# #
 
 #####################################################
 ########           UI            ####################
@@ -16,16 +16,11 @@ library(glasso)
 library(zeptosensPkg)
 library(ggplot2)
 library(ggrepel)
+library(markdown)
 
 ui <- navbarPage(
   # Theme Add In
   # theme="bootstrap.min.css",
-  # Or
-  # tags$head(
-  # tags$link(rel="stylesheet",type="text/css",href="file.css")
-  # )
-  # Or
-  # tags$style(HTML("p{color:red;}"))
 
   # Header
   "Target Score",
@@ -34,132 +29,78 @@ ui <- navbarPage(
     sidebarPanel(
       img(width = 450, src = "Intro.jpg"),
       tags$small(
-        "Source: TargetScore: ",
+        "Source: Targetscore: ",
         " July 10, 2005 show at the ",
         "Heping Wang, and others",
         a(
           href = "http://commons.wikimedia.org/wiki/User:Sfoskett",
-          "Ref:TargetScore"
+          "Ref:Targetscore"
         )
       )
     ),
     mainPanel(
-      tags$h2("Why we developed TargetScore"),
-      # tags$p("Background",style="font-family:Impact"),
-      p("Targeted therapies have been substantially successful in treatment of diverse cancer types
-               (Gu et al., 2016; Manzano et al., 2016; Mayekar and Bivona, 2017; Ohmoto and Yachida, 2017;
-               Tapia Rico et al., 2017).However, resistance to therapy is virtually inevitable and can manifest 
-               as a lack of response to therapy (intrinsic)or disease progression after temporary response 
-               (acquired resistance) (Holohan et al., 2013).A recurrent mechanism of resistance is activation
-               of compensatory oncogenic pathways (e.g., via feedback loops in short-term or secondary oncogenic
-               alterations in long-term) in response to targeting a genomic aberration (Holohan et al., 2013;
-               Niederst and Engelman, 2013)A relatively simple way to interrogate adaptive responses to targeted 
-               agents is to rank changes in mRNA and (phospho)protein expression for individual genes based on 
-               high throughput omics data.  However, the rank-based approach cannot capture collective changes
-               that lead to robust phenotypic transitions such as drug resistance.It is also more likely to 
-               detect druggable targets within collectively functioning network modules compared to individual 
-               genes/proteins. Here, with this motivation, we developed a method to analyze drug response, 
-               collective pathway adaptation mechanisms and discover effective drug combinations. Shown as in Fig."),
-
-      tags$h2("What does TargetScore do?"),
-      # tags$p("Introduction",style="font-family:Impact"),
-      p("The algorithm determines the network level, collective responses to perturbations  with a multi-step approach. 
-               Target Score Basically have two steps."),
-      p("Step1. Contructing Reference Network", style = "font-family:Impact"),
-      p("In the first step, we generate a reference network model that capture the
-               signaling interactions underlying the drug responses. The reference network is inferred using either a knowledge
-               based approach with pathway information from multiple signaling databases or a data-driven approach that uses 
-               Hybridh Adjusted-Glasso Algorithm (HAGA).There are three provided ways of Contructing Reference Network."),
-      strong("predictBionetwork Module:", style = "font-family: 'times'; font-si16pt"),
-      p("Contruct the network through Pathway Commons database.Of interest to this study, biochemical reactions, 
-               posttranslational modifications, and complex formation, which are all encoded in BioPAX language are taken 
-               into account."),
-      a(href = "https://www.pathwaycommons.org", "Pathway Commons"),
-      p("The pathway interactions that match to the proteomic species profiled by the RPPA data are
-               defined with 4 relation types: phosphorylation, dephosphorylation, expression upregulation, and expression 
-               downregulation. The list of gene names and corresponding posttranslational modifications (phosphorylation) 
-               is provided to the TargetScore package. The interactions between the molecules of interest are extracted 
-               using the signedPC module in BioPAX.The extracted interaction set is evaluated with expert curation and 
-               serve as the reference network."),
-      strong("predictDatnetwork Module", style = "font-family: 'times'; font-si16pt"),
-      p("Data driven reference network captures the molecular associations and inter-tumor heterogeneity across 
-               a population of samples with shared characteristics (e.g., ovarian cancer patients).Proteomic datasets, 
-               which capture the signaling co-variations serve as  the experimental constraint for network inference. 
-               Such datasets can be publicly available (e.g., TCGA data) or custom generated (drug response data, Korkut et al, Elife).
-               We inferred from glasso algorithm and provided here as the data driven algorithm in constructing network."),
-      a(href = "http://statweb.stanford.edu/~tibs/ftp/glasso-bio.pdf", "Graphical Lasso algorithm"),
-      p("glasso generates a partial correlation based network by estimating a sparse inverse of the covariance matrix 
-               using an L1 penalty.The algorithm estimates the precision (i.e., inverse covariance) matrix 
-               through maximization of the log-likelihood function by applying the L1 penalty"),
-      strong("predictHybnetwork", style = "font-family: 'times'; font-si16pt"),
-      p("We have modified the glasso algorithm and developed the Adjusted-glasso algorithm to infer the reference
-               network model using priors and with directionality information. Adjusted-glasso algorithm introduces the 
-               biology prior information from Pathway Commons Database.The introduction of this symmetric prior information
-               matrix can be seen as an adjustment to the inference penalty and allows us to apply varying amounts of 
-               penalties to different elements in precision matrix based on prior interactions.The developed algoritm
-               give larger probability for the pre-existing/experimentally validated interactions from Pathway Commons database while
-               take disease specific global signaling into account."),
-      p("Step2. Calculating Target Score Through Reference Network", style = "font-family:Impact"),
-      p("target score (TS) that quantifies the adaptive pathway responses to a perturbation as a sum of the response from 
-               each individual phosphoprotein level and its pathway neighborhood is calculated for each protein in each sample.
-               The calculation combines the cell type-specific drug response data with the reference network model information. 
-               High target score identifies genes involved in adaptive response (e.g., upregulation of RTK mRNA expression by 
-               MEK inhibitor via a feedback loop [[CITE]]) and low target score corresponds to the immediate impact of the drug.")
-
-      # tags$a(href="http://www.git.com","TargetScore Pakage Bio"),
+      includeMarkdown("www/ts_intro_p1.md"),
+      includeMarkdown("www/ts_intro_p2.md")
     )
   ),
   navbarMenu(
-    "Data",
+    "data",
     tabPanel(
-      "AntibodyMapFile",
+      "antibody_map_file",
       wellPanel(
-        h1("AntibodyMapFile"),
+        h1("antibody_map_file"),
         h2("File Descriptions"),
-        p("AntibodyMapFile is the Gene Name list Database developed by "),
+        p("antibody_map_file is the Gene Name list database developed by "),
         a(href = "https://odin.mdacc.tmc.edu/~akorkut/#/home", "Anil Korkut Group"),
-        p("which provided the onsite AnitobodyLabel of local upload files with the Gene_Symbol used within the Database.While
-                          AntibodyMapFile also provided the information of phosphorylation activation/deactivation."),
+        p("which provided the onsite AnitobodyLabel of local upload files with the Gene_Symbol used within the database.
+        While antibody_map_file also provided the information of phosphorylation activation/deactivation."),
         p(""),
         strong("AntibodyLabel"),
-        p("The AntibodyLabel is the label of local data for each Antibody. The AnitibodyLabel will serve as the label alongside all calculation."),
+        p("The AntibodyLabel is the label of local data for each Antibody. The AnitibodyLabel will serve as the label 
+          alongside all calculation."),
         strong("Source"),
-        p("Source of the Antibody. The provided AntibodyMapFile contains two sources including MDACC as MD Anderson Cancer Center
-                          and MSKCC standing for Memorial Sloan Kettering Cancer Center."),
+        p("Source of the Antibody. The provided antibody_map_file contains two sources including MDACC as MD Anderson 
+          Cancer Center and MSKCC standing for Memorial Sloan Kettering Cancer Center."),
         strong("NodeName"),
         p("MDACC standardized Antibody Name."),
         strong("Gene_Symbol"),
         p("Corresponding HGNC symbol and Ensembl ID"),
         strong("Sites"),
-        p("phosphorylation site. na stands for no phosphorylation. One site phosphorylation, for example:S473 for Akt_pS473,
-                          Two site phosphorylation, for example :Y1234|Y1235 for c.Met_pY1234_Y1235"),
+        p("phosphorylation site. na stands for no phosphorylation. One site phosphorylation, for example:S473 for 
+        Akt_pS473, Two site phosphorylation, for example :Y1234|Y1235 for c.Met_pY1234_Y1235"),
         strong("Effect"),
         p("The effect of Phosphorylation. Including:"),
         p("c : no phosphorylation"),
         p("a : activation"),
         p("i : inhibition"),
         h2("Download"),
-        tags$a(href = "data/antibodyMapfile.txt", target = "blank", "antibodyMapfile_localfile", download = "antibodyMapfile.txt"),
-        h2("Data Usage"),
+        tags$a(
+          href = "data/antibodyMapfile.txt", target = "blank", "antibodyMapfile_localfile",
+          download = "antibodyMapfile.txt"
+        ),
+        h2("data Usage"),
         strong("Please cite the following when using these data"),
         p("Anil K.et al ...")
       )
     ),
     tabPanel(
-      "Global Signaling Data",
+      "Global signaling data",
       wellPanel(
-        h1("Global Signaling Data"),
+        h1("Global signaling data"),
         h2("File Description"),
-        p("Proteomic datasets, which capture the signaling co-variations serve as  the experimental constraint for network
-                        inference. Such datasets can be publicly available (e.g., TCGA data) or custom generated 
-                        (drug response data, Korkut et al, Elife).The provided example datas"),
+        p("Proteomic datasets, which capture the signaling co-variations serve as  the experimental constraint for 
+          network inference. Such datasets can be publicly available (e.g., TCGA data) or custom generated (drug 
+          response data, Korkut et al, Elife).The provided example datas"),
         p("Coloumns: HGNC symbol and Ensembl ID"),
         p("Rows: Patients Samples"),
         h2("DownLoad"),
-        p("Here provided an example from Public Database TCGA of Breast Cancer.Protein level expression data for all genes,
-                        Log2 transformed."),
-        tags$a(href = "data/TCGA-BRCA-L4_1.csv", target = "blank", "TCGA_BRCA_localfile", download = "TCGA-BRCA-L4_1.csv"),
-        h2("Data Usage"),
+        p("Here provided an example from Public database TCGA of Breast Cancer.Protein level expression data for all 
+          genes, Log2 transformed."),
+        tags$a(
+          href = "data/TCGA-BRCA-L4_1.csv", target = "blank", "TCGA_BRCA_localfile",
+          download = "TCGA-BRCA-L4_1.csv"
+        ),
+        h2("data Usage"),
         strong("Please cite the following when using these data"),
         p("Anil K.et al ...")
       )
@@ -178,23 +119,26 @@ ui <- navbarPage(
         p("gene : HGNC symbol and Ensembl ID"),
         p("fs : Corresponding functional score"),
         h2("DownLoad"),
-        tags$a(href = "data/Cosmic.txt", target = "blank", "FsFile_localfile", download = "Cosmic.txt"),
-        h2("Data Usage")
+        tags$a(href = "data/Cosmic.txt", target = "blank", "fs_file_localfile", download = "Cosmic.txt"),
+        h2("data Usage")
       )
     ),
     tabPanel("", "")
   ),
   tabPanel(
     "App",
-    tags$img(height = 100, width = 1000, src = "https://3c1703fe8d.site.internapcdn.net/newman/gfx/news/hires/2018/nistbuildsst.jpg"),
+    tags$img(
+      height = 100, width = 1000,
+      src = "https://3c1703fe8d.site.internapcdn.net/newman/gfx/news/hires/2018/nistbuildsst.jpg"
+    ),
     # HTML() use html raw code
     # Side Bar for algorithmn choose
     fluidRow(
-      # AntibodyMapFile
+      # antibody_map_file
       column(
         3,
         wellPanel(
-          fileInput("Antibody", "Attach your AntibodyMapFile Signaling File (.csv or .txt)",
+          fileInput("Antibody", "Attach your antibody_map_file signaling File (.csv or .txt)",
             buttonLabel = "Browse...",
             placeholder = "No file selected",
             accept = c(
@@ -212,7 +156,7 @@ ui <- navbarPage(
       column(
         3,
         wellPanel(
-          fileInput("Sig", "Attach your Global Signaling File (.csv)",
+          fileInput("sig", "Attach your Global signaling File (.csv)",
             buttonLabel = "Browse...",
             placeholder = "No file selected",
             accept = c(
@@ -230,7 +174,7 @@ ui <- navbarPage(
       column(
         3,
         wellPanel(
-          fileInput("FsFile", "Attach your Functional Score File (.csv)",
+          fileInput("fs_file", "Attach your Functional Score File (.csv)",
             buttonLabel = "Browse...",
             placeholder = "No file selected",
             accept = c(
@@ -247,7 +191,7 @@ ui <- navbarPage(
       column(
         3,
         wellPanel(
-          fileInput("DrugData", "Attach your Drug Perturbation Data(.csv)",
+          fileInput("drug_data", "Attach your Drug Perturbation data(.csv)",
             buttonLabel = "Browse...",
             placeholder = "No file selected",
             accept = c(
@@ -264,19 +208,19 @@ ui <- navbarPage(
     fluidRow(
       # network contruction algorithmn choice: Bio,Dat,Hyb
       wellPanel(
-        selectInput("NetworkAlgorithmn",
+        selectInput("network_algorithm",
           label = "Network Construction Algorithmns:",
           choices = c(
             "Hybrid-driven Network construction Algorithmns" = "Hyb",
             "Biology-inferral Network construction Algorithmns" = "Bio",
-            "Data-driven Network construction Algorithmns" = "Dat"
+            "data-driven Network construction Algorithmns" = "Dat"
           ),
           selected = NULL
         ),
 
-        # TS calc type choice:
+        # ts calc type choice:
 
-        selectInput("TSCalcType",
+        selectInput("tsCalcType",
           label = "Target Score Calculation type:",
           choices = c(
             "Line by Line" = "lnl",
@@ -299,45 +243,45 @@ ui <- navbarPage(
     mainPanel(
       tags$h2("Guideline:"),
       p("..."),
-      tags$a(href = "http://www.git.com", "TargetScore Pakage Bio"),
+      tags$a(href = "http://www.git.com", "Targetscore Pakage Bio"),
 
       # Results showing in Tabs (can use navlistPanel to show on left)
       tabsetPanel(
         tabPanel(
-          "Test module",
-          textOutput("Test")
+          "test module",
+          textOutput("test")
         ),
 
         tabPanel(
           "Antibody Map",
-          dataTableOutput("AntiMap")
+          dataTableOutput("anti_map")
         ),
 
         tabPanel(
           "Functional Score Value",
-          dataTableOutput("FS_value")
+          dataTableOutput("fs_value")
         ),
 
         tabPanel(
           "Heatmap",
-          # heatmap of the Data
+          # heatmap of the data
           plotOutput("heatmap", height = 200, width = 1000)
         ),
 
         tabPanel(
-          "Edgelist of Network",
-          # Edgelist of the Data
-          dataTableOutput("Edgelist")
+          "edgelist of Network",
+          # edgelist of the data
+          dataTableOutput("edgelist")
         ),
 
         tabPanel(
-          "TargetScore",
-          # heatmap of the Data
-          plotOutput("TSheat", height = 200, width = 1000)
+          "Targetscore",
+          # heatmap of the data
+          plotOutput("tsheat", height = 200, width = 1000)
         ),
 
         tabPanel(
-          "VolcanoPlot of TargetScore",
+          "VolcanoPlot of Targetscore",
           # Plots
           plotOutput("volcanoplot")
         )
@@ -414,7 +358,7 @@ ui <- navbarPage(
 ########           SERVER        ####################
 #####################################################
 
-server <- function(input, output, session, stringsAsFactors) {
+server <- function(input, output, session, strings_as_factors) {
 
   # input$file1 will be NULL initially. After the user selects
   # and uploads a file, it will be a data frame with 'name',
@@ -425,104 +369,104 @@ server <- function(input, output, session, stringsAsFactors) {
   # read in Inputfiles
 
   # built reactive object through update/submit new dataset
-  # SigFile <- eventReactive(input$Submit,{input$SigData})
-  # FsFile <- eventReactive(input$Submit,{input$FsFile})
-  # DrugFile <- eventReactive(input$Submit,{input$DrugData})
+  # sig_file <- eventReactive(input$Submit,{input$sig_data})
+  # fs_file <- eventReactive(input$Submit,{input$fs_file})
+  # drug_file <- eventReactive(input$Submit,{input$drug_data})
 
-  # Algorithm <- eventReactive(input$Submit,{input$NetworkAlgorithmn})
-  # CalcType <- eventReactive(input$Submit,{input$TSCalcType})
+  # Algorithm <- eventReactive(input$Submit,{input$network_algorithm})
+  # CalcType <- eventReactive(input$Submit,{input$tsCalcType})
 
   # load in system file and Default value and the Default File
 
   # file from input
 
   # Drug File
-  DrugDat <- reactive({
-    DrugFile <- input$DrugData
-    if (is.null(DrugFile)) {
+  drug_dat <- reactive({
+    drug_file <- input$drug_data
+    if (is.null(drug_file)) {
       return(NULL)
     }
-    if (input$header4 == T) {
-      DrugDat <- read.csv(DrugFile$datapath, row.names = 1)
+    if (input$header4 == TRUE) {
+      drug_dat <- read.csv(drug_file$datapath, row.names = 1)
     }
-    if (input$header4 == F) {
-      DrugDat <- read.csv(DrugFile$datapath)
+    if (input$header4 == FALSE) {
+      drug_dat <- read.csv(drug_file$datapath)
     }
-    return(DrugDat)
+    return(drug_dat)
   })
 
   # AntibodyMap File (Default at System file)
-  AntiDat <- reactive({
-    AntibodyMapFile <- input$Antibody
-    if (is.null(AntibodyMapFile)) {
-      AntiDat <- system.file("targetScoreData", "antibodyMapfile_08092019.txt", package = "zeptosensPkg")
+  anti_dat <- reactive({
+    antibody_map_file <- input$Antibody
+    if (is.null(antibody_map_file)) {
+      anti_dat <- system.file("targetScoreData", "antibodyMapfile_08092019.txt", package = "zeptosensPkg")
     }
-    if (!is.null(AntibodyMapFile)) {
-      AntiDat <- read.csv(AntibodyMapFile$datapath, header = input$header1, stringsAsFactors = F)
+    if (!is.null(antibody_map_file)) {
+      anti_dat <- read.csv(antibody_map_file$datapath, header = input$header1, strings_as_factors = FALSE)
     }
-    return(AntiDat)
+    return(anti_dat)
   })
 
   # FS File
-  FSDat <- reactive({
-    FSFile <- input$FsFile
-    if (is.null(FSFile)) {
+  fs_dat <- reactive({
+    fs_file <- input$fs_file
+    if (is.null(fs_file)) {
       return(NULL)
     }
-    if (input$header3 == T) {
-      FSDat <- read.csv(FSFile$datapath, header = T, stringsAsFactors = F)
+    if (input$header3 == TRUE) {
+      fs_dat <- read.csv(fs_file$datapath, header = TRUE, strings_as_factors = FALSE)
     }
-    if (input$header3 == F) {
-      FSDat <- read.csv(FSFile$datapath, header = F, stringsAsFactors = F)
+    if (input$header3 == FALSE) {
+      fs_dat <- read.csv(fs_file$datapath, header = FALSE, strings_as_factors = FALSE)
     }
-    return(FSDat)
+    return(fs_dat)
   })
 
-  # TSCalcType
-  TSType <- reactive({
-    TSType <- input$TSCalcType
-    return(TSType)
+  # tsCalcType
+  ts_type <- reactive({
+    ts_type <- input$tsCalcType
+    return(ts_type)
   })
 
   # filename
-  fileName <- reactive({
-    fileName <- input$filename
-    return(fileName)
+  file_name <- reactive({
+    file_name <- input$filename
+    return(file_name)
   })
 
   # network algorithm
-  NetworkAlgorithmn <- reactive({
-    NetworkAlgorithmn <- input$NetworkAlgorithmn
-    return(NetworkAlgorithmn)
+  network_algorithm <- reactive({
+    network_algorithm <- input$network_algorithm
+    return(network_algorithm)
   })
 
-  # Global Signaling file
-  SigDat <- reactive({
-    SigFile <- input$Sig
-    if (is.null(SigFile)) {
+  # Global signaling file
+  sig_dat <- reactive({
+    sig_file <- input$sig
+    if (is.null(sig_file)) {
       return(NULL)
     }
-    if (input$header2 == T) {
-      SigDat <- read.csv(SigFile$datapath, row.names = 1, stringsAsFactors = F)
+    if (input$header2 == TRUE) {
+      sig_dat <- read.csv(sig_file$datapath, row.names = 1, strings_as_factors = FALSE)
     }
-    if (input$header2 == F) {
-      SigDat <- read.csv(SigFile$datapath, header = F, stringsAsFactors = F)
+    if (input$header2 == FALSE) {
+      sig_dat <- read.csv(sig_file$datapath, header = FALSE, strings_as_factors = FALSE)
     }
-    return(SigDat)
+    return(sig_dat)
   })
 
-  # nProt
-  nProt <- reactive({
-    data <- DrugDat()
-    nProt <- ncol(data)
-    return(nProt)
+  # n_prot
+  n_prot <- reactive({
+    data <- drug_dat()
+    n_prot <- ncol(data)
+    return(n_prot)
   })
 
-  # nCond
-  nCond <- reactive({
-    data <- DrugDat()
-    nCond <- nrow(data)
-    return(nCond)
+  # n_cond
+  n_cond <- reactive({
+    data <- drug_dat()
+    n_cond <- nrow(data)
+    return(n_cond)
   })
   # Line
   nline <- reactive({
@@ -530,275 +474,281 @@ server <- function(input, output, session, stringsAsFactors) {
     return(nline)
   })
 
-  # maxDist
-  maxDist <- reactive({
-    maxDist <- input$max_Dist
-    return(maxDist)
+  # max_dist
+  max_dist <- reactive({
+    max_dist <- input$max_Dist
+    return(max_dist)
   })
 
   # choosing the way to construct reference network
-  NetworkInferred <- reactive({
-    NetworkAlgo <- NetworkAlgorithmn()
-    DrugData <- DrugDat()
-    AntiData <- AntiDat()
-    SigData <- SigDat()
-    nPro <- nProt()
-    maxiDist <- maxDist()
+  network_inferred <- reactive({
+    network_algo <- network_algorithm()
+    drug_data <- drug_dat()
+    anti_data <- anti_dat()
+    sig_data <- sig_dat()
+    n_pro <- n_prot()
+    maxi_dist <- max_dist()
 
-    if (NetworkAlgo == "Bio") {
+    if (network_algo == "Bio") {
       # reference network
-      network <- zeptosensPkg::predictBioNetwork(nProt = nPro, proteomicResponses = DrugData, antibodyMapFile = AntiData, maxDist = maxiDist)
+      network <- zeptosensPkg::predict_bio_network(
+        n_prot = n_pro,
+        proteomic_responses = drug_data,
+        antibody_map_file = anti_data,
+        max_dist = maxi_dist
+      )
       wk <- network$wk
       wks <- network$wks
       dist_ind <- network$dist_ind
       inter <- network$inter
     }
 
-    if (NetworkAlgo == "Dat") {
-      network <- zeptosensPkg::predictDatNetwork(data = SigData, nProt = nPro, proteomicResponses = DrugData, maxDist = maxiDist)
+    if (network_algo == "Dat") {
+      network <- zeptosensPkg::predict_dat_network(
+        data = sig_data,
+        n_prot = n_pro,
+        proteomic_responses = drug_data,
+        max_dist = maxi_dist
+      )
       wk <- network$wk
       wks <- network$wks
       dist_ind <- network$dist_ind
       inter <- network$inter
     }
 
-    if (NetworkAlgo == "Hyb") {
+    if (network_algo == "Hyb") {
       # prior
-      wk <- zeptosensPkg::predictBioNetwork(nProt = nPro, proteomicResponses = DrugData, maxDist = maxiDist, antibodyMapFile = AntiData)$wk
+      wk <- zeptosensPkg::predict_bio_network(
+        n_prot = n_pro,
+        proteomic_responses = drug_data,
+        max_dist = maxi_dist,
+        antibody_map_file = anti_data
+      )$wk
       # Hyb
-      network <- zeptosensPkg::predictHybNetwork(data = SigData, prior = wk, nProt = nPro, proteomicResponses = DrugData)
+      network <- zeptosensPkg::predict_hyb_network(
+        data = sig_data,
+        prior = wk,
+        n_prot = n_pro,
+        proteomic_responses = drug_data
+      )
 
       wk <- network$wk
       wks <- network$wks
       dist_ind <- network$dist_ind
       inter <- network$inter
     }
-    NetworkInferred <- list(wk = wk, wks = wks, dist_ind = dist_ind, inter = inter)
-    return(NetworkInferred)
+    network_inferred <- list(wk = wk, wks = wks, dist_ind = dist_ind, inter = inter)
+    return(network_inferred)
   })
   # fs
-  FsValue <- reactive({
-    DrugData <- DrugDat()
-    AntiData <- AntiDat()
-    nPro <- nProt()
-    FS_Dat <- FSDat()
-    if (is.null(FS_Dat)) {
-      FsValue <- zeptosensPkg::getFsVals(nProt = nPro, proteomicResponses = DrugData, antibodyMapFile = AntiData)
+  fs_value <- reactive({
+    drug_data <- drug_dat()
+    anti_data <- anti_dat()
+    n_pro <- n_prot()
+    fs_dat <- fs_dat()
+    if (is.null(fs_dat)) {
+      fs_value <- zeptosensPkg::get_fs_vals(
+        n_prot = n_pro,
+        proteomic_responses = drug_data,
+        antibody_map_file = anti_data
+      )
     }
-    if (!is.null(FS_Dat)) {
-      FsValue <- zeptosensPkg::getFsVals(nProt = nPro, proteomicResponses = DrugData, fsValueFile = FS_Dat, antibodyMapFile = AntiData)
+    if (!is.null(fs_dat)) {
+      fs_value <- zeptosensPkg::get_fs_vals(
+        n_prot = n_pro,
+        proteomic_responses = drug_data,
+        fs_valueFile = fs_dat,
+        antibody_map_file = anti_data
+      )
     }
-    return(FsValue)
+    return(fs_value)
   })
 
-  # Calc TargetScore
-  TS.r <- reactive({
+  # Calc Targetscore
+  ts_r <- reactive({
 
     # call up reactive items
-    TS_Type <- TSType()
-    Network_Inferred <- NetworkInferred()
-    DrugData <- DrugDat()
-    nPro <- nProt()
-    nCon <- nCond()
-    Fs_Value <- FSDat() ### Warning :#Shoule be changed back to FsValue when FsValue() Reactive Back to Work ###
-    file_Name <- fileName()
-    maxiDist <- maxDist()
-
-    # give output filename
-    targetScoreOutputFile <- paste0(file_Name, "TS.txt")
-    matrixWkOutputFile <- paste0(file_Name, "wk.txt")
-    signedMatrixWkOutputFile <- paste0(file_Name, "wks.txt")
+    ts_type <- ts_type()
+    network_inferred <- network_inferred()
+    drug_data <- drug_dat()
+    n_pro <- n_prot()
+    n_con <- n_cond()
+    fs_value <- fs_dat() ### Warning :#Shoule be changed back to fs_value when fs_value() Reactive Back to Work ###
+    file_name <- file_name()
+    maxi_dist <- max_dist()
 
     # Network inferred
-    wk <- Network_Inferred$wk
-    wks <- Network_Inferred$wks
-    dist_ind <- Network_Inferred$dist_ind
-    inter <- Network_Inferred$inter
+    wk <- network_inferred$wk
+    wks <- network_inferred$wks
+    dist_ind <- network_inferred$dist_ind
+    inter <- network_inferred$inter
 
-    if (TS_Type == "lnl") {
-      DrugData[is.na(DrugData)] <- 0
+    if (ts_type == "lnl") {
+      drug_data[is.na(drug_data)] <- 0
 
       # Calc Std (Normalization request)
-      # stdev <- zeptosensPkg::sampSdev(nSample=nrow(DrugData),nProt=ncol(DrugData),nDose=1,nX=DrugData)
+      # stdev <- zeptosensPkg::samp_sdev(nSample=nrow(drug_data),n_prot=ncol(drug_data),n_dose=1,nX=drug_data)
       # #normalization
-      # proteomicResponses<- DrugData
-      # for(i in 1:nProt){
-      #   for (j in 1:nrow(proteomicResponses)){
-      #     proteomicResponses[j,i] <- (DrugData[j,i]/stdev[i])
+      # proteomic_responses<- drug_data
+      # for(i in 1:n_prot) {
+      #   for (j in 1:nrow(proteomic_responses)) {
+      #     proteomic_responses[j,i] <- (drug_data[j,i]/stdev[i])
       #   }
       # }
       #
-      proteomicResponses <- DrugData
-      # Bootstrap in Getting TargetScore
-      TS <- array(0, dim = c(nCon, nPro))
-      TS.p <- array(0, dim = c(nCon, nPro))
-      TS.q <- array(0, dim = c(nCon, nPro))
+      proteomic_responses <- drug_data
+      # Bootstrap in Getting Targetscore
+      ts <- array(0, dim = c(n_con, n_pro))
+      ts_p <- array(0, dim = c(n_con, n_pro))
+      ts_q <- array(0, dim = c(n_con, n_pro))
 
-      nPerm <- 1000
+      n_perm <- 1000
 
-      for (i in 1:nCon) {
-        results <- zeptosensPkg::getTargetScore(
+      for (i in 1:n_con) {
+        results <- zeptosensPkg::get_target_score(
           wk = wk,
           wks = wks,
           dist_ind = dist_ind,
           inter = inter,
-          nDose = 1,
-          nProt = nPro,
-          proteomicResponses = proteomicResponses[i, ],
-          maxDist = maxiDist,
-          nPerm = nPerm,
-          cellLine = file_Name,
-          verbose = FALSE, fsFile = Fs_Value,
-          targetScoreOutputFile = targetScoreOutputFile,
-          matrixWkOutputFile = matrixWkOutputFile,
-          targetScoreQValueFile = "q.txt",
-          targetScoreDoseFile = "TS_d.txt",
-          targetScorePValueFile = "p.txt"
+          n_dose = 1,
+          n_prot = n_pro,
+          proteomic_responses = proteomic_responses[i, ],
+          max_dist = maxi_dist,
+          n_perm = n_perm,
+          cellLine = file_name,
+          verbose = FALSE,
+          fsFile = fs_value
         )
-        TS[i, ] <- results$ts
-        TS.p[i, ] <- results$pts
-        TS.q[i, ] <- results$q
+        ts[i, ] <- results$ts
+        ts_p[i, ] <- results$pts
+        ts_q[i, ] <- results$q
       }
-      colnames(TS) <- colnames(DrugData)
-      rownames(TS) <- rownames(DrugData)
+      colnames(ts) <- colnames(drug_data)
+      rownames(ts) <- rownames(drug_data)
 
-      colnames(TS.p) <- colnames(DrugData)
-      rownames(TS.p) <- rownames(DrugData)
+      colnames(ts_p) <- colnames(drug_data)
+      rownames(ts_p) <- rownames(drug_data)
 
-      colnames(TS.q) <- colnames(DrugData)
-      rownames(TS.q) <- rownames(DrugData)
+      colnames(ts_q) <- colnames(drug_data)
+      rownames(ts_q) <- rownames(drug_data)
     }
 
-    if (TS_Type == "pop") {
+    if (ts_type == "pop") {
 
       # Calc Std
-      DrugData[is.na(DrugData)] <- 0
-      stdev <- zeptosensPkg::sampSdev(nSample = nrow(DrugData), nProt = ncol(DrugData), nDose = 1, nX = DrugData)
+      drug_data[is.na(drug_data)] <- 0
+      stdev <- zeptosensPkg::samp_sdev(nSample = nrow(drug_data), n_prot = ncol(drug_data), n_dose = 1, nX = drug_data)
       # normalization
-      proteomicResponses <- DrugData
-      for (i in 1:nProt) {
-        for (j in 1:nrow(proteomicResponses)) {
-          proteomicResponses[j, i] <- (DrugData[j, i] / stdev[i])
+      proteomic_responses <- drug_data
+      for (i in 1:n_prot) {
+        for (j in 1:nrow(proteomic_responses)) {
+          proteomic_responses[j, i] <- (drug_data[j, i] / stdev[i])
         }
       }
 
-      nPerm <- 1000
+      n_perm <- 25 # FIXME
 
-      results <- zeptosensPkg::getTargetScore(
+      results <- zeptosensPkg::get_target_score(
         wk = wk,
         wks = wks,
         dist_ind = dist_ind,
         inter = inter,
-        nDose = 1,
-        nProt = nPro,
-        proteomicResponses = proteomicResponses,
-        maxDist = maxiDist,
-        nPerm = nPerm,
-        cellLine = file_Name,
-        verbose = FALSE, fsFile = Fs_Value,
-        targetScoreOutputFile = targetScoreOutputFile,
-        matrixWkOutputFile = matrixWkOutputFile,
-        targetScoreQValueFile = "q.txt",
-        targetScoreDoseFile = "TS_d.txt",
-        targetScorePValueFile = "p.txt"
+        n_dose = 1,
+        n_prot = n_pro,
+        proteomic_responses = proteomic_responses,
+        max_dist = maxi_dist,
+        n_perm = n_perm,
+        cellLine = file_name,
+        verbose = FALSE,
+        fsFile = fs_value
       )
-      TS <- results$ts
-      TS.p <- results$pts
-      TS.q <- results$q
+      ts <- results$ts
+      ts_p <- results$pts
+      ts_q <- results$q
 
-      colnames(TS) <- colnames(DrugData)
-
-      colnames(TS.p) <- colnames(DrugData)
-
-      colnames(TS.q) <- colnames(DrugData)
+      colnames(ts) <- colnames(drug_data)
+      colnames(ts_p) <- colnames(drug_data)
+      colnames(ts_q) <- colnames(drug_data)
     }
-    TS.r <- list(TS = TS, TS.p = TS.p, TS.q = TS.q)
-    return(TS.r)
+    ts_r <- list(ts = ts, ts_p = ts_p, ts_q = ts_q)
+    return(ts_r)
   })
 
-  # Data heatmap
+  # data heatmap
   output$heatmap <- renderPlot({
-    DrugFile <- DrugDat()
+    drug_file <- drug_dat()
 
-    maxDat <- max(as.matrix(DrugFile))
-    minDat <- min(as.matrix(DrugFile))
-    bk <- c(seq(minDat, -0.01, by = 0.01), seq(0, maxDat, by = 0.01))
-    data <- as.matrix(DrugFile)
+    max_dat <- max(as.matrix(drug_file))
+    min_dat <- min(as.matrix(drug_file))
+    bk <- c(seq(min_dat, -0.01, by = 0.01), seq(0, max_dat, by = 0.01))
+    data <- as.matrix(drug_file)
     pheatmap(data,
       scale = "none",
-      color = c(colorRampPalette(colors = c("navy", "white"))(length(seq(minDat, -0.01, by = 0.01))), colorRampPalette(colors = c("white", "firebrick3"))(length(seq(0, maxDat, by = 0.01)))),
-      legend_breaks = seq(minDat, maxDat, 2), cellwidth = 2, cellheight = 2, fontsize = 2, fontsize_row = 2,
+      color = c(
+        colorRampPalette(colors = c("navy", "white"))(length(seq(min_dat, -0.01, by = 0.01))),
+        colorRampPalette(colors = c("white", "firebrick3"))(length(seq(0, max_dat, by = 0.01)))
+      ),
+      legend_breaks = seq(min_dat, max_dat, 2), cellwidth = 2, cellheight = 2, fontsize = 2, fontsize_row = 2,
       breaks = bk
     )
   })
 
-  ###########################################################################################################################
-  ###########                                Data Table module                                  #############################
-  ###########################################################################################################################
-
-
-  output$FS_value <- renderDataTable({
-    Data <- FSDat()
+  #### DATA TABLE MODULE ----
+  output$fs_value <- renderDataTable({
+    data <- fs_dat()
+    return(data)
   })
 
-  output$AntiMap <- renderDataTable({
-    Data <- AntiDat()
+  output$anti_map <- renderDataTable({
+    data <- anti_dat()
+    return(data)
   })
 
-  output$Edgelist <- renderDataTable({
-    Data <- NetworkInferred()
-    Edgelist <- zeptosensPkg::createSifFromMatrix(t.net = Data$wk, genelist = colnames(Data$wk))
+  output$edgelist <- renderDataTable({
+    data <- network_inferred()
+    edgelist <- zeptosensPkg::create_sif_from_matrix(t.net = data$wk, genelist = colnames(data$wk))
+    return(edgelist)
   })
 
-  ###########################################################################################################################
-  ###########                                Test module                                        #############################
-  ###########################################################################################################################
-  output$Test <- renderDataTable({
-    data <- FsValue()
+  #### TEST MODULE ----
+  output$test <- renderDataTable({
+    data <- fs_value()
+    return(data)
   })
 
-  ###########################################################################################################################
-  ###########                                network visualization module                       #############################
-  ###########################################################################################################################
-
-
-
-
-  ###########################################################################################################################
-  ###########                                TS heatmap module                                 #############################
-  ###########################################################################################################################
-
-  output$TSheat <- renderPlot({
-    TSr <- TS.r()
-    TS <- TSr$TS
-    maxDat <- max(as.matrix(TS))
-    minDat <- min(as.matrix(TS))
-    bk <- c(seq(minDat, -0.01, by = 0.01), seq(0, maxDat, by = 0.01))
-    data <- as.matrix(TS)
+  #### NETWORK VISUALIZATION MODULE ----
+  #### TS HEATMAP MODULE ----
+  output$tsheat <- renderPlot({
+    ts_r <- ts_r()
+    ts <- ts_r$ts
+    max_dat <- max(as.matrix(ts))
+    min_dat <- min(as.matrix(ts))
+    bk <- c(seq(min_dat, -0.01, by = 0.01), seq(0, max_dat, by = 0.01))
+    data <- as.matrix(ts)
     pheatmap(data,
       scale = "none",
-      color = c(colorRampPalette(colors = c("navy", "white"))(length(seq(minDat, -0.01, by = 0.01))), colorRampPalette(colors = c("white", "firebrick3"))(length(seq(0, maxDat, by = 0.01)))),
-      legend_breaks = seq(minDat, maxDat, 2), cellwidth = 2, cellheight = 2, fontsize = 2, fontsize_row = 2,
+      color = c(
+        colorRampPalette(colors = c("navy", "white"))(length(seq(min_dat, -0.01, by = 0.01))),
+        colorRampPalette(colors = c("white", "firebrick3"))(length(seq(0, max_dat, by = 0.01)))
+      ),
+      legend_breaks = seq(min_dat, max_dat, 2), cellwidth = 2, cellheight = 2, fontsize = 2, fontsize_row = 2,
       breaks = bk
     )
   })
 
-  ###########################################################################################################################
-  ###########                                TS Volcano plot module                             #############################
-  ###########################################################################################################################
-
+  #### TS VOLCANO PLOT MODULE ----
   output$volcanoplot <- renderPlot({
-    TSr <- TS.r()
+    ts_r <- ts_r()
     n_line <- nline()
-    TS <- TSr$TS[n_line, ]
-    TS.q <- TSr$TS.q[nline, ]
-    TS <- as.matrix(TS)
-    Padj <- as.matrix(TS.q)
+    ts <- ts_r$ts[n_line, ]
+    ts_q <- ts_r$ts_q[nline, ]
+    ts <- as.matrix(ts)
+    p_adj <- as.matrix(ts_q)
     #
-    if (nrow(Padj) != nrow(TS)) {
-      stop("ERROR:Tag of TS and Qvalue does not match.")
+    if (nrow(p_adj) != nrow(ts)) {
+      stop("ERROR: Tag of ts and q_value does not match.")
     }
-    getVolcanoPlot(TS = TS, Qvalue = TS.q, filename = rownames(TSr)[nline], path = "")
+    get_volcano_plot(ts = ts, q_value = ts_q, filename = rownames(ts_r)[n_line], path = "")
   })
 }
 
