@@ -284,64 +284,6 @@ ui <- navbarPage(
     )
   ),
   tabPanel(
-    "CART Project",
-    sidebarPanel(
-      sidebarPanel(
-        selectInput("CancerType",
-          label = "Cancer Type (Disease type):",
-          choices = c(
-            "Breast Cancer" = "BRCA",
-            "Ovarian Cancer" = "OV",
-            "Melanoma" = "SKCM",
-            "Prostate carcinoma" = "PRAD",
-            "Sarcoma" = "SARC",
-            "Esophageal carcinoma" = "ESCA",
-            "B-cell Lymphoma" = "DLBC",
-            "Uterine Endometrial Carcinoma" = "UCEC",
-            "Uterine Carcinosarcoma" = "UCS",
-            "Sarcoma" = "SARC",
-            "Lung adenocarcinoma" = "LUAD",
-            "rhabdomyosarcoma" = "rhabdomyosarcoma",
-            "Pancreatic adenocarcinoma" = "PAAD",
-            "Prostate adenocarcinoma" = "PRAD",
-            "Glioma" = "GBMLGG",
-            "Head and Neck squamous cell carcinoma" = "HNSC",
-            "Colon adenocarcinoma" = "COAD",
-            "Kidney cell carcinoma" = "KIRP",
-            "Unknown" = "NA"
-          ),
-          selected = NULL
-        ),
-        selectInput("Cellline",
-          label = "Cell Line :",
-          choices = c("OV2008" = "OV2008"),
-          selected = NULL
-        ),
-        selectInput("DrugType",
-          label = "Drug:",
-          choices = c(
-            "MEKi" = "MEK inhibitor",
-            "PI3Ki" = "PI3K inhibitor",
-            "AKTi" = "AKT inhibitor"
-          ),
-          selected = NULL
-        ),
-        selectInput("Dependence",
-          label = "TIME/ DOSE Dependence",
-          choices = c(
-            "Time" = "TIME",
-            "Dose" = "Dose"
-          ),
-          selected = NULL
-        )
-      )
-    ),
-    mainPanel(
-      plotOutput("CARTvolcano"),
-      plotOutput("CARTheat")
-    )
-  ),
-  tabPanel(
     "About",
     mainPanel(
       p("Target Score is an under-development algorithm with current website version of V1.0.")
