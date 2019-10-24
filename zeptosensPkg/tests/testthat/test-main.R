@@ -78,3 +78,17 @@ test_that("create_sif_from_matrix", {
 
   expect_identical(edgelist_wk, wk_org)
 })
+
+test_that("get_fs_vals", {
+  network_org <- readRDS(system.file("test_data_files", "get_fs_vals_output.rds",
+    package = "zeptosensPkg"
+  ))
+
+  wk_org <- readRDS(system.file("test_data_files", "create_sif_from_matrix_output.rds",
+    package = "zeptosensPkg"
+  ))
+
+  fs <- get_fs_vals()
+
+  expect_identical(edgelist_wk, wk_org)
+})
