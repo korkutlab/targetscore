@@ -1,15 +1,9 @@
-#####################################################
-#######       Update Module       ###################
-#####################################################
-
+# Update Module
 # library(rsconnect)
 # rsconnect::setAccountInfo(name='hithut', token='B512E4272720432CD9C6F5E47388416D',
 #   secret='/Y5XUfYMz02GGocWAcE/vQ+AsSrhpfEA8mBSk8Gl')
 # rsconnect::deployApp()
 
-#####################################################
-########           UI            ####################
-#####################################################
 library(pheatmap)
 library(shiny)
 library(glasso)
@@ -18,6 +12,7 @@ library(ggplot2)
 library(ggrepel)
 library(markdown)
 
+# UI ----
 ui <- navbarPage(
   # Theme Add In
   # theme="bootstrap.min.css",
@@ -354,10 +349,7 @@ ui <- navbarPage(
   )
 )
 
-#####################################################
-########           SERVER        ####################
-#####################################################
-
+# SERVER ----
 server <- function(input, output, session, strings_as_factors) {
 
   # input$file1 will be NULL initially. After the user selects
