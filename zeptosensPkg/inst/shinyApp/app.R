@@ -14,207 +14,72 @@ library(markdown)
 
 # UI ----
 ui <- navbarPage(
-  # Theme Add In
-  # theme="bootstrap.min.css",
-
-  # Header
   "Target Score",
   tabPanel(
     "Get Start",
-    sidebarPanel(
-      img(width = 450, src = "Intro.jpg"),
-      tags$small(
-        "Source: Targetscore: ",
-        " July 10, 2005 show at the ",
-        "Heping Wang, and others",
-        a(
-          href = "http://commons.wikimedia.org/wiki/User:Sfoskett",
-          "Ref:Targetscore"
-        )
-      )
-    ),
     mainPanel(
       includeMarkdown("www/ts_intro_p1.md"),
       includeMarkdown("www/ts_intro_p2.md")
+      # FIXME ADD INTRO.JPG: 1) redraw horizontal (preferred)
+      # or 2) https://stackoverflow.com/questions/31603577/two-column-layout-with-markdown
     )
   ),
-  navbarMenu(
-    "data",
-    tabPanel(
-      "antibody_map_file",
-      wellPanel(
-        h1("antibody_map_file"),
-        h2("File Descriptions"),
-        p("antibody_map_file is the Gene Name list database developed by "),
-        a(href = "https://odin.mdacc.tmc.edu/~akorkut/#/home", "Anil Korkut Group"),
-        p("which provided the onsite AnitobodyLabel of local upload files with the Gene_Symbol used within the database.
-        While antibody_map_file also provided the information of phosphorylation activation/deactivation."),
-        p(""),
-        strong("AntibodyLabel"),
-        p("The AntibodyLabel is the label of local data for each Antibody. The AnitibodyLabel will serve as the label 
-          alongside all calculation."),
-        strong("Source"),
-        p("Source of the Antibody. The provided antibody_map_file contains two sources including MDACC as MD Anderson 
-          Cancer Center and MSKCC standing for Memorial Sloan Kettering Cancer Center."),
-        strong("NodeName"),
-        p("MDACC standardized Antibody Name."),
-        strong("Gene_Symbol"),
-        p("Corresponding HGNC symbol and Ensembl ID"),
-        strong("Sites"),
-        p("phosphorylation site. na stands for no phosphorylation. One site phosphorylation, for example:S473 for 
-        Akt_pS473, Two site phosphorylation, for example :Y1234|Y1235 for c.Met_pY1234_Y1235"),
-        strong("Effect"),
-        p("The effect of Phosphorylation. Including:"),
-        p("c : no phosphorylation"),
-        p("a : activation"),
-        p("i : inhibition"),
-        h2("Download"),
-        tags$a(
-          href = "data/antibodyMapfile.txt", target = "blank", "antibodyMapfile_localfile",
-          download = "antibodyMapfile.txt"
-        ),
-        h2("data Usage"),
-        strong("Please cite the following when using these data"),
-        p("Anil K.et al ...")
-      )
-    ),
-    tabPanel(
-      "Global signaling data",
-      wellPanel(
-        h1("Global signaling data"),
-        h2("File Description"),
-        p("Proteomic datasets, which capture the signaling co-variations serve as  the experimental constraint for 
-          network inference. Such datasets can be publicly available (e.g., TCGA data) or custom generated (drug 
-          response data, Korkut et al, Elife).The provided example datas"),
-        p("Coloumns: HGNC symbol and Ensembl ID"),
-        p("Rows: Patients Samples"),
-        h2("DownLoad"),
-        p("Here provided an example from Public database TCGA of Breast Cancer.Protein level expression data for all 
-          genes, Log2 transformed."),
-        tags$a(
-          href = "data/TCGA-BRCA-L4_1.csv", target = "blank", "TCGA_BRCA_localfile",
-          download = "TCGA-BRCA-L4_1.csv"
-        ),
-        h2("data Usage"),
-        strong("Please cite the following when using these data"),
-        p("Anil K.et al ...")
-      )
-    ),
-    tabPanel(
-      "Functional Score file",
-      wellPanel(
-        h1("Functional Score file"),
-        h2("File Description"),
-        p("A functional role is assigned as a numeric score to proteomic entities. 
-                      there is evidence for an entity’s function as an oncogene or tumor suppressor in cancer. 
-                      A central basis for this cancer role comes the curated and widely-used COSMIC database.
-                      Two different functional score value were assigned: oncogene as +1,and tumor suppressor as -1.
-                      it is also possible for users to manually alter these scores referring from literature
-                      or through expert editing, if necessary."),
-        p("gene : HGNC symbol and Ensembl ID"),
-        p("fs : Corresponding functional score"),
-        h2("DownLoad"),
-        tags$a(href = "data/Cosmic.txt", target = "blank", "fs_file_localfile", download = "Cosmic.txt"),
-        h2("data Usage")
-      )
-    ),
-    tabPanel("", "")
+  tabPanel(
+    "Input File Description",
+    mainPanel(
+      includeMarkdown("www/ts_input.md")
+    )
   ),
   tabPanel(
     "App",
-    tags$img(
-      height = 100, width = 1000,
-      src = "https://3c1703fe8d.site.internapcdn.net/newman/gfx/news/hires/2018/nistbuildsst.jpg"
-    ),
-    # HTML() use html raw code
-    # Side Bar for algorithmn choose
-    fluidRow(
-      # antibody_map_file
-      column(
-        3,
-        wellPanel(
-          fileInput("Antibody", "Attach your antibody_map_file signaling File (.csv or .txt)",
-            buttonLabel = "Browse...",
-            placeholder = "No file selected",
-            accept = c(
-              "text/csv",
-              "text/comma-separated-values,text/plain",
-              ".csv"
-            )
-          ),
-
-          tags$hr(),
-          checkboxInput("header1", "Header", TRUE)
-        )
-      ),
-      # Global signaling data
-      column(
-        3,
-        wellPanel(
-          fileInput("sig", "Attach your Global signaling File (.csv)",
-            buttonLabel = "Browse...",
-            placeholder = "No file selected",
-            accept = c(
-              "text/csv",
-              "text/comma-separated-values,text/plain",
-              ".csv"
-            )
-          ),
-
-          tags$hr(),
-          checkboxInput("header2", "Header", TRUE)
-        )
-      ),
-      # fs functional score
-      column(
-        3,
-        wellPanel(
-          fileInput("fs_file", "Attach your Functional Score File (.csv)",
-            buttonLabel = "Browse...",
-            placeholder = "No file selected",
-            accept = c(
-              "text/csv",
-              "text/comma-separated-values,text/plain",
-              ".csv"
-            )
-          ),
-          tags$hr(),
-          checkboxInput("header3", "Header", TRUE)
-        )
-      ),
-      # Drug perturbation data
-      column(
-        3,
-        wellPanel(
-          fileInput("drug_data", "Attach your Drug Perturbation data(.csv)",
-            buttonLabel = "Browse...",
-            placeholder = "No file selected",
-            accept = c(
-              "text/csv",
-              "text/comma-separated-values,text/plain",
-              ".csv"
-            )
-          ),
-          tags$hr(),
-          checkboxInput("header4", "Header", TRUE)
-        )
-      )
-    ),
-    fluidRow(
-      # network contruction algorithmn choice: Bio,Dat,Hyb
-      wellPanel(
+    sidebarLayout(
+      sidebarPanel(
+        width = 3,
+        fileInput("Antibody", "Antibody_map_file signaling File (.csv or .txt)",
+          buttonLabel = "Browse...",
+          placeholder = "No file selected",
+          accept = c(
+            "text/csv",
+            "text/comma-separated-values,text/plain",
+            ".csv"
+          )
+        ),
+        fileInput("sig", "Global signaling File (.csv)",
+          buttonLabel = "Browse...",
+          placeholder = "No file selected",
+          accept = c(
+            "text/csv",
+            "text/comma-separated-values,text/plain",
+            ".csv"
+          )
+        ),
+        fileInput("fs_file", "Functional Score File (.csv)",
+          buttonLabel = "Browse...",
+          placeholder = "No file selected",
+          accept = c(
+            "text/csv",
+            "text/comma-separated-values,text/plain",
+            ".csv"
+          )
+        ),
+        fileInput("drug_data", "Drug Perturbation data(.csv)",
+          buttonLabel = "Browse...",
+          placeholder = "No file selected",
+          accept = c(
+            "text/csv",
+            "text/comma-separated-values,text/plain",
+            ".csv"
+          )
+        ),
         selectInput("network_algorithm",
-          label = "Network Construction Algorithmns:",
+          label = "Network Construction Algorithms:",
           choices = c(
-            "Hybrid-driven Network construction Algorithmns" = "Hyb",
-            "Biology-inferral Network construction Algorithmns" = "Bio",
-            "data-driven Network construction Algorithmns" = "Dat"
+            "Hybrid-driven" = "Hyb",
+            "Biology-inferral" = "Bio",
+            "data-driven" = "Dat"
           ),
           selected = NULL
         ),
-
-        # ts calc type choice:
-
         selectInput("tsCalcType",
           label = "Target Score Calculation type:",
           choices = c(
@@ -223,128 +88,61 @@ ui <- navbarPage(
           ),
           selected = NULL
         ),
-        textInput("filename", "Filename", "file1"),
-
         # volcano plot line choice
         numericInput("Line", "Line Number", "1"),
         # max distance of protein network
         numericInput("max_Dist", "Maximum Protein Distance", "1"),
 
         actionButton("Submit", label = "Submit/Update", icon = NULL, width = NULL)
-      )
-    ),
+      ),
+      # Results showing
+      mainPanel(
+        tags$h2("Guideline:"),
+        hr(),
+        tags$a(href = "http://www.git.com", "Targetscore Pakage Bio"),
 
-    # Results showing
-    mainPanel(
-      tags$h2("Guideline:"),
-      p("..."),
-      tags$a(href = "http://www.git.com", "Targetscore Pakage Bio"),
-
-      # Results showing in Tabs (can use navlistPanel to show on left)
-      tabsetPanel(
-        tabPanel(
-          "test module",
-          textOutput("test")
-        ),
-
-        tabPanel(
-          "Antibody Map",
-          dataTableOutput("anti_map")
-        ),
-
-        tabPanel(
-          "Functional Score Value",
-          dataTableOutput("fs_value")
-        ),
-
-        tabPanel(
-          "Heatmap",
-          # heatmap of the data
-          plotOutput("heatmap", height = 200, width = 1000)
-        ),
-
-        tabPanel(
-          "edgelist of Network",
-          # edgelist of the data
-          dataTableOutput("edgelist")
-        ),
-
-        tabPanel(
-          "Targetscore",
-          # heatmap of the data
-          plotOutput("tsheat", height = 200, width = 1000)
-        ),
-
-        tabPanel(
-          "VolcanoPlot of Targetscore",
-          # Plots
-          plotOutput("volcanoplot")
+        # Results showing in Tabs (can use navlistPanel to show on left)
+        tabsetPanel(
+          tabPanel(
+            "test module",
+            textOutput("test")
+          ),
+          tabPanel(
+            "Antibody Map",
+            dataTableOutput("anti_map")
+          ),
+          tabPanel(
+            "Functional Score Value",
+            dataTableOutput("fs_value")
+          ),
+          tabPanel(
+            "Heatmap",
+            # heatmap of the data
+            plotOutput("heatmap", height = 200, width = 1000)
+          ),
+          tabPanel(
+            "edgelist of Network",
+            # edgelist of the data
+            dataTableOutput("edgelist")
+          ),
+          tabPanel(
+            "Targetscore",
+            # heatmap of the data
+            plotOutput("tsheat", height = 200, width = 1000)
+          ),
+          tabPanel(
+            "VolcanoPlot of Targetscore",
+            # Plots
+            plotOutput("volcanoplot")
+          )
         )
       )
-    )
-  ),
-  tabPanel(
-    "CART Project",
-    sidebarPanel(
-      sidebarPanel(
-        selectInput("CancerType",
-          label = "Cancer Type (Disease type):",
-          choices = c(
-            "Breast Cancer" = "BRCA",
-            "Ovarian Cancer" = "OV",
-            "Melanoma" = "SKCM",
-            "Prostate carcinoma" = "PRAD",
-            "Sarcoma" = "SARC",
-            "Esophageal carcinoma" = "ESCA",
-            "B-cell Lymphoma" = "DLBC",
-            "Uterine Endometrial Carcinoma" = "UCEC",
-            "Uterine Carcinosarcoma" = "UCS",
-            "Sarcoma" = "SARC",
-            "Lung adenocarcinoma" = "LUAD",
-            "rhabdomyosarcoma" = "rhabdomyosarcoma",
-            "Pancreatic adenocarcinoma" = "PAAD",
-            "Prostate adenocarcinoma" = "PRAD",
-            "Glioma" = "GBMLGG",
-            "Head and Neck squamous cell carcinoma" = "HNSC",
-            "Colon adenocarcinoma" = "COAD",
-            "Kidney cell carcinoma" = "KIRP",
-            "Unknown" = "NA"
-          ),
-          selected = NULL
-        ),
-        selectInput("Cellline",
-          label = "Cell Line :",
-          choices = c("OV2008" = "OV2008"),
-          selected = NULL
-        ),
-        selectInput("DrugType",
-          label = "Drug:",
-          choices = c(
-            "MEKi" = "MEK inhibitor",
-            "PI3Ki" = "PI3K inhibitor",
-            "AKTi" = "AKT inhibitor"
-          ),
-          selected = NULL
-        ),
-        selectInput("Dependence",
-          label = "TIME/ DOSE Dependence",
-          choices = c(
-            "Time" = "TIME",
-            "Dose" = "Dose"
-          ),
-          selected = NULL
-        )
-      )
-    ),
-    mainPanel(
-      plotOutput("CARTvolcano"),
-      plotOutput("CARTheat")
     )
   ),
   tabPanel(
     "About",
     mainPanel(
-      p("Target Score is an under-development algorithm with current website version of V1.0.")
+      includeMarkdown("www/ts_about.md")
     )
   )
 )
@@ -541,16 +339,14 @@ server <- function(input, output, session, strings_as_factors) {
     if (is.null(fs_dat)) {
       fs_value <- zeptosensPkg::get_fs_vals(
         n_prot = n_pro,
-        proteomic_responses = drug_data,
-        antibody_map_file = anti_data
+        proteomic_responses = drug_data
       )
     }
     if (!is.null(fs_dat)) {
       fs_value <- zeptosensPkg::get_fs_vals(
         n_prot = n_pro,
         proteomic_responses = drug_data,
-        fs_valueFile = fs_dat,
-        antibody_map_file = anti_data
+        fs_valueFile = fs_dat
       )
     }
     return(fs_value)
