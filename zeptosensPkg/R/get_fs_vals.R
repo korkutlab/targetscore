@@ -40,19 +40,43 @@ get_fs_vals <- function(n_prot, proteomic_responses, mab_to_genes, fs_value_file
   cancer_role <- read.table(system.file("extdata", "Cosmic.txt", package = "zeptosensPkg"),
     sep = "\t", header = TRUE, fill = TRUE
   )
-  cos_fs <- cancer_role[mab_genes, ]$fs
+  index <- match(mab_genes, cancer_role$gene)
+  cos_fs <- cancer_role[index, ]$fs
+  cos_fs[is.na(cos_fs)] <- 0
 
   fs_value <- mab_fs * cos_fs
 
-  fs <- data.frame(prot = mab_to_genes[idx_ab_map, 1], fs = fs_value)
+  fs <- data.frame(prot = mab_to_genes[idx_ab_map, 1], fs = fs_value, stringsAsFactors = FALSE)
 
   # Uniqueness of fs value
   fs <- unique(fs)
 
+  # deal with duplicate and double value extracted
+  prot_dup <- fs$prot[duplicated(fs$prot)]
+  for (i in seq_along(prot_dup)) {
+    index <- which(fs$prot %in% prot_dup[i])
+    fs_dup <- fs[index, ]
+    fs <- fs[-index, ]
+    if (any(c(fs_dup$fs) == 0) & any(c(fs_dup$fs) == 1)) {
+      dup <- c(as.character(prot_dup[i]), 1)
+    }
+    if (any(c(fs_dup$fs) == 1) & any(c(fs_dup$fs) == -1)) {
+      dup <- c(as.character(prot_dup[i]), 0)
+    }
+    if (any(c(fs_dup$fs) == 0) & any(c(fs_dup$fs) == -1)) {
+      dup <- c(as.character(prot_dup[i]), -1)
+    }
+    if (any(c(fs_dup$fs) == 0) & any(c(fs_dup$fs) == -1) & any(c(fs_dup$fs) == 1)) {
+      dup <- c(as.character(prot_dup[i]), 0)
+    }
+    fs <- rbind(fs, dup)
+  }
+
   fs_override <- fs_value_file
+
   # Override with Self setting/external fs value
   if (!is.null(fs_override)) {
-    index <- which(fs$prot %in% fs_override$prot)
+    index <- match(fs_override$prot, fs$prot)
     fs[index, 2] <- fs_override$fs
   }
 
