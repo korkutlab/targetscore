@@ -176,12 +176,7 @@ server <- function(input, output, session, strings_as_factors) {
     if (is.null(drug_file)) {
       return(NULL)
     }
-    if (input$header4 == TRUE) {
-      drug_dat <- read.csv(drug_file$datapath, row.names = 1)
-    }
-    if (input$header4 == FALSE) {
-      drug_dat <- read.csv(drug_file$datapath)
-    }
+    drug_dat <- read.csv(drug_file$datapath, header = TRUE)
     return(drug_dat)
   })
 
@@ -192,7 +187,7 @@ server <- function(input, output, session, strings_as_factors) {
       anti_dat <- system.file("targetScoreData", "antibodyMapfile_08092019.txt", package = "zeptosensPkg")
     }
     if (!is.null(antibody_map_file)) {
-      anti_dat <- read.csv(antibody_map_file$datapath, header = input$header1, strings_as_factors = FALSE)
+      anti_dat <- read.csv(antibody_map_file$datapath, header = TRUE, stringsAsFactors = FALSE)
     }
     return(anti_dat)
   })
@@ -203,12 +198,8 @@ server <- function(input, output, session, strings_as_factors) {
     if (is.null(fs_file)) {
       return(NULL)
     }
-    if (input$header3 == TRUE) {
-      fs_dat <- read.csv(fs_file$datapath, header = TRUE, strings_as_factors = FALSE)
-    }
-    if (input$header3 == FALSE) {
-      fs_dat <- read.csv(fs_file$datapath, header = FALSE, strings_as_factors = FALSE)
-    }
+    fs_dat <- read.csv(fs_file$datapath, header = TRUE, stringsAsFactors = FALSE)
+
     return(fs_dat)
   })
 
@@ -236,12 +227,7 @@ server <- function(input, output, session, strings_as_factors) {
     if (is.null(sig_file)) {
       return(NULL)
     }
-    if (input$header2 == TRUE) {
-      sig_dat <- read.csv(sig_file$datapath, row.names = 1, strings_as_factors = FALSE)
-    }
-    if (input$header2 == FALSE) {
-      sig_dat <- read.csv(sig_file$datapath, header = FALSE, strings_as_factors = FALSE)
-    }
+    sig_dat <- read.csv(sig_file$datapath, header = TRUE, stringsAsFactors = FALSE)
     return(sig_dat)
   })
 
