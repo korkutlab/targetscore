@@ -50,4 +50,6 @@ get_volcano_plot <- function(ts, q_value, filename, path = NULL, sig_value = 0.4
   colnames(tmp_dat_f) <- c("ts", "neglogQ")
   csvname <- file.path(path, paste0(filename, ".csv"))
   write.csv(tmp_dat_f, file = csvname)
+
+  return(p)
 }

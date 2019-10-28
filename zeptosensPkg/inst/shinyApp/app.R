@@ -12,6 +12,8 @@ library(ggplot2)
 library(ggrepel)
 library(markdown)
 
+n_perm <- 25
+
 # UI ----
 ui <- navbarPage(
   "Target Score",
@@ -35,7 +37,7 @@ ui <- navbarPage(
     sidebarLayout(
       sidebarPanel(
         width = 3,
-        fileInput("Antibody", "Antibody_map_file signaling File (.csv)",
+        fileInput("antibody", "Antibody Mapping File (.csv)",
           buttonLabel = "Browse...",
           placeholder = "No file selected",
           accept = c(
@@ -44,7 +46,7 @@ ui <- navbarPage(
             ".csv"
           )
         ),
-        fileInput("sig", "Global signaling File (.csv)",
+        fileInput("sig", "Background Network File (.csv)",
           buttonLabel = "Browse...",
           placeholder = "No file selected",
           accept = c(
@@ -62,7 +64,7 @@ ui <- navbarPage(
             ".csv"
           )
         ),
-        fileInput("drug_data", "Drug Perturbation data(.csv)",
+        fileInput("drug_data", "Drug Perturbation Response File (.csv)",
           buttonLabel = "Browse...",
           placeholder = "No file selected",
           accept = c(
@@ -80,7 +82,7 @@ ui <- navbarPage(
           ),
           selected = NULL
         ),
-        selectInput("tsCalcType",
+        selectInput("ts_calc_type",
           label = "Target Score Calculation type:",
           choices = c(
             "Line by Line" = "lnl",
@@ -148,7 +150,7 @@ ui <- navbarPage(
 )
 
 # SERVER ----
-server <- function(input, output, session, strings_as_factors) {
+server <- function(input, output, session) {
 
   # input$file1 will be NULL initially. After the user selects
   # and uploads a file, it will be a data frame with 'name',
@@ -164,7 +166,7 @@ server <- function(input, output, session, strings_as_factors) {
   # drug_file <- eventReactive(input$Submit,{input$drug_data})
 
   # Algorithm <- eventReactive(input$Submit,{input$network_algorithm})
-  # CalcType <- eventReactive(input$Submit,{input$tsCalcType})
+  # CalcType <- eventReactive(input$Submit,{input$ts_calc_type})
 
   # load in system file and Default value and the Default File
 
@@ -203,9 +205,9 @@ server <- function(input, output, session, strings_as_factors) {
     return(fs_dat)
   })
 
-  # tsCalcType
+  # ts_calc_type
   ts_type <- reactive({
-    ts_type <- input$tsCalcType
+    ts_type <- input$ts_calc_type
     return(ts_type)
   })
 
@@ -270,7 +272,7 @@ server <- function(input, output, session, strings_as_factors) {
       network <- zeptosensPkg::predict_bio_network(
         n_prot = n_pro,
         proteomic_responses = drug_data,
-        antibody_map_file = anti_data,
+        mab_to_genes = anti_data,
         max_dist = maxi_dist
       )
       wk <- network$wk
@@ -298,7 +300,7 @@ server <- function(input, output, session, strings_as_factors) {
         n_prot = n_pro,
         proteomic_responses = drug_data,
         max_dist = maxi_dist,
-        antibody_map_file = anti_data
+        mab_to_genes = anti_data
       )$wk
       # Hyb
       network <- zeptosensPkg::predict_hyb_network(
@@ -319,7 +321,6 @@ server <- function(input, output, session, strings_as_factors) {
   # fs
   fs_value <- reactive({
     drug_data <- drug_dat()
-    anti_data <- anti_dat()
     n_pro <- n_prot()
     fs_dat <- fs_dat()
     if (is.null(fs_dat)) {
@@ -332,7 +333,7 @@ server <- function(input, output, session, strings_as_factors) {
       fs_value <- zeptosensPkg::get_fs_vals(
         n_prot = n_pro,
         proteomic_responses = drug_data,
-        fs_valueFile = fs_dat
+        fs_value_file = fs_dat
       )
     }
     return(fs_value)
@@ -347,7 +348,7 @@ server <- function(input, output, session, strings_as_factors) {
     drug_data <- drug_dat()
     n_pro <- n_prot()
     n_con <- n_cond()
-    fs_value <- fs_dat() ### Warning :#Shoule be changed back to fs_value when fs_value() Reactive Back to Work ###
+    fs_value <- fs_dat()
     file_name <- file_name()
     maxi_dist <- max_dist()
 
@@ -376,8 +377,6 @@ server <- function(input, output, session, strings_as_factors) {
       ts_p <- array(0, dim = c(n_con, n_pro))
       ts_q <- array(0, dim = c(n_con, n_pro))
 
-      n_perm <- 1000
-
       for (i in 1:n_con) {
         results <- zeptosensPkg::get_target_score(
           wk = wk,
@@ -389,9 +388,9 @@ server <- function(input, output, session, strings_as_factors) {
           proteomic_responses = proteomic_responses[i, ],
           max_dist = maxi_dist,
           n_perm = n_perm,
-          cellLine = file_name,
+          cell_line = file_name,
           verbose = FALSE,
-          fsFile = fs_value
+          fs_file = fs_value
         )
         ts[i, ] <- results$ts
         ts_p[i, ] <- results$pts
@@ -410,8 +409,13 @@ server <- function(input, output, session, strings_as_factors) {
     if (ts_type == "pop") {
 
       # Calc Std
-      drug_data[is.na(drug_data)] <- 0
-      stdev <- zeptosensPkg::samp_sdev(nSample = nrow(drug_data), n_prot = ncol(drug_data), n_dose = 1, nX = drug_data)
+      drug_data[is.na(drug_data)] <- 0 # FIXME?
+      stdev <- zeptosensPkg::samp_sdev(
+        n_sample = nrow(drug_data),
+        n_prot = ncol(drug_data),
+        n_dose = 1,
+        n_x = drug_data
+      )
       # normalization
       proteomic_responses <- drug_data
       for (i in 1:n_prot) {
@@ -419,8 +423,6 @@ server <- function(input, output, session, strings_as_factors) {
           proteomic_responses[j, i] <- (drug_data[j, i] / stdev[i])
         }
       }
-
-      n_perm <- 25 # FIXME
 
       results <- zeptosensPkg::get_target_score(
         wk = wk,
