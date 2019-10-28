@@ -89,9 +89,9 @@ ui <- navbarPage(
           selected = NULL
         ),
         # volcano plot line choice
-        numericInput("Line", "Line Number", "1"),
+        numericInput("line", "Line Number", "1"),
         # max distance of protein network
-        numericInput("max_Dist", "Maximum Protein Distance", "1"),
+        numericInput("max_dist", "Maximum Protein Distance", "1"),
 
         actionButton("Submit", label = "Submit/Update", icon = NULL, width = NULL)
       ),
@@ -182,7 +182,7 @@ server <- function(input, output, session, strings_as_factors) {
 
   # AntibodyMap File (Default at System file)
   anti_dat <- reactive({
-    antibody_map_file <- input$Antibody
+    antibody_map_file <- input$antibody
     if (is.null(antibody_map_file)) {
       anti_dat <- system.file("targetScoreData", "antibodyMapfile_08092019.txt", package = "zeptosensPkg")
     }
@@ -246,13 +246,13 @@ server <- function(input, output, session, strings_as_factors) {
   })
   # Line
   nline <- reactive({
-    nline <- input$Line
+    nline <- input$line
     return(nline)
   })
 
   # max_dist
   max_dist <- reactive({
-    max_dist <- input$max_Dist
+    max_dist <- input$max_dist
     return(max_dist)
   })
 
