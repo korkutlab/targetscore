@@ -35,7 +35,7 @@ ui <- navbarPage(
     sidebarLayout(
       sidebarPanel(
         width = 3,
-        fileInput("Antibody", "Antibody_map_file signaling File (.csv or .txt)",
+        fileInput("Antibody", "Antibody_map_file signaling File (.csv)",
           buttonLabel = "Browse...",
           placeholder = "No file selected",
           accept = c(
