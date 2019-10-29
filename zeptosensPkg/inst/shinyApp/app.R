@@ -95,7 +95,7 @@ ui <- navbarPage(
         # max distance of protein network
         numericInput("max_dist", "Maximum Protein Distance", "1"),
 
-        actionButton("Submit", label = "Submit", icon = NULL, width = NULL)
+        actionButton("submit", label = "Submit", icon = NULL, width = NULL)
       ),
       # Results showing
       mainPanel(
@@ -128,12 +128,12 @@ ui <- navbarPage(
             dataTableOutput("edgelist")
           ),
           tabPanel(
-            "Targetscore",
+            "TargetScore",
             # heatmap of the data
             plotOutput("tsheat", height = 200, width = 1000)
           ),
           tabPanel(
-            "Targetscore Volcano Plot",
+            "TargetScore Volcano Plot",
             # Plots
             plotOutput("volcanoplot")
           )
@@ -158,22 +158,10 @@ server <- function(input, output, session) {
   # column will contain the local filenames where the data can
   # be found.
 
-  # read in Inputfiles
-
-  # built reactive object through update/submit new dataset
-  # sig_file <- eventReactive(input$Submit,{input$sig_data})
-  # fs_file <- eventReactive(input$Submit,{input$fs_file})
-  # drug_file <- eventReactive(input$Submit,{input$drug_data})
-
-  # Algorithm <- eventReactive(input$Submit,{input$network_algorithm})
-  # CalcType <- eventReactive(input$Submit,{input$ts_calc_type})
-
-  # load in system file and Default value and the Default File
-
-  # file from input
+  # Read in input files
 
   # Drug File
-  drug_dat <- reactive({
+  drug_dat <- eventReactive(input$submit, {
     drug_file <- input$drug_data
     if (is.null(drug_file)) {
       return(NULL)
@@ -183,7 +171,7 @@ server <- function(input, output, session) {
   })
 
   # AntibodyMap File (Default at System file)
-  anti_dat <- reactive({
+  anti_dat <- eventReactive(input$submit, {
     antibody_map_file <- input$antibody
     if (is.null(antibody_map_file)) {
       anti_dat <- system.file("targetScoreData", "antibodyMapfile_08092019.txt", package = "zeptosensPkg")
@@ -195,7 +183,7 @@ server <- function(input, output, session) {
   })
 
   # FS File
-  fs_dat <- reactive({
+  fs_dat <- eventReactive(input$submit, {
     fs_file <- input$fs_file
     if (is.null(fs_file)) {
       return(NULL)
@@ -206,25 +194,25 @@ server <- function(input, output, session) {
   })
 
   # ts_calc_type
-  ts_type <- reactive({
+  ts_type <- eventReactive(input$submit, {
     ts_type <- input$ts_calc_type
     return(ts_type)
   })
 
   # filename
-  file_name <- reactive({
+  file_name <- eventReactive(input$submit, {
     file_name <- input$filename
     return(file_name)
   })
 
   # network algorithm
-  network_algorithm <- reactive({
+  network_algorithm <- eventReactive(input$submit, {
     network_algorithm <- input$network_algorithm
     return(network_algorithm)
   })
 
-  # Global signaling file
-  sig_dat <- reactive({
+  # Proteomics dataset for network inference
+  sig_dat <- eventReactive(input$submit, {
     sig_file <- input$sig
     if (is.null(sig_file)) {
       return(NULL)
@@ -234,38 +222,39 @@ server <- function(input, output, session) {
   })
 
   # n_prot
-  n_prot <- reactive({
+  n_prot <- eventReactive(input$submit, {
     data <- drug_dat()
     n_prot <- ncol(data)
     return(n_prot)
   })
 
   # n_cond
-  n_cond <- reactive({
+  n_cond <- eventReactive(input$submit, {
     data <- drug_dat()
     n_cond <- nrow(data)
     return(n_cond)
   })
+
   # Line
-  nline <- reactive({
-    nline <- input$line
-    return(nline)
+  n_line <- eventReactive(input$submit, {
+    n_line <- input$line
+    return(n_line)
   })
 
   # max_dist
-  max_dist <- reactive({
+  max_dist <- eventReactive(input$submit, {
     max_dist <- input$max_dist
     return(max_dist)
   })
 
   # choosing the way to construct reference network
-  network_inferred <- reactive({
+  network_inferred <- eventReactive(input$submit, {
     network_algo <- network_algorithm()
     drug_data <- drug_dat()
     anti_data <- anti_dat()
     sig_data <- sig_dat()
     n_pro <- n_prot()
-    maxi_dist <- max_dist()
+    max_dist <- max_dist()
 
     if (network_algo == "Bio") {
       # reference network
@@ -273,7 +262,7 @@ server <- function(input, output, session) {
         n_prot = n_pro,
         proteomic_responses = drug_data,
         mab_to_genes = anti_data,
-        max_dist = maxi_dist
+        max_dist = max_dist
       )
       wk <- network$wk
       wks <- network$wks
@@ -286,7 +275,7 @@ server <- function(input, output, session) {
         data = sig_data,
         n_prot = n_pro,
         proteomic_responses = drug_data,
-        max_dist = maxi_dist
+        max_dist = max_dist
       )
       wk <- network$wk
       wks <- network$wks
@@ -299,11 +288,11 @@ server <- function(input, output, session) {
       wk <- zeptosensPkg::predict_bio_network(
         n_prot = n_pro,
         proteomic_responses = drug_data,
-        max_dist = maxi_dist,
+        max_dist = max_dist,
         mab_to_genes = anti_data
       )$wk
       # Hyb
-      network <- zeptosensPkg::predict_hyb_network(
+      network <- zeptosensPkg::predict_hybrid_network(
         data = sig_data,
         prior = wk,
         n_prot = n_pro,
@@ -318,8 +307,9 @@ server <- function(input, output, session) {
     network_inferred <- list(wk = wk, wks = wks, dist_ind = dist_ind, inter = inter)
     return(network_inferred)
   })
+
   # fs
-  fs_value <- reactive({
+  fs_value <- eventReactive(input$submit, {
     drug_data <- drug_dat()
     n_pro <- n_prot()
     fs_dat <- fs_dat()
@@ -339,8 +329,8 @@ server <- function(input, output, session) {
     return(fs_value)
   })
 
-  # Calc Targetscore
-  ts_r <- reactive({
+  # Calculate Targetscore
+  ts_r <- eventReactive(input$submit, {
 
     # call up reactive items
     ts_type <- ts_type()
@@ -350,7 +340,7 @@ server <- function(input, output, session) {
     n_con <- n_cond()
     fs_value <- fs_dat()
     file_name <- file_name()
-    maxi_dist <- max_dist()
+    max_dist <- max_dist()
 
     # Network inferred
     wk <- network_inferred$wk
@@ -386,7 +376,7 @@ server <- function(input, output, session) {
           n_dose = 1,
           n_prot = n_pro,
           proteomic_responses = proteomic_responses[i, ],
-          max_dist = maxi_dist,
+          max_dist = max_dist,
           n_perm = n_perm,
           cell_line = file_name,
           verbose = FALSE,
@@ -431,7 +421,7 @@ server <- function(input, output, session) {
         n_dose = 1,
         n_prot = n_pro,
         proteomic_responses = proteomic_responses,
-        max_dist = maxi_dist,
+        max_dist = max_dist,
         n_perm = n_perm,
         cellLine = file_name,
         verbose = FALSE,
@@ -514,9 +504,9 @@ server <- function(input, output, session) {
   #### TS VOLCANO PLOT MODULE ----
   output$volcanoplot <- renderPlot({
     ts_r <- ts_r()
-    n_line <- nline()
+    n_line <- n_line()
     ts <- ts_r$ts[n_line, ]
-    ts_q <- ts_r$ts_q[nline, ]
+    ts_q <- ts_r$ts_q[n_line, ]
     ts <- as.matrix(ts)
     p_adj <- as.matrix(ts_q)
 
