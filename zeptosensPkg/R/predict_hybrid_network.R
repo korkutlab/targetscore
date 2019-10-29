@@ -30,8 +30,8 @@
 #'
 #' @concept zeptosensPkg
 #' @export
-predict_hyb_network <- function(data, prior = NULL, cut_off = 0.1, proteomic_responses, n_prot,
-                                max_dist = 1, mab_to_genes) {
+predict_hybrid_network <- function(data, prior = NULL, cut_off = 0.1, proteomic_responses, n_prot,
+                                   max_dist = 1, mab_to_genes) {
   if (is.null(prior)) {
     tmp <- zeptosensPkg::predict_bio_network(
       n_prot = 304,

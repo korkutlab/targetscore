@@ -18,7 +18,7 @@ n_perm <- 25
 ui <- navbarPage(
   "Target Score",
   tabPanel(
-    "Get Start",
+    "Get Started",
     mainPanel(
       includeMarkdown("www/ts_intro_p1.md"),
       includeMarkdown("www/ts_intro_p2.md")
@@ -27,7 +27,7 @@ ui <- navbarPage(
     )
   ),
   tabPanel(
-    "Input File Description",
+    "Input File Descriptions",
     mainPanel(
       includeMarkdown("www/ts_input.md")
     )
@@ -95,13 +95,13 @@ ui <- navbarPage(
         # max distance of protein network
         numericInput("max_dist", "Maximum Protein Distance", "1"),
 
-        actionButton("Submit", label = "Submit/Update", icon = NULL, width = NULL)
+        actionButton("Submit", label = "Submit", icon = NULL, width = NULL)
       ),
       # Results showing
       mainPanel(
         tags$h2("Guideline:"),
         hr(),
-        tags$a(href = "http://www.git.com", "Targetscore Pakage Bio"),
+        tags$a(href = "http://www.git.com", "TargetScore Package"),
 
         # Results showing in Tabs (can use navlistPanel to show on left)
         tabsetPanel(
@@ -123,7 +123,7 @@ ui <- navbarPage(
             plotOutput("heatmap", height = 200, width = 1000)
           ),
           tabPanel(
-            "edgelist of Network",
+            "Network Edgelist",
             # edgelist of the data
             dataTableOutput("edgelist")
           ),
@@ -133,7 +133,7 @@ ui <- navbarPage(
             plotOutput("tsheat", height = 200, width = 1000)
           ),
           tabPanel(
-            "VolcanoPlot of Targetscore",
+            "Targetscore Volcano Plot",
             # Plots
             plotOutput("volcanoplot")
           )
@@ -359,7 +359,7 @@ server <- function(input, output, session) {
     inter <- network_inferred$inter
 
     if (ts_type == "lnl") {
-      drug_data[is.na(drug_data)] <- 0
+      drug_data[is.na(drug_data)] <- 0 # FIXME
 
       # Calc Std (Normalization request)
       # stdev <- zeptosensPkg::samp_sdev(nSample=nrow(drug_data),n_prot=ncol(drug_data),n_dose=1,nX=drug_data)
@@ -407,14 +407,13 @@ server <- function(input, output, session) {
     }
 
     if (ts_type == "pop") {
-
       # Calc Std
-      drug_data[is.na(drug_data)] <- 0 # FIXME?
       stdev <- zeptosensPkg::samp_sdev(
         n_sample = nrow(drug_data),
         n_prot = ncol(drug_data),
         n_dose = 1,
-        n_x = drug_data
+        n_x = drug_data,
+        replace_missing = TRUE
       )
       # normalization
       proteomic_responses <- drug_data
@@ -520,10 +519,11 @@ server <- function(input, output, session) {
     ts_q <- ts_r$ts_q[nline, ]
     ts <- as.matrix(ts)
     p_adj <- as.matrix(ts_q)
-    #
+
     if (nrow(p_adj) != nrow(ts)) {
-      stop("ERROR: Tag of ts and q_value does not match.")
+      stop("ERROR: Number of rows in TS and adjusted p-value do not match.")
     }
+
     get_volcano_plot(ts = ts, q_value = ts_q, filename = rownames(ts_r)[n_line], path = "")
   })
 }

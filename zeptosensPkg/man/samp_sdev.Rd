@@ -4,7 +4,7 @@
 \alias{samp_sdev}
 \title{stdev over all samples}
 \usage{
-samp_sdev(n_sample, n_prot, n_dose, n_x)
+samp_sdev(n_sample, n_prot, n_dose, n_x, replace_missing = TRUE)
 }
 \arguments{
 \item{n_sample}{samples number of input data.}
@@ -14,6 +14,8 @@ samp_sdev(n_sample, n_prot, n_dose, n_x)
 \item{n_dose}{doses number of input data.}
 
 \item{n_x}{vertically merged data from all samples rows condition columns proteins}
+
+\item{replace_missing}{Replace missing values NA with 0 (Default: TRUE)}
 }
 \description{
 stdev over all samples

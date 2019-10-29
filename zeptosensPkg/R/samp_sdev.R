@@ -3,10 +3,13 @@
 #' @param n_sample samples number of input data.
 #' @param n_prot Antibody number of input data.
 #' @param n_dose doses number of input data.
+#' @param replace_missing Replace missing values NA with 0 (Default: TRUE)
 #'
 #' @concept zeptosensPkg
 #' @export
-samp_sdev <- function(n_sample, n_prot, n_dose, n_x) {
+samp_sdev <- function(n_sample, n_prot, n_dose, n_x, replace_missing = TRUE) {
+  n_x[is.na(n_x)] <- 0
+
   #    n_prot
   #    n_sample
   #    n_condition
