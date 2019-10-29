@@ -29,9 +29,9 @@ predict_dat_network <- function(data, cut_off = 0.1, n_prot, proteomic_responses
   parameter <- rho[which.min(bic)]
 
   # Estimated inverse covariance (precision matrix)
-  glasso_result <- glasso::glasso(covmatrix, rho = parameter)
-  sigma_matrix <- glasso_result$wi
-  niter <- glasso_result$niter
+  tmp <- glasso::glasso(covmatrix, rho = parameter)
+  sigma_matrix <- tmp$wi
+  niter <- tmp$niter
   print(niter) # if niter = 10,000
   if (niter == 10000) {
     stop("ERROR: Algorithmn does not convergence!")
@@ -58,7 +58,8 @@ predict_dat_network <- function(data, cut_off = 0.1, n_prot, proteomic_responses
 
   # network2 function into networkinfor
   network_inferred <- zeptosensPkg::network2(
-    wk = t_net, n_prot = dim(t_net)[2],
+    wk = t_net, n_prot = n_prot,
+    proteomic_responses = proteomic_responses,
     max_dist = max_dist
   )
   wk <- network_inferred$wk

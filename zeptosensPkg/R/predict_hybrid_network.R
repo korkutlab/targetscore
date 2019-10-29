@@ -160,6 +160,7 @@ predict_hyb_network <- function(data, prior = NULL, cut_off = 0.1, proteomic_res
   wk <- network_total
   networks <- zeptosensPkg::network2(
     wk = wk, n_prot = n_prot,
+    proteomic_responses = proteomic_responses,
     max_dist = max_dist
   )
   wk <- networks$wk
