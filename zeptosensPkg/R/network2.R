@@ -19,6 +19,15 @@ network2 <- function(wk, n_prot, proteomic_responses, max_dist, dist_file = NULL
     stop("ERROR: n_prot is not equal to proteomic_responses column number")
   }
 
+  # converting the network to proteomic responces seq
+  network <- wk
+  protein_net <- data.frame(matrix(0, nrow = n_prot, ncol = n_prot))
+  colnames(protein_net) <- colnames(proteomic_responses)
+  rownames(protein_net) <- colnames(proteomic_responses)
+  index <- which(colnames(proteomic_responses) %in% colnames(network))
+  protein_net[index, index] <- network
+
+  wk <- protein_net
   # dist_ind(upstream,downstream)
   dist_ind <- matrix(Inf,
     ncol = n_prot, nrow = n_prot,
