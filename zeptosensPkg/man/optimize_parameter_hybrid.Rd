@@ -7,7 +7,7 @@
 optimize_parameter_hybrid(data, prior)
 }
 \arguments{
-\item{data}{input expression data frame. Gene in coloumns and samples in row.
+\item{data}{input proteomics dataset for network inference. Gene in coloumns and samples in row.
 With colnames as gene tags and rownames as sample tags.}
 
 \item{prior}{Prior information matrix of gene interaction, with colnames and rownames as gene tags.
@@ -17,7 +17,7 @@ With colnames and rownames as gene tags.Can be inferred from Public data source 
 Parameter list of regulization parameter decided by the prior information and the algorithmn lowest BIC.
 Including regularize parameter(L1 norm parameter) as rho, scale parameter
 (decided how much prior information contribute) as kappa, and regulization matrix
-for the expression data and Model's BIC matrix for differnet regularization parameters.
+for the expression data as rho_m and Model's BIC matrix for differnet regularization parameters.
 }
 \description{
 Choose the optimal regulization parameter and scale paramter for adjusted-glasso algorithm network construction.

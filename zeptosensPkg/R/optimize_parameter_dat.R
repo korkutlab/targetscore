@@ -1,6 +1,6 @@
 #' Choose the optimal regulization parameter for only data-driven network.
 #'
-#' @param data input expression data frame. Gene in coloumns and samples in row.
+#' @param data input proteomics dataset for network inference. Gene in coloumns and samples in row.
 #' With colnames as gene tags and rownames as sample tags.
 #'
 #' @return Parameter of regulization decided lowest BIC. Including regularize parameter
@@ -21,6 +21,7 @@ optimize_parameter_dat <- function(data) {
     p_off_d <- sum(g_result$wi != 0 & col(covmatrix) < row(covmatrix))
     bic[i] <- -2 * (g_result$loglik) + p_off_d * log(nrow(data))
   }
-  parameters <- rho[which.min(bic)]
+  rho <- rho[which.min(bic)]
+  parameters <- list(rho = rho, bic = bic)
   return(parameters)
 }

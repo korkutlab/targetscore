@@ -1,6 +1,6 @@
 #' Choose the optimal regulization parameter and scale paramter for adjusted-glasso algorithm network construction.
 #'
-#' @param data input expression data frame. Gene in coloumns and samples in row.
+#' @param data  input proteomics dataset for network inference. Gene in coloumns and samples in row.
 #' With colnames as gene tags and rownames as sample tags.
 #' @param prior Prior information matrix of gene interaction, with colnames and rownames as gene tags.
 #' With colnames and rownames as gene tags.Can be inferred from Public data source (for example:SignedPC).

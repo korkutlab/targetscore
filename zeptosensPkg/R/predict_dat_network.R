@@ -1,6 +1,6 @@
 #' predict data-driven only network.
 #'
-#' @param data input expression data frame. Gene in coloumns and samples in row.
+#' @param data  input proteomics dataset for network inference. Gene in coloumns and samples in row.
 #' With colnames as gene tags and rownames as sample tags.
 #' @param cut_off Manually Setup cut off value for the strength of edge. Default at 0.1.
 #' @param n_prot Antibody number of input data.

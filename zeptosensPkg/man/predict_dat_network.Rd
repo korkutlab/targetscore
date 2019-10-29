@@ -8,7 +8,7 @@ predict_dat_network(data, cut_off = 0.1, n_prot, proteomic_responses,
   max_dist = 1)
 }
 \arguments{
-\item{data}{input expression data frame. Gene in coloumns and samples in row.
+\item{data}{input proteomics dataset for network inference. Gene in coloumns and samples in row.
 With colnames as gene tags and rownames as sample tags.}
 
 \item{cut_off}{Manually Setup cut off value for the strength of edge. Default at 0.1.}
