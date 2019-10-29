@@ -4,13 +4,8 @@
 #   secret='/Y5XUfYMz02GGocWAcE/vQ+AsSrhpfEA8mBSk8Gl')
 # rsconnect::deployApp()
 
-library(pheatmap)
 library(shiny)
-library(glasso)
 library(zeptosensPkg)
-library(ggplot2)
-library(ggrepel)
-library(markdown)
 
 n_perm <- 25
 
