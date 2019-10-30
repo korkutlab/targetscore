@@ -13,26 +13,19 @@ n_perm <- 25
 ui <- navbarPage(
   "Target Score",
   tabPanel(
-    "Get Started",
+    "Overview",
     mainPanel(
-      includeMarkdown("www/ts_intro_p1.md"),
-      includeMarkdown("www/ts_intro_p2.md")
+      includeMarkdown("www/ts_intro_p1.md")
       # FIXME ADD INTRO.JPG: 1) redraw horizontal (preferred)
       # or 2) https://stackoverflow.com/questions/31603577/two-column-layout-with-markdown
     )
   ),
   tabPanel(
-    "Input File Descriptions",
-    mainPanel(
-      includeMarkdown("www/ts_input.md")
-    )
-  ),
-  tabPanel(
-    "App",
+    "Run",
     sidebarLayout(
       sidebarPanel(
-        width = 3,
-        fileInput("antibody", "Antibody Mapping File (.csv)",
+        width = 4,
+        fileInput("antibody", "Antibody Mapping File (.csv or blank)",
           buttonLabel = "Browse...",
           placeholder = "No file selected",
           accept = c(
@@ -41,7 +34,7 @@ ui <- navbarPage(
             ".csv"
           )
         ),
-        fileInput("sig", "Background Network File (.csv)",
+        fileInput("sig", "Background Network File (.csv or blank)",
           buttonLabel = "Browse...",
           placeholder = "No file selected",
           accept = c(
@@ -50,7 +43,7 @@ ui <- navbarPage(
             ".csv"
           )
         ),
-        fileInput("fs_file", "Functional Score File (.csv)",
+        fileInput("fs_file", "Functional Score File (.csv or blank)",
           buttonLabel = "Browse...",
           placeholder = "No file selected",
           accept = c(
@@ -71,22 +64,22 @@ ui <- navbarPage(
         selectInput("network_algorithm",
           label = "Network Construction Algorithms:",
           choices = c(
-            "Hybrid-driven" = "Hyb",
-            "Biology-inferral" = "Bio",
-            "data-driven" = "Dat"
+            "Literature-Based" = "bio",
+            "Hybrid" = "hybrid",
+            "Graphical LASSO" = "dat"
           ),
-          selected = NULL
+          selected = "bio"
         ),
         selectInput("ts_calc_type",
           label = "Target Score Calculation type:",
           choices = c(
-            "Line by Line" = "lnl",
-            "Pooled" = "pop"
+            "Line by Line" = "line_by_line",
+            "Pooled" = "pooled"
           ),
-          selected = NULL
+          selected = "line_by_line"
         ),
         # volcano plot line choice
-        numericInput("line", "Line Number", "1"),
+        numericInput("line_number", "Line Number", "1"),
         # max distance of protein network
         numericInput("max_dist", "Maximum Protein Distance", "1"),
 
@@ -94,9 +87,7 @@ ui <- navbarPage(
       ),
       # Results showing
       mainPanel(
-        tags$h2("Guideline:"),
-        hr(),
-        tags$a(href = "http://www.git.com", "TargetScore Package"),
+        tags$a(href = "http://www.git.com", "Code available as the TargetScore R Package"),
 
         # Results showing in Tabs (can use navlistPanel to show on left)
         tabsetPanel(
@@ -113,7 +104,7 @@ ui <- navbarPage(
             dataTableOutput("fs_value")
           ),
           tabPanel(
-            "Heatmap",
+            "Input Data Heatmap",
             # heatmap of the data
             plotOutput("heatmap", height = 200, width = 1000)
           ),
@@ -123,17 +114,23 @@ ui <- navbarPage(
             dataTableOutput("edgelist")
           ),
           tabPanel(
-            "TargetScore",
+            "TargetScore Heatmap",
             # heatmap of the data
             plotOutput("tsheat", height = 200, width = 1000)
           ),
           tabPanel(
             "TargetScore Volcano Plot",
-            # Plots
             plotOutput("volcanoplot")
           )
         )
       )
+    )
+  ),
+  tabPanel(
+    "Help",
+    mainPanel(
+      includeMarkdown("www/ts_intro_p2.md"),
+      includeMarkdown("www/ts_input.md")
     )
   ),
   tabPanel(
@@ -146,15 +143,6 @@ ui <- navbarPage(
 
 # SERVER ----
 server <- function(input, output, session) {
-
-  # input$file1 will be NULL initially. After the user selects
-  # and uploads a file, it will be a data frame with 'name',
-  # 'size', 'type', and 'datapath' columns. The 'datapath'
-  # column will contain the local filenames where the data can
-  # be found.
-
-  # Read in input files
-
   # Drug File
   results <- eventReactive(input$submit, {
     # Drug Data
@@ -202,10 +190,10 @@ server <- function(input, output, session) {
     ts_type <- input$ts_calc_type
 
     # File name
-    file_name <- input$filename
+    filename <- input$filename
 
     # Line number
-    n_line <- input$line
+    line_number <- input$line_number
 
     # Max distance
     max_dist <- input$max_dist
@@ -221,7 +209,7 @@ server <- function(input, output, session) {
     sig_dat <- read.csv(sig_file$datapath, header = TRUE, stringsAsFactors = FALSE)
 
     # choosing the way to construct reference network
-    if (network_algorithm == "Bio") {
+    if (network_algorithm == "bio") {
       # reference network
       network <- zeptosensPkg::predict_bio_network(
         n_prot = n_prot,
@@ -235,7 +223,7 @@ server <- function(input, output, session) {
       inter <- network$inter
     }
 
-    if (network_algorithm == "Dat") {
+    if (network_algorithm == "dat") {
       network <- zeptosensPkg::predict_dat_network(
         data = sig_dat,
         n_prot = n_prot,
@@ -248,7 +236,7 @@ server <- function(input, output, session) {
       inter <- network$inter
     }
 
-    if (network_algorithm == "Hyb") {
+    if (network_algorithm == "hybrid") {
       # prior
       wk <- zeptosensPkg::predict_bio_network(
         n_prot = n_prot,
@@ -269,16 +257,9 @@ server <- function(input, output, session) {
       dist_ind <- network$dist_ind
       inter <- network$inter
     }
-    network_inferred <- list(wk = wk, wks = wks, dist_ind = dist_ind, inter = inter)
-
-    # Network inferred
-    wk <- network_inferred$wk
-    wks <- network_inferred$wks
-    dist_ind <- network_inferred$dist_ind
-    inter <- network_inferred$inter
 
     # Calculate Targetscore
-    if (ts_type == "lnl") {
+    if (ts_type == "line_by_line") {
       drug_data[is.na(drug_data)] <- 0 # FIXME
 
       # Calc Std (Normalization request)
@@ -309,7 +290,7 @@ server <- function(input, output, session) {
           proteomic_responses = proteomic_responses[i, ],
           max_dist = max_dist,
           n_perm = n_perm,
-          cell_line = file_name,
+          cell_line = filename,
           verbose = FALSE,
           fs_file = fs_value
         )
@@ -327,7 +308,7 @@ server <- function(input, output, session) {
       rownames(ts_q) <- rownames(drug_data)
     }
 
-    if (ts_type == "pop") {
+    if (ts_type == "pooled") {
       # Calc Std
       stdev <- zeptosensPkg::samp_sdev(
         n_sample = nrow(drug_data),
@@ -354,7 +335,7 @@ server <- function(input, output, session) {
         proteomic_responses = proteomic_responses,
         max_dist = max_dist,
         n_perm = n_perm,
-        cellLine = file_name,
+        cell_line = filename,
         verbose = FALSE,
         fs_file = fs_value
       )
@@ -374,8 +355,8 @@ server <- function(input, output, session) {
       fs_dat = fs_dat,
       anti_dat = anti_dat,
       fs_value = fs_value,
-      network_inferred = network_inferred,
-      n_line = n_line
+      network = network,
+      line_number = line_number
     )
   })
 
@@ -383,13 +364,16 @@ server <- function(input, output, session) {
 
   ## Output heatmap
   output$heatmap <- renderPlot({
-    drug_file <- drug_dat()
+    results <- results()
+    drug_dat <- results$drug_dat
 
-    max_dat <- max(as.matrix(drug_file))
-    min_dat <- min(as.matrix(drug_file))
+    drug_dat_mat <- as.matrix(drug_dat)
+
+    max_dat <- max(drug_dat_mat)
+    min_dat <- min(drug_dat_mat)
     bk <- c(seq(min_dat, -0.01, by = 0.01), seq(0, max_dat, by = 0.01))
-    data <- as.matrix(drug_file)
-    pheatmap(data,
+
+    pheatmap(drug_dat_mat,
       scale = "none",
       color = c(
         colorRampPalette(colors = c("navy", "white"))(length(seq(min_dat, -0.01, by = 0.01))),
@@ -413,10 +397,10 @@ server <- function(input, output, session) {
 
   output$edgelist <- renderDataTable({
     results <- results()
-    network_inferred <- results$network_inferred
+    network <- results$network
     edgelist <- zeptosensPkg::create_sif_from_matrix(
-      t.net = network_inferred$wk,
-      genelist = colnames(network_inferred$wk)
+      t_net = network$wk,
+      genelist = colnames(network$wk)
     )
     return(edgelist)
   })
@@ -433,11 +417,13 @@ server <- function(input, output, session) {
     results <- results()
     ts_r <- results$ts_r
     ts <- ts_r$ts
-    max_dat <- max(as.matrix(ts))
-    min_dat <- min(as.matrix(ts))
+    ts_mat <- as.matrix(ts)
+
+    max_dat <- max(ts_mat)
+    min_dat <- min(ts_mat)
     bk <- c(seq(min_dat, -0.01, by = 0.01), seq(0, max_dat, by = 0.01))
-    data <- as.matrix(ts)
-    pheatmap(data,
+
+    pheatmap(ts_mat,
       scale = "none",
       color = c(
         colorRampPalette(colors = c("navy", "white"))(length(seq(min_dat, -0.01, by = 0.01))),
@@ -452,9 +438,9 @@ server <- function(input, output, session) {
   output$volcanoplot <- renderPlot({
     results <- results()
     ts_r <- results$ts_r
-    n_line <- results$n_line
-    ts <- ts_r$ts[n_line, ]
-    ts_q <- ts_r$ts_q[n_line, ]
+    line_number <- results$line_number
+    ts <- ts_r$ts[line_number, ]
+    ts_q <- ts_r$ts_q[line_number, ]
     ts <- as.matrix(ts)
     p_adj <- as.matrix(ts_q)
 
@@ -462,7 +448,7 @@ server <- function(input, output, session) {
       stop("ERROR: Number of rows in TS and adjusted p-value do not match.")
     }
 
-    get_volcano_plot(ts = ts, q_value = ts_q, filename = rownames(ts_r)[n_line], path = "")
+    get_volcano_plot(ts = ts, q_value = ts_q, filename = rownames(ts_r)[line_number], path = "")
   })
 }
 
