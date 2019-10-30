@@ -156,17 +156,19 @@ server <- function(input, output, session) {
   # Read in input files
 
   # Drug File
-  drug_dat <- eventReactive(input$submit, {
+  results <- eventReactive(input$submit, {
+    # Drug Data
     drug_file <- input$drug_data
     if (is.null(drug_file)) {
       return(NULL)
     }
     drug_dat <- read.csv(drug_file$datapath, header = TRUE)
-    return(drug_dat)
-  })
 
-  # AntibodyMap File (Default at System file)
-  anti_dat <- eventReactive(input$submit, {
+    # Size of drug dat
+    n_prot <- ncol(drug_dat)
+    n_cond <- nrow(drug_dat)
+
+    # Antibody Map
     antibody_map_file <- input$antibody
     if (is.null(antibody_map_file)) {
       anti_dat <- system.file("targetScoreData", "antibodyMapfile_08092019.txt", package = "zeptosensPkg")
@@ -174,87 +176,55 @@ server <- function(input, output, session) {
     if (!is.null(antibody_map_file)) {
       anti_dat <- read.csv(antibody_map_file$datapath, header = TRUE, stringsAsFactors = FALSE)
     }
-    return(anti_dat)
-  })
 
-  # FS File
-  fs_dat <- eventReactive(input$submit, {
+    # FS File
     fs_file <- input$fs_file
     if (is.null(fs_file)) {
       return(NULL)
     }
     fs_dat <- read.csv(fs_file$datapath, header = TRUE, stringsAsFactors = FALSE)
 
-    return(fs_dat)
-  })
+    if (is.null(fs_dat)) {
+      fs_value <- zeptosensPkg::get_fs_vals(
+        n_prot = n_prot,
+        proteomic_responses = drug_data
+      )
+    }
+    if (!is.null(fs_dat)) {
+      fs_value <- zeptosensPkg::get_fs_vals(
+        n_prot = n_prot,
+        proteomic_responses = drug_data,
+        fs_value_file = fs_dat
+      )
+    }
 
-  # ts_calc_type
-  ts_type <- eventReactive(input$submit, {
+    # ts_calc_type
     ts_type <- input$ts_calc_type
-    return(ts_type)
-  })
 
-  # filename
-  file_name <- eventReactive(input$submit, {
+    # File name
     file_name <- input$filename
-    return(file_name)
-  })
 
-  # network algorithm
-  network_algorithm <- eventReactive(input$submit, {
+    # Line number
+    n_line <- input$line
+
+    # Max distance
+    max_dist <- input$max_dist
+
+    # Network algorithm
     network_algorithm <- input$network_algorithm
-    return(network_algorithm)
-  })
 
-  # Proteomics dataset for network inference
-  sig_dat <- eventReactive(input$submit, {
+    # Proteomics dataset for network inference
     sig_file <- input$sig
     if (is.null(sig_file)) {
       return(NULL)
     }
     sig_dat <- read.csv(sig_file$datapath, header = TRUE, stringsAsFactors = FALSE)
-    return(sig_dat)
-  })
 
-  # n_prot
-  n_prot <- eventReactive(input$submit, {
-    data <- drug_dat()
-    n_prot <- ncol(data)
-    return(n_prot)
-  })
-
-  # n_cond
-  n_cond <- eventReactive(input$submit, {
-    data <- drug_dat()
-    n_cond <- nrow(data)
-    return(n_cond)
-  })
-
-  # Line
-  n_line <- eventReactive(input$submit, {
-    n_line <- input$line
-    return(n_line)
-  })
-
-  # max_dist
-  max_dist <- eventReactive(input$submit, {
-    max_dist <- input$max_dist
-    return(max_dist)
-  })
-
-  # choosing the way to construct reference network
-  network_inferred <- eventReactive(input$submit, {
-    network_algo <- network_algorithm()
-    drug_data <- drug_dat()
-    anti_data <- anti_dat()
-    sig_data <- sig_dat()
-    n_pro <- n_prot()
-    max_dist <- max_dist()
-
-    if (network_algo == "Bio") {
+    # choosing the way to construct reference network
+    if (network_algorithm == "Bio") {
       # reference network
       network <- zeptosensPkg::predict_bio_network(
-        n_prot = n_pro,
+        n_prot = n_prot,
         proteomic_responses = drug_data,
         mab_to_genes = anti_data,
         max_dist = max_dist
@@ -265,10 +235,10 @@ server <- function(input, output, session) {
       inter <- network$inter
     }
 
-    if (network_algo == "Dat") {
+    if (network_algorithm == "Dat") {
       network <- zeptosensPkg::predict_dat_network(
-        data = sig_data,
-        n_prot = n_pro,
+        data = sig_dat,
+        n_prot = n_prot,
         proteomic_responses = drug_data,
         max_dist = max_dist
       )
@@ -278,19 +248,19 @@ server <- function(input, output, session) {
       inter <- network$inter
     }
 
-    if (network_algo == "Hyb") {
+    if (network_algorithm == "Hyb") {
       # prior
       wk <- zeptosensPkg::predict_bio_network(
-        n_prot = n_pro,
+        n_prot = n_prot,
         proteomic_responses = drug_data,
         max_dist = max_dist,
         mab_to_genes = anti_data
       )$wk
       # Hyb
       network <- zeptosensPkg::predict_hybrid_network(
-        data = sig_data,
+        data = sig_dat,
         prior = wk,
-        n_prot = n_pro,
+        n_prot = n_prot,
         proteomic_responses = drug_data
       )
 
@@ -300,42 +270,6 @@ server <- function(input, output, session) {
       inter <- network$inter
     }
     network_inferred <- list(wk = wk, wks = wks, dist_ind = dist_ind, inter = inter)
-    return(network_inferred)
-  })
-
-  # fs
-  fs_value <- eventReactive(input$submit, {
-    drug_data <- drug_dat()
-    n_pro <- n_prot()
-    fs_dat <- fs_dat()
-    if (is.null(fs_dat)) {
-      fs_value <- zeptosensPkg::get_fs_vals(
-        n_prot = n_pro,
-        proteomic_responses = drug_data
-      )
-    }
-    if (!is.null(fs_dat)) {
-      fs_value <- zeptosensPkg::get_fs_vals(
-        n_prot = n_pro,
-        proteomic_responses = drug_data,
-        fs_value_file = fs_dat
-      )
-    }
-    return(fs_value)
-  })
-
-  # Calculate Targetscore
-  ts_r <- eventReactive(input$submit, {
-
-    # call up reactive items
-    ts_type <- ts_type()
-    network_inferred <- network_inferred()
-    drug_data <- drug_dat()
-    n_pro <- n_prot()
-    n_con <- n_cond()
-    fs_value <- fs_dat()
-    file_name <- file_name()
-    max_dist <- max_dist()
 
     # Network inferred
     wk <- network_inferred$wk
@@ -343,10 +277,12 @@ server <- function(input, output, session) {
     dist_ind <- network_inferred$dist_ind
     inter <- network_inferred$inter
 
+    # Calculate Targetscore
     if (ts_type == "lnl") {
       drug_data[is.na(drug_data)] <- 0 # FIXME
 
       # Calc Std (Normalization request)
+      # FIXME REMOVE?
       # stdev <- zeptosensPkg::samp_sdev(nSample=nrow(drug_data),n_prot=ncol(drug_data),n_dose=1,nX=drug_data)
       # #normalization
       # proteomic_responses<- drug_data
@@ -358,18 +294,18 @@ server <- function(input, output, session) {
       #
       proteomic_responses <- drug_data
       # Bootstrap in Getting Targetscore
-      ts <- array(0, dim = c(n_con, n_pro))
-      ts_p <- array(0, dim = c(n_con, n_pro))
-      ts_q <- array(0, dim = c(n_con, n_pro))
+      ts <- array(0, dim = c(n_cond, n_prot))
+      ts_p <- array(0, dim = c(n_cond, n_prot))
+      ts_q <- array(0, dim = c(n_cond, n_prot))
 
-      for (i in 1:n_con) {
+      for (i in 1:n_cond) {
         results <- zeptosensPkg::get_target_score(
           wk = wk,
           wks = wks,
           dist_ind = dist_ind,
           inter = inter,
           n_dose = 1,
-          n_prot = n_pro,
+          n_prot = n_prot,
           proteomic_responses = proteomic_responses[i, ],
           max_dist = max_dist,
           n_perm = n_perm,
@@ -414,13 +350,13 @@ server <- function(input, output, session) {
         dist_ind = dist_ind,
         inter = inter,
         n_dose = 1,
-        n_prot = n_pro,
+        n_prot = n_prot,
         proteomic_responses = proteomic_responses,
         max_dist = max_dist,
         n_perm = n_perm,
         cellLine = file_name,
         verbose = FALSE,
-        fsFile = fs_value
+        fs_file = fs_value
       )
       ts <- results$ts
       ts_p <- results$pts
@@ -431,10 +367,21 @@ server <- function(input, output, session) {
       colnames(ts_q) <- colnames(drug_data)
     }
     ts_r <- list(ts = ts, ts_p = ts_p, ts_q = ts_q)
-    return(ts_r)
+
+    results <- list(
+      ts_r = ts_r,
+      drug_dat = drug_dat,
+      fs_dat = fs_dat,
+      anti_dat = anti_dat,
+      fs_value = fs_value,
+      network_inferred = network_inferred,
+      n_line = n_line
+    )
   })
 
-  # data heatmap
+  # OUTPUT ----
+
+  ## Output heatmap
   output$heatmap <- renderPlot({
     drug_file <- drug_dat()
 
@@ -453,33 +400,38 @@ server <- function(input, output, session) {
     )
   })
 
-  #### DATA TABLE MODULE ----
+  # DATA TABLE MODULE ----
   output$fs_value <- renderDataTable({
-    data <- fs_dat()
-    return(data)
+    results <- results()
+    return(results$fs_value)
   })
 
   output$anti_map <- renderDataTable({
-    data <- anti_dat()
-    return(data)
+    results <- results()
+    return(results$anti_dat)
   })
 
   output$edgelist <- renderDataTable({
-    data <- network_inferred()
-    edgelist <- zeptosensPkg::create_sif_from_matrix(t.net = data$wk, genelist = colnames(data$wk))
+    results <- results()
+    network_inferred <- results$network_inferred
+    edgelist <- zeptosensPkg::create_sif_from_matrix(
+      t.net = network_inferred$wk,
+      genelist = colnames(network_inferred$wk)
+    )
     return(edgelist)
   })
 
   #### TEST MODULE ----
   output$test <- renderDataTable({
-    data <- fs_value()
-    return(data)
+    results <- results()
+    return(results$fs_value)
   })
 
   #### NETWORK VISUALIZATION MODULE ----
   #### TS HEATMAP MODULE ----
   output$tsheat <- renderPlot({
-    ts_r <- ts_r()
+    results <- results()
+    ts_r <- results$ts_r
     ts <- ts_r$ts
     max_dat <- max(as.matrix(ts))
     min_dat <- min(as.matrix(ts))
@@ -498,8 +450,9 @@ server <- function(input, output, session) {
 
   #### TS VOLCANO PLOT MODULE ----
   output$volcanoplot <- renderPlot({
-    ts_r <- ts_r()
-    n_line <- n_line()
+    results <- results()
+    ts_r <- results$ts_r
+    n_line <- results$n_line
     ts <- ts_r$ts[n_line, ]
     ts_q <- ts_r$ts_q[n_line, ]
     ts <- as.matrix(ts)
