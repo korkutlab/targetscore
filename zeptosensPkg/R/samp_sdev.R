@@ -1,4 +1,5 @@
-#' stdev over all samples
+#' Calculate the standard deviation over all samples
+#'
 #' @param n_x vertically merged data from all samples rows condition columns proteins
 #' @param n_sample samples number of input data.
 #' @param n_prot Antibody number of input data.

@@ -4,6 +4,8 @@
 #   secret='/Y5XUfYMz02GGocWAcE/vQ+AsSrhpfEA8mBSk8Gl')
 # rsconnect::deployApp()
 
+# FIXME atnourg983g2p3h 'n' 't'nhnt23h1
+
 library(shiny)
 library(zeptosensPkg)
 
@@ -148,16 +150,14 @@ server <- function(input, output, session) {
 
     validate(
       need(input$drug_data_file, "Drug Response File REQUIRED"),
-      need(input$fs_file, "FS File REQUIRED"),
+      need(input$fs_file, "FS File REQUIRED")
     )
 
     # Drug Data
     drug_data_file <- input$drug_data_file
     cat("X: ", drug_data_file$datapath, "\n")
 
-    if (is.null(drug_data_file)) {
-      return(NULL)
-    }
+    # Read drug dataset
     drug_dat <- read.csv(drug_data_file$datapath, header = TRUE)
 
     # Size of drug dat
@@ -175,6 +175,9 @@ server <- function(input, output, session) {
 
     # FS File
     fs_file <- input$fs_file
+    if (is.null(fs_file)) {
+      fs_file <- NULL
+    }
     fs_dat <- read.csv(fs_file$datapath, header = TRUE, stringsAsFactors = FALSE)
 
     if (is.null(fs_dat)) {
@@ -187,7 +190,7 @@ server <- function(input, output, session) {
       fs_value <- zeptosensPkg::get_fs_vals(
         n_prot = n_prot,
         proteomic_responses = drug_data,
-        fs_value_file = fs_dat
+        fs_dat = fs_dat
       )
     }
 

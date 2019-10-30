@@ -1,5 +1,8 @@
 # Introduction to TargetScore
 
+## Code Availability 
+[Code available as the TargetScore R Package](http://www.git.com)
+        
 ## Why we developed TargetScore?
 
 Targeted therapies have been substantially successful in treatment of diverse cancer types 
