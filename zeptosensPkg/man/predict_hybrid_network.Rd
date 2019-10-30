@@ -8,8 +8,8 @@ predict_hybrid_network(data, prior = NULL, cut_off = 0.1,
   proteomic_responses, n_prot, max_dist = 1, mab_to_genes)
 }
 \arguments{
-\item{data}{input Global Signaling expression data frame(TCGA rppa Data for example).
-Gene in coloumns and samples in row. With colnames as gene tags and rownames as sample tags.}
+\item{data}{input proteomics dataset for network inference(for example: TCGA RPPA data). Gene in coloumns
+and samples in row. With colnames as gene tags and rownames as sample tags.}
 
 \item{prior}{Prior information data frame ,with colnames and rownames as gene tags.
 With colnames and rownames as gene tags. Can be inferred from predict_bio_network() or any network resources.}

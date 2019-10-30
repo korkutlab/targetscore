@@ -7,7 +7,7 @@
 optimize_parameter_dat(data)
 }
 \arguments{
-\item{data}{input expression data frame. Gene in coloumns and samples in row.
+\item{data}{input proteomics dataset for network inference. Gene in coloumns and samples in row.
 With colnames as gene tags and rownames as sample tags.}
 }
 \value{

@@ -84,5 +84,7 @@ get_fs_vals <- function(n_prot, proteomic_responses, mab_to_genes, fs_value_file
   index <- match(colnames(proteomic_responses), fs$prot)
   fs <- fs[index, ]
 
-  return(fs)
+  # as.numeric
+  fs_final <- data.frame(prot = fs$prot, fs = as.numeric(fs$fs), stringsAsFactors = FALSE)
+  return(fs_final)
 }

@@ -81,7 +81,6 @@ get_target_score <- function(wk, wks, dist_ind, inter, n_dose, n_prot, proteomic
       n_prot = n_prot,
       proteomic_responses = rand_proteomic_responses,
       max_dist = max_dist,
-      cell_line = cell_line,
       verbose = verbose,
       ts_factor = ts_factor,
       fs_file = fs_file
