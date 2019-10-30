@@ -15,7 +15,7 @@
 #' @param proteomic_responses Input drug perturbation data. With columns as antibody, rows as samples.
 #' @param max_dist Maximum edge strength value.(Default at 1)
 #' @param verbose a boolean to show debugging information
-#' @param fs_file Functional score file. A tab-delmited file with a header, each row is an
+#' @param fs_dat Functional score file. A tab-delmited file with a header, each row is an
 #'   antibody in the first column and functional score in the second column
 #'   (i.e. 1 oncogene, 0 tumor supressor/oncogene, -1 tumor supressor characteristics)
 #' @param dist_file A distance file an edgelist with a third column which is the network distance
@@ -31,18 +31,11 @@
 #' @export
 calc_target_score <- function(wk, wks, dist_ind, inter, n_dose, n_prot, proteomic_responses,
                               max_dist = 1, verbose = TRUE,
-                              ts_factor = 1, fs_file, dist_file = NULL) {
-  # LOAD & RANDOMIZE INTERNAL DATA ---- read function score
-  # if(is.null(fs_file)) {
-  #     fs_file <- system.file("targetScoreData", "fs.txt", package = "zeptosensPkg")
-  # }
-
-  # fs <- read.table(fs_file, header = TRUE, stringsAsFactors = FALSE, sep = "\t")
-  fs <- fs_file
-
+                              ts_factor = 1, fs_dat, dist_file = NULL) {
   if (verbose) {
-    print(fs)
+    print(fs_dat)
   }
+  fs <- fs_dat
 
   # calculate TS for each dose
   # print(n_dose)

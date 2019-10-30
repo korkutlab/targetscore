@@ -17,7 +17,7 @@
 #' @param n_perm number of random TS calculations for building the null distribution
 #' @param verbose a flag for debugging output
 #' @param ts_factor a scaling factor for the pathway component of the target score
-#' @param fs_file a file with the functional score data
+#' @param fs_dat a file with the functional score data
 #'
 #' @details
 #' data: multiple dose single drug perturbation
@@ -32,7 +32,7 @@
 #' @export
 get_target_score <- function(wk, wks, dist_ind, inter, n_dose, n_prot, proteomic_responses,
                              max_dist = 1, n_perm, verbose = TRUE, ts_factor = 1,
-                             fs_file) {
+                             fs_dat) {
 
   # CALCULATE TARGET SCORE ----
   results <- calc_target_score(
@@ -46,7 +46,7 @@ get_target_score <- function(wk, wks, dist_ind, inter, n_dose, n_prot, proteomic
     max_dist = max_dist,
     verbose = TRUE,
     ts_factor = ts_factor,
-    fs_file = fs_file
+    fs_dat = fs_dat
   )
   ts <- results$ts
   wk <- results$wk
@@ -83,7 +83,7 @@ get_target_score <- function(wk, wks, dist_ind, inter, n_dose, n_prot, proteomic
       max_dist = max_dist,
       verbose = verbose,
       ts_factor = ts_factor,
-      fs_file = fs_file
+      fs_dat = fs_dat
     )$ts
 
     # rand_ts[,k] <- as.matrix(rants) print('resi') print(resi$ts) rand_ts[,k]

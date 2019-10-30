@@ -1,4 +1,4 @@
-#' Choose the optimal regulization parameter and scale paramter for adjusted-glasso algorithm network construction.
+#' Choose the optimal regulization parameter and scale paramter for adjusted-glasso algorithm network construction
 #'
 #' @param data  input proteomics dataset for network inference. Gene in coloumns and samples in row.
 #' With colnames as gene tags and rownames as sample tags.
