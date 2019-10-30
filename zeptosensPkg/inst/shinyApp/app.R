@@ -7,8 +7,6 @@
 library(shiny)
 library(zeptosensPkg)
 
-n_perm <- 25
-
 # UI ----
 ui <- navbarPage(
   "Target Score",
@@ -52,7 +50,7 @@ ui <- navbarPage(
             ".csv"
           )
         ),
-        fileInput("drug_data", "Drug Perturbation Response File (.csv)",
+        fileInput("drug_data_file", "Drug Perturbation Response File (.csv)",
           buttonLabel = "Browse...",
           placeholder = "No file selected",
           accept = c(
@@ -78,8 +76,10 @@ ui <- navbarPage(
           ),
           selected = "line_by_line"
         ),
-        # volcano plot line choice
-        numericInput("line_number", "Line Number", "1"),
+
+        # Number of permutations
+        numericInput("n_perm", "Number of permutations", value = 25, min = 25, max = 2000), # FIXME
+
         # max distance of protein network
         numericInput("max_dist", "Maximum Protein Distance", "1"),
 
@@ -87,8 +87,6 @@ ui <- navbarPage(
       ),
       # Results showing
       mainPanel(
-        tags$a(href = "http://www.git.com", "Code available as the TargetScore R Package"),
-
         # Results showing in Tabs (can use navlistPanel to show on left)
         tabsetPanel(
           tabPanel(
@@ -120,7 +118,9 @@ ui <- navbarPage(
           ),
           tabPanel(
             "TargetScore Volcano Plot",
-            plotOutput("volcanoplot")
+            # volcano plot line choice
+            numericInput("line_number", "Line Number", value = 1, min = 1), # FIXME
+            plotOutput("volcano_plot")
           )
         )
       )
@@ -143,14 +143,22 @@ ui <- navbarPage(
 
 # SERVER ----
 server <- function(input, output, session) {
-  # Drug File
   results <- eventReactive(input$submit, {
+    cat("HELLO\n")
+
+    validate(
+      need(input$drug_data_file, "Drug Response File REQUIRED"),
+      need(input$fs_file, "FS File REQUIRED"),
+    )
+
     # Drug Data
-    drug_file <- input$drug_data
-    if (is.null(drug_file)) {
+    drug_data_file <- input$drug_data_file
+    cat("X: ", drug_data_file$datapath, "\n")
+
+    if (is.null(drug_data_file)) {
       return(NULL)
     }
-    drug_dat <- read.csv(drug_file$datapath, header = TRUE)
+    drug_dat <- read.csv(drug_data_file$datapath, header = TRUE)
 
     # Size of drug dat
     n_prot <- ncol(drug_dat)
@@ -167,9 +175,6 @@ server <- function(input, output, session) {
 
     # FS File
     fs_file <- input$fs_file
-    if (is.null(fs_file)) {
-      return(NULL)
-    }
     fs_dat <- read.csv(fs_file$datapath, header = TRUE, stringsAsFactors = FALSE)
 
     if (is.null(fs_dat)) {
@@ -189,24 +194,14 @@ server <- function(input, output, session) {
     # ts_calc_type
     ts_type <- input$ts_calc_type
 
-    # File name
-    filename <- input$filename
-
-    # Line number
-    line_number <- input$line_number
-
     # Max distance
     max_dist <- input$max_dist
 
     # Network algorithm
     network_algorithm <- input$network_algorithm
 
-    # Proteomics dataset for network inference
-    sig_file <- input$sig
-    if (is.null(sig_file)) {
-      return(NULL)
-    }
-    sig_dat <- read.csv(sig_file$datapath, header = TRUE, stringsAsFactors = FALSE)
+    # Number of permutations
+    n_perm <- input$n_perm
 
     # choosing the way to construct reference network
     if (network_algorithm == "bio") {
@@ -223,39 +218,49 @@ server <- function(input, output, session) {
       inter <- network$inter
     }
 
-    if (network_algorithm == "dat") {
-      network <- zeptosensPkg::predict_dat_network(
-        data = sig_dat,
-        n_prot = n_prot,
-        proteomic_responses = drug_data,
-        max_dist = max_dist
-      )
-      wk <- network$wk
-      wks <- network$wks
-      dist_ind <- network$dist_ind
-      inter <- network$inter
-    }
+    if (network_algorithm == "dat" || network_algorithm == "hybrid") {
+      # Proteomics dataset for network inference
+      sig_file <- input$sig
+      if (is.null(sig_file)) {
+        return(NULL)
+      }
+      # FIXME stringsAsFactors for anything else?
+      sig_dat <- read.csv(sig_file$datapath, header = TRUE, stringsAsFactors = FALSE)
 
-    if (network_algorithm == "hybrid") {
-      # prior
-      wk <- zeptosensPkg::predict_bio_network(
-        n_prot = n_prot,
-        proteomic_responses = drug_data,
-        max_dist = max_dist,
-        mab_to_genes = anti_data
-      )$wk
-      # Hyb
-      network <- zeptosensPkg::predict_hybrid_network(
-        data = sig_dat,
-        prior = wk,
-        n_prot = n_prot,
-        proteomic_responses = drug_data
-      )
+      if (network_algorithm == "dat") {
+        network <- zeptosensPkg::predict_dat_network(
+          data = sig_dat,
+          n_prot = n_prot,
+          proteomic_responses = drug_data,
+          max_dist = max_dist
+        )
+        wk <- network$wk
+        wks <- network$wks
+        dist_ind <- network$dist_ind
+        inter <- network$inter
+      }
 
-      wk <- network$wk
-      wks <- network$wks
-      dist_ind <- network$dist_ind
-      inter <- network$inter
+      if (network_algorithm == "hybrid") {
+        # prior
+        wk <- zeptosensPkg::predict_bio_network(
+          n_prot = n_prot,
+          proteomic_responses = drug_data,
+          max_dist = max_dist,
+          mab_to_genes = anti_data
+        )$wk
+        # Hyb
+        network <- zeptosensPkg::predict_hybrid_network(
+          data = sig_dat,
+          prior = wk,
+          n_prot = n_prot,
+          proteomic_responses = drug_data
+        )
+
+        wk <- network$wk
+        wks <- network$wks
+        dist_ind <- network$dist_ind
+        inter <- network$inter
+      }
     }
 
     # Calculate Targetscore
@@ -290,7 +295,6 @@ server <- function(input, output, session) {
           proteomic_responses = proteomic_responses[i, ],
           max_dist = max_dist,
           n_perm = n_perm,
-          cell_line = filename,
           verbose = FALSE,
           fs_file = fs_value
         )
@@ -335,7 +339,6 @@ server <- function(input, output, session) {
         proteomic_responses = proteomic_responses,
         max_dist = max_dist,
         n_perm = n_perm,
-        cell_line = filename,
         verbose = FALSE,
         fs_file = fs_value
       )
@@ -355,8 +358,7 @@ server <- function(input, output, session) {
       fs_dat = fs_dat,
       anti_dat = anti_dat,
       fs_value = fs_value,
-      network = network,
-      line_number = line_number
+      network = network
     )
   })
 
@@ -435,10 +437,12 @@ server <- function(input, output, session) {
   })
 
   #### TS VOLCANO PLOT MODULE ----
-  output$volcanoplot <- renderPlot({
+  output$volcano_plot <- renderPlot({
+    # Line number
+    line_number <- input$line_number
+
     results <- results()
     ts_r <- results$ts_r
-    line_number <- results$line_number
     ts <- ts_r$ts[line_number, ]
     ts_q <- ts_r$ts_q[line_number, ]
     ts <- as.matrix(ts)
