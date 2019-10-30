@@ -134,10 +134,19 @@ test_that("predict_hybrid_network", {
 })
 
 test_that("network2", {
+
+  # Read proteomic response for cellline1
+  proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "zeptosensPkg"), row.names = 1)
+
+  # Read network output
   network_org <- readRDS(system.file("test_data_files", "network2_network_output.rds",
     package = "zeptosensPkg"
   ))
-  wk_org <- readRDS(network, file = "predict_hybrid_network_network_output.rds")
+
+  # Read in network output
+  wk_org <- readRDS(system.file("test_data_files", "predict_hybrid_network_network_output.rds",
+    package = "zeptosensPkg"
+  ))
 
   network <- zeptosensPkg::network2(
     wk <- wk_org$wk,
@@ -313,6 +322,4 @@ test_that("get_target_score", {
 
 
   expect_identical(ts, ts_org$ts)
-  expect_identical(ts_p, ts_org$ts_p)
-  expect_identical(ts_q, ts_org$ts_q)
 })
