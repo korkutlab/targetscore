@@ -197,7 +197,7 @@ test_that("get_fs_vals", {
 
   fs <- get_fs_vals(
     n_prot = ncol(proteomic_responses), proteomic_responses = proteomic_responses,
-    mab_to_genes = mab_to_genes, fs_value_file = fs_override_org
+    mab_to_genes = mab_to_genes, fs_override = fs_override_org
   )
 
   expect_identical(fs, wk_org)
@@ -304,7 +304,7 @@ test_that("get_target_score", {
       max_dist = 1,
       n_perm = 1000,
       verbose = FALSE,
-      fs_file = fs
+      fs_dat = fs
     )
     ts[i, ] <- results$ts
     ts_p[i, ] <- results$pts

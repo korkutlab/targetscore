@@ -2,7 +2,7 @@
 % Please edit documentation in R/optimize_parameter_hybrid.R
 \name{optimize_parameter_hybrid}
 \alias{optimize_parameter_hybrid}
-\title{Choose the optimal regulization parameter and scale paramter for adjusted-glasso algorithm network construction.}
+\title{Choose the optimal regulization parameter and scale paramter for adjusted-glasso algorithm network construction}
 \usage{
 optimize_parameter_hybrid(data, prior)
 }
@@ -20,6 +20,6 @@ Including regularize parameter(L1 norm parameter) as rho, scale parameter
 for the expression data as rho_m and Model's BIC matrix for differnet regularization parameters.
 }
 \description{
-Choose the optimal regulization parameter and scale paramter for adjusted-glasso algorithm network construction.
+Choose the optimal regulization parameter and scale paramter for adjusted-glasso algorithm network construction
 }
 \concept{zeptosensPkg}

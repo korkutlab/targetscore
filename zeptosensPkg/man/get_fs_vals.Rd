@@ -5,7 +5,7 @@
 \title{Extracted functional score value from COMIC/ONCODRIVE Database. Can be override with Manually set functional score.}
 \usage{
 get_fs_vals(n_prot, proteomic_responses, mab_to_genes,
-  fs_value_file = NULL, verbose = FALSE)
+  fs_override = NULL, verbose = FALSE)
 }
 \arguments{
 \item{n_prot}{Antibody number of input data.}
@@ -14,7 +14,7 @@ get_fs_vals(n_prot, proteomic_responses, mab_to_genes,
 
 \item{mab_to_genes}{A list of antibodies, their associated genes, modification sites and effect.}
 
-\item{fs_value_file}{a listing of functional scores for each gene manually set up
+\item{fs_override}{a listing of functional scores for each gene manually set up
 for overriding COSMIC Database given value, the modification path. (.txt)}
 
 \item{verbose}{Default as FALSE. If given TRUE, will print out the gene seq mapped with Antibody Map File.}

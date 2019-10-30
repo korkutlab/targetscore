@@ -3,7 +3,7 @@
 #' @param n_prot Antibody number of input data.
 #' @param proteomic_responses Input drug perturbation data. With columns as antibody, rows as samples.
 #' @param mab_to_genes A list of antibodies, their associated genes, modification sites and effect.
-#' @param fs_dat a listing of functional scores for each gene manually set up
+#' @param fs_override a listing of functional scores for each gene manually set up
 #' for overriding COSMIC Database given value, the modification path. (.txt)
 #' @param verbose Default as FALSE. If given TRUE, will print out the gene seq mapped with Antibody Map File.
 #'
@@ -11,7 +11,7 @@
 #'
 #' @concept zeptosensPkg
 #' @export
-get_fs_vals <- function(n_prot, proteomic_responses, mab_to_genes, fs_dat = NULL, verbose = FALSE) {
+get_fs_vals <- function(n_prot, proteomic_responses, mab_to_genes, fs_override = NULL, verbose = FALSE) {
   if (verbose) {
     print(mab_to_genes)
   }
@@ -72,7 +72,7 @@ get_fs_vals <- function(n_prot, proteomic_responses, mab_to_genes, fs_dat = NULL
     fs <- rbind(fs, dup)
   }
 
-  fs_override <- fs_dat
+  fs_override <- fs_override
 
   # Override with Self setting/external fs value
   if (!is.null(fs_override)) {

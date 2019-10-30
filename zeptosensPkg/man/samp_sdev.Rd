@@ -2,7 +2,7 @@
 % Please edit documentation in R/samp_sdev.R
 \name{samp_sdev}
 \alias{samp_sdev}
-\title{stdev over all samples}
+\title{Calculate the standard deviation over all samples}
 \usage{
 samp_sdev(n_sample, n_prot, n_dose, n_x, replace_missing = TRUE)
 }
@@ -18,6 +18,6 @@ samp_sdev(n_sample, n_prot, n_dose, n_x, replace_missing = TRUE)
 \item{replace_missing}{Replace missing values NA with 0 (Default: TRUE)}
 }
 \description{
-stdev over all samples
+Calculate the standard deviation over all samples
 }
 \concept{zeptosensPkg}

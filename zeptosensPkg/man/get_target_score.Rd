@@ -6,7 +6,7 @@
 \usage{
 get_target_score(wk, wks, dist_ind, inter, n_dose, n_prot,
   proteomic_responses, max_dist = 1, n_perm, verbose = TRUE,
-  ts_factor = 1, fs_file)
+  ts_factor = 1, fs_dat)
 }
 \arguments{
 \item{wk}{inference network constructed in matrix form with edge strength value estimated.
@@ -37,7 +37,7 @@ between the genes in the interaction}
 
 \item{ts_factor}{a scaling factor for the pathway component of the target score}
 
-\item{fs_file}{a file with the functional score data}
+\item{fs_dat}{a file with the functional score data}
 }
 \description{
 Target Score Pilot Run
