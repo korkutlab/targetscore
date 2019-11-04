@@ -78,8 +78,7 @@ test_that("predict_dat_network", {
   network <- zeptosensPkg::predict_dat_network(
     data <- signaling_responses,
     n_prot = dim(proteomic_responses)[2],
-    proteomic_responses = proteomic_responses,
-    max_dist = 1
+    proteomic_responses = proteomic_responses
   )
 
   network_org <- readRDS(system.file("test_data_files", "predict_dat_network_output.rds",
@@ -151,8 +150,7 @@ test_that("network2", {
   network <- zeptosensPkg::network2(
     wk <- wk_org$wk,
     n_prot = dim(proteomic_responses)[2],
-    proteomic_responses = proteomic_responses,
-    max_dist = 1
+    proteomic_responses = proteomic_responses
   )
 
   expect_identical(network$wk, network_org$wk)
@@ -301,7 +299,6 @@ test_that("get_target_score", {
       n_dose = 1,
       n_prot = dim(proteomic_responses)[2],
       proteomic_responses = proteomic_responses[i, ],
-      max_dist = 1,
       n_perm = 1000,
       verbose = FALSE,
       fs_dat = fs
