@@ -4,8 +4,7 @@
 \alias{predict_dat_network}
 \title{predict data-driven only network.}
 \usage{
-predict_dat_network(data, cut_off = 0.1, n_prot, proteomic_responses,
-  max_dist = 1)
+predict_dat_network(data, cut_off = 0.1, n_prot, proteomic_responses)
 }
 \arguments{
 \item{data}{input proteomics dataset for network inference. Gene in coloumns and samples in row.
@@ -16,8 +15,6 @@ With colnames as gene tags and rownames as sample tags.}
 \item{n_prot}{Antibody number of input data.}
 
 \item{proteomic_responses}{Input drug perturbation data. With columns as antibody, rows as samples.}
-
-\item{max_dist}{Maximum edge strength value.(Default at 1)}
 }
 \value{
 Parameter of regulization decided lowest BIC.Including regularize parameter(L1 norm parameter) as rho.

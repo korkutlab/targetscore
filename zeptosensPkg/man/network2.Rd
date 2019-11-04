@@ -4,7 +4,7 @@
 \alias{network2}
 \title{Network for adjusted-glasso}
 \usage{
-network2(wk, n_prot, proteomic_responses, max_dist, dist_file = NULL,
+network2(wk, n_prot, proteomic_responses, dist_file = NULL,
   verbose = FALSE)
 }
 \arguments{
@@ -15,8 +15,6 @@ function. Where predict_bio_network edge value default at 1 for upregulate and -
 \item{n_prot}{Antibody number of input data.}
 
 \item{proteomic_responses}{Input drug perturbation data. With columns as antibody, rows as samples.}
-
-\item{max_dist}{Maximum edge strength value.(Default at 1)}
 
 \item{dist_file}{A distance file an edgelist with a third column which is the network distance
 between the genes in the interaction}

@@ -5,8 +5,8 @@
 \title{Compute Target score for randomized data/compute P value for each TS given a network topology}
 \usage{
 calc_target_score(wk, wks, dist_ind, inter, n_dose, n_prot,
-  proteomic_responses, max_dist = 1, verbose = TRUE, ts_factor = 1,
-  fs_dat, dist_file = NULL)
+  proteomic_responses, verbose = TRUE, ts_factor = 1, fs_dat,
+  dist_file = NULL)
 }
 \arguments{
 \item{wk}{Inference network constructed in matrix form with edge strength value estimated.
@@ -28,8 +28,6 @@ between the genes in the interaction}
 \item{n_prot}{Antibody number of input data.}
 
 \item{proteomic_responses}{Input drug perturbation data. With columns as antibody, rows as samples.}
-
-\item{max_dist}{Maximum edge strength value.(Default at 1)}
 
 \item{verbose}{a boolean to show debugging information}
 

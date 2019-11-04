@@ -57,7 +57,7 @@ get_target_score <- function(wk, wks, dist_ind, inter, n_dose, n_prot, proteomic
   pts <- matrix(0, ncol = 1, nrow = n_prot)
 
   # CREATE Q-VALUES ----
-  for (k in 1:n_perm) {
+  for (k in seq_len(nperm)) {
     #        if(verbose) {
     cat("Permutation Iteration: ", k, "\n")
     #        }

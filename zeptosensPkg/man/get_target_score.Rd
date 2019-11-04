@@ -5,8 +5,7 @@
 \title{Target Score Pilot Run}
 \usage{
 get_target_score(wk, wks, dist_ind, inter, n_dose, n_prot,
-  proteomic_responses, max_dist = 1, n_perm, verbose = TRUE,
-  ts_factor = 1, fs_dat)
+  proteomic_responses, n_perm, verbose = TRUE, ts_factor = 1, fs_dat)
 }
 \arguments{
 \item{wk}{inference network constructed in matrix form with edge strength value estimated.
@@ -28,8 +27,6 @@ between the genes in the interaction}
 \item{n_prot}{antibody number of input data.}
 
 \item{proteomic_responses}{input drug perturbation data. With columns as antibody, rows as samples.}
-
-\item{max_dist}{maximum edge strength value.(Default at 1)}
 
 \item{n_perm}{number of random TS calculations for building the null distribution}
 

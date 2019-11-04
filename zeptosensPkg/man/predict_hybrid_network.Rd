@@ -20,7 +20,7 @@ With colnames and rownames as gene tags. Can be inferred from predict_bio_networ
 
 \item{n_prot}{Antibody number of input data.}
 
-\item{max_dist}{Maximum edge strength value.(Default at 1)}
+\item{max_dist}{maximum distance between two antibody. (Default at 1)}
 
 \item{mab_to_genes}{A list of antibodies, their associated genes, modification sites and effect.}
 }

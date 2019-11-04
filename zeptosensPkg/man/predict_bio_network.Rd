@@ -12,7 +12,7 @@ predict_bio_network(n_prot, proteomic_responses, max_dist, mab_to_genes,
 
 \item{proteomic_responses}{Input drug perturbation data. With columns as antibody, rows as samples.}
 
-\item{max_dist}{Maximum edge strength value.(Default at 1)}
+\item{max_dist}{maximum distance between two antibody. (Default at 1)}
 
 \item{mab_to_genes}{A list of antibodies, their associated genes, modification sites and effect.}
 
