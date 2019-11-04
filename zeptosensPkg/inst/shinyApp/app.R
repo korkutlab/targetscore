@@ -28,38 +28,22 @@ ui <- navbarPage(
         fileInput("antibody", "Antibody Mapping File (.csv or blank)",
           buttonLabel = "Browse...",
           placeholder = "No file selected",
-          accept = c(
-            "text/csv",
-            "text/comma-separated-values,text/plain",
-            ".csv"
-          )
+          accept = ".csv"
         ),
         fileInput("sig", "Background Network File (.csv or blank)",
           buttonLabel = "Browse...",
           placeholder = "No file selected",
-          accept = c(
-            "text/csv",
-            "text/comma-separated-values,text/plain",
-            ".csv"
-          )
+          accept = ".csv"
         ),
         fileInput("fs_file", "Functional Score File (.csv or blank)",
           buttonLabel = "Browse...",
           placeholder = "No file selected",
-          accept = c(
-            "text/csv",
-            "text/comma-separated-values,text/plain",
-            ".csv"
-          )
+          accept = ".csv"
         ),
         fileInput("drug_data_file", "Drug Perturbation Response File (.csv)",
           buttonLabel = "Browse...",
           placeholder = "No file selected",
-          accept = c(
-            "text/csv",
-            "text/comma-separated-values,text/plain",
-            ".csv"
-          )
+          accept = ".csv"
         ),
         selectInput("network_algorithm",
           label = "Network Construction Algorithms:",
