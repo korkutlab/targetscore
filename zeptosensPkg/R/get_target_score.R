@@ -13,7 +13,6 @@
 #' @param n_dose dose number of input data.
 #' @param n_prot antibody number of input data.
 #' @param proteomic_responses input drug perturbation data. With columns as antibody, rows as samples.
-#' @param max_dist maximum edge strength value.(Default at 1)
 #' @param n_perm number of random TS calculations for building the null distribution
 #' @param verbose a flag for debugging output
 #' @param ts_factor a scaling factor for the pathway component of the target score
@@ -31,8 +30,7 @@
 #' @concept zeptosensPkg
 #' @export
 get_target_score <- function(wk, wks, dist_ind, inter, n_dose, n_prot, proteomic_responses,
-                             max_dist = 1, n_perm, verbose = TRUE, ts_factor = 1,
-                             fs_dat) {
+                             n_perm, verbose = TRUE, ts_factor = 1, fs_dat) {
 
   # CALCULATE TARGET SCORE ----
   results <- calc_target_score(
@@ -43,7 +41,6 @@ get_target_score <- function(wk, wks, dist_ind, inter, n_dose, n_prot, proteomic
     n_dose = n_dose,
     n_prot = n_prot,
     proteomic_responses = proteomic_responses,
-    max_dist = max_dist,
     verbose = TRUE,
     ts_factor = ts_factor,
     fs_dat = fs_dat
@@ -80,7 +77,6 @@ get_target_score <- function(wk, wks, dist_ind, inter, n_dose, n_prot, proteomic
       n_dose = n_dose,
       n_prot = n_prot,
       proteomic_responses = rand_proteomic_responses,
-      max_dist = max_dist,
       verbose = verbose,
       ts_factor = ts_factor,
       fs_dat = fs_dat

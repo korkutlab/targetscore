@@ -2,7 +2,7 @@
 #'
 #' @param n_prot Antibody number of input data.
 #' @param proteomic_responses Input drug perturbation data. With columns as antibody, rows as samples.
-#' @param max_dist Maximum edge strength value.(Default at 1)
+#' @param max_dist maximum distance between two antibody. (Default at 1)
 #' @param mab_to_genes A list of antibodies, their associated genes, modification sites and effect.
 #' @param dist_file A distance file an edgelist with a third column which is the network distance
 #'   between the genes in the interaction

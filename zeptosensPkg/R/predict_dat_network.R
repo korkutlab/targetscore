@@ -5,7 +5,6 @@
 #' @param cut_off Manually Setup cut off value for the strength of edge. Default at 0.1.
 #' @param n_prot Antibody number of input data.
 #' @param proteomic_responses Input drug perturbation data. With columns as antibody, rows as samples.
-#' @param max_dist Maximum edge strength value.(Default at 1)
 #'
 #' @return Parameter of regulization decided lowest BIC.Including regularize parameter(L1 norm parameter) as rho.
 #'
@@ -13,7 +12,7 @@
 #'
 #' @concept zeptosensPkg
 #' @export
-predict_dat_network <- function(data, cut_off = 0.1, n_prot, proteomic_responses, max_dist = 1) {
+predict_dat_network <- function(data, cut_off = 0.1, n_prot, proteomic_responses) {
   covmatrix <- cov(data)
 
   # optimize penalty parameter rho
@@ -60,7 +59,6 @@ predict_dat_network <- function(data, cut_off = 0.1, n_prot, proteomic_responses
   network_inferred <- zeptosensPkg::network2(
     wk = t_net, n_prot = n_prot,
     proteomic_responses = proteomic_responses,
-    max_dist = max_dist
   )
   wk <- network_inferred$wk
   wks <- network_inferred$wks

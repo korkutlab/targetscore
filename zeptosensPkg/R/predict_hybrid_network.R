@@ -5,7 +5,7 @@
 #' @param prior Prior information data frame ,with colnames and rownames as gene tags.
 #' With colnames and rownames as gene tags. Can be inferred from predict_bio_network() or any network resources.
 #' @param cut_off Manually set up cut off value for strength of edge. (Default at 0.1)
-#' @param max_dist Maximum edge strength value.(Default at 1)
+#' @param max_dist maximum distance between two antibody. (Default at 1)
 #' @param proteomic_responses RPPA data tested for drug pertubation.
 #' @param n_prot Antibody number of input data.
 #' @param mab_to_genes A list of antibodies, their associated genes, modification sites and effect.
@@ -138,7 +138,7 @@ predict_hybrid_network <- function(data, prior = NULL, cut_off = 0.1, proteomic_
   prior1_extra <- prior[-index2, -index2]
   index_extra <- colnames(prior1_extra)
 
-  # with the edgevalue(prior information have the value of the median(abd(netowrk)))
+  # Adding the missing node from prior with the edgevalue(prior information have the value of the median(abd(netowrk)))
   prior3 <- as.data.frame(prior * median(abs(c(na.omit(c(ifelse(network != 0, network, NA)))))))
   colnames(prior3) <- colnames(prior)
   rownames(prior3) <- rownames(prior)
@@ -161,7 +161,6 @@ predict_hybrid_network <- function(data, prior = NULL, cut_off = 0.1, proteomic_
   networks <- zeptosensPkg::network2(
     wk = wk, n_prot = n_prot,
     proteomic_responses = proteomic_responses,
-    max_dist = max_dist
   )
   wk <- networks$wk
   wks <- networks$wks

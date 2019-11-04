@@ -5,7 +5,6 @@
 #' function. Where predict_bio_network edge value default at 1 for upregulate and -1 for down regulate.
 #' @param n_prot Antibody number of input data.
 #' @param proteomic_responses Input drug perturbation data. With columns as antibody, rows as samples.
-#' @param max_dist Maximum edge strength value.(Default at 1)
 #' @param dist_file A distance file an edgelist with a third column which is the network distance
 #'   between the genes in the interaction
 #' @param verbose logical, whether to show additional debugging information
@@ -14,7 +13,7 @@
 #'
 #' @concept zeptosensPkg
 #' @export
-network2 <- function(wk, n_prot, proteomic_responses, max_dist, dist_file = NULL, verbose = FALSE) {
+network2 <- function(wk, n_prot, proteomic_responses, dist_file = NULL, verbose = FALSE) {
   if (n_prot != ncol(proteomic_responses)) {
     stop("ERROR: n_prot is not equal to proteomic_responses column number")
   }
@@ -43,7 +42,7 @@ network2 <- function(wk, n_prot, proteomic_responses, max_dist, dist_file = NULL
     }
   }
 
-  wk <- (wk / max(abs(wk))) * max_dist
+  wk <- wk / max(abs(wk))
   wks <- wk
 
   inter <- (which(wk != 0, arr.ind = TRUE))

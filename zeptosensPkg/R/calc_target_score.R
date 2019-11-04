@@ -13,7 +13,6 @@
 #' @param n_dose Dose number of input data.
 #' @param n_prot Antibody number of input data.
 #' @param proteomic_responses Input drug perturbation data. With columns as antibody, rows as samples.
-#' @param max_dist Maximum edge strength value.(Default at 1)
 #' @param verbose a boolean to show debugging information
 #' @param fs_dat Functional score file. A tab-delmited file with a header, each row is an
 #'   antibody in the first column and functional score in the second column
@@ -30,8 +29,7 @@
 #' @concept zeptosensPkg
 #' @export
 calc_target_score <- function(wk, wks, dist_ind, inter, n_dose, n_prot, proteomic_responses,
-                              max_dist = 1, verbose = TRUE,
-                              ts_factor = 1, fs_dat, dist_file = NULL) {
+                              verbose = TRUE, ts_factor = 1, fs_dat, dist_file = NULL) {
   if (verbose) {
     print(fs_dat)
   }
