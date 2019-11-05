@@ -9,7 +9,7 @@ run_robustness_test(data, prior = NULL, proteomic_responses, n_prot,
   mab_to_genes)
 }
 \arguments{
-\item{data}{input expression data. Coloumns as the gene, rows as the sample.With
+\item{data}{input proteomics expression dataset for network inference. Coloumns as the gene, rows as the sample.With
 colnames as the gene tags, rownames as the sample tags.}
 
 \item{prior}{Prior information data frame ,with colnames and rownames as gene tags.
@@ -18,7 +18,8 @@ Default at NULL and will be inferred from SignedPC database.}
 
 \item{proteomic_responses}{RPPA data tested for drug pertubation.}
 
-\item{n_prot}{Antibody number of input data.}
+\item{n_prot}{Antibody number of input data.Here should be the number of antibody exist both in network
+inference dataset and proteomic_responses dataset.}
 
 \item{max_dist}{maximum distance between two antibody. (Default at 1)}
 

@@ -9,11 +9,12 @@
 #' @return Parameter of regulization decided lowest BIC.Including regularize parameter(L1 norm parameter) as rho.
 #'
 #' @importFrom glasso glasso
+#' @importFrom stats cov
 #'
 #' @concept zeptosensPkg
 #' @export
 predict_dat_network <- function(data, cut_off = 0.1, n_prot, proteomic_responses) {
-  covmatrix <- cov(data)
+  covmatrix <- stats::cov(data)
 
   # optimize penalty parameter rho
   rho <- seq(0.01, 1, length = 100)

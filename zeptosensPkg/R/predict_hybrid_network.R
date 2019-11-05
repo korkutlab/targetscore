@@ -63,7 +63,7 @@ predict_hybrid_network <- function(data, prior = NULL, cut_off = 0.1, proteomic_
   prior2 <- ifelse(prior2 != 0, 1, 0)
 
   # getting the best tuning parameter from BIC minimization
-  covmatrix <- cov(data)
+  covmatrix <- stats::cov(data)
   rho <- seq(0.01, 1, length = 100)
   bic <- matrix(NA, 100, 100)
   kappa <- rho
@@ -133,23 +133,30 @@ predict_hybrid_network <- function(data, prior = NULL, cut_off = 0.1, proteomic_
   rownames(t_net_d) <- colnames(data)
 
   # Inferred missing proteins from bio-network
-  network <- t_net_d
-  index2 <- which(colnames(prior) %in% index)
-  prior1_extra <- prior[-index2, -index2]
-  index_extra <- colnames(prior1_extra)
+  if (ncol(prior) > ncol(prior1)) {
+    network <- t_net_d
+    index2 <- which(colnames(prior) %in% index)
+    prior1_extra <- prior[-index2, -index2]
+    index_extra <- colnames(prior1_extra)
 
-  # Adding the missing node from prior with the edgevalue(prior information have the value of the median(abd(netowrk)))
-  prior3 <- as.data.frame(prior * median(abs(c(na.omit(c(ifelse(network != 0, network, NA)))))))
-  colnames(prior3) <- colnames(prior)
-  rownames(prior3) <- rownames(prior)
+    # Adding the missing node from prior with the edgevalue
+    ## (prior information have the value of the median(abd(netowrk)))
+    prior3 <- as.data.frame(prior * median(abs(c(na.omit(c(ifelse(network != 0, network, NA)))))))
+    colnames(prior3) <- colnames(prior)
+    rownames(prior3) <- rownames(prior)
 
-  part1 <- prior3[which(rownames(prior3) %in% index_extra), which(colnames(prior) %in% index)]
-  part2 <- prior3[which(rownames(prior3) %in% index), colnames(prior) %in% index_extra]
-  part3 <- prior3[which(rownames(prior3) %in% index_extra), which(colnames(prior) %in% index_extra)]
+    part1 <- prior3[which(rownames(prior3) %in% index_extra), which(colnames(prior) %in% index)]
+    part2 <- prior3[which(rownames(prior3) %in% index), colnames(prior) %in% index_extra]
+    part3 <- prior3[which(rownames(prior3) %in% index_extra), which(colnames(prior) %in% index_extra)]
 
-  network_total <- cbind(rbind(network, part1), rbind(part2, part3))
-  index3 <- match(colnames(prior), colnames(network_total))
-  network_total <- network_total[index3, index3]
+    network_total <- cbind(rbind(network, part1), rbind(part2, part3))
+    index3 <- match(colnames(prior), colnames(network_total))
+    network_total <- network_total[index3, index3]
+  }
+
+  if (length(prior) == length(prior1)) {
+    network_total <- t_net_d
+  }
 
   edgelist_total <- zeptosensPkg::create_sif_from_matrix(t_net = network_total, genelist = colnames(network_total))
 
