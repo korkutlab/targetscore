@@ -5,7 +5,7 @@
 #' @param rho positive tuning parameter for elastic net penalty. Default at seq(0.01,1,length=100).
 #'
 #' @return Parameter of regulization BIC error calculated.
-#' \item{rho}{penalty parameter.}
+#' \item{rho}{penalty parameter optimized.}
 #' \item{bic}{BIC error calculated for penalty parameters.}
 #'
 #' @importFrom glasso glasso

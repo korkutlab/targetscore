@@ -14,7 +14,7 @@ With colnames as gene tags and rownames as sample tags.}
 }
 \value{
 Parameter of regulization BIC error calculated.
-\item{rho}{penalty parameter.}
+\item{rho}{penalty parameter optimized.}
 \item{bic}{BIC error calculated for penalty parameters.}
 }
 \description{
