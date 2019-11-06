@@ -4,8 +4,6 @@
 #   secret='/Y5XUfYMz02GGocWAcE/vQ+AsSrhpfEA8mBSk8Gl')
 # rsconnect::deployApp()
 
-# FIXME atnourg983g2p3h 'n' 't'nhnt23h1
-
 library(shiny)
 library(zeptosensPkg)
 
