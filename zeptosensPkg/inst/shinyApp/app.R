@@ -128,11 +128,10 @@ ui <- navbarPage(
 # SERVER ----
 server <- function(input, output, session) {
   results <- eventReactive(input$submit, {
-    cat("HELLO\n")
+    cat("DEBUG\n")
 
     validate(
-      need(input$drug_data_file, "Drug Response File REQUIRED"),
-      need(input$fs_file, "FS File REQUIRED")
+      need(input$drug_data_file, "ERROR: REQUIRED: Drug Response File")
     )
 
     # Drug Data
@@ -142,6 +141,9 @@ server <- function(input, output, session) {
     # Read drug dataset
     drug_dat <- read.csv(drug_data_file$datapath, header = TRUE)
 
+    # DEBUG
+    cat("D1: ", str(drug_dat), "\n")
+
     # Size of drug dat
     n_prot <- ncol(drug_dat)
     n_cond <- nrow(drug_dat)
@@ -149,30 +151,29 @@ server <- function(input, output, session) {
     # Antibody Map
     antibody_map_file <- input$antibody
     if (is.null(antibody_map_file)) {
-      anti_dat <- system.file("targetScoreData", "antibodyMapfile_08092019.txt", package = "zeptosensPkg")
+      antibody_map_file <- system.file("targetScoreData", "antibodyMapfile_08092019.txt", package = "zeptosensPkg")
+    } else {
+      antibody_map_file <- antibody_map_file$datapath
     }
-    if (!is.null(antibody_map_file)) {
-      anti_dat <- read.csv(antibody_map_file$datapath, header = TRUE, stringsAsFactors = FALSE)
-    }
+    anti_dat <- read.csv(antibody_map_file, header = TRUE, stringsAsFactors = FALSE)
 
     # FS File
     fs_file <- input$fs_file
-    if (is.null(fs_file)) {
-      fs_file <- NULL
-    }
-    fs_dat <- read.csv(fs_file$datapath, header = TRUE, stringsAsFactors = FALSE)
+    if (!is.null(fs_file)) {
+      fs_file <- system.file("targetScoreData", "fs.csv", package = "zeptosensPkg")
+      fs_dat <- read.csv(fs_file, header = TRUE, stringsAsFactors = FALSE)
 
-    if (is.null(fs_dat)) {
       fs_value <- zeptosensPkg::get_fs_vals(
         n_prot = n_prot,
-        proteomic_responses = drug_data
-      )
-    }
-    if (!is.null(fs_dat)) {
-      fs_value <- zeptosensPkg::get_fs_vals(
-        n_prot = n_prot,
-        proteomic_responses = drug_data,
+        proteomic_responses = drug_dat,
+        mab_to_genes = anti_dat,
         fs_dat = fs_dat
+      )
+    } else {
+      fs_value <- zeptosensPkg::get_fs_vals(
+        n_prot = n_prot,
+        proteomic_responses = drug_dat,
+        mab_to_genes = anti_dat
       )
     }
 
@@ -193,8 +194,8 @@ server <- function(input, output, session) {
       # reference network
       network <- zeptosensPkg::predict_bio_network(
         n_prot = n_prot,
-        proteomic_responses = drug_data,
-        mab_to_genes = anti_data,
+        proteomic_responses = drug_dat,
+        mab_to_genes = anti_dat,
         max_dist = max_dist
       )
       wk <- network$wk
@@ -216,7 +217,7 @@ server <- function(input, output, session) {
         network <- zeptosensPkg::predict_dat_network(
           data = sig_dat,
           n_prot = n_prot,
-          proteomic_responses = drug_data,
+          proteomic_responses = drug_dat,
           max_dist = max_dist
         )
         wk <- network$wk
@@ -229,16 +230,16 @@ server <- function(input, output, session) {
         # prior
         wk <- zeptosensPkg::predict_bio_network(
           n_prot = n_prot,
-          proteomic_responses = drug_data,
+          proteomic_responses = drug_dat,
           max_dist = max_dist,
-          mab_to_genes = anti_data
+          mab_to_genes = anti_dat
         )$wk
         # Hyb
         network <- zeptosensPkg::predict_hybrid_network(
           data = sig_dat,
           prior = wk,
           n_prot = n_prot,
-          proteomic_responses = drug_data
+          proteomic_responses = drug_dat
         )
 
         wk <- network$wk
@@ -250,20 +251,20 @@ server <- function(input, output, session) {
 
     # Calculate Targetscore
     if (ts_type == "line_by_line") {
-      drug_data[is.na(drug_data)] <- 0 # FIXME
+      drug_dat[is.na(drug_dat)] <- 0 # FIXME
 
       # Calc Std (Normalization request)
       # FIXME REMOVE?
-      # stdev <- zeptosensPkg::samp_sdev(nSample=nrow(drug_data),n_prot=ncol(drug_data),n_dose=1,nX=drug_data)
+      # stdev <- zeptosensPkg::samp_sdev(nSample=nrow(drug_dat),n_prot=ncol(drug_dat),n_dose=1,nX=drug_dat)
       # #normalization
-      # proteomic_responses<- drug_data
+      # proteomic_responses<- drug_dat
       # for(i in 1:n_prot) {
       #   for (j in 1:nrow(proteomic_responses)) {
-      #     proteomic_responses[j,i] <- (drug_data[j,i]/stdev[i])
+      #     proteomic_responses[j,i] <- (drug_dat[j,i]/stdev[i])
       #   }
       # }
       #
-      proteomic_responses <- drug_data
+      proteomic_responses <- drug_dat
       # Bootstrap in Getting Targetscore
       ts <- array(0, dim = c(n_cond, n_prot))
       ts_p <- array(0, dim = c(n_cond, n_prot))
@@ -287,30 +288,30 @@ server <- function(input, output, session) {
         ts_p[i, ] <- results$pts
         ts_q[i, ] <- results$q
       }
-      colnames(ts) <- colnames(drug_data)
-      rownames(ts) <- rownames(drug_data)
+      colnames(ts) <- colnames(drug_dat)
+      rownames(ts) <- rownames(drug_dat)
 
-      colnames(ts_p) <- colnames(drug_data)
-      rownames(ts_p) <- rownames(drug_data)
+      colnames(ts_p) <- colnames(drug_dat)
+      rownames(ts_p) <- rownames(drug_dat)
 
-      colnames(ts_q) <- colnames(drug_data)
-      rownames(ts_q) <- rownames(drug_data)
+      colnames(ts_q) <- colnames(drug_dat)
+      rownames(ts_q) <- rownames(drug_dat)
     }
 
     if (ts_type == "pooled") {
       # Calc Std
       stdev <- zeptosensPkg::samp_sdev(
-        n_sample = nrow(drug_data),
-        n_prot = ncol(drug_data),
+        n_sample = nrow(drug_dat),
+        n_prot = ncol(drug_dat),
         n_dose = 1,
-        n_x = drug_data,
+        n_x = drug_dat,
         replace_missing = TRUE
       )
       # normalization
-      proteomic_responses <- drug_data
+      proteomic_responses <- drug_dat
       for (i in 1:n_prot) {
         for (j in 1:nrow(proteomic_responses)) {
-          proteomic_responses[j, i] <- (drug_data[j, i] / stdev[i])
+          proteomic_responses[j, i] <- (drug_dat[j, i] / stdev[i])
         }
       }
 
@@ -331,9 +332,9 @@ server <- function(input, output, session) {
       ts_p <- results$pts
       ts_q <- results$q
 
-      colnames(ts) <- colnames(drug_data)
-      colnames(ts_p) <- colnames(drug_data)
-      colnames(ts_q) <- colnames(drug_data)
+      colnames(ts) <- colnames(drug_dat)
+      colnames(ts_p) <- colnames(drug_dat)
+      colnames(ts_q) <- colnames(drug_dat)
     }
     ts_r <- list(ts = ts, ts_p = ts_p, ts_q = ts_q)
 
