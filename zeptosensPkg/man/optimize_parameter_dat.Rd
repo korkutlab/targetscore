@@ -4,15 +4,18 @@
 \alias{optimize_parameter_dat}
 \title{Choose the optimal regulization parameter for only data-driven network.}
 \usage{
-optimize_parameter_dat(data)
+optimize_parameter_dat(data, rho = seq(0.01, 1, length = 100))
 }
 \arguments{
 \item{data}{input proteomics dataset for network inference. Gene in coloumns and samples in row.
 With colnames as gene tags and rownames as sample tags.}
+
+\item{rho}{positive tuning parameter for elastic net penalty. Default at seq(0.01,1,length=100).}
 }
 \value{
-Parameter of regulization decided lowest BIC. Including regularize parameter
-(L1 norm parameter) as rho.
+Parameter of regulization BIC error calculated.
+\item{rho}{penalty parameter optimized.}
+\item{bic}{BIC error calculated for penalty parameters.}
 }
 \description{
 Choose the optimal regulization parameter for only data-driven network.
