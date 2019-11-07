@@ -6,7 +6,8 @@
 As Significant Proteins (p value< Defalut or Manually set value) will show in red.
 The inverse log 10 of Target Score q value and Target Score calculated were shown.}
 \usage{
-get_volcano_plot(ts, q_value, filename, path = NULL, sig_value = 0.4)
+get_volcano_plot(ts, q_value, filename, path = getwd(),
+  sig_value = 0.4, include_labels = TRUE, save_output = TRUE)
 }
 \arguments{
 \item{ts}{input Target Score calculated for each antibody data frame.
@@ -20,9 +21,13 @@ Gene in coloumns and samples in row. With colnames as gene tags and rownames as 
 \item{path}{Plot Store path. Default at working environment.}
 
 \item{sig_value}{Manually set significant cut-off value for log10(q_value). (Default at 0.4)}
+
+\item{include_labels}{a boolean whether to point labels}
+
+\item{save_output}{a boolean whether to save plots and point data to file}
 }
 \value{
-volcano Plots with indicated filename and path.
+volcano plots as ggplot object; plots and data maybe be saved as well
 }
 \description{
 Plot volcano plot of Target Score Result.

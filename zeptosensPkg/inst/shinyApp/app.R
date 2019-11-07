@@ -6,6 +6,9 @@
 
 library(shiny)
 library(zeptosensPkg)
+library(pheatmap)
+library(morpheus)
+library(plotly)
 
 # UI ----
 ui <- navbarPage(
@@ -83,7 +86,7 @@ ui <- navbarPage(
           ),
           tabPanel(
             "Functional Score Value",
-            dataTableOutput("fs_value")
+            dataTableOutput("fs_dat")
           ),
           tabPanel(
             "Input Data Heatmap",
@@ -98,13 +101,14 @@ ui <- navbarPage(
           tabPanel(
             "TargetScore Heatmap",
             # heatmap of the data
-            plotOutput("tsheat", height = 200, width = 1000)
+            # plotOutput("tsheat", height = 200, width = 1000)
+            morpheusOutput("tsheat_morpheus")
           ),
           tabPanel(
             "TargetScore Volcano Plot",
             # volcano plot line choice
             numericInput("line_number", "Line Number", value = 1, min = 1), # FIXME
-            plotOutput("volcano_plot")
+            plotlyOutput("volcano_plot")
           )
         )
       )
@@ -136,26 +140,30 @@ server <- function(input, output, session) {
 
     # Drug Data
     drug_data_file <- input$drug_data_file
-    cat("X: ", drug_data_file$datapath, "\n")
+    drug_data_file <- drug_data_file$datapath
+    # DEBUG
+    # drug_data_file <- system.file("test_data", "BT474.csv", package = "zeptosensPkg")
+    cat("X: ", drug_data_file, "\n")
 
-    # Read drug dataset
-    drug_dat <- read.csv(drug_data_file$datapath, header = TRUE)
+    # Read drug dataset, NOTE: must have row names
+    proteomic_responses <- read.csv(drug_data_file, row.names = 1, header = TRUE)
 
     # DEBUG
-    cat("D1: ", str(drug_dat), "\n")
+    cat("D1: ", str(proteomic_responses), "\n")
 
     # Size of drug dat
-    n_prot <- ncol(drug_dat)
-    n_cond <- nrow(drug_dat)
+    n_prot <- ncol(proteomic_responses)
+    n_cond <- nrow(proteomic_responses)
 
     # Antibody Map
     antibody_map_file <- input$antibody
     if (is.null(antibody_map_file)) {
       antibody_map_file <- system.file("targetScoreData", "antibodyMapfile_08092019.txt", package = "zeptosensPkg")
+      mab_to_genes <- read.table(antibody_map_file, sep = "\t", header = TRUE, stringsAsFactors = FALSE)
     } else {
       antibody_map_file <- antibody_map_file$datapath
+      mab_to_genes <- read.csv(antibody_map_file, header = TRUE, stringsAsFactors = FALSE)
     }
-    anti_dat <- read.csv(antibody_map_file, header = TRUE, stringsAsFactors = FALSE)
 
     # FS File
     fs_file <- input$fs_file
@@ -163,17 +171,17 @@ server <- function(input, output, session) {
       fs_file <- system.file("targetScoreData", "fs.csv", package = "zeptosensPkg")
       fs_dat <- read.csv(fs_file, header = TRUE, stringsAsFactors = FALSE)
 
-      fs_value <- zeptosensPkg::get_fs_vals(
+      fs_dat <- zeptosensPkg::get_fs_vals(
         n_prot = n_prot,
-        proteomic_responses = drug_dat,
-        mab_to_genes = anti_dat,
+        proteomic_responses = proteomic_responses,
+        mab_to_genes = mab_to_genes,
         fs_dat = fs_dat
       )
     } else {
-      fs_value <- zeptosensPkg::get_fs_vals(
+      fs_dat <- zeptosensPkg::get_fs_vals(
         n_prot = n_prot,
-        proteomic_responses = drug_dat,
-        mab_to_genes = anti_dat
+        proteomic_responses = proteomic_responses,
+        mab_to_genes = mab_to_genes
       )
     }
 
@@ -194,8 +202,8 @@ server <- function(input, output, session) {
       # reference network
       network <- zeptosensPkg::predict_bio_network(
         n_prot = n_prot,
-        proteomic_responses = drug_dat,
-        mab_to_genes = anti_dat,
+        proteomic_responses = proteomic_responses,
+        mab_to_genes = mab_to_genes,
         max_dist = max_dist
       )
       wk <- network$wk
@@ -217,7 +225,7 @@ server <- function(input, output, session) {
         network <- zeptosensPkg::predict_dat_network(
           data = sig_dat,
           n_prot = n_prot,
-          proteomic_responses = drug_dat,
+          proteomic_responses = proteomic_responses,
           max_dist = max_dist
         )
         wk <- network$wk
@@ -230,16 +238,16 @@ server <- function(input, output, session) {
         # prior
         wk <- zeptosensPkg::predict_bio_network(
           n_prot = n_prot,
-          proteomic_responses = drug_dat,
+          proteomic_responses = proteomic_responses,
           max_dist = max_dist,
-          mab_to_genes = anti_dat
+          mab_to_genes = mab_to_genes
         )$wk
         # Hyb
         network <- zeptosensPkg::predict_hybrid_network(
           data = sig_dat,
           prior = wk,
           n_prot = n_prot,
-          proteomic_responses = drug_dat
+          proteomic_responses = proteomic_responses
         )
 
         wk <- network$wk
@@ -251,20 +259,21 @@ server <- function(input, output, session) {
 
     # Calculate Targetscore
     if (ts_type == "line_by_line") {
-      drug_dat[is.na(drug_dat)] <- 0 # FIXME
+      proteomic_responses[is.na(proteomic_responses)] <- 0 # FIXME
 
       # Calc Std (Normalization request)
       # FIXME REMOVE?
-      # stdev <- zeptosensPkg::samp_sdev(nSample=nrow(drug_dat),n_prot=ncol(drug_dat),n_dose=1,nX=drug_dat)
+      # stdev <- zeptosensPkg::samp_sdev(nSample=nrow(proteomic_responses),
+      #   n_prot=ncol(proteomic_responses),n_dose=1,nX=proteomic_responses)
       # #normalization
-      # proteomic_responses<- drug_dat
+      # proteomic_responses<- proteomic_responses
       # for(i in 1:n_prot) {
       #   for (j in 1:nrow(proteomic_responses)) {
-      #     proteomic_responses[j,i] <- (drug_dat[j,i]/stdev[i])
+      #     proteomic_responses[j,i] <- (proteomic_responses[j,i]/stdev[i])
       #   }
       # }
       #
-      proteomic_responses <- drug_dat
+      proteomic_responses <- proteomic_responses
       # Bootstrap in Getting Targetscore
       ts <- array(0, dim = c(n_cond, n_prot))
       ts_p <- array(0, dim = c(n_cond, n_prot))
@@ -279,39 +288,38 @@ server <- function(input, output, session) {
           n_dose = 1,
           n_prot = n_prot,
           proteomic_responses = proteomic_responses[i, ],
-          max_dist = max_dist,
           n_perm = n_perm,
           verbose = FALSE,
-          fs_file = fs_value
+          fs_dat = fs_dat
         )
         ts[i, ] <- results$ts
         ts_p[i, ] <- results$pts
         ts_q[i, ] <- results$q
       }
-      colnames(ts) <- colnames(drug_dat)
-      rownames(ts) <- rownames(drug_dat)
+      colnames(ts) <- colnames(proteomic_responses)
+      rownames(ts) <- rownames(proteomic_responses)
 
-      colnames(ts_p) <- colnames(drug_dat)
-      rownames(ts_p) <- rownames(drug_dat)
+      colnames(ts_p) <- colnames(proteomic_responses)
+      rownames(ts_p) <- rownames(proteomic_responses)
 
-      colnames(ts_q) <- colnames(drug_dat)
-      rownames(ts_q) <- rownames(drug_dat)
+      colnames(ts_q) <- colnames(proteomic_responses)
+      rownames(ts_q) <- rownames(proteomic_responses)
     }
 
     if (ts_type == "pooled") {
       # Calc Std
       stdev <- zeptosensPkg::samp_sdev(
-        n_sample = nrow(drug_dat),
-        n_prot = ncol(drug_dat),
+        n_sample = nrow(proteomic_responses),
+        n_prot = ncol(proteomic_responses),
         n_dose = 1,
-        n_x = drug_dat,
+        n_x = proteomic_responses,
         replace_missing = TRUE
       )
       # normalization
-      proteomic_responses <- drug_dat
+      proteomic_responses <- proteomic_responses
       for (i in 1:n_prot) {
         for (j in 1:nrow(proteomic_responses)) {
-          proteomic_responses[j, i] <- (drug_dat[j, i] / stdev[i])
+          proteomic_responses[j, i] <- (proteomic_responses[j, i] / stdev[i])
         }
       }
 
@@ -323,27 +331,29 @@ server <- function(input, output, session) {
         n_dose = 1,
         n_prot = n_prot,
         proteomic_responses = proteomic_responses,
-        max_dist = max_dist,
         n_perm = n_perm,
         verbose = FALSE,
-        fs_file = fs_value
+        fs_dat = fs_dat
       )
       ts <- results$ts
       ts_p <- results$pts
       ts_q <- results$q
 
-      colnames(ts) <- colnames(drug_dat)
-      colnames(ts_p) <- colnames(drug_dat)
-      colnames(ts_q) <- colnames(drug_dat)
+      colnames(ts) <- colnames(proteomic_responses)
+      colnames(ts_p) <- colnames(proteomic_responses)
+      colnames(ts_q) <- colnames(proteomic_responses)
     }
     ts_r <- list(ts = ts, ts_p = ts_p, ts_q = ts_q)
 
+    # DEBUG
+    cat("D2: ", str(ts_r), "\n")
+
     results <- list(
       ts_r = ts_r,
-      drug_dat = drug_dat,
+      proteomic_responses = proteomic_responses,
       fs_dat = fs_dat,
-      anti_dat = anti_dat,
-      fs_value = fs_value,
+      mab_to_genes = mab_to_genes,
+      fs_dat = fs_dat,
       network = network
     )
   })
@@ -353,9 +363,9 @@ server <- function(input, output, session) {
   ## Output heatmap
   output$heatmap <- renderPlot({
     results <- results()
-    drug_dat <- results$drug_dat
+    proteomic_responses <- results$proteomic_responses
 
-    drug_dat_mat <- as.matrix(drug_dat)
+    drug_dat_mat <- as.matrix(proteomic_responses)
 
     max_dat <- max(drug_dat_mat)
     min_dat <- min(drug_dat_mat)
@@ -373,14 +383,14 @@ server <- function(input, output, session) {
   })
 
   # DATA TABLE MODULE ----
-  output$fs_value <- renderDataTable({
+  output$fs_dat <- renderDataTable({
     results <- results()
-    return(results$fs_value)
+    return(results$fs_dat)
   })
 
   output$anti_map <- renderDataTable({
     results <- results()
-    return(results$anti_dat)
+    return(results$mab_to_genes)
   })
 
   output$edgelist <- renderDataTable({
@@ -396,7 +406,7 @@ server <- function(input, output, session) {
   #### TEST MODULE ----
   output$test <- renderDataTable({
     results <- results()
-    return(results$fs_value)
+    return("CALCULATION DONE")
   })
 
   #### NETWORK VISUALIZATION MODULE ----
@@ -422,8 +432,24 @@ server <- function(input, output, session) {
     )
   })
 
+  output$tsheat_morpheus <- renderMorpheus({
+    results <- results()
+    ts_r <- results$ts_r
+    ts <- ts_r$ts
+    ts_mat <- as.matrix(ts)
+
+    max_dat <- max(ts_mat)
+    min_dat <- min(ts_mat)
+    bk <- c(seq(min_dat, -0.01, by = 0.01), seq(0, max_dat, by = 0.01))
+
+    x <- matrix(rnorm(200), 20)
+    y <- data.frame(a = letters[1:10], b = rep(c("g", "h"), 5), stringsAsFactors = FALSE)
+    morpheus::morpheus(x, columnAnnotations = y)
+  })
+
   #### TS VOLCANO PLOT MODULE ----
-  output$volcano_plot <- renderPlot({
+  # output$volcano_plot <- renderPlot({
+  output$volcano_plot <- renderPlotly({
     # Line number
     line_number <- input$line_number
 
@@ -438,7 +464,23 @@ server <- function(input, output, session) {
       stop("ERROR: Number of rows in TS and adjusted p-value do not match.")
     }
 
-    get_volcano_plot(ts = ts, q_value = ts_q, filename = rownames(ts_r)[line_number], path = "")
+    p1 <- get_volcano_plot(
+      ts = ts, q_value = ts_q, filename = rownames(ts_r)[line_number], path = "",
+      include_labels = FALSE, save_output = FALSE
+    )
+    # g1 <- ggplotly(p1, width=plotWidth, height=plotHeight, tooltip=tooltipCol) # need tooltip
+    g1 <- plotly::ggplotly(p1)
+    # g1 <- layout(g1, margin=list(t = 75))
+    g2 <- plotly::config(
+      p = g1, cloud = FALSE, displaylogo = FALSE,
+      modeBarButtonsToRemove = c(
+        "select2d", "sendDataToCloud", "pan2d", "resetScale2d",
+        "hoverClosestCartesian", "hoverCompareCartesian",
+        "lasso2d", "zoomIn2d", "zoomOut2d"
+      )
+    )
+    # p1
+    g2
   })
 }
 
