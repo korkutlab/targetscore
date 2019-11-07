@@ -70,7 +70,6 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
     antibody_vec = colnames(proteomic_responses), use_annot = TRUE, verbose = TRUE
   )
 
-
   # # Get interactions for measured genes
   # dist_gene1 <- pmatch(dist[, 1], mab_to_genes[measured_genes, 4], duplicates.ok = TRUE)
   # dist_gene1Name <- mab_to_genes[measured_genes, 4][dist_gene1]
@@ -234,7 +233,7 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
     print(inter)
   }
 
-  networks <- list(wk = wk, wks = wks, dist_ind = dist_ind, inter = inter)
+  network <- list(wk = wk, wks = wks, dist_ind = dist_ind, inter = inter)
 
-  return(networks)
+  return(network)
 }

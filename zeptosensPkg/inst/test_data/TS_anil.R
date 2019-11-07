@@ -13,8 +13,6 @@ library(pheatmap)
 rm(list = ls(all.names = TRUE))
 set.seed(1)
 
-# FIXME fs.csv or fs.txt (CSV)
-
 # SET PARAMETERS ----
 # data_dir <- "../data(ts)/ts_anil"
 # protein_list_dir <- "../data(ts)/Protein_Name_List"
@@ -38,7 +36,7 @@ mab_to_genes <- read.table(file.path(resource_dir, "antibodyMapFile.txt"),
 proteomic_responses <- read.csv(file.path(data_dir, "BT474.csv"), row.names = 1) # n_prot=304
 
 # Read in functional scores
-fs <- read.csv(file.path(resource_dir, "fs.csv"), header = TRUE, stringsAsFactors = FALSE)
+fs_dat <- read.csv(file.path(data_dir, "fs.csv"), header = TRUE, stringsAsFactors = FALSE)
 
 # Extract network
 network <- zeptosensPkg::predict_bio_network(
@@ -89,10 +87,9 @@ for (i in 1:n_cond) {
     n_dose = 1,
     n_prot = n_prot,
     proteomic_responses = proteomic_responses[i, ],
-    max_dist = max_dist,
     n_perm = n_perm,
     verbose = verbose,
-    fs_file = file.path(resource_dir, "fs.txt")
+    fs_dat = fs_dat
   )
 
   ts[i, ] <- results$ts
@@ -108,10 +105,9 @@ ts_cond1 <- zeptosensPkg::get_target_score(
   n_dose = 1,
   n_prot = n_prot,
   proteomic_responses = proteomic_responses[1, ],
-  max_dist = max_dist,
   n_perm = n_perm,
   verbose = verbose,
-  fs_file = file.path(resource_dir, "fs.txt")
+  fs_dat = fs_dat
 )
 
 ## Set column and rownames to results

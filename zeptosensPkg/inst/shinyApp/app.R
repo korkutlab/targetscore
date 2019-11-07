@@ -13,6 +13,12 @@ library(plotly)
 # UI ----
 ui <- navbarPage(
   "Target Score",
+  header = list(
+    # Add/run startup Javascript
+    tags$head(tags$script(onload_js)),
+    # Use JQuery (built into Shiny) calls to show/hide modal based on message
+    tags$head(includeScript("www/js/showLoading.js"))
+  ),
   tabPanel(
     "Overview",
     mainPanel(
@@ -126,7 +132,8 @@ ui <- navbarPage(
     mainPanel(
       includeMarkdown("www/ts_about.md")
     )
-  )
+  ),
+  loading_modal("Calculating TargetScore...")
 )
 
 # SERVER ----
@@ -356,6 +363,22 @@ server <- function(input, output, session) {
       fs_dat = fs_dat,
       network = network
     )
+  })
+
+  # OBSERVERS ----
+  # Start showing loading marker
+  observeEvent(input$submit, {
+    cat("SUBMITTED\n")
+    session$sendCustomMessage(type = "showLoading", list(show = TRUE))
+  })
+
+  # Observe reactive variable and send message to Javascript code
+  observe({
+    results <- results()
+    if (length(results) > 0) {
+      cat("FINISHED\n")
+      session$sendCustomMessage(type = "showLoading", list(show = FALSE))
+    }
   })
 
   # OUTPUT ----
