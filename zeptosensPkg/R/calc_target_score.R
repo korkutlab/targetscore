@@ -28,8 +28,8 @@
 #'
 #' @concept zeptosensPkg
 #' @export
-calc_target_score <- function(wk, wks, dist_ind, inter, n_dose, n_prot, proteomic_responses,
-                              verbose = TRUE, ts_factor = 1, fs_dat, dist_file = NULL) {
+calc_target_score <- function(wk, wks, dist_ind, inter, n_dose, n_prot, proteomic_responses, fs_dat,
+                              verbose = TRUE, ts_factor = 1, dist_file = NULL) {
   if (verbose) {
     print(fs_dat)
   }
