@@ -30,7 +30,7 @@ a list is returned with the following entries:
 and the algorithmn lowest BIC. Including regularize parameter(L1 norm parameter) as "rho", scale parameter
 (decided how much prior information contribute) as "kappa", and regulization matrix for the expression
 data as "rho_m".
-* "bic"as the Model's BIC matrix for differnet regularization parameters.
+* "bic"as the Model's BIC error through regularization parameters.
 * "wk" inferred network matrix form with edge strength value estimated as the partial correlation.
 * "wks" inferred network matrix form with edge strength value estimated as the partial correlation.
  Same as wk in predict_hyb_network.
