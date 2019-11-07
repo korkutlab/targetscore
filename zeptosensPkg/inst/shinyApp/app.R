@@ -328,7 +328,7 @@ server <- function(input, output, session) {
         wks = wks,
         dist_ind = dist_ind,
         inter = inter,
-        n_dose = 1,
+        n_dose = nrow(proteomic_responses),
         n_prot = n_prot,
         proteomic_responses = proteomic_responses,
         n_perm = n_perm,
@@ -339,9 +339,9 @@ server <- function(input, output, session) {
       ts_p <- results$pts
       ts_q <- results$q
 
-      colnames(ts) <- colnames(proteomic_responses)
-      colnames(ts_p) <- colnames(proteomic_responses)
-      colnames(ts_q) <- colnames(proteomic_responses)
+      names(ts) <- colnames(proteomic_responses)
+      names(ts_p) <- colnames(proteomic_responses)
+      names(ts_q) <- colnames(proteomic_responses)
     }
     ts_r <- list(ts = ts, ts_p = ts_p, ts_q = ts_q)
 
@@ -452,11 +452,17 @@ server <- function(input, output, session) {
   output$volcano_plot <- renderPlotly({
     # Line number
     line_number <- input$line_number
-
+    calc_type <- input$ts_calc_type
     results <- results()
     ts_r <- results$ts_r
-    ts <- ts_r$ts[line_number, ]
-    ts_q <- ts_r$ts_q[line_number, ]
+    if (calc_type == "line_by_line") {
+      ts <- ts_r$ts[line_number, ]
+      ts_q <- ts_r$ts_q[line_number, ]
+    }
+    if (calc_type == "pooled") {
+      ts <- ts_r$ts
+      ts_q <- ts_r$ts_q
+    }
     ts <- as.matrix(ts)
     p_adj <- as.matrix(ts_q)
 
