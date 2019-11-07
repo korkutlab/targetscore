@@ -34,7 +34,7 @@ predict_dat_network <- function(data, cut_off = 0.1, n_prot, proteomic_responses
   niter <- glasso_result$niter
   print(niter) # if niter = 10,000
   if (niter == 10000) {
-    stop("ERROR: Algorithmn does not convergence!")
+    stop("ERROR: Algorithm does not convergence!")
   }
   pcor_matrix <- matrix(0, nrow = ncol(data), ncol = ncol(data))
   for (i in 1:ncol(data)) {
