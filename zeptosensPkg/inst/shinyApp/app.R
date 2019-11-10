@@ -168,14 +168,14 @@ server <- function(input, output, session) {
     # FS File
     fs_file <- input$fs_file
     if (!is.null(fs_file)) {
-      fs_file <- system.file("targetScoreData", "fs.csv", package = "zeptosensPkg")
-      fs_dat <- read.csv(fs_file, header = TRUE, stringsAsFactors = FALSE)
+      # fs_file <- system.file("targetScoreData", "fs.csv", package = "zeptosensPkg")
+      fs_data <- read.csv(fs_file$datapath, header = TRUE, stringsAsFactors = FALSE)
 
       fs_dat <- zeptosensPkg::get_fs_vals(
         n_prot = n_prot,
         proteomic_responses = proteomic_responses,
         mab_to_genes = mab_to_genes,
-        fs_dat = fs_dat
+        fs_override = fs_data
       )
     } else {
       fs_dat <- zeptosensPkg::get_fs_vals(
