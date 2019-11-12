@@ -6,7 +6,7 @@
 \usage{
 cv_glasso(data = NULL, s_matrix = NULL, prior, rho = seq(0.01, 1,
   length = 100), kappa = seq(0.01, 1, length = 100), diagonal = FALSE,
-  tol = 1e-04, maxit = 10000, adjmaxit = NULL, k_fold = 2,
+  tol = 1e-04, maxit = 10000, adjmaxit = NULL, k_fold = 5,
   crit_cv = c("loglik", "AIC", "BIC"), start = c("warm", "cold"),
   algorithm = c("data_driven", "hybrid_driven"))
 }
@@ -28,7 +28,7 @@ allows the user to adjust the maximum number of iterations after the first \code
  parameter has converged. This option is intended to be paired with \code{warm} starts and
  allows for 'one-step' estimators. Defaults to NULL.}
 
-\item{k_fold}{specify the number of folds for cross validation.}
+\item{k_fold}{specify the number of folds for cross validation.(Default at 5)}
 
 \item{crit_cv}{cross validation criterion (\code{loglik}, \code{AIC}, or \code{BIC}). Defaults to \code{loglik}.}
 

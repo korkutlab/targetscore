@@ -23,13 +23,13 @@ inference dataset and proteomic_responses dataset.}
 
 \item{max_dist}{maximum distance between two antibody. (Default at 1)}
 
-\item{boot_time}{Bootstrap time mannually set.Default at 1000.}
+\item{boot_time}{Bootstrap time mannually set.Default at 100.}
 
 \item{cut_off}{Manually set up cut off value for strength of edge. (Default at 0)}
 
-\item{fold}{The fold for training and test dataset. Default at 5.}
-
 \item{mab_to_genes}{A list of antibodies, their associated genes, modification sites and effect.}
+
+\item{percentage}{The percentage of data for training dataset from dataset source. Default at 50.}
 }
 \value{
 result of validation score. for random network and the network predicted with the algorithm.
