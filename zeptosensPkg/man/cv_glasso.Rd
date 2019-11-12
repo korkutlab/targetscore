@@ -34,7 +34,8 @@ allows the user to adjust the maximum number of iterations after the first \code
 
 \item{start}{specify \code{warm} or \code{cold} start for cross validation. Default is \code{warm}.}
 
-\item{algorithm}{}
+\item{algorithm}{Flexible toolbox implementing network estimating algorithms for robustness test.
+(\code{data_driven},or \code{hybrid_driven}).}
 
 \item{S}{option to provide a pxp sample covariance matrix (denominator n). If argument is
 \code{NULL} and \code{data} is provided instead then \code{S} will be computed automatically.}

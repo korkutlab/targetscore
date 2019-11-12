@@ -18,14 +18,16 @@
 #'
 #' @concept zeptosensPkg
 #' @export
-optimize_parameter_hybrid <- function(data, prior,
+optimize_parameter_hybrid <- function(data, prior = NULL,
                                       rho = seq(0.01, 1, length = 100),
                                       kappa = seq(0.01, 1, length = 100)) {
+
+  # Match the data with prior
   index <- colnames(prior[, which(colnames(prior) %in% colnames(data))]) # match the data
   data <- data[, index]
   prior1 <- prior[index, index]
 
-  # prior information extration
+  # Symetric prior information extration
   prior1 <- ifelse(prior1 != 0, 1, 0) # information matrix of prior
   prior2 <- prior1 # symmetrical prior information
   for (i in 1:nrow(prior1)) {

@@ -18,7 +18,8 @@
 #' @param k_fold specify the number of folds for cross validation.(Default at 5)
 #' @param crit_cv cross validation criterion (\code{loglik}, \code{AIC}, or \code{BIC}). Defaults to \code{loglik}.
 #' @param start specify \code{warm} or \code{cold} start for cross validation. Default is \code{warm}.
-#' @param algorithm
+#' @param algorithm Flexible toolbox implementing network estimating algorithms for robustness test.
+#' (\code{data_driven},or \code{hybrid_driven}).
 #'
 #' @return returns list of returns which includes:
 #' \item{lam}{optimized penalty parameter through traing data.}
@@ -32,7 +33,7 @@
 
 cv_glasso <- function(data = NULL,
                       s_matrix = NULL,
-                      prior,
+                      prior = NULL,
                       rho = seq(0.01, 1, length = 100),
                       kappa = seq(0.01, 1, length = 100),
                       diagonal = FALSE,
