@@ -5,7 +5,7 @@
 \title{Run robustness test for data through the chosen algorithm.}
 \usage{
 run_robustness_test(data, prior = NULL, proteomic_responses, n_prot,
-  max_dist = 1, boot_time = 1000, cut_off = 0.1, fold = 5,
+  max_dist = 1, boot_time = 1000, cut_off = 0, fold = 5,
   mab_to_genes)
 }
 \arguments{
@@ -25,7 +25,7 @@ inference dataset and proteomic_responses dataset.}
 
 \item{boot_time}{Bootstrap time mannually set.Default at 1000.}
 
-\item{cut_off}{Manually set up cut off value for strength of edge. (Default at 0.1)}
+\item{cut_off}{Manually set up cut off value for strength of edge. (Default at 0)}
 
 \item{fold}{The fold for training and test dataset. Default at 5.}
 

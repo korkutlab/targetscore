@@ -10,16 +10,16 @@
 #' inference dataset and proteomic_responses dataset.
 #' @param max_dist maximum distance between two antibody. (Default at 1)
 #' @param mab_to_genes A list of antibodies, their associated genes, modification sites and effect.
-#' @param boot_time Bootstrap time mannually set.Default at 1000.
-#' @param fold The fold for training and test dataset. Default at 5.
-#' @param cut_off Manually set up cut off value for strength of edge. (Default at 0.1)
+#' @param boot_time Bootstrap time mannually set.Default at 100.
+#' @param percentage The percentage of data for training dataset from dataset source. Default at 50.
+#' @param cut_off Manually set up cut off value for strength of edge. (Default at 0)
 #'
 #' @return result of validation score. for random network and the network predicted with the algorithm.
 #'
 #' @concept zeptosensPkg
 #' @export
 run_robustness_test <- function(data, prior = NULL, proteomic_responses, n_prot, max_dist = 1,
-                                boot_time = 1000, cut_off = 0.1, fold = 5, mab_to_genes) {
+                                boot_time = 1000, cut_off = 0, fold = 5, mab_to_genes) {
   # Match the data
   index <- colnames(proteomic_responses[, which(colnames(proteomic_responses) %in% colnames(data))])
   data <- data[, index]
@@ -41,9 +41,9 @@ run_robustness_test <- function(data, prior = NULL, proteomic_responses, n_prot,
   for (r in 1:boot_time) {
 
     # Randomization of Data
-    random_data <- apply(data, 1, function(x) {
+    random_data <- as.data.frame(t(apply(data, 1, function(x) {
       sample(x, replace = FALSE)
-    })
+    })))
     colnames(random_data) <- colnames(data)
 
     # Split the data and random data into training and valid
@@ -60,48 +60,58 @@ run_robustness_test <- function(data, prior = NULL, proteomic_responses, n_prot,
 
     # Data-driven Network
     # Training-data network
-    train_network_dat <- predict_dat_network(
-      data = train_data, cut_off = 0.1, n_prot = n_prot,
+    train_network_dat <- zeptosensPkg::predict_dat_network(
+      data = train_data, cut_off = cut_off, n_prot = n_prot,
       proteomic_responses = proteomic_responses
     )$wk
-    train_network_datr <- predict_dat_network(
-      data = train_datar, cut_off = 0.1, n_prot = n_prot,
+    train_network_datr <- zeptosensPkg::predict_dat_network(
+      data = train_datar, cut_off = cut_off, n_prot = n_prot,
       proteomic_responses = proteomic_responses
     )$wk
     # Valid-data network
-    valid_network_dat <- predict_dat_network(
-      data = valid_data, cut_off = 0.1, n_prot = n_prot,
+    valid_network_dat <- zeptosensPkg::predict_dat_network(
+      data = valid_data, cut_off = cut_off, n_prot = n_prot,
       proteomic_responses = proteomic_responses
     )$wk
-    valid_network_datr <- predict_dat_network(
-      data = valid_datar, cut_off = 0.1, n_prot = n_prot,
+    valid_network_datr <- zeptosensPkg::predict_dat_network(
+      data = valid_datar, cut_off = cut_off, n_prot = n_prot,
       proteomic_responses = proteomic_responses
     )$wk
     # Hybrid-driven network
     # Training-data network
-    train_network_hyb <- predict_hybrid_network(
-      data = train_data, cut_off = 0.1, n_prot = n_prot,
+    train_network_hyb <- zeptosensPkg::predict_hybrid_network(
+      data = train_data, cut_off = cut_off, n_prot = n_prot,
       proteomic_responses = proteomic_responses, mab_to_genes = mab_to_genes
     )$wk
-    train_network_hybr <- predict_hybrid_network(
-      data = train_datar, cut_off = 0.1, n_prot = n_prot,
+    train_network_hybr <- zeptosensPkg::predict_hybrid_network(
+      data = train_datar, cut_off = cut_off, n_prot = n_prot,
       proteomic_responses = proteomic_responses, mab_to_genes = mab_to_genes
     )$wk
     # Valid-data network
-    valid_network_hyb <- predict_hybrid_network(
-      data = valid_data, cut_off = 0.1, n_prot = n_prot,
+    valid_network_hyb <- zeptosensPkg::predict_hybrid_network(
+      data = valid_data, cut_off = cut_off, n_prot = n_prot,
       proteomic_responses = proteomic_responses, mab_to_genes = mab_to_genes
     )$wk
-    valid_network_hybr <- predict_hybrid_network(
-      data = valid_datar, cut_off = 0.1, n_prot = n_prot,
+    valid_network_hybr <- zeptosensPkg::predict_hybrid_network(
+      data = valid_datar, cut_off = cut_off, n_prot = n_prot,
       proteomic_responses = proteomic_responses, mab_to_genes = mab_to_genes
     )$wk
 
+    # Transform edge into(1/0/-1)
+    train_network_dat <- ifelse(train_network_dat > cut_off, 1, ifelse(train_network_dat < (-cut_off), -1, 0))
+    train_network_datr <- ifelse(train_network_datr > cut_off, 1, ifelse(train_network_datr < (-cut_off), -1, 0))
+    valid_network_dat <- ifelse(valid_network_dat > cut_off, 1, ifelse(valid_network_dat < (-cut_off), -1, 0))
+    valid_network_datr <- ifelse(valid_network_datr > cut_off, 1, ifelse(valid_network_datr < (-cut_off), -1, 0))
+    train_network_hyb <- ifelse(train_network_hyb > cut_off, 1, ifelse(train_network_hyb < (-cut_off), -1, 0))
+    train_network_hybr <- ifelse(train_network_hybr > cut_off, 1, ifelse(train_network_hybr < (-cut_off), -1, 0))
+    valid_network_hyb <- ifelse(valid_network_hyb > cut_off, 1, ifelse(valid_network_hyb < (-cut_off), -1, 0))
+    valid_network_hybr <- ifelse(valid_network_hybr > cut_off, 1, ifelse(valid_network_hybr < (-cut_off), -1, 0))
+
     # Number of edges count
-    n_edges_dat <- sum(train_network_dat != 0)
-    n_edges_datr <- sum(train_network_datr != 0)
-    n_edges_hyb <- sum(train_network_hyb != 0)
-    n_edges_hybr <- sum(train_network_hybr != 0)
+    n_edges_dat[r] <- sum(train_network_dat != 0)
+    n_edges_datr[r] <- sum(train_network_datr != 0)
+    n_edges_hyb[r] <- sum(train_network_hyb != 0)
+    n_edges_hybr[r] <- sum(train_network_hybr != 0)
 
     # Set score start value
     score_dat <- 0
@@ -116,10 +126,10 @@ run_robustness_test <- function(data, prior = NULL, proteomic_responses, n_prot,
           score_dat <- score_dat + 1
         }
         if (train_network_hyb[t, p] == valid_network_hyb[t, p] & train_network_hyb[t, p] != 0) {
-          score_datr <- score_datr + 1
+          score_hyb <- score_hyb + 1
         }
         if (train_network_datr[t, p] == valid_network_datr[t, p] & train_network_datr[t, p] != 0) {
-          score_hyb <- score_hyb + 1
+          score_datr <- score_datr + 1
         }
         if (train_network_hybr[t, p] == valid_network_hybr[t, p] & train_network_hybr[t, p] != 0) {
           score_hybr <- score_hybr + 1
@@ -154,10 +164,10 @@ run_robustness_test <- function(data, prior = NULL, proteomic_responses, n_prot,
   hyb_net_scorer <- score_hybr / n_edges_hybr
 
   result <- list(
-    score_dat_mean = score_dat_mean, data_net_score = data_net_score,
-    score_datr_mean = score_datr_mean, data_net_scorer = data_net_scorer,
-    score_hyb_mean = score_hyb_mean, hyb_net_score = hyb_net_score,
-    score_hybr_mean = score_hybr_mean, hyb_net_scorer = hyb_net_scorer
+    score_dat_mean = score_dat_mean, data_net_score = data_net_score, n_edges_dat = n_edges_dat,
+    score_datr_mean = score_datr_mean, data_net_scorer = data_net_scorer, n_edges_datr = n_edges_datr,
+    score_hyb_mean = score_hyb_mean, hyb_net_score = hyb_net_score, n_edges_hyb = n_edges_hyb,
+    score_hybr_mean = score_hybr_mean, hyb_net_scorer = hyb_net_scorer, n_edges_hybr = n_edges_hybr
   )
 
   return(result)
