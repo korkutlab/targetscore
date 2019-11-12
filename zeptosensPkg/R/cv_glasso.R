@@ -15,7 +15,7 @@
 #' allows the user to adjust the maximum number of iterations after the first \code{lam} tuning
 #'  parameter has converged. This option is intended to be paired with \code{warm} starts and
 #'  allows for 'one-step' estimators. Defaults to NULL.
-#' @param k_fold specify the number of folds for cross validation.
+#' @param k_fold specify the number of folds for cross validation.(Default at 5)
 #' @param crit_cv cross validation criterion (\code{loglik}, \code{AIC}, or \code{BIC}). Defaults to \code{loglik}.
 #' @param start specify \code{warm} or \code{cold} start for cross validation. Default is \code{warm}.
 #' @param algorithm
@@ -39,7 +39,7 @@ cv_glasso <- function(data = NULL,
                       tol = 1e-04,
                       maxit = 10000,
                       adjmaxit = NULL,
-                      k_fold = 2,
+                      k_fold = 5,
                       crit_cv = c("loglik", "AIC", "BIC"),
                       start = c("warm", "cold"),
                       algorithm = c("data_driven", "hybrid_driven")) {
