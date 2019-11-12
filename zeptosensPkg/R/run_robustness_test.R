@@ -11,163 +11,196 @@
 #' @param max_dist maximum distance between two antibody. (Default at 1)
 #' @param mab_to_genes A list of antibodies, their associated genes, modification sites and effect.
 #' @param boot_time Bootstrap time mannually set.Default at 100.
-#' @param percentage The percentage of data for training dataset from dataset source. Default at 50.
-#' @param cut_off Manually set up cut off value for strength of edge. (Default at 0)
+#' @param cut_off Manually set up cut off value for strength of edge. (Default at 0.1)
+#' @param algorithm Flexible toolbox implementing network estimating algorithms for robustness test.
+#' (\code{data_driven},or \code{hybrid_driven}).
 #'
 #' @return result of validation score. for random network and the network predicted with the algorithm.
 #'
 #' @concept zeptosensPkg
 #' @export
-run_robustness_test <- function(data, prior = NULL, proteomic_responses, n_prot, max_dist = 1,
-                                boot_time = 1000, cut_off = 0, fold = 5, mab_to_genes) {
+run_robustness_test <- function(data, prior = NULL, proteomic_responses,
+                                n_prot, max_dist = 1, boot_time = 100,
+                                cut_off = 0.1, mab_to_genes,
+                                algorithm = c("data_driven", "hybrid_driven")) {
+  # Match values
+  algorithm <- match.arg(algorithm)
+
   # Match the data
   index <- colnames(proteomic_responses[, which(colnames(proteomic_responses) %in% colnames(data))])
   data <- data[, index]
   data[is.na(data)] <- 0
   proteomic_responses <- proteomic_responses[, index]
+  prior <- prior[index, index]
 
-  # Bootstrap result set up
-  score_dat_tp <- array(0, dim = c(boot_time, 1))
-  score_datr_tp <- array(0, dim = c(boot_time, 1))
-  score_hyb_tp <- array(0, dim = c(boot_time, 1))
-  score_hybr_tp <- array(0, dim = c(boot_time, 1))
+  # Prior extraction
+  if (algorithm == "hybrid_driven" & is.null(prior)) {
+    prior <- zeptosensPkg::predict_bio_network(
+      n_prot = dim(proteomic_responses)[2],
+      proteomic_responses = proteomic_responses,
+      max_dist = 1,
+      mab_to_genes = mab_to_genes
+    )$wk
+  }
+  # Initial bootstrap result set up
+  score_50p_tp <- array(0, dim = c(boot_time, 1))
+  score_60p_tp <- array(0, dim = c(boot_time, 1))
+  score_70p_tp <- array(0, dim = c(boot_time, 1))
+  score_80p_tp <- array(0, dim = c(boot_time, 1))
+  score_90p_tp <- array(0, dim = c(boot_time, 1))
 
-  n_edges_dat <- array(0, dim = c(boot_time, 1))
-  n_edges_datr <- array(0, dim = c(boot_time, 1))
-  n_edges_hyb <- array(0, dim = c(boot_time, 1))
-  n_edges_hybr <- array(0, dim = c(boot_time, 1))
+  n_edges <- array(0, dim = c(boot_time, 1))
+  n_edges_50p <- array(0, dim = c(boot_time, 1))
+  n_edges_60p <- array(0, dim = c(boot_time, 1))
+  n_edges_70p <- array(0, dim = c(boot_time, 1))
+  n_edges_80p <- array(0, dim = c(boot_time, 1))
+  n_edges_90p <- array(0, dim = c(boot_time, 1))
 
   # Boostrap Loop start here
   for (r in 1:boot_time) {
 
-    # Randomization of Data
-    random_data <- as.data.frame(t(apply(data, 1, function(x) {
-      sample(x, replace = FALSE)
-    })))
-    colnames(random_data) <- colnames(data)
+    # Random selection of data
+    data_50p <- data[sample(seq_len(nrow(data)), 0.5 * nrow(data), replace = FALSE), ]
+    data_60p <- data[sample(seq_len(nrow(data)), 0.6 * nrow(data), replace = FALSE), ]
+    data_70p <- data[sample(seq_len(nrow(data)), 0.7 * nrow(data), replace = FALSE), ]
+    data_80p <- data[sample(seq_len(nrow(data)), 0.8 * nrow(data), replace = FALSE), ]
+    data_90p <- data[sample(seq_len(nrow(data)), 0.9 * nrow(data), replace = FALSE), ]
 
-    # Split the data and random data into training and valid
-
-    valid_n <- sample(seq_len(nrow(data)), (1 / fold) * nrow(data), replace = FALSE) # default fold=5
-    valid_data <- data[valid_n, ]
-    train_data <- data[-valid_n, ]
-
-    valid_nr <- sample(seq_len(nrow(random_data)), (1 / fold) * nrow(random_data), replace = FALSE) # default fold=5
-    valid_datar <- data[valid_nr, ]
-    train_datar <- data[-valid_nr, ]
 
     # Network construction
+    if (algorithm == "data_driven") {
+      # Data-driven Network
+      network <- zeptosensPkg::predict_dat_network(
+        data = data, cut_off = cut_off, n_prot = n_prot,
+        proteomic_responses = proteomic_responses
+      )$wk
+      network_50p <- zeptosensPkg::predict_dat_network(
+        data = data_50p, cut_off = cut_off, n_prot = n_prot,
+        proteomic_responses = proteomic_responses
+      )$wk
+      network_60p <- zeptosensPkg::predict_dat_network(
+        data = data_60p, cut_off = cut_off, n_prot = n_prot,
+        proteomic_responses = proteomic_responses
+      )$wk
+      network_70p <- zeptosensPkg::predict_dat_network(
+        data = data_70p, cut_off = cut_off, n_prot = n_prot,
+        proteomic_responses = proteomic_responses
+      )$wk
+      network_80p <- zeptosensPkg::predict_dat_network(
+        data = data_80p, cut_off = cut_off, n_prot = n_prot,
+        proteomic_responses = proteomic_responses
+      )$wk
+      network_90p <- zeptosensPkg::predict_dat_network(
+        data = data_90p, cut_off = cut_off, n_prot = n_prot,
+        proteomic_responses = proteomic_responses
+      )$wk
+    }
 
-    # Data-driven Network
-    # Training-data network
-    train_network_dat <- zeptosensPkg::predict_dat_network(
-      data = train_data, cut_off = cut_off, n_prot = n_prot,
-      proteomic_responses = proteomic_responses
-    )$wk
-    train_network_datr <- zeptosensPkg::predict_dat_network(
-      data = train_datar, cut_off = cut_off, n_prot = n_prot,
-      proteomic_responses = proteomic_responses
-    )$wk
-    # Valid-data network
-    valid_network_dat <- zeptosensPkg::predict_dat_network(
-      data = valid_data, cut_off = cut_off, n_prot = n_prot,
-      proteomic_responses = proteomic_responses
-    )$wk
-    valid_network_datr <- zeptosensPkg::predict_dat_network(
-      data = valid_datar, cut_off = cut_off, n_prot = n_prot,
-      proteomic_responses = proteomic_responses
-    )$wk
+
     # Hybrid-driven network
-    # Training-data network
-    train_network_hyb <- zeptosensPkg::predict_hybrid_network(
-      data = train_data, cut_off = cut_off, n_prot = n_prot,
-      proteomic_responses = proteomic_responses, mab_to_genes = mab_to_genes
-    )$wk
-    train_network_hybr <- zeptosensPkg::predict_hybrid_network(
-      data = train_datar, cut_off = cut_off, n_prot = n_prot,
-      proteomic_responses = proteomic_responses, mab_to_genes = mab_to_genes
-    )$wk
-    # Valid-data network
-    valid_network_hyb <- zeptosensPkg::predict_hybrid_network(
-      data = valid_data, cut_off = cut_off, n_prot = n_prot,
-      proteomic_responses = proteomic_responses, mab_to_genes = mab_to_genes
-    )$wk
-    valid_network_hybr <- zeptosensPkg::predict_hybrid_network(
-      data = valid_datar, cut_off = cut_off, n_prot = n_prot,
-      proteomic_responses = proteomic_responses, mab_to_genes = mab_to_genes
-    )$wk
-
+    if (algorithm == "hybrid_driven") {
+      network <- zeptosensPkg::predict_hybrid_network(
+        data = data, cut_off = cut_off, n_prot = n_prot, prior = prior,
+        proteomic_responses = proteomic_responses, mab_to_genes = mab_to_genes
+      )$wk
+      network_50p <- zeptosensPkg::predict_hybrid_network(
+        data = data_50p, cut_off = cut_off, n_prot = n_prot, prior = prior,
+        proteomic_responses = proteomic_responses, mab_to_genes = mab_to_genes
+      )$wk
+      network_60p <- zeptosensPkg::predict_hybrid_network(
+        data = data_60p, cut_off = cut_off, n_prot = n_prot, prior = prior,
+        proteomic_responses = proteomic_responses, mab_to_genes = mab_to_genes
+      )$wk
+      network_70p <- zeptosensPkg::predict_hybrid_network(
+        data = data_70p, cut_off = cut_off, n_prot = n_prot, prior = prior,
+        proteomic_responses = proteomic_responses, mab_to_genes = mab_to_genes
+      )$wk
+      network_80p <- zeptosensPkg::predict_hybrid_network(
+        data = data_80p, cut_off = cut_off, n_prot = n_prot, prior = prior,
+        proteomic_responses = proteomic_responses, mab_to_genes = mab_to_genes
+      )$wk
+      network_90p <- zeptosensPkg::predict_hybrid_network(
+        data = data_90p, cut_off = cut_off, n_prot = n_prot, prior = prior,
+        proteomic_responses = proteomic_responses, mab_to_genes = mab_to_genes
+      )$wk
+    }
     # Transform edge into(1/0/-1)
-    train_network_dat <- ifelse(train_network_dat > cut_off, 1, ifelse(train_network_dat < (-cut_off), -1, 0))
-    train_network_datr <- ifelse(train_network_datr > cut_off, 1, ifelse(train_network_datr < (-cut_off), -1, 0))
-    valid_network_dat <- ifelse(valid_network_dat > cut_off, 1, ifelse(valid_network_dat < (-cut_off), -1, 0))
-    valid_network_datr <- ifelse(valid_network_datr > cut_off, 1, ifelse(valid_network_datr < (-cut_off), -1, 0))
-    train_network_hyb <- ifelse(train_network_hyb > cut_off, 1, ifelse(train_network_hyb < (-cut_off), -1, 0))
-    train_network_hybr <- ifelse(train_network_hybr > cut_off, 1, ifelse(train_network_hybr < (-cut_off), -1, 0))
-    valid_network_hyb <- ifelse(valid_network_hyb > cut_off, 1, ifelse(valid_network_hyb < (-cut_off), -1, 0))
-    valid_network_hybr <- ifelse(valid_network_hybr > cut_off, 1, ifelse(valid_network_hybr < (-cut_off), -1, 0))
-
-    # Number of edges count
-    n_edges_dat[r] <- sum(train_network_dat != 0)
-    n_edges_datr[r] <- sum(train_network_datr != 0)
-    n_edges_hyb[r] <- sum(train_network_hyb != 0)
-    n_edges_hybr[r] <- sum(train_network_hybr != 0)
+    network <- ifelse(network > cut_off, 1, ifelse(network < (-cut_off), -1, 0))
+    network_50p <- ifelse(network_50p > cut_off, 1, ifelse(network_50p < (-cut_off), -1, 0))
+    network_60p <- ifelse(network_60p > cut_off, 1, ifelse(network_60p < (-cut_off), -1, 0))
+    network_70p <- ifelse(network_70p > cut_off, 1, ifelse(network_70p < (-cut_off), -1, 0))
+    network_80p <- ifelse(network_80p > cut_off, 1, ifelse(network_80p < (-cut_off), -1, 0))
+    network_90p <- ifelse(network_90p > cut_off, 1, ifelse(network_90p < (-cut_off), -1, 0))
 
     # Set score start value
-    score_dat <- 0
-    score_datr <- 0
-    score_hyb <- 0
-    score_hybr <- 0
+    score_50p <- 0
+    score_60p <- 0
+    score_70p <- 0
+    score_80p <- 0
+    score_90p <- 0
 
     # Edges Re-driven & score count
-    for (t in 1:ncol(data)) {
-      for (p in 1:ncol(data)) {
-        if (train_network_dat[t, p] == valid_network_dat[t, p] & train_network_dat[t, p] != 0) {
-          score_dat <- score_dat + 1
+    for (t in seq_len(length(index))) {
+      for (p in seq_len(length(index))) {
+        if (network_50p[t, p] == network[t, p] & network[t, p] != 0) {
+          score_50p <- score_50p + 1
         }
-        if (train_network_hyb[t, p] == valid_network_hyb[t, p] & train_network_hyb[t, p] != 0) {
-          score_hyb <- score_hyb + 1
+        if (network_60p[t, p] == network[t, p] & network[t, p] != 0) {
+          score_60p <- score_60p + 1
         }
-        if (train_network_datr[t, p] == valid_network_datr[t, p] & train_network_datr[t, p] != 0) {
-          score_datr <- score_datr + 1
+        if (network_70p[t, p] == network[t, p] & network[t, p] != 0) {
+          score_70p <- score_70p + 1
         }
-        if (train_network_hybr[t, p] == valid_network_hybr[t, p] & train_network_hybr[t, p] != 0) {
-          score_hybr <- score_hybr + 1
+        if (network_80p[t, p] == network[t, p] & network[t, p] != 0) {
+          score_80p <- score_80p + 1
+        }
+        if (network_90p[t, p] == network[t, p] & network[t, p] != 0) {
+          score_90p <- score_90p + 1
         }
       }
     }
 
     # Score re-store
 
-    score_dat_tp[r] <- score_dat
-    score_datr_tp[r] <- score_datr
-    score_hyb_tp[r] <- score_hyb
-    score_hybr_tp[r] <- score_hybr
+    score_50p_tp[r] <- score_50p
+    score_60p_tp[r] <- score_60p
+    score_70p_tp[r] <- score_70p
+    score_80p_tp[r] <- score_80p
+    score_90p_tp[r] <- score_90p
+
+    # Number of edges count
+    n_edges[r] <- sum(network != 0)
+    n_edges_50p[r] <- sum(network_50p != 0)
+    n_edges_60p[r] <- sum(network_60p != 0)
+    n_edges_70p[r] <- sum(network_70p != 0)
+    n_edges_80p[r] <- sum(network_80p != 0)
+    n_edges_90p[r] <- sum(network_90p != 0)
   }
   # loop end here,write out the result here with no overlap
 
   # Score Quatification & Summarize
-  # Data-driven for data
-  score_dat_mean <- mean(score_dat_tp / n_edges_dat)
-  data_net_score <- score_dat_tp / n_edges_dat
+  score_50p_mean <- mean(score_50p_tp / n_edges)
+  data_50p_score <- score_50p_tp / n_edges
 
-  # Data-driven for randomized data
-  score_datr_mean <- mean(score_datr_tp / n_edges_datr)
-  data_net_scorer <- score_datr / n_edges_datr
+  score_60p_mean <- mean(score_60p_tp / n_edges)
+  data_60p_score <- score_60p_tp / n_edges
 
-  # Hybrid-approach for data
-  score_hyb_mean <- mean(score_hyb / n_edges_hyb)
-  hyb_net_score <- score_hyb / n_edges_hyb
+  score_70p_mean <- mean(score_70p_tp / n_edges)
+  data_70p_score <- score_70p_tp / n_edges
 
-  # Hybrid-approach for randomized data
-  score_hybr_mean <- mean(score_hybr / n_edges_hybr)
-  hyb_net_scorer <- score_hybr / n_edges_hybr
+  score_80p_mean <- mean(score_80p_tp / n_edges)
+  data_80p_score <- score_80p_tp / n_edges
+
+  score_90p_mean <- mean(score_90p_tp / n_edges)
+  data_90p_score <- score_90p_tp / n_edges
 
   result <- list(
-    score_dat_mean = score_dat_mean, data_net_score = data_net_score, n_edges_dat = n_edges_dat,
-    score_datr_mean = score_datr_mean, data_net_scorer = data_net_scorer, n_edges_datr = n_edges_datr,
-    score_hyb_mean = score_hyb_mean, hyb_net_score = hyb_net_score, n_edges_hyb = n_edges_hyb,
-    score_hybr_mean = score_hybr_mean, hyb_net_scorer = hyb_net_scorer, n_edges_hybr = n_edges_hybr
+    score_50p_mean = score_50p_mean, data_50p_score = data_50p_score, n_edges_50p = n_edges_50p,
+    score_60p_mean = score_60p_mean, data_60p_score = data_60p_score, n_edges_60p = n_edges_60p,
+    score_70p_mean = score_70p_mean, data_70p_score = data_70p_score, n_edges_70p = n_edges_70p,
+    score_80p_mean = score_80p_mean, data_80p_score = data_80p_score, n_edges_80p = n_edges_80p,
+    score_90p_mean = score_90p_mean, data_90p_score = data_90p_score, n_edges_90p = n_edges_90p,
+    n_edges = n_edges
   )
 
   return(result)
