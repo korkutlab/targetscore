@@ -57,7 +57,7 @@ run_robustness_test <- function(data, prior = NULL, proteomic_responses,
   n_edges_90p <- array(0, dim = c(boot_time, 1))
 
   # Boostrap Loop start here
-  for (r in 1:boot_time) {
+  for (r in seq_len(boot_time)) {
 
     # Random selection of data
     data_50p <- data[sample(seq_len(nrow(data)), 0.5 * nrow(data), replace = FALSE), ]
