@@ -9,21 +9,23 @@
 #' @param proteomic_responses RPPA data tested for drug pertubation.
 #' @param n_prot Antibody number of input data.
 #' @param mab_to_genes A list of antibodies, their associated genes, modification sites and effect.
+#' @param rho positive tuning parameter vector for elastic net penalty. Default at 10^seq(-2,0, 0.02).
+#' @param kappa positive scale parameter vector for prior information matrix contribution. Default at 10^seq(-2,0, 0.02)
 #'
 #' @return a list is returned with the following entries:
-#' * "parameters" as the parameter list of regulization parameter decided by the prior information
+#' {parameters} as the parameter list of regulization parameter decided by the prior information
 #' and the algorithmn lowest BIC. Including regularize parameter(L1 norm parameter) as "rho", scale parameter
 #' (decided how much prior information contribute) as "kappa", and regulization matrix for the expression
 #' data as "rho_m".
-#' * "bic"as the Model's BIC error through regularization parameters.
-#' * "wk" inferred network matrix form with edge strength value estimated as the partial correlation.
-#' * "wks" inferred network matrix form with edge strength value estimated as the partial correlation.
-#'  Same as wk in predict_hyb_network.
-#' * "dist_ind" A distance file of edgelist with a third column as the network distance between the genes
-#'  in the interaction.
-#' * "inter" file as edgelist of inferred network.
-#' * "edgelist" as the edgelist for predicted network.
-#' * "nedges" as the number of edges of the predicted network.
+#' {bic}{as the Model's BIC error through regularization parameters.}
+#' {wk}{inferred network matrix form with edge strength value estimated as the partial correlation.}
+#' {wks}{inferred network matrix form with edge strength value estimated as the partial correlation.
+#'  Same as wk in predict_hyb_network.}
+#' {dist_ind}{A distance file of edgelist with a third column as the network distance between the genes
+#'  in the interaction.}
+#' {inter}{file as edgelist of inferred network.}
+#' {edgelist}{as the edgelist for predicted network.}
+#' {nedges}{as the number of edges of the predicted network.}
 #'
 #' @importFrom glasso glasso
 #' @importFrom stats cov median na.omit
@@ -31,7 +33,9 @@
 #' @concept zeptosensPkg
 #' @export
 predict_hybrid_network <- function(data, prior = NULL, cut_off = 0.1, proteomic_responses, n_prot,
-                                   max_dist = 1, mab_to_genes) {
+                                   max_dist = 1, mab_to_genes,
+                                   rho = 10^seq(-2, 0, 0.02),
+                                   kappa = 10^seq(-2, 0, 0.02)) {
   if (is.null(prior)) {
     network_ref <- zeptosensPkg::predict_bio_network(
       n_prot = n_prot,
@@ -64,17 +68,15 @@ predict_hybrid_network <- function(data, prior = NULL, cut_off = 0.1, proteomic_
 
   # getting the best tuning parameter from BIC minimization
   covmatrix <- stats::cov(data)
-  rho <- seq(0.01, 1, length = 100)
-  bic <- matrix(NA, 100, 100)
-  kappa <- rho
+  bic <- matrix(NA, length(rho), length(kappa))
   rho_m <- NULL
   g_result <- NULL
   u <- matrix(1, nrow(prior2), ncol(prior2))
   p_off_d <- NULL
-  for (i in 1:100) {
-    for (j in 1:i) {
+  for (i in seq_len(length(rho))) {
+    for (j in seq_along(i)) {
       rho_m <- rho[i] * u - kappa[j] * prior2
-      g_result <- glasso::glasso(covmatrix, rho_m)
+      g_result <- glasso::glasso(covmatrix, rho_m, nobs = nrow(covmatrix))
       p_off_d <- sum(g_result$wi != 0 & col(covmatrix) < row(covmatrix))
       bic[i, j] <- -2 * (g_result$loglik) + p_off_d * log(nrow(data))
       bic <- as.data.frame(bic)
@@ -89,9 +91,9 @@ predict_hybrid_network <- function(data, prior = NULL, cut_off = 0.1, proteomic_
   parameters <- list(rho_m = rho_m, rho = rho, kappa = kappa)
 
   # Estimated inverse covariance (precision)
-  tmp <- glasso::glasso(covmatrix, rho = rho_m)
-  sigma_matrix <- tmp$wi
-  niter <- tmp$niter
+  g_result <- glasso::glasso(covmatrix, rho = rho_m, nobs = nrow(covmatrix))
+  sigma_matrix <- g_result$wi
+  niter <- g_result$niter
   print(niter) # if niter = 10,000
   if (niter == 10000) {
     stop("ERROR: Algorithmn does not convergence!")

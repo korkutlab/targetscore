@@ -4,13 +4,13 @@
 \alias{optimize_parameter_dat}
 \title{Choose the optimal regulization parameter for only data-driven network.}
 \usage{
-optimize_parameter_dat(data, rho = seq(0.01, 1, length = 100))
+optimize_parameter_dat(data, rho = 10^seq(-2, 0, 0.02))
 }
 \arguments{
 \item{data}{input proteomics dataset for network inference. Gene in coloumns and samples in row.
 With colnames as gene tags and rownames as sample tags.}
 
-\item{rho}{positive tuning parameter for elastic net penalty. Default at seq(0.01,1,length=100).}
+\item{rho}{positive tuning parameter for elastic net penalty. Default at 10^seq(-2, 0, 0.02).}
 }
 \value{
 Parameter of regulization BIC error calculated.

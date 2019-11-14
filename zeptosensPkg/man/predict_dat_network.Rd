@@ -4,7 +4,8 @@
 \alias{predict_dat_network}
 \title{predict data-driven only network.}
 \usage{
-predict_dat_network(data, cut_off = 0.1, n_prot, proteomic_responses)
+predict_dat_network(data, cut_off = 0.1, n_prot, proteomic_responses,
+  rho = 10^seq(-2, 0, 0.02))
 }
 \arguments{
 \item{data}{input proteomics dataset for network inference. Gene in coloumns and samples in row.
@@ -15,6 +16,8 @@ With colnames as gene tags and rownames as sample tags.}
 \item{n_prot}{Antibody number of input data.}
 
 \item{proteomic_responses}{Input drug perturbation data. With columns as antibody, rows as samples.}
+
+\item{rho}{positive tuning parameter vector for elastic net penalty. Default at 10^seq(-2,0, 0.02).}
 }
 \value{
 Parameter of regulization decided lowest BIC.Including regularize parameter(L1 norm parameter) as rho.

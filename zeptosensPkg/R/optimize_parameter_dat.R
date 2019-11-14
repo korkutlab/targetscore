@@ -2,7 +2,7 @@
 #'
 #' @param data input proteomics dataset for network inference. Gene in coloumns and samples in row.
 #' With colnames as gene tags and rownames as sample tags.
-#' @param rho positive tuning parameter for elastic net penalty. Default at seq(0.01,1,length=100).
+#' @param rho positive tuning parameter for elastic net penalty. Default at 10^seq(-2, 0, 0.02).
 #'
 #' @return Parameter of regulization BIC error calculated.
 #' \item{rho}{penalty parameter optimized.}
@@ -12,7 +12,7 @@
 #'
 #' @concept zeptosensPkg
 #' @export
-optimize_parameter_dat <- function(data, rho = seq(0.01, 1, length = 100)) {
+optimize_parameter_dat <- function(data, rho = 10^seq(-2, 0, 0.02)) {
 
   # Calculate covariance matrix
   covmatrix <- cov(data)

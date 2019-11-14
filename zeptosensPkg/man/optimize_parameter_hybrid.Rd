@@ -4,8 +4,8 @@
 \alias{optimize_parameter_hybrid}
 \title{Choose the optimal regulization parameter and scale paramter for adjusted-glasso algorithm network construction}
 \usage{
-optimize_parameter_hybrid(data, prior, rho = seq(0.01, 1, length = 100),
-  kappa = seq(0.01, 1, length = 100))
+optimize_parameter_hybrid(data, prior = NULL, rho = 10^seq(-2, 0,
+  0.02), kappa = 10^seq(-2, 0, 0.02))
 }
 \arguments{
 \item{data}{input proteomics dataset for network inference. Gene in coloumns and samples in row.
@@ -14,9 +14,9 @@ With colnames as gene tags and rownames as sample tags.}
 \item{prior}{Prior information matrix of gene interaction, with colnames and rownames as gene tags.
 With colnames and rownames as gene tags.Can be inferred from Public data source (for example:SignedPC).}
 
-\item{rho}{positive tuning parameter for elastic net penalty. Default at seq(0.01,1,length=100).}
+\item{rho}{positive tuning parameter for elastic net penalty. Default at seq10^seq(-2, 0, 0.02).}
 
-\item{kappa}{positive scaler parameter for biology-knowledge base contribution. Default at seq(0.01,1,length=100).}
+\item{kappa}{positive scaler parameter for biology-knowledge base contribution. Default at seq10^seq(-2, 0, 0.02).}
 }
 \value{
 Parameter list of regulization parameter decided by the prior information and the algorithmn lowest BIC.

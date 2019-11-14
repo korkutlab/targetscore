@@ -5,7 +5,8 @@
 \title{Choose the optimal regulization parameter and scale paramter for prior information adjusted network construction.}
 \usage{
 predict_hybrid_network(data, prior = NULL, cut_off = 0.1,
-  proteomic_responses, n_prot, max_dist = 1, mab_to_genes)
+  proteomic_responses, n_prot, max_dist = 1, mab_to_genes,
+  rho = 10^seq(-2, 0, 0.02), kappa = 10^seq(-2, 0, 0.02))
 }
 \arguments{
 \item{data}{input proteomics dataset for network inference(for example: TCGA RPPA data). Gene in coloumns
@@ -23,22 +24,26 @@ With colnames and rownames as gene tags. Can be inferred from predict_bio_networ
 \item{max_dist}{maximum distance between two antibody. (Default at 1)}
 
 \item{mab_to_genes}{A list of antibodies, their associated genes, modification sites and effect.}
+
+\item{rho}{positive tuning parameter vector for elastic net penalty. Default at 10^seq(-2,0, 0.02).}
+
+\item{kappa}{positive scale parameter vector for prior information matrix contribution. Default at 10^seq(-2,0, 0.02)}
 }
 \value{
 a list is returned with the following entries:
-* "parameters" as the parameter list of regulization parameter decided by the prior information
+{parameters} as the parameter list of regulization parameter decided by the prior information
 and the algorithmn lowest BIC. Including regularize parameter(L1 norm parameter) as "rho", scale parameter
 (decided how much prior information contribute) as "kappa", and regulization matrix for the expression
 data as "rho_m".
-* "bic"as the Model's BIC error through regularization parameters.
-* "wk" inferred network matrix form with edge strength value estimated as the partial correlation.
-* "wks" inferred network matrix form with edge strength value estimated as the partial correlation.
- Same as wk in predict_hyb_network.
-* "dist_ind" A distance file of edgelist with a third column as the network distance between the genes
- in the interaction.
-* "inter" file as edgelist of inferred network.
-* "edgelist" as the edgelist for predicted network.
-* "nedges" as the number of edges of the predicted network.
+{bic}{as the Model's BIC error through regularization parameters.}
+{wk}{inferred network matrix form with edge strength value estimated as the partial correlation.}
+{wks}{inferred network matrix form with edge strength value estimated as the partial correlation.
+ Same as wk in predict_hyb_network.}
+{dist_ind}{A distance file of edgelist with a third column as the network distance between the genes
+ in the interaction.}
+{inter}{file as edgelist of inferred network.}
+{edgelist}{as the edgelist for predicted network.}
+{nedges}{as the number of edges of the predicted network.}
 }
 \description{
 Choose the optimal regulization parameter and scale paramter for prior information adjusted network construction.

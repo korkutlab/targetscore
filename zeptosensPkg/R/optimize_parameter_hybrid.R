@@ -4,8 +4,8 @@
 #' With colnames as gene tags and rownames as sample tags.
 #' @param prior Prior information matrix of gene interaction, with colnames and rownames as gene tags.
 #' With colnames and rownames as gene tags.Can be inferred from Public data source (for example:SignedPC).
-#' @param rho positive tuning parameter for elastic net penalty. Default at seq(0.01,1,length=100).
-#' @param kappa positive scaler parameter for biology-knowledge base contribution. Default at seq(0.01,1,length=100).
+#' @param rho positive tuning parameter for elastic net penalty. Default at seq10^seq(-2, 0, 0.02).
+#' @param kappa positive scaler parameter for biology-knowledge base contribution. Default at seq10^seq(-2, 0, 0.02).
 #'
 #' @return Parameter list of regulization parameter decided by the prior information and the algorithmn lowest BIC.
 #' \item{rho}{optimized penalty parameter.}
@@ -19,8 +19,8 @@
 #' @concept zeptosensPkg
 #' @export
 optimize_parameter_hybrid <- function(data, prior = NULL,
-                                      rho = seq(0.01, 1, length = 100),
-                                      kappa = seq(0.01, 1, length = 100)) {
+                                      rho = 10^seq(-2, 0, 0.02),
+                                      kappa = 10^seq(-2, 0, 0.02)) {
 
   # Match the data with prior
   index <- colnames(prior[, which(colnames(prior) %in% colnames(data))]) # match the data
