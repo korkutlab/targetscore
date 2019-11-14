@@ -114,7 +114,7 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
 
   #    results <- downloadSignedPC(forceCache=TRUE)
   #    results <- read.table(file="results_network1.txt",header=T)
-  results <- read.table(system.file("extdata", "filteredSignedPc.txt",
+  results <- read.table(system.file("extdata", "filteredSignedPc_20191113.txt",
     package = "zeptosensPkg"
   ),
   sep = "\t",
