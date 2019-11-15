@@ -47,11 +47,11 @@ get_volcano_plot <- function(ts, q_value,
     geom_point(data = tmp_dat, aes(x = ts, y = neglogQ, color = color), alpha = 0.4, size = 2) +
     xlab("<ts>") + ylab("-log10 (Q-Value)") + ggtitle("") +
     scale_color_manual(name = "", values = c("black", "red")) +
-    theme_bw() +
+    theme_bw()
 
-    if (include_labels) {
-      p <- p + geom_label_repel(data = sig01, aes(x = sig01$ts, y = sig01$neglogQ, label = siglabel), size = 5)
-    }
+  if (include_labels) {
+    p <- p + geom_label_repel(data = sig01, aes(x = sig01$ts, y = sig01$neglogQ, label = siglabel), size = 5)
+  }
 
   if (save_output) {
     plotname <- file.path(path, paste0(filename, ".pdf"))
