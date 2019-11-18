@@ -24,7 +24,7 @@ optimize_parameter_dat <- function(data, rho = 10^seq(-2, 0, 0.02)) {
 
   # Calculate BIC for grid-search
   for (i in seq_len(length(rho))) {
-    g_result <- glasso::glasso(covmatrix, rho[i])
+    g_result <- glasso::glasso(covmatrix, rho[i], nobs = nrow(covmatrix))
     p_off_d <- sum(g_result$wi != 0 & col(covmatrix) < row(covmatrix))
     bic[i] <- -2 * (g_result$loglik) + p_off_d * log(nrow(data))
   }
