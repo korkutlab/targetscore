@@ -4,14 +4,14 @@
 \alias{cv_glasso}
 \title{Run k-fold cross validation for data.(reference from CVglasso)}
 \usage{
-cv_glasso(data = NULL, s_matrix = NULL, prior, rho = seq(0.01, 1,
-  length = 100), kappa = seq(0.01, 1, length = 100), diagonal = FALSE,
-  tol = 1e-04, maxit = 10000, adjmaxit = NULL, k_fold = 5,
-  crit_cv = c("loglik", "AIC", "BIC"), start = c("warm", "cold"),
-  algorithm = c("data_driven", "hybrid_driven"))
+cv_glasso(data = NULL, s_matrix = NULL, prior = NULL,
+  rho = 10^seq(-2, 0, 0.02), kappa = 10^seq(-2, 0, 0.02),
+  diagonal = FALSE, tol = 1e-04, maxit = 10000, adjmaxit = NULL,
+  k_fold = 5, crit_cv = c("loglik", "AIC", "BIC"), start = c("warm",
+  "cold"), algorithm = c("data_driven", "hybrid_driven"))
 }
 \arguments{
-\item{rho}{positive tuning parameter for elastic net penalty. Default at seq(0.01,1,length=100)}
+\item{rho}{positive tuning parameter for elastic net penalty. Default at 10^seq(-2,0, 0.02).}
 
 \item{kappa}{positive scaler parameter for biology prior contribution. Default at seq(0.01,1,length=100)}
 
