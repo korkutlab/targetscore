@@ -4,9 +4,17 @@
 \alias{predict_hybrid_network}
 \title{Choose the optimal regulization parameter and scale paramter for prior information adjusted network construction.}
 \usage{
-predict_hybrid_network(data, prior = NULL, cut_off = 0.1,
-  proteomic_responses, n_prot, max_dist = 1, mab_to_genes,
-  rho = 10^seq(-2, 0, 0.02), kappa = 10^seq(-2, 0, 0.02))
+predict_hybrid_network(
+  data,
+  prior = NULL,
+  cut_off = 0.1,
+  proteomic_responses,
+  n_prot,
+  max_dist = 1,
+  mab_to_genes,
+  rho = 10^seq(-2, 0, 0.02),
+  kappa = 10^seq(-2, 0, 0.02)
+)
 }
 \arguments{
 \item{data}{input proteomics dataset for network inference(for example: TCGA RPPA data). Gene in coloumns

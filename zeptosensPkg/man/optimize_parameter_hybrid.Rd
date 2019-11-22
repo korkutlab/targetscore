@@ -4,8 +4,12 @@
 \alias{optimize_parameter_hybrid}
 \title{Choose the optimal regulization parameter and scale paramter for adjusted-glasso algorithm network construction}
 \usage{
-optimize_parameter_hybrid(data, prior = NULL, rho = 10^seq(-2, 0,
-  0.02), kappa = 10^seq(-2, 0, 0.02))
+optimize_parameter_hybrid(
+  data,
+  prior = NULL,
+  rho = 10^seq(-2, 0, 0.02),
+  kappa = 10^seq(-2, 0, 0.02)
+)
 }
 \arguments{
 \item{data}{input proteomics dataset for network inference. Gene in coloumns and samples in row.

@@ -4,8 +4,13 @@
 \alias{predict_dat_network}
 \title{predict data-driven only network.}
 \usage{
-predict_dat_network(data, cut_off = 0.1, n_prot, proteomic_responses,
-  rho = 10^seq(-2, 0, 0.02))
+predict_dat_network(
+  data,
+  cut_off = 0.1,
+  n_prot,
+  proteomic_responses,
+  rho = 10^seq(-2, 0, 0.02)
+)
 }
 \arguments{
 \item{data}{input proteomics dataset for network inference. Gene in coloumns and samples in row.

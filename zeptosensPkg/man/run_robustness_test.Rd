@@ -4,9 +4,17 @@
 \alias{run_robustness_test}
 \title{Run robustness test for data through the chosen algorithm.}
 \usage{
-run_robustness_test(data, prior = NULL, proteomic_responses, n_prot,
-  max_dist = 1, boot_time = 100, cut_off = 0.1, mab_to_genes,
-  algorithm = c("data_driven", "hybrid_driven"))
+run_robustness_test(
+  data,
+  prior = NULL,
+  proteomic_responses,
+  n_prot,
+  max_dist = 1,
+  boot_time = 100,
+  cut_off = 0.1,
+  mab_to_genes,
+  algorithm = c("data_driven", "hybrid_driven")
+)
 }
 \arguments{
 \item{data}{input proteomics expression dataset for network inference. Coloumns as the gene, rows as the sample.With
