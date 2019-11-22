@@ -4,9 +4,20 @@
 \alias{run_cross_validation}
 \title{Run cross validation through data.}
 \usage{
-run_cross_validation(data, prior = NULL, n_prot, proteomic_responses,
-  mab_to_genes, dist_file = NULL, max_dist = 1, verbose = FALSE,
-  boot_time = 100, algorithm = c("data_driven", "hybrid_driven"))
+run_cross_validation(
+  data,
+  prior = NULL,
+  n_prot,
+  k_fold = 5,
+  proteomic_responses,
+  mab_to_genes,
+  dist_file = NULL,
+  max_dist = 1,
+  verbose = FALSE,
+  boot_time = 100,
+  crit_cv = "loglik",
+  algorithm = c("data_driven", "hybrid_driven")
+)
 }
 \arguments{
 \item{data}{input proteomics dataset for network inference. Gene in coloumns and samples in row.
@@ -16,6 +27,8 @@ With colnames as gene tags and rownames as sample tags.}
 With colnames and rownames as gene tags.Can be inferred from Public data source (for example:SignedPC).}
 
 \item{n_prot}{antibody number of input data.}
+
+\item{k_fold}{specify the number of folds for cross validation.(Default at 5)}
 
 \item{proteomic_responses}{input drug perturbation data. With columns as antibody, rows as samples.}
 
@@ -30,14 +43,16 @@ between the genes in the interaction}
 
 \item{boot_time}{bootstrap time mannually set.Default at 100.}
 
+\item{crit_cv}{cross validation criterion (\code{loglik}, \code{AIC}, or \code{BIC}). Defaults to \code{loglik}.}
+
 \item{algorithm}{flexible toolbox implementing network estimating algorithms for robustness test.
 (\code{data_driven},or \code{hybrid_driven}).}
 }
 \value{
-Parameter list of regulization parameter decided by the prior information and the algorithmn lowest BIC.
-Including regularize parameter(L1 norm parameter) as rho, scale parameter
-(decided how much prior information contribute) as kappa, and regulization matrix
-for the expression data as rho_m and Model's BIC matrix for differnet regularization parameters.
+returns list of cross validation results which includes:
+\item{cv_error}{cross validation errors of data.}
+\item{cv_error_r}{cross validation errors of random data.}
+\item{cv_error_diff}{cross validation errors difference between random data and data.}
 }
 \description{
 Run cross validation through data.
