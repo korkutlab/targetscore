@@ -45,6 +45,10 @@ cv_glasso <- function(data = NULL,
                       start = c("warm", "cold"),
                       algorithm = c("data_driven", "hybrid_driven")) {
 
+  # Data input requirement
+  if (is.null(data)) {
+    stop("Must provided data or s_matrix in cross validation process.")
+  }
   # match values
   crit_cv <- match.arg(crit_cv)
   algorithm <- match.arg(algorithm)

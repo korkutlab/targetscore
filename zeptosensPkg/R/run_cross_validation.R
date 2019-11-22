@@ -14,11 +14,13 @@
 #' @param algorithm flexible toolbox implementing network estimating algorithms for robustness test.
 #' (\code{data_driven},or \code{hybrid_driven}).
 #' @param boot_time bootstrap time mannually set.Default at 100.
+#' @param crit_cv cross validation criterion (\code{loglik}, \code{AIC}, or \code{BIC}). Defaults to \code{loglik}.
+#' @param k_fold specify the number of folds for cross validation.(Default at 5)
 #'
-#' @return Parameter list of regulization parameter decided by the prior information and the algorithmn lowest BIC.
-#' Including regularize parameter(L1 norm parameter) as rho, scale parameter
-#' (decided how much prior information contribute) as kappa, and regulization matrix
-#' for the expression data as rho_m and Model's BIC matrix for differnet regularization parameters.
+#' @return returns list of cross validation results which includes:
+#' \item{cv_error}{cross validation errors of data.}
+#' \item{cv_error_r}{cross validation errors of random data.}
+#' \item{cv_error_diff}{cross validation errors difference between random data and data.}
 #'
 #' @importFrom glasso glasso
 #'
@@ -28,12 +30,14 @@
 run_cross_validation <- function(data,
                                  prior = NULL,
                                  n_prot,
+                                 k_fold = 5,
                                  proteomic_responses,
                                  mab_to_genes,
                                  dist_file = NULL,
                                  max_dist = 1,
                                  verbose = FALSE,
                                  boot_time = 100,
+                                 crit_cv = "loglik",
                                  algorithm = c("data_driven", "hybrid_driven")) {
   # Match the data
   index <- colnames(data[which(colnames(data) %in% colnames(proteomic_responses))])
@@ -55,7 +59,7 @@ run_cross_validation <- function(data,
   # Set initials
   cv_error <- array(0, dim = c(boot_time, 1))
   cv_error_r <- array(0, dim = c(boot_time, 1))
-  cv_error_normalize <- array(0, dim = c(boot_time, 1))
+  cv_error_diff <- array(0, dim = c(boot_time, 1))
 
   # Bootstrap Loop
   for (r in seq_len(boot_time)) {
@@ -69,26 +73,30 @@ run_cross_validation <- function(data,
     # Calculate CV error BIC
     cv_result <- cv_glasso(
       data = data,
-      k_fold = 5,
-      crit_cv = "loglik",
-      algorithm = algorithm
+      prior = prior,
+      k_fold = k_fold,
+      crit_cv = crit_cv,
+      algorithm = algorithm,
+      boot_time = boot_time
     )
     cv_error[r] <- cv_result$avg_error
 
     cv_result <- cv_glasso(
       data = randomized_data,
-      k_fold = 5,
-      crit_cv = "loglik",
-      algorithm = algorithm
+      prior = prior,
+      k_fold = k_fold,
+      crit_cv = crit_cv,
+      algorithm = algorithm,
+      boot_time = boot_time
     )
     cv_error_r[r] <- cv_result$avg_error
   }
 
-  # CV normalization
-  cv_error_normalize <- (1 - (cv_error / cv_error_r))
+  # CV differential
+  cv_error_diff <- (-cv_error) - (-cv_error_r)
   cv <- list(
     cv_error = cv_error, cv_error_r = cv_error_r,
-    cv_error_normalize = cv_error_normalize
+    cv_error_diff = cv_error_diff
   )
   return(cv)
 }
