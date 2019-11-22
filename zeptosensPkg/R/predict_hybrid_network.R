@@ -56,8 +56,8 @@ predict_hybrid_network <- function(data, prior = NULL, cut_off = 0.1, proteomic_
   # prior information extration
   prior1 <- ifelse(prior1 != 0, 1, 0) # information matrix of prior
   prior2 <- prior1 # symmetrical prior information
-  for (i in 1:nrow(prior1)) {
-    for (j in 1:ncol(prior1)) {
+  for (i in seq_len(nrow(prior1))) {
+    for (j in seq_len(ncol(prior1))) {
       if (prior1[i, j] != 0) {
         prior2[i, j] <- prior1[i, j]
         prior2[j, i] <- prior1[i, j]
@@ -74,7 +74,7 @@ predict_hybrid_network <- function(data, prior = NULL, cut_off = 0.1, proteomic_
   u <- matrix(1, nrow(prior2), ncol(prior2))
   p_off_d <- NULL
   for (i in seq_len(length(rho))) {
-    for (j in seq_along(i)) {
+    for (j in seq_len(i)) {
       rho_m <- rho[i] * u - kappa[j] * prior2
       g_result <- glasso::glasso(covmatrix, rho_m, nobs = nrow(covmatrix))
       p_off_d <- sum(g_result$wi != 0 & col(covmatrix) < row(covmatrix))
