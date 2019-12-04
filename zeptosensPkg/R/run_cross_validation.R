@@ -77,7 +77,6 @@ run_cross_validation <- function(data,
       k_fold = k_fold,
       crit_cv = crit_cv,
       algorithm = algorithm,
-      boot_time = boot_time
     )
     cv_error[r] <- cv_result$avg_error
 
@@ -87,7 +86,6 @@ run_cross_validation <- function(data,
       k_fold = k_fold,
       crit_cv = crit_cv,
       algorithm = algorithm,
-      boot_time = boot_time
     )
     cv_error_r[r] <- cv_result$avg_error
   }
