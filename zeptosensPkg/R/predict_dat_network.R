@@ -16,7 +16,7 @@
 #' @export
 predict_dat_network <- function(data, cut_off = 0.1, n_prot, proteomic_responses,
                                 rho = 10^seq(-2, 0, 0.02)) {
-  covmatrix <- stats::cov(data)
+  covmatrix <- (nrow(data) - 1) / nrow(data) * stats::cov(data)
 
   # optimize penalty parameter rho
   bic <- rho
