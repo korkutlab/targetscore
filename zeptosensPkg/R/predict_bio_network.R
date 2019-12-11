@@ -16,6 +16,7 @@
 #' * "dist_ind" A distance file of edgelist with a third column as the network distance
 #' between the genes in the interaction.
 #' * "inter" file as edgelist of inferred network.
+#' * "edgelist" file as sif file of edgelist for inferred network.
 #'
 #' @importFrom utils write.table
 #'
@@ -233,7 +234,15 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
     print(inter)
   }
 
-  network <- list(wk = wk, wks = wks, dist_ind = dist_ind, inter = inter)
+  # Network to edgelist
+  edgelist <- zeptosensPkg::create_sif_from_matrix(
+    t_net = wk,
+    col_genelist = colnames(wk),
+    row_genelist = rownames(wk)
+  )
+
+
+  network <- list(wk = wk, wks = wks, dist_ind = dist_ind, inter = inter, edgelist = edgelist)
 
   return(network)
 }

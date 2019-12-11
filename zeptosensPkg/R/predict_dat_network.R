@@ -55,7 +55,11 @@ predict_dat_network <- function(data, cut_off = 0.1, n_prot, proteomic_responses
   nedges <- sum(t_net != 0)
 
   # Network to edgelist
-  edgelist <- zeptosensPkg::create_sif_from_matrix(t_net = t_net, genelist = colnames(t_net))
+  edgelist <- zeptosensPkg::create_sif_from_matrix(
+    t_net = t_net,
+    col_genelist = colnames(t_net),
+    row_genelist = rownames(t_net)
+  )
 
   # network2 function into networkinfor
   network_inferred <- zeptosensPkg::network2(

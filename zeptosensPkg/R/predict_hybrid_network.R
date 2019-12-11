@@ -154,13 +154,19 @@ predict_hybrid_network <- function(data, prior = NULL, cut_off = 0.1, proteomic_
     network_total <- cbind(rbind(network, part1), rbind(part2, part3))
     index3 <- match(colnames(prior), colnames(network_total))
     network_total <- network_total[index3, index3]
+    colnames(network_total) <- colnames(prior)
+    rownames(network_total) <- rownames(prior)
   }
 
   if (length(prior) == length(prior1)) {
     network_total <- t_net_d
   }
 
-  edgelist_total <- zeptosensPkg::create_sif_from_matrix(t_net = network_total, genelist = colnames(network_total))
+  edgelist_total <- zeptosensPkg::create_sif_from_matrix(
+    t_net = network_total,
+    col_genelist = colnames(network_total),
+    row_genelist = rownames(network_total)
+  )
 
   # number of edges
   nedges <- sum(network_total != 0)
