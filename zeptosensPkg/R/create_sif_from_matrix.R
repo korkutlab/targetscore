@@ -1,15 +1,17 @@
 #' Create sif from network matrix.
 #'
 #' @param t_net p*p Gaussian gene Network matrix estimated.
-#' @param genelist Gene name list corresponding to the Gaussian gene Network estimated.
+#' @param row_genelist Gene name list corresponding to the row of gene Network matrix
+#' @param col_genelist Gene name list corresponding to the column of gene Network matrix.
 #'
 #' @return Edgelist description data.frame contain G(V,E) including Vertex and Edges
 #' (1 positive/-1 negative) edgevalue (the strength of association) and vertices numbers from the graph
 #'
 #' @concept zeptosensPkg
 #' @export
-create_sif_from_matrix <- function(t_net, genelist) {
-  index <- genelist
+create_sif_from_matrix <- function(t_net,
+                                   row_genelist = rownames(t_net),
+                                   col_genelist = colnames(t_net)) {
   edge_number <- sum(t_net != 0)
   node1 <- array(0, dim = c(edge_number, 1))
   node1_n <- array(0, dim = c(edge_number, 1))
@@ -21,9 +23,9 @@ create_sif_from_matrix <- function(t_net, genelist) {
   for (i in 1:nrow(t_net)) {
     for (j in 1:ncol(t_net)) {
       if (t_net[i, j] != 0) {
-        node1[a] <- index[i]
+        node1[a] <- row_genelist[i]
         node1_n[a] <- i
-        node2[a] <- index[j]
+        node2[a] <- col_genelist[j]
         node2_n[a] <- j
         edges_value[a] <- t_net[i, j]
         edges[a] <- ifelse(t_net[i, j] > 0, 1, -1)

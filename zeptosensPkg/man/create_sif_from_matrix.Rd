@@ -4,12 +4,18 @@
 \alias{create_sif_from_matrix}
 \title{Create sif from network matrix.}
 \usage{
-create_sif_from_matrix(t_net, genelist)
+create_sif_from_matrix(
+  t_net,
+  row_genelist = rownames(t_net),
+  col_genelist = colnames(t_net)
+)
 }
 \arguments{
 \item{t_net}{p*p Gaussian gene Network matrix estimated.}
 
-\item{genelist}{Gene name list corresponding to the Gaussian gene Network estimated.}
+\item{row_genelist}{Gene name list corresponding to the row of gene Network matrix}
+
+\item{col_genelist}{Gene name list corresponding to the column of gene Network matrix.}
 }
 \value{
 Edgelist description data.frame contain G(V,E) including Vertex and Edges
