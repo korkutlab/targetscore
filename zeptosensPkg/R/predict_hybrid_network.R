@@ -76,7 +76,7 @@ predict_hybrid_network <- function(data, prior = NULL, cut_off = 0.1, proteomic_
   for (i in seq_len(length(rho))) {
     for (j in seq_len(i)) {
       rho_m <- rho[i] * u - kappa[j] * prior2
-      g_result <- glasso::glasso(covmatrix, rho_m, nobs = nrow(data))
+      g_result <- glasso::glasso(covmatrix, rho_m, nobs = nrow(covmatrix))
       p_off_d <- sum(g_result$wi != 0 & col(covmatrix) < row(covmatrix))
       bic[i, j] <- -2 * (g_result$loglik) + p_off_d * log(nrow(data))
       bic <- as.data.frame(bic)
