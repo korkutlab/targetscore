@@ -9,7 +9,9 @@ library(zeptosensPkg)
 library(pheatmap)
 library(morpheus)
 library(plotly)
+library(DT)
 source("modal.R")
+
 
 # UI ----
 ui <- navbarPage(
@@ -85,7 +87,7 @@ ui <- navbarPage(
         tabsetPanel(
           tabPanel(
             "Protein Mapping/Functional Scores",
-            dataTableOutput("fs_dat")
+            DT::dataTableOutput("fs_dat")
           ),
           tabPanel(
             "Input Data Heatmap",
@@ -95,7 +97,7 @@ ui <- navbarPage(
           tabPanel(
             "Network Edgelist",
             # edgelist of the data
-            dataTableOutput("edgelist")
+            DT::dataTableOutput("edgelist")
           ),
           tabPanel(
             "TargetScore Heatmap",
@@ -387,7 +389,7 @@ server <- function(input, output, session) {
   })
 
   # DATA TABLE MODULE ----
-  output$fs_dat <- renderDataTable({
+  output$fs_dat <- DT::renderDataTable({
     results <- results()
     # return(results$fs_dat)
 
@@ -397,18 +399,19 @@ server <- function(input, output, session) {
     return(dat)
   })
 
-  output$edgelist <- renderDataTable({
+  output$edgelist <- DT::renderDataTable({
     results <- results()
     network <- results$network
     edgelist <- zeptosensPkg::create_sif_from_matrix(
       t_net = network$wk,
-      genelist = colnames(network$wk)
+      col_genelist = colnames(network$wk),
+      row_genelist = colnames(network$wk)
     )
     return(edgelist)
   })
 
   #### TEST MODULE ----
-  output$test <- renderDataTable({
+  output$test <- DT::renderDataTable({
     results <- results()
     return("CALCULATION DONE")
   })

@@ -33,7 +33,14 @@ create_sif_from_matrix <- function(t_net,
       }
     }
   }
-  edgelist <- as.data.frame(cbind(node1, edges, node2, edges_value, node1_n, node2_n))
-  colnames(edgelist) <- c("node1", "edges", "node2", "edge_value", "node1_n", "node2_n")
+  edgelist <- data.frame(
+    upper_node = node1,
+    edge_value = edges,
+    down_node = node2,
+    edges_value = edges_value,
+    upper_index = node1_n,
+    down_index = node2_n,
+    stringsAsFactors = FALSE
+  )
   return(edgelist)
 }
