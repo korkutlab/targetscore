@@ -169,7 +169,11 @@ test_that("create_sif_from_matrix", {
     package = "zeptosensPkg"
   ))
 
-  edgelist_wk <- create_sif_from_matrix(t_net = network_org$wk, genelist = colnames(network_org$wk))
+  edgelist_wk <- create_sif_from_matrix(
+    t_net = network_org$wk,
+    col_genelist = colnames(network_org$wk),
+    row_genelist = rownames(network_org$wk)
+  )
 
   expect_identical(edgelist_wk, wk_org)
 })

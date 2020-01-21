@@ -9,7 +9,6 @@ library(zeptosensPkg)
 library(pheatmap)
 library(morpheus)
 library(plotly)
-library(DT)
 source("modal.R")
 
 
@@ -87,7 +86,7 @@ ui <- navbarPage(
         tabsetPanel(
           tabPanel(
             "Protein Mapping/Functional Scores",
-            DT::dataTableOutput("fs_dat")
+            dataTableOutput("fs_dat")
           ),
           tabPanel(
             "Input Data Heatmap",
@@ -97,7 +96,7 @@ ui <- navbarPage(
           tabPanel(
             "Network Edgelist",
             # edgelist of the data
-            DT::dataTableOutput("edgelist")
+            dataTableOutput("edgelist")
           ),
           tabPanel(
             "TargetScore Heatmap",
@@ -264,7 +263,7 @@ server <- function(input, output, session) {
       proteomic_responses[is.na(proteomic_responses)] <- 0 # FIXME
 
       # Calc Std (Normalization request)
-      # FIXME REMOVE?
+      # FIXME REMOVE? there should be no na's included in preoteomic responses. What if so?
       # stdev <- zeptosensPkg::samp_sdev(nSample=nrow(proteomic_responses),
       #   n_prot=ncol(proteomic_responses),n_dose=1,nX=proteomic_responses)
       # #normalization
@@ -355,7 +354,6 @@ server <- function(input, output, session) {
       proteomic_responses = proteomic_responses,
       fs_dat = fs_dat,
       mab_to_genes = mab_to_genes,
-      fs_dat = fs_dat,
       network = network
     )
   })
@@ -389,7 +387,7 @@ server <- function(input, output, session) {
   })
 
   # DATA TABLE MODULE ----
-  output$fs_dat <- DT::renderDataTable({
+  output$fs_dat <- renderDataTable({
     results <- results()
     # return(results$fs_dat)
 
@@ -399,19 +397,19 @@ server <- function(input, output, session) {
     return(dat)
   })
 
-  output$edgelist <- DT::renderDataTable({
+  output$edgelist <- renderDataTable({
     results <- results()
     network <- results$network
     edgelist <- zeptosensPkg::create_sif_from_matrix(
       t_net = network$wk,
       col_genelist = colnames(network$wk),
-      row_genelist = colnames(network$wk)
+      row_genelist = rownames(network$wk)
     )
     return(edgelist)
   })
 
   #### TEST MODULE ----
-  output$test <- DT::renderDataTable({
+  output$test <- renderDataTable({
     results <- results()
     return("CALCULATION DONE")
   })
