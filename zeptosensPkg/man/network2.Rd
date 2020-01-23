@@ -4,8 +4,7 @@
 \alias{network2}
 \title{Network for adjusted-glasso}
 \usage{
-network2(wk, n_prot, proteomic_responses, dist_file = NULL,
-  verbose = FALSE)
+network2(wk, n_prot, proteomic_responses, dist_file = NULL, verbose = FALSE)
 }
 \arguments{
 \item{wk}{Inference network constructed in matrix form with edge strength value estimated.

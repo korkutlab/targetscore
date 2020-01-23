@@ -4,8 +4,19 @@
 \alias{get_target_score}
 \title{Target Score Pilot Run}
 \usage{
-get_target_score(wk, wks, dist_ind, inter, n_dose, n_prot,
-  proteomic_responses, n_perm, verbose = TRUE, ts_factor = 1, fs_dat)
+get_target_score(
+  wk,
+  wks,
+  dist_ind,
+  inter,
+  n_dose,
+  n_prot,
+  proteomic_responses,
+  n_perm,
+  verbose = TRUE,
+  ts_factor = 1,
+  fs_dat
+)
 }
 \arguments{
 \item{wk}{inference network constructed in matrix form with edge strength value estimated.

@@ -4,9 +4,19 @@
 \alias{calc_target_score}
 \title{Compute Target score for randomized data/compute P value for each TS given a network topology}
 \usage{
-calc_target_score(wk, wks, dist_ind, inter, n_dose, n_prot,
-  proteomic_responses, verbose = TRUE, ts_factor = 1, fs_dat,
-  dist_file = NULL)
+calc_target_score(
+  wk,
+  wks,
+  dist_ind,
+  inter,
+  n_dose,
+  n_prot,
+  proteomic_responses,
+  fs_dat,
+  verbose = TRUE,
+  ts_factor = 1,
+  dist_file = NULL
+)
 }
 \arguments{
 \item{wk}{Inference network constructed in matrix form with edge strength value estimated.
@@ -29,13 +39,13 @@ between the genes in the interaction}
 
 \item{proteomic_responses}{Input drug perturbation data. With columns as antibody, rows as samples.}
 
-\item{verbose}{a boolean to show debugging information}
-
-\item{ts_factor}{a scaling factor for the pathway component in the target score}
-
 \item{fs_dat}{Functional score file. A tab-delmited file with a header, each row is an
 antibody in the first column and functional score in the second column
 (i.e. 1 oncogene, 0 tumor supressor/oncogene, -1 tumor supressor characteristics)}
+
+\item{verbose}{a boolean to show debugging information}
+
+\item{ts_factor}{a scaling factor for the pathway component in the target score}
 
 \item{dist_file}{A distance file an edgelist with a third column which is the network distance
 between the genes in the interaction}

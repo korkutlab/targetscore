@@ -4,9 +4,17 @@
 \alias{run_robustness_test}
 \title{Run robustness test for data through the chosen algorithm.}
 \usage{
-run_robustness_test(data, prior = NULL, proteomic_responses, n_prot,
-  max_dist = 1, boot_time = 1000, cut_off = 0.1, fold = 5,
-  mab_to_genes)
+run_robustness_test(
+  data,
+  prior = NULL,
+  proteomic_responses,
+  n_prot,
+  max_dist = 1,
+  boot_time = 100,
+  cut_off = 0.1,
+  mab_to_genes,
+  algorithm = c("data_driven", "hybrid_driven")
+)
 }
 \arguments{
 \item{data}{input proteomics expression dataset for network inference. Coloumns as the gene, rows as the sample.With
@@ -23,13 +31,14 @@ inference dataset and proteomic_responses dataset.}
 
 \item{max_dist}{maximum distance between two antibody. (Default at 1)}
 
-\item{boot_time}{Bootstrap time mannually set.Default at 1000.}
+\item{boot_time}{Bootstrap time mannually set.Default at 100.}
 
 \item{cut_off}{Manually set up cut off value for strength of edge. (Default at 0.1)}
 
-\item{fold}{The fold for training and test dataset. Default at 5.}
-
 \item{mab_to_genes}{A list of antibodies, their associated genes, modification sites and effect.}
+
+\item{algorithm}{Flexible toolbox implementing network estimating algorithms for robustness test.
+(\code{data_driven},or \code{hybrid_driven}).}
 }
 \value{
 result of validation score. for random network and the network predicted with the algorithm.

@@ -4,8 +4,14 @@
 \alias{match_genes_to_edgelist}
 \title{Match a vector of genes to a SIF network}
 \usage{
-match_genes_to_edgelist(genes1, genes2 = NULL, annot_edgelist,
-  antibody_vec, use_annot = FALSE, verbose = FALSE)
+match_genes_to_edgelist(
+  genes1,
+  genes2 = NULL,
+  annot_edgelist,
+  antibody_vec,
+  use_annot = FALSE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{genes1}{a vector of genes}

@@ -4,8 +4,13 @@
 \alias{get_fs_vals}
 \title{Extracted functional score value from COMIC/ONCODRIVE Database. Can be override with Manually set functional score.}
 \usage{
-get_fs_vals(n_prot, proteomic_responses, mab_to_genes,
-  fs_override = NULL, verbose = FALSE)
+get_fs_vals(
+  n_prot,
+  proteomic_responses,
+  mab_to_genes,
+  fs_override = NULL,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{n_prot}{Antibody number of input data.}

@@ -4,7 +4,7 @@
 #'   and each column contains n observations of a single feature/variable.
 #' @param S option to provide a pxp sample covariance matrix (denominator n). If argument is
 #'  \code{NULL} and \code{data} is provided instead then \code{S} will be computed automatically.
-#' @param rho positive tuning parameter for elastic net penalty. Default at seq(0.01,1,length=100)
+#' @param rho positive tuning parameter for elastic net penalty. Default at 10^seq(-2,0, 0.02).
 #' @param kappa positive scaler parameter for biology prior contribution. Default at seq(0.01,1,length=100)
 #' @param diagonal option to penalize the diagonal elements of the estimated precision matrix
 #' (\eqn{\Omega}). Defaults to \code{FALSE}.
@@ -15,10 +15,11 @@
 #' allows the user to adjust the maximum number of iterations after the first \code{lam} tuning
 #'  parameter has converged. This option is intended to be paired with \code{warm} starts and
 #'  allows for 'one-step' estimators. Defaults to NULL.
-#' @param k_fold specify the number of folds for cross validation.
+#' @param k_fold specify the number of folds for cross validation.(Default at 5)
 #' @param crit_cv cross validation criterion (\code{loglik}, \code{AIC}, or \code{BIC}). Defaults to \code{loglik}.
 #' @param start specify \code{warm} or \code{cold} start for cross validation. Default is \code{warm}.
-#' @param algorithm
+#' @param algorithm Flexible toolbox implementing network estimating algorithms for robustness test.
+#' (\code{data_driven},or \code{hybrid_driven}).
 #'
 #' @return returns list of returns which includes:
 #' \item{lam}{optimized penalty parameter through traing data.}
@@ -32,18 +33,22 @@
 
 cv_glasso <- function(data = NULL,
                       s_matrix = NULL,
-                      prior,
-                      rho = seq(0.01, 1, length = 100),
-                      kappa = seq(0.01, 1, length = 100),
+                      prior = NULL,
+                      rho = 10^seq(-2, 0, 0.02),
+                      kappa = 10^seq(-2, 0, 0.02),
                       diagonal = FALSE,
                       tol = 1e-04,
                       maxit = 10000,
                       adjmaxit = NULL,
-                      k_fold = 2,
+                      k_fold = 5,
                       crit_cv = c("loglik", "AIC", "BIC"),
                       start = c("warm", "cold"),
                       algorithm = c("data_driven", "hybrid_driven")) {
 
+  # Data input requirement
+  if (is.null(data)) {
+    stop("Must provided data or s_matrix in cross validation process.")
+  }
   # match values
   crit_cv <- match.arg(crit_cv)
   algorithm <- match.arg(algorithm)

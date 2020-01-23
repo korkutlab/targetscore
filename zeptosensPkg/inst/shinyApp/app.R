@@ -11,6 +11,7 @@ library(morpheus)
 library(plotly)
 source("modal.R")
 
+
 # UI ----
 ui <- navbarPage(
   "Target Score",
@@ -168,14 +169,14 @@ server <- function(input, output, session) {
     # FS File
     fs_file <- input$fs_file
     if (!is.null(fs_file)) {
-      fs_file <- system.file("targetScoreData", "fs.csv", package = "zeptosensPkg")
-      fs_dat <- read.csv(fs_file, header = TRUE, stringsAsFactors = FALSE)
+      # fs_file <- system.file("targetScoreData", "fs.csv", package = "zeptosensPkg")
+      fs_data <- read.csv(fs_file$datapath, header = TRUE, stringsAsFactors = FALSE)
 
       fs_dat <- zeptosensPkg::get_fs_vals(
         n_prot = n_prot,
         proteomic_responses = proteomic_responses,
         mab_to_genes = mab_to_genes,
-        fs_dat = fs_dat
+        fs_override = fs_data
       )
     } else {
       fs_dat <- zeptosensPkg::get_fs_vals(
@@ -262,7 +263,7 @@ server <- function(input, output, session) {
       proteomic_responses[is.na(proteomic_responses)] <- 0 # FIXME
 
       # Calc Std (Normalization request)
-      # FIXME REMOVE?
+      # FIXME REMOVE? there should be no na's included in preoteomic responses. What if so?
       # stdev <- zeptosensPkg::samp_sdev(nSample=nrow(proteomic_responses),
       #   n_prot=ncol(proteomic_responses),n_dose=1,nX=proteomic_responses)
       # #normalization
@@ -353,7 +354,6 @@ server <- function(input, output, session) {
       proteomic_responses = proteomic_responses,
       fs_dat = fs_dat,
       mab_to_genes = mab_to_genes,
-      fs_dat = fs_dat,
       network = network
     )
   })
@@ -402,7 +402,8 @@ server <- function(input, output, session) {
     network <- results$network
     edgelist <- zeptosensPkg::create_sif_from_matrix(
       t_net = network$wk,
-      genelist = colnames(network$wk)
+      col_genelist = colnames(network$wk),
+      row_genelist = rownames(network$wk)
     )
     return(edgelist)
   })

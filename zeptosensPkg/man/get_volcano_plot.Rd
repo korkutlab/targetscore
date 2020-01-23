@@ -6,8 +6,15 @@
 As Significant Proteins (p value< Defalut or Manually set value) will show in red.
 The inverse log 10 of Target Score q value and Target Score calculated were shown.}
 \usage{
-get_volcano_plot(ts, q_value, filename, path = getwd(),
-  sig_value = 0.4, include_labels = TRUE, save_output = TRUE)
+get_volcano_plot(
+  ts,
+  q_value,
+  filename,
+  path = getwd(),
+  sig_value = 0.4,
+  include_labels = TRUE,
+  save_output = TRUE
+)
 }
 \arguments{
 \item{ts}{input Target Score calculated for each antibody data frame.

@@ -10,7 +10,6 @@ License: LGPL-3
 LazyData: false
 Imports: 
     glasso,
-    GeneNet,
     ggplot2,
     ggrepel
 Depends:
@@ -21,5 +20,5 @@ Suggests:
     morpheus,
     plotly
 VignetteBuilder: knitr
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.1
 Encoding: UTF-8

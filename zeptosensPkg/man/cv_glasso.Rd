@@ -4,14 +4,24 @@
 \alias{cv_glasso}
 \title{Run k-fold cross validation for data.(reference from CVglasso)}
 \usage{
-cv_glasso(data = NULL, s_matrix = NULL, prior, rho = seq(0.01, 1,
-  length = 100), kappa = seq(0.01, 1, length = 100), diagonal = FALSE,
-  tol = 1e-04, maxit = 10000, adjmaxit = NULL, k_fold = 2,
-  crit_cv = c("loglik", "AIC", "BIC"), start = c("warm", "cold"),
-  algorithm = c("data_driven", "hybrid_driven"))
+cv_glasso(
+  data = NULL,
+  s_matrix = NULL,
+  prior = NULL,
+  rho = 10^seq(-2, 0, 0.02),
+  kappa = 10^seq(-2, 0, 0.02),
+  diagonal = FALSE,
+  tol = 1e-04,
+  maxit = 10000,
+  adjmaxit = NULL,
+  k_fold = 5,
+  crit_cv = c("loglik", "AIC", "BIC"),
+  start = c("warm", "cold"),
+  algorithm = c("data_driven", "hybrid_driven")
+)
 }
 \arguments{
-\item{rho}{positive tuning parameter for elastic net penalty. Default at seq(0.01,1,length=100)}
+\item{rho}{positive tuning parameter for elastic net penalty. Default at 10^seq(-2,0, 0.02).}
 
 \item{kappa}{positive scaler parameter for biology prior contribution. Default at seq(0.01,1,length=100)}
 
@@ -28,13 +38,14 @@ allows the user to adjust the maximum number of iterations after the first \code
  parameter has converged. This option is intended to be paired with \code{warm} starts and
  allows for 'one-step' estimators. Defaults to NULL.}
 
-\item{k_fold}{specify the number of folds for cross validation.}
+\item{k_fold}{specify the number of folds for cross validation.(Default at 5)}
 
 \item{crit_cv}{cross validation criterion (\code{loglik}, \code{AIC}, or \code{BIC}). Defaults to \code{loglik}.}
 
 \item{start}{specify \code{warm} or \code{cold} start for cross validation. Default is \code{warm}.}
 
-\item{algorithm}{}
+\item{algorithm}{Flexible toolbox implementing network estimating algorithms for robustness test.
+(\code{data_driven},or \code{hybrid_driven}).}
 
 \item{S}{option to provide a pxp sample covariance matrix (denominator n). If argument is
 \code{NULL} and \code{data} is provided instead then \code{S} will be computed automatically.}

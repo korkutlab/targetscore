@@ -4,8 +4,14 @@
 \alias{predict_bio_network}
 \title{Predict Network from signedPC (Bio-inferred network)}
 \usage{
-predict_bio_network(n_prot, proteomic_responses, max_dist, mab_to_genes,
-  dist_file = NULL, verbose = FALSE)
+predict_bio_network(
+  n_prot,
+  proteomic_responses,
+  max_dist,
+  mab_to_genes,
+  dist_file = NULL,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{n_prot}{Antibody number of input data.}
@@ -30,6 +36,7 @@ upregulate and -1 for down regulate and 2 for phosphorylation and -2 for dephosp
 * "dist_ind" A distance file of edgelist with a third column as the network distance
 between the genes in the interaction.
 * "inter" file as edgelist of inferred network.
+* "edgelist" file as sif file of edgelist for inferred network.
 }
 \description{
 Predict Network from signedPC (Bio-inferred network)

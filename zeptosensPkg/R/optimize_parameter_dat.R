@@ -2,7 +2,7 @@
 #'
 #' @param data input proteomics dataset for network inference. Gene in coloumns and samples in row.
 #' With colnames as gene tags and rownames as sample tags.
-#' @param rho positive tuning parameter for elastic net penalty. Default at seq(0.01,1,length=100).
+#' @param rho positive tuning parameter for elastic net penalty. Default at 10^seq(-2, 0, 0.02).
 #'
 #' @return Parameter of regulization BIC error calculated.
 #' \item{rho}{penalty parameter optimized.}
@@ -12,7 +12,7 @@
 #'
 #' @concept zeptosensPkg
 #' @export
-optimize_parameter_dat <- function(data, rho = seq(0.01, 1, length = 100)) {
+optimize_parameter_dat <- function(data, rho = 10^seq(-2, 0, 0.02)) {
 
   # Calculate covariance matrix
   covmatrix <- cov(data)
@@ -24,7 +24,7 @@ optimize_parameter_dat <- function(data, rho = seq(0.01, 1, length = 100)) {
 
   # Calculate BIC for grid-search
   for (i in seq_len(length(rho))) {
-    g_result <- glasso::glasso(covmatrix, rho[i])
+    g_result <- glasso::glasso(covmatrix, rho[i], nobs = nrow(covmatrix))
     p_off_d <- sum(g_result$wi != 0 & col(covmatrix) < row(covmatrix))
     bic[i] <- -2 * (g_result$loglik) + p_off_d * log(nrow(data))
   }
