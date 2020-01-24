@@ -107,7 +107,7 @@ ui <- navbarPage(
           tabPanel(
             "TargetScore Volcano Plot",
             # volcano plot line choice
-            numericInput("line_number", "Line Number", value = 1, min = 1), # FIXME
+            numericInput("condition_number", "Condition (Input Row Number)", value = 1, min = 1), # FIXME
             plotlyOutput("volcano_plot")
           )
         )
@@ -450,15 +450,14 @@ server <- function(input, output, session) {
   # output$volcano_plot <- renderPlot({
   output$volcano_plot <- renderPlotly({
     # Line number
-    line_number <- input$line_number
+    condition_number <- input$condition_number
     calc_type <- input$ts_calc_type
     results <- results()
     ts_r <- results$ts_r
     if (calc_type == "line_by_line") {
-      ts <- ts_r$ts[line_number, ]
-      ts_q <- ts_r$ts_q[line_number, ]
-    }
-    if (calc_type == "pooled") {
+      ts <- ts_r$ts[condition_number, ]
+      ts_q <- ts_r$ts_q[condition_number, ]
+    } else if (calc_type == "pooled") {
       ts <- ts_r$ts
       ts_q <- ts_r$ts_q
     }
@@ -470,7 +469,7 @@ server <- function(input, output, session) {
     }
 
     p1 <- get_volcano_plot(
-      ts = ts, q_value = ts_q, filename = rownames(ts_r)[line_number], path = "",
+      ts = ts, q_value = ts_q, filename = rownames(ts_r)[condition_number], path = "",
       include_labels = FALSE, save_output = FALSE
     )
     # g1 <- ggplotly(p1, width=plotWidth, height=plotHeight, tooltip=tooltipCol) # need tooltip
