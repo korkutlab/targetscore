@@ -34,22 +34,22 @@ ui <- navbarPage(
     sidebarLayout(
       sidebarPanel(
         width = 4,
+        fileInput("drug_data_file", "Perturbation Response File (.csv; REQUIRED)",
+          buttonLabel = "Browse...",
+          placeholder = "No file selected",
+          accept = ".csv"
+        ),
         fileInput("antibody", "Mapping File (.csv or blank)",
           buttonLabel = "Browse...",
           placeholder = "No file selected",
           accept = ".csv"
         ),
-        fileInput("sig", "Background Network File (.csv or blank)",
+        fileInput("sig", "Background Network File (.csv or blank; REQUIRED ???)",
           buttonLabel = "Browse...",
           placeholder = "No file selected",
           accept = ".csv"
         ),
         fileInput("fs_file", "Functional Score File (.csv or blank)",
-          buttonLabel = "Browse...",
-          placeholder = "No file selected",
-          accept = ".csv"
-        ),
-        fileInput("drug_data_file", "Perturbation Response File (.csv)",
           buttonLabel = "Browse...",
           placeholder = "No file selected",
           accept = ".csv"
@@ -78,7 +78,18 @@ ui <- navbarPage(
         # max distance of protein network
         numericInput("max_dist", "Maximum Network Distance", "1"),
 
-        actionButton("submit", label = "Submit", icon = NULL, width = NULL)
+        actionButton("submit", label = "Submit", icon = NULL, width = NULL),
+
+        hr(),
+        helpText(
+          a("Perturbation Response Example", href = "data/BT474.csv", target = "_blank"),
+          br(),
+          a("Background Network Example", href = "data/TCGA_BRCA_L4_1.csv", target = "_blank"),
+          br(),
+          a("Mapping Example", href = "data/antibodyMapfile.txt", target = "_blank"),
+          br(),
+          a("Functional Score Example", href = "data/Cosmic.txt", target = "_blank"),
+        ),
       ),
       # Results showing
       mainPanel(
@@ -216,9 +227,11 @@ server <- function(input, output, session) {
     if (network_algorithm == "dat" || network_algorithm == "hybrid") {
       # Proteomics dataset for network inference
       sig_file <- input$sig
-      if (is.null(sig_file)) {
-        return(NULL)
-      }
+      validate(
+        need(is.null(sig_file), "ERROR: REQUIRED: Background Network File for Hybrid and 
+             Graphical LASSO Network Construction Algorithms")
+      )
+
       # FIXME stringsAsFactors for anything else?
       sig_dat <- read.csv(sig_file$datapath, header = TRUE, stringsAsFactors = FALSE)
 
