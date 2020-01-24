@@ -9,6 +9,7 @@ library(zeptosensPkg)
 library(pheatmap)
 library(morpheus)
 library(plotly)
+# library(DT)
 source("modal.R")
 
 
@@ -44,7 +45,7 @@ ui <- navbarPage(
           placeholder = "No file selected",
           accept = ".csv"
         ),
-        fileInput("sig", "Background Network File (.csv or blank; REQUIRED ???)",
+        fileInput("sig", "Background Network File (.csv or blank)",
           buttonLabel = "Browse...",
           placeholder = "No file selected",
           accept = ".csv"
@@ -97,7 +98,7 @@ ui <- navbarPage(
         tabsetPanel(
           tabPanel(
             "Protein Mapping/Functional Scores",
-            dataTableOutput("fs_dat")
+            tableOutput("fs_dat")
           ),
           tabPanel(
             "Input Data Heatmap",
@@ -107,7 +108,7 @@ ui <- navbarPage(
           tabPanel(
             "Network Edgelist",
             # edgelist of the data
-            dataTableOutput("edgelist")
+            tableOutput("edgelist")
           ),
           tabPanel(
             "TargetScore Heatmap",
@@ -400,7 +401,7 @@ server <- function(input, output, session) {
   })
 
   # DATA TABLE MODULE ----
-  output$fs_dat <- renderDataTable({
+  output$fs_dat <- renderTable({
     results <- results()
     # return(results$fs_dat)
 
@@ -410,7 +411,7 @@ server <- function(input, output, session) {
     return(dat)
   })
 
-  output$edgelist <- renderDataTable({
+  output$edgelist <- renderTable({
     results <- results()
     network <- results$network
     edgelist <- zeptosensPkg::create_sif_from_matrix(
@@ -422,9 +423,10 @@ server <- function(input, output, session) {
   })
 
   #### TEST MODULE ----
-  output$test <- renderDataTable({
+  output$test <- renderTable({
     results <- results()
-    return("CALCULATION DONE")
+    tmp <- data.frame(a = 1, b = 2, stringsAsFactors = FALSE)
+    return(tmp)
   })
 
   #### NETWORK VISUALIZATION MODULE ----
