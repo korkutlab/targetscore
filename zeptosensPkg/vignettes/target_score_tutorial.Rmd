@@ -1,5 +1,5 @@
 ---
-title: "Using TargetScore"
+title: "TargetScore Tutorial"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
@@ -15,54 +15,76 @@ opts_chunk$set(fig.align = "center", fig.width = 6, fig.height = 6, dpi = 300)
 
 # Purpose 
 
-This tutorial describes the basic usage of TargetScore. 
+This tutorial describes the basic introduction and usage of TargetScore.
+
+# Introduction
+
+In Cancer treatment,Targeted therapies have been substantially successful in treatment of diverse cancer types. However, resistance to therapy is virtually inevitable and can manifest as a lack of initial response to therapy (intrinsic) or disease progression after temporary response.we have hypothesized that robust activation of functionally connected oncogene groups in response to therapy are better predictors of adaptive drug resistance. And the collective adaptive responses can be targeted with drug combinations to overcome the resistance and induce more durable therapeutic responses. Accordingly, we have developed a statistical network modeling method Target Score.
 
 # Setup 
 ## Load Packages 
 
 ```{r}
-library(plyr)
+# Target Score package
 library(zeptosensPkg)
-library(data.table)
-library(RColorBrewer)
-library(gplots)
-library(matrixStats)
+
+# Plot packages
 library(ggplot2)
-library(glasso)
-library(metap)
-library(ggrepel)
+library(gplots)
+library(RColorBrewer)
 library(pheatmap)
+
+# Data Manipulation packages
+library(plyr)
+library(data.table)
+library(matrixStats)
 ```
 
 ## Load Data 
 
-```{r}
+Mandatory loading data including: Drug perturbation data (proteomic_responses). User may also provided Anitibody file and defined function score for certain antibody. Several parameters should be settled:
+1.max_dist: Max distance between protein network was default at 1 which limits the maximum protein-protein distance.
+2.n_prot: Number of Antibodies included in the User provided drug perturbation data.
+Other files that can be attached are:
+1. mab_to_genes: list of antibodies, their associated genes, modification sites and effect.
+2. fs_override :a listing of functional scores for each gene manually set up for overriding COSMIC Database given value, the modification path.
+
+```{r Load Data}
 # data_dir <- "../data(ts)/ts_anil"
 # protein_list_dir <- "../data(ts)/Protein_Name_List"
 data_dir <- system.file("test_data", package = "zeptosensPkg")
 resource_dir <- system.file("targetScoreData", package = "zeptosensPkg")
-output_dir <- "inst/test_data/output3"
+output_dir <- "inst/test_data/tutorial_output"
 
+# Number of antibodies
 n_prot <- 304
+
+# Max distance
 max_dist <- 1 # changing this value requires additional work to compute product(wk). This is not a priority
-verbose <- FALSE
+# verbose <- FALSE
 
 # READ ANTIBODY FILE ----
-mab_to_genes <- read.table(file.path(resource_dir, "antibodyMapFile.txt"),
+mab_to_genes <- read.table(file.path(resource_dir, "antibodyMapFile_08092019.txt"),
   sep = "\t",
   header = TRUE,
   stringsAsFactors = FALSE
 )
 
-# Read proteomic response for cellline1
+# Read drug perturbation data for BT474
 proteomic_responses <- read.csv(file.path(data_dir, "BT474.csv"), row.names = 1) # n_prot=304
 
-# Read in functional scores
-fs <- read.csv(file.path(resource_dir, "fs.csv"), header = TRUE, stringsAsFactors = FALSE)
+# Read in User defined functional scores
+fs_override <- read.csv(file.path(data_dir, "fs.csv"), header = TRUE, stringsAsFactors = FALSE)
 ```
 
 # Extract Network 
-```{r}
+Three ways of constructing reference networks are provided in the algorithm including knowledge-base reference network from SignedPC; data-driven reference network based on graphical lasso and hybrid-approach reference network termed pr-glasso.
+
+## Knowledge base reference network
+
+Inferred from Pathway Commons and BioPax based database. knowledge base reference network integrates detailed human pathway data from multiple public resources such as Reactome, NCI PID, PhosphoSitePlus and Panther pathway database. Of interest to us, only four relationship was extracted out as: phosphorylation, dephosphorylation, expression upregulation, and expression downregulation.
+
+```{r Extract Network}
 # Extract network
 network <- zeptosensPkg::predict_bio_network(
   n_prot = n_prot,
@@ -71,25 +93,99 @@ network <- zeptosensPkg::predict_bio_network(
   mab_to_genes = mab_to_genes
 )
 
-saveRDS(network, file.path(output_dir, "bt474_network.rds"))
+saveRDS(network, file.path(output_dir, "bt474_bionetwork.rds"))
+```
+
+## Data-driven reference network
+
+Data driven reference network captures the molecular associations and inter-tumor heterogeneity across a population of samples with shared characteristics (e.g., breast cancer or basal-like subtype patients). The approach benefits from omics data that captures the signaling variations.
+
+To be explained, the data-driven signaling network captures the protein-protein interaction by estimating the sparse undirected partial correlation. It based on graphical lasso models through the use of L1 (lasso) regularization.
+
+     argmax(Θ)=(log( detΘ -tr(SΘ)-rho*||Θ||)
+
+```{r Extract Network}
+# Read Global Signaling file for BRCA
+signaling_responses <- read.csv(system.file("test_data", "TCGA-BRCA-L4.csv", package = "zeptosensPkg"), row.names = 1)
+
+# Extract network
+network <- zeptosensPkg::predict_dat_network(
+  data <- signaling_responses,
+  n_prot = n_prot,
+  proteomic_responses = proteomic_responses
+)
+
+saveRDS(network, file.path(output_dir, "bt474_datnetwork.rds"))
+```
+
+## Hybrid-approach (pr-glasso) reference network
+
+We have developed a modified version of the glasso algorithm, termed pr (prior) -glasso. pr-glasso integrates experimental constraints with prior information from knowledge signaling databases
+
+The prior information is incorporated into the inference with a probabilistic term that favors prior interactions that conform to the experimental data, eliminates priors that do not conform and predict novel interactions dictated solely by the experimental data. The prior information narrows the potential solutions to a biologically more relevant domain of the search space.
+
+	argmax(Θ)=( log detΘ -tr(SΘ)-(rho*I+kappa*λ||Θ||)
+
+Which ro be explained, is to give smaller penalty parameter to the interaction that already existed in the knowledge base reference network.
+
+
+```{r Extract Network}
+
+# Extract protein-protein interaction knowledge
+network <- zeptosensPkg::predict_bio_network(
+  n_prot = n_prot,
+  proteomic_responses = proteomic_responses,
+  max_dist = max_dist,
+  mab_to_genes = mab_to_genes
+)
+
+prior <- network$wk
+
+# pr-glasso
+network <- zeptosensPkg::predict_hybrid_network(
+  data = signaling_responses,
+  prior = prior,
+  n_prot = n_prot,
+  proteomic_responses = proteomic_responses,
+  mab_to_genes = mab_to_genes
+)
+
+saveRDS(network, file.path(output_dir, "bt474_hybnetwork.rds"))
+```
+
+# Extract functional score 
+
+A function score was given inferred from COSMIC database indicating whether the protein is an onco-protein or tumor suppressor overrided by the user provided functional score.
+
+```{r Extract fs}
+# Extract functional score
+fs <- zeptosensPkg::get_fs_vals(
+  n_prot = n_prot,
+  proteomic_responses = proteomic_responses,
+  mab_to_genes = mab_to_genes,
+  fs_override = fs_override
+)
+
+saveRDS(fs, file.path(output_dir, "bt474_fs.rds"))
 ```
 
 # Run Target Score 
-```{r example, message=FALSE, warning=FALSE}
+
+The Target Score is calculated for each measured entity (e.g, protein) under each condition. It is quantified as the network interaction weighted sum of the "self-change" of the corresponding entity and the change in the pathway/network neighborhood in response to targeted perturbations. While 
+```{r Target Score Calculation example, message=FALSE, warning=FALSE}
 ## Calculate Target Score
 wk <- network$wk
 wks <- network$wks
 dist_ind <- network$dist_ind
 inter <- network$inter
 
-n_prot <- ncol(proteomic_responses)
 n_cond <- nrow(proteomic_responses)
 
 ts <- array(0, dim = c(n_cond, n_prot))
 ts_p <- array(0, dim = c(n_cond, n_prot))
 ts_q <- array(0, dim = c(n_cond, n_prot))
 
-n_perm <- 25
+n_perm <- 25 # Permutation time
 
 for (i in 1:n_cond) {
   results <- zeptosensPkg::get_target_score(
@@ -140,8 +236,9 @@ saveRDS(overall_results, file.path(output_dir, "bt474_results.rds"))
 ```
 
 # Plot 
-```{r}
+Visualization of Target Score calculation result.
 ## Heatmap
+```{r}
 results <- readRDS(file.path(output_dir, "bt474_results.rds"))
 data <- results$ts
 
@@ -159,8 +256,11 @@ pheatmap(data,
   breaks = bk
 )
 dev.off()
+```
 
 ## Volcano Plot
+
+```{r}
 tmp <- readRDS(file.path(output_dir, "bt474_results.rds"))
 data <- tmp$ts
 data_p <- tmp$ts_p
@@ -168,8 +268,11 @@ data_p <- tmp$ts_p
 for (i in 1:nrow(data)) {
   get_volcano_plot(ts = data[i, ], q_value = data_p[i, ], filename = rownames(data)[i], path = output_dir)
 }
+```
 
-# Subnetwork for Top 30 Proteins Under Different Conditions ----
+## Subnetwork for Top 30 Proteins Under Different Conditions ----
+
+```{r}
 tmp <- readRDS(file.path(output_dir, "bt474_results.rds"))
 bt474_ts <- tmp$ts
 
