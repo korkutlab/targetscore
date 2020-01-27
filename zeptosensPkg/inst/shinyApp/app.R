@@ -5,11 +5,11 @@
 # rsconnect::deployApp()
 
 library(shiny)
+library(DT)
 library(zeptosensPkg)
 library(pheatmap)
 library(morpheus)
 library(plotly)
-# library(DT)
 source("modal.R")
 
 
@@ -98,7 +98,8 @@ ui <- navbarPage(
         tabsetPanel(
           tabPanel(
             "Protein Mapping/Functional Scores",
-            tableOutput("fs_dat")
+            # tableOutput("fs_dat")
+            DT::dataTableOutput("fs_dat")
           ),
           tabPanel(
             "Input Data Heatmap",
@@ -108,7 +109,8 @@ ui <- navbarPage(
           tabPanel(
             "Network Edgelist",
             # edgelist of the data
-            tableOutput("edgelist")
+            # tableOutput("edgelist")
+            DT::dataTableOutput("edgelist")
           ),
           tabPanel(
             "TargetScore Heatmap",
@@ -401,7 +403,8 @@ server <- function(input, output, session) {
   })
 
   # DATA TABLE MODULE ----
-  output$fs_dat <- renderTable({
+  # output$fs_dat <- renderTable({
+  output$fs_dat <- DT::renderDataTable({
     results <- results()
     # return(results$fs_dat)
 
@@ -411,7 +414,8 @@ server <- function(input, output, session) {
     return(dat)
   })
 
-  output$edgelist <- renderTable({
+  # output$edgelist <- renderTable({
+  output$edgelist <- DT::renderDataTable({
     results <- results()
     network <- results$network
     edgelist <- zeptosensPkg::create_sif_from_matrix(
@@ -423,7 +427,8 @@ server <- function(input, output, session) {
   })
 
   #### TEST MODULE ----
-  output$test <- renderTable({
+  # output$test <- renderTable({
+  output$test <- DT::renderDataTable({
     results <- results()
     tmp <- data.frame(a = 1, b = 2, stringsAsFactors = FALSE)
     return(tmp)
