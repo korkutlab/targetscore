@@ -171,22 +171,32 @@ saveRDS(fs, file.path(output_dir, "bt474_fs.rds"))
 
 # Run Target Score 
 
-The Target Score is calculated for each measured entity (e.g, protein) under each condition. It is quantified as the network interaction weighted sum of the "self-change" of the corresponding entity and the change in the pathway/network neighborhood in response to targeted perturbations. While 
+The Target Score is calculated for each measured entity (e.g, protein) under each condition. It is quantified as the network interaction weighted sum of the "self-change" of the corresponding entity and the change in the pathway/network neighborhood in response to targeted perturbations. The statistical assessment of Target Score is then reached at Random sampling of proteomic responses (randomized Ab label mixing) at each drug dose generates the randomized data sets over all antibody readouts.
+
 ```{r Target Score Calculation example, message=FALSE, warning=FALSE}
 ## Calculate Target Score
+
+# reference network
 wk <- network$wk
 wks <- network$wks
 dist_ind <- network$dist_ind
 inter <- network$inter
 
+# functional score
+fs <- readRDS(file.path(output_dir, "bt474_fs.rds"))
+
+# Number of Conditions needed to calculate
 n_cond <- nrow(proteomic_responses)
 
+# Set initial value
 ts <- array(0, dim = c(n_cond, n_prot))
 ts_p <- array(0, dim = c(n_cond, n_prot))
 ts_q <- array(0, dim = c(n_cond, n_prot))
 
-n_perm <- 25 # Permutation time
+# Permutation time
+n_perm <- 25
 
+# TS
 for (i in 1:n_cond) {
   results <- zeptosensPkg::get_target_score(
     wk = wk,
@@ -196,10 +206,8 @@ for (i in 1:n_cond) {
     n_dose = 1,
     n_prot = n_prot,
     proteomic_responses = proteomic_responses[i, ],
-    max_dist = max_dist,
     n_perm = n_perm,
-    verbose = verbose,
-    fs_file = file.path(resource_dir, "fs.txt")
+    fs_dat = fs
   )
 
   ts[i, ] <- results$ts
@@ -207,19 +215,6 @@ for (i in 1:n_cond) {
   ts_q[i, ] <- results$q
 }
 
-ts_cond1 <- zeptosensPkg::get_target_score(
-  wk = wk,
-  wks = wks,
-  dist_ind = dist_ind,
-  inter = inter,
-  n_dose = 1,
-  n_prot = n_prot,
-  proteomic_responses = proteomic_responses[1, ],
-  max_dist = max_dist,
-  n_perm = n_perm,
-  verbose = verbose,
-  fs_file = file.path(resource_dir, "fs.txt")
-)
 
 ## Set column and rownames to results
 colnames(ts) <- colnames(proteomic_responses)
@@ -242,17 +237,17 @@ Visualization of Target Score calculation result.
 results <- readRDS(file.path(output_dir, "bt474_results.rds"))
 data <- results$ts
 
-bk <- c(seq(-4, -0.1, by = 0.01), seq(0, 5.5, by = 0.01))
+bk <- c(seq(min(data), -0.1, by = 0.01), seq(0, max(data), by = 0.01))
 
 filename <- file.path(output_dir, "heatmap_BT474.pdf")
 pdf(filename)
 pheatmap(data,
   scale = "none",
   color = c(
-    colorRampPalette(colors = c("navy", "white"))(length(seq(-4, -0.1, by = 0.01))),
-    colorRampPalette(colors = c("white", "firebrick3"))(length(seq(0, 5.5, by = 0.01)))
+    colorRampPalette(colors = c("navy", "white"))(length(seq(min(data), -0.1, by = 0.01))),
+    colorRampPalette(colors = c("white", "firebrick3"))(length(seq(0, max(data), by = 0.01)))
   ),
-  legend_breaks = seq(-4, 5.5, 2), cellwidth = 1, cellheight = 1, fontsize = 1, fontsize_row = 1,
+  legend_breaks = seq(min(data), max(data), 2), cellwidth = 1, cellheight = 1, fontsize = 1, fontsize_row = 1,
   breaks = bk
 )
 dev.off()
@@ -265,8 +260,16 @@ tmp <- readRDS(file.path(output_dir, "bt474_results.rds"))
 data <- tmp$ts
 data_p <- tmp$ts_p
 
+# Significant level
+sig_value <- 0.01
+
 for (i in 1:nrow(data)) {
-  get_volcano_plot(ts = data[i, ], q_value = data_p[i, ], filename = rownames(data)[i], path = output_dir)
+  get_volcano_plot(
+    ts = data[i, ],
+    q_value = data_p[i, ],
+    filename = rownames(data)[i],
+    path = output_dir, sig_value = sig_value
+  )
 }
 ```
 
@@ -283,7 +286,11 @@ data_30 <- head(data, 30)
 wk <- network$wk
 index <- which(colnames(wk) %in% names(data_30))
 subnet <- wk[index, index]
-edgelist_subnet <- zeptosensPkg::create_sif_from_matrix(t_net = subnet, genelist = colnames(subnet))
+edgelist_subnet <- zeptosensPkg::create_sif_from_matrix(
+  t_net = subnet,
+  col_genelist = colnames(subnet),
+  row_genelist = rownames(subnet)
+)
 write.table(edgelist_subnet,
   file.path(output_dir, "signed_pc_BT474_MCL1_TOP30_positive_subnet.txt"),
   quote = FALSE,
@@ -295,7 +302,11 @@ data_30 <- tail(data, 30)
 wk <- network$wk
 index <- which(colnames(wk) %in% names(data_30))
 subnet <- wk[index, index]
-edgelist_subnet <- zeptosensPkg::create_sif_from_matrix(t_net = subnet, genelist = colnames(subnet))
+edgelist_subnet <- zeptosensPkg::create_sif_from_matrix(
+  t_net = subnet,
+  col_genelist = colnames(subnet),
+  row_genelist = rownames(subnet)
+)
 write.table(edgelist_subnet,
   file.path(output_dir, "signed_pc_BT474_MCL1_TOP30_negative_subnet.txt"),
   quote = FALSE,
@@ -309,7 +320,11 @@ data_30 <- head(data, 30)
 wk <- network$wk
 index <- which(colnames(wk) %in% names(data_30))
 subnet <- wk[index, index]
-edgelist_subnet <- zeptosensPkg::create_sif_from_matrix(t_net = subnet, genelist = colnames(subnet))
+edgelist_subnet <- zeptosensPkg::create_sif_from_matrix(
+  t_net = subnet,
+  col_genelist = colnames(subnet),
+  row_genelist = rownames(subnet)
+)
 write.table(edgelist_subnet,
   file.path(output_dir, "signed_pc_BT474_COMB_TOP30_positive_subnet.txt"),
   quote = FALSE,
@@ -320,7 +335,11 @@ data_30 <- tail(data, 30)
 
 index <- which(colnames(wk) %in% names(data_30))
 subnet <- wk[index, index]
-edgelist_subnet <- zeptosensPkg::create_sif_from_matrix(t_net = subnet, genelist = colnames(subnet))
+edgelist_subnet <- zeptosensPkg::create_sif_from_matrix(
+  t_net = subnet,
+  col_genelist = colnames(subnet),
+  row_genelist = rownames(subnet)
+)
 write.table(edgelist_subnet,
   file.path(output_dir, "signed_pc_BT474_COMB_TOP30_negative_subnet.txt"),
   quote = FALSE,

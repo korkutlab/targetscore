@@ -16,7 +16,8 @@
 #' @param n_perm number of random TS calculations for building the null distribution
 #' @param verbose a flag for debugging output
 #' @param ts_factor a scaling factor for the pathway component of the target score
-#' @param fs_dat a file with the functional score data
+#' @param fs_dat a dataset with the functional score data.First coloumn as the protein name and second
+#' column as the functional score. Can be inferred from get_fs_value or be User defined and curated.
 #'
 #' @details
 #' data: multiple dose single drug perturbation
