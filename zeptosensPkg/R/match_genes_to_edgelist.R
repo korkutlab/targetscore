@@ -55,14 +55,17 @@ match_genes_to_edgelist <- function(genes1, genes2 = NULL, annot_edgelist, antib
     genes2x <- genes2[cur_annot_edgelist[, 2] %in% genes2]
     genes2x <- genes2x[!is.na(genes2x)]
 
+    # genes2x <- genes2
+    # cat("FAST\n")
+
     for (j in 1:length(genes2x)) {
       # if(verbose) {
       #    cat("J: ", j, "\n")
       # }
 
-      # tmp_idx <- which(cur_annot_edgelist[, 1] == genes1[i] & cur_annot_edgelist[, 2] == genes2[j])
+      # tmp_idx <- which(cur_annot_edgelist[, 1] == genes1[i] & cur_annot_edgelist[, 2] == genes2x[j])
       # COMMENT OUT
-      tmp_idx <- which(cur_annot_edgelist[, 2] == genes2[j])
+      tmp_idx <- which(cur_annot_edgelist[, 2] == genes2x[j])
 
       if (length(tmp_idx) == 1) {
         if (use_annot) {
@@ -73,16 +76,16 @@ match_genes_to_edgelist <- function(genes1, genes2 = NULL, annot_edgelist, antib
 
         # Get indicies based off antibody names rather than the gene names
         gene1_ab_idx <- which(antibody_vec == names(genes1[i]))
-        gene2_ab_idx <- which(antibody_vec == names(genes2[j]))
+        gene2_ab_idx <- which(antibody_vec == names(genes2x[j]))
 
         tmp_results <- data.frame(
           gene1 = gene1_ab_idx,
           gene2 = gene2_ab_idx,
           annot = annot,
           gene1Name = genes1[i],
-          gene2Name = genes2[j],
+          gene2Name = genes2x[j],
           gene1Ab = names(genes1[i]),
-          gene2Ab = names(genes2[j]),
+          gene2Ab = names(genes2x[j]),
           stringsAsFactors = FALSE
         )
         results <- rbind(results, tmp_results)

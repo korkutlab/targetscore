@@ -212,6 +212,9 @@ server <- function(input, output, session) {
     # Number of permutations
     n_perm <- input$n_perm
 
+    # DEBUG
+    cat("D1X: ", as.character(Sys.time()), "\n")
+
     # choosing the way to construct reference network
     if (network_algorithm == "bio") {
       # reference network
@@ -273,6 +276,9 @@ server <- function(input, output, session) {
         inter <- network$inter
       }
     }
+
+    # DEBUG
+    cat("D1Y: ", as.character(Sys.time()), "\n")
 
     # Calculate Targetscore
     if (ts_type == "line_by_line") {
