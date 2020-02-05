@@ -32,20 +32,37 @@ match_genes_to_edgelist <- function(genes1, genes2 = NULL, annot_edgelist, antib
     stop("ERROR: genes1 and genes2 must be named vectors with antibody names")
   }
 
+  # annot_edgelist0 <- annot_edgelist
+
+  # COMMENT OUT
+  tmp_idx <- which(annot_edgelist[, 1] %in% genes1)
+  annot_edgelist0 <- annot_edgelist[tmp_idx, ]
+  tmp_idx <- which(annot_edgelist0[, 2] %in% genes2)
+  annot_edgelist0 <- annot_edgelist0[tmp_idx, ]
+
+  # genes1x <- genes1[annot_edgelist0[, 1] %in% genes1]
+  # genes1x <- genes1x[!is.na(genes1x)]
+
   for (i in 1:length(genes1)) {
     # if(verbose) {
     #    cat("I: ", i, "\n")
     # }
 
-    tmp_idx <- which(annot_edgelist[, 1] == genes1[i])
-    cur_annot_edgelist <- annot_edgelist[tmp_idx, ]
+    # COMMENT OUT
+    tmp_idx <- which(annot_edgelist0[, 1] == genes1[i])
+    cur_annot_edgelist <- annot_edgelist0[tmp_idx, ]
 
-    for (j in 1:length(genes2)) {
+    genes2x <- genes2[cur_annot_edgelist[, 2] %in% genes2]
+    genes2x <- genes2x[!is.na(genes2x)]
+
+    for (j in 1:length(genes2x)) {
       # if(verbose) {
       #    cat("J: ", j, "\n")
       # }
 
-      tmp_idx <- which(cur_annot_edgelist[, 1] == genes1[i] & cur_annot_edgelist[, 2] == genes2[j])
+      # tmp_idx <- which(cur_annot_edgelist[, 1] == genes1[i] & cur_annot_edgelist[, 2] == genes2[j])
+      # COMMENT OUT
+      tmp_idx <- which(cur_annot_edgelist[, 2] == genes2[j])
 
       if (length(tmp_idx) == 1) {
         if (use_annot) {

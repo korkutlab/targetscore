@@ -168,11 +168,15 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
   names(tmp_genes_d) <- mab_to_genes[tmp_idx_ai, 1]
   names(tmp_genes_ao) <- mab_to_genes[tmp_idx_a, 1]
 
+  # saveRDS(colnames(proteomic_responses), "colnames_proteomic_responses.rds")
+
   # only concentration and act. phospho nodes are included in up & downregulation
   upexp_gene <- match_genes_to_edgelist(
     genes1 = tmp_genes_a, genes2 = tmp_genes_c, annot_edgelist = upexp,
     antibody_vec = colnames(proteomic_responses), use_annot = FALSE, verbose = verbose
   )
+
+  # saveRDS(upexp_gene, "upexp_gene.rds")
 
   for (i in 1:length(upexp[, 1])) {
     wk[upexp_gene[i, 1], upexp_gene[i, 2]] <- 1

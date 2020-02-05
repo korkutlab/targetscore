@@ -44,8 +44,10 @@ get_volcano_plot <- function(ts, q_value,
   tmp_dat$color <- color
 
   p <- ggplot() +
-    geom_point(data = tmp_dat, aes(x = ts, y = neglogQ, color = color), alpha = 0.4, size = 2) +
-    xlab("<ts>") + ylab("-log10 (Q-Value)") + ggtitle("") +
+    geom_point(data = tmp_dat, aes(text = labelnames, x = ts, y = neglogQ, color = color), alpha = 0.4, size = 2) +
+    xlab("<ts>") +
+    ylab("-log10 (Q-Value)") +
+    ggtitle("") +
     scale_color_manual(name = "", values = c("black", "red")) +
     theme_bw()
 
