@@ -38,7 +38,7 @@ test_that("predict_bio_network", {
   skip_on_cran()
 
   # READ ANTIBODY FILE ----
-  mab_to_genes <- read.table(system.file("targetscoreData", "antibodyMapFile.txt", package = "zeptosensPkg"),
+  mab_to_genes <- read.table(system.file("targetscoreData", "antibodyMapFile_08092019.txt", package = "zeptosensPkg"),
     sep = "\t",
     header = TRUE,
     stringsAsFactors = FALSE

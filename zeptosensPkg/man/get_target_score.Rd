@@ -45,7 +45,8 @@ between the genes in the interaction}
 
 \item{ts_factor}{a scaling factor for the pathway component of the target score}
 
-\item{fs_dat}{a file with the functional score data}
+\item{fs_dat}{a dataset with the functional score data.First coloumn as the protein name and second
+column as the functional score. Can be inferred from get_fs_value or be User defined and curated.}
 }
 \description{
 Target Score Pilot Run
