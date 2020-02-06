@@ -19,8 +19,8 @@
 match_genes_to_edgelist <- function(genes1, genes2 = NULL, annot_edgelist, antibody_vec,
                                     use_annot = FALSE, verbose = FALSE) {
   results <- data.frame(
-    gene1 = numeric(), gene2 = numeric(), annot = numeric(),
-    gene1Name = character(), gene2Name = character(),
+    gene1 = numeric(0), gene2 = numeric(0), annot = numeric(0),
+    gene1_name = character(0), gene2_name = character(0),
     stringsAsFactors = FALSE
   )
 
@@ -43,59 +43,121 @@ match_genes_to_edgelist <- function(genes1, genes2 = NULL, annot_edgelist, antib
   # genes1x <- genes1[annot_edgelist0[, 1] %in% genes1]
   # genes1x <- genes1x[!is.na(genes1x)]
 
-  for (i in 1:length(genes1)) {
-    # if(verbose) {
-    #    cat("I: ", i, "\n")
-    # }
-
-    # COMMENT OUT
-    tmp_idx <- which(annot_edgelist0[, 1] == genes1[i])
-    cur_annot_edgelist <- annot_edgelist0[tmp_idx, ]
-
-    genes2x <- genes2[cur_annot_edgelist[, 2] %in% genes2]
-    genes2x <- genes2x[!is.na(genes2x)]
-
-    # genes2x <- genes2
-    # cat("FAST\n")
-
-    for (j in 1:length(genes2x)) {
-      # if(verbose) {
-      #    cat("J: ", j, "\n")
-      # }
-
-      # tmp_idx <- which(cur_annot_edgelist[, 1] == genes1[i] & cur_annot_edgelist[, 2] == genes2x[j])
-      # COMMENT OUT
-      tmp_idx <- which(cur_annot_edgelist[, 2] == genes2x[j])
-
-      if (length(tmp_idx) == 1) {
-        if (use_annot) {
-          annot <- cur_annot_edgelist[tmp_idx, 3]
-        } else {
-          annot <- NA
-        }
-
-        # Get indicies based off antibody names rather than the gene names
-        gene1_ab_idx <- which(antibody_vec == names(genes1[i]))
-        gene2_ab_idx <- which(antibody_vec == names(genes2x[j]))
-
-        tmp_results <- data.frame(
-          gene1 = gene1_ab_idx,
-          gene2 = gene2_ab_idx,
-          annot = annot,
-          gene1Name = genes1[i],
-          gene2Name = genes2x[j],
-          gene1Ab = names(genes1[i]),
-          gene2Ab = names(genes2x[j]),
-          stringsAsFactors = FALSE
-        )
-        results <- rbind(results, tmp_results)
-      }
-
-      if (length(tmp_idx) > 1) {
-        stop("ERROR: Multiple shortest paths found. Check SignedPC network.")
-      }
-    }
+  tmp <- paste0(annot_edgelist0[, 1], ":", annot_edgelist0[, 2])
+  if (any(duplicated(tmp))) {
+    stop("ERROR: Multiple shortest paths found. Check SignedPC network.")
   }
+
+  genes1_df <- data.frame(
+    PARTICIPANT_A = as.vector(genes1),
+    PARTICIPANT_A_NAME = names(genes1),
+    stringsAsFactors = FALSE
+  )
+  genes2_df <- data.frame(
+    PARTICIPANT_B = as.vector(genes2),
+    PARTICIPANT_B_NAME = names(genes2),
+    stringsAsFactors = FALSE
+  )
+
+  cur_annot_edgelist <- annot_edgelist0
+  cur_annot_edgelist <- merge(cur_annot_edgelist, genes1_df, by = "PARTICIPANT_A", all.y = TRUE)
+  cur_annot_edgelist <- merge(cur_annot_edgelist, genes2_df, by = "PARTICIPANT_B", all.y = TRUE)
+  idx <- complete.cases(cur_annot_edgelist)
+  cur_annot_edgelist <- cur_annot_edgelist[idx, ]
+
+  if (verbose) {
+    cat("START MATCH GENES: ", as.character(Sys.time()), "\n")
+    cat("NROW: ", nrow(cur_annot_edgelist), "\n")
+  }
+
+  for (i in 1:nrow(cur_annot_edgelist)) {
+    # i <- 1
+    annot <- NA
+    if (use_annot) {
+      annot <- cur_annot_edgelist[i, "DISTANCE"]
+    }
+
+    # Get indicies based off antibody names rather than the gene names
+    gene1_ab_idx <- which(antibody_vec == cur_annot_edgelist[i, "PARTICIPANT_A_NAME"])
+    gene2_ab_idx <- which(antibody_vec == cur_annot_edgelist[i, "PARTICIPANT_B_NAME"])
+
+    gene1_name <- cur_annot_edgelist[i, "PARTICIPANT_A"]
+    gene2_name <- cur_annot_edgelist[i, "PARTICIPANT_B"]
+    gene1_ab <- cur_annot_edgelist[i, "PARTICIPANT_A_NAME"]
+    gene2_ab <- cur_annot_edgelist[i, "PARTICIPANT_B_NAME"]
+
+    tmp_results <- data.frame(
+      gene1 = gene1_ab_idx,
+      gene2 = gene2_ab_idx,
+      annot = annot,
+      gene1Name = gene1_name,
+      gene2Name = gene2_name,
+      gene1Ab = gene1_ab,
+      gene2Ab = gene2_ab,
+      stringsAsFactors = FALSE
+    )
+
+    results <- rbind(results, tmp_results)
+  }
+
+  # cnt <- 1
+  #
+  # for (i in 1:length(genes1)) {
+  #   # if(verbose) {
+  #   #    cat("I: ", i, "\n")
+  #   # }
+  #
+  #   # COMMENT OUT
+  #   tmp_idx <- which(annot_edgelist0[, 1] == genes1[i])
+  #   cur_annot_edgelist <- annot_edgelist0[tmp_idx, ]
+  #
+  #   genes2x <- genes2[cur_annot_edgelist[, 2] %in% genes2]
+  #   genes2x <- genes2x[!is.na(genes2x)]
+  #
+  #   genes2x <- genes2
+  #   # cat("FAST\n")
+  #
+  #   for (j in 1:length(genes2x)) {
+  #     cat("C: ", cnt, "\n")
+  #     cnt <- cnt + 1
+  #
+  #     # if(verbose) {
+  #     #    cat("J: ", j, "\n")
+  #     # }
+  #
+  #     # tmp_idx <- which(cur_annot_edgelist[, 1] == genes1[i] & cur_annot_edgelist[, 2] == genes2x[j])
+  #     # COMMENT OUT
+  #     tmp_idx <- which(cur_annot_edgelist[, 2] == genes2x[j])
+  #
+  #     if (length(tmp_idx) == 1) {
+  #       if (use_annot) {
+  #         annot <- cur_annot_edgelist[tmp_idx, 3]
+  #       } else {
+  #         annot <- NA
+  #       }
+  #
+  #       # Get indicies based off antibody names rather than the gene names
+  #       gene1_ab_idx <- which(antibody_vec == names(genes1[i]))
+  #       gene2_ab_idx <- which(antibody_vec == names(genes2x[j]))
+  #
+  #       tmp_results <- data.frame(
+  #         gene1 = gene1_ab_idx,
+  #         gene2 = gene2_ab_idx,
+  #         annot = annot,
+  #         gene1_name = genes1[i],
+  #         gene2_name = genes2x[j],
+  #         gene1_ab = names(genes1[i]),
+  #         gene2_ab = names(genes2x[j]),
+  #         stringsAsFactors = FALSE
+  #       )
+  #       results <- rbind(results, tmp_results)
+  #     }
+  #
+  #     if (length(tmp_idx) > 1) {
+  #       stop("ERROR: Multiple shortest paths found. Check SignedPC network.")
+  #     }
+  #   }
+  # }
 
   return(results)
 }

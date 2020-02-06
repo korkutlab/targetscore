@@ -117,10 +117,7 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
   #    results <- read.table(file="results_network1.txt",header=T)
   results <- read.table(system.file("extdata", "filteredSignedPc_20191113.txt",
     package = "zeptosensPkg"
-  ),
-  sep = "\t",
-  header = TRUE, fill = TRUE
-  )
+  ), sep = "\t", header = TRUE, fill = TRUE, stringsAsFactors = FALSE)
   # write.table(results, file="results_network1.txt",quote=F)
   dephosp <- paxtoolsr::filterSif(results, interactionTypes = "dephosphorylates")
   phosp <- paxtoolsr::filterSif(results, interactionTypes = "phosphorylates")
@@ -182,7 +179,9 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
     wk[upexp_gene[i, 1], upexp_gene[i, 2]] <- 1
     wks[upexp_gene[i, 1], upexp_gene[i, 2]] <- 1
 
-    #        print(upexp_gene[i, 1])
+    if (verbose) {
+      cat(upexp_gene[i, 1], "\n")
+    }
   }
 
   # downregulation expression, wk=-1
