@@ -303,7 +303,7 @@ test_that("get_target_score", {
       n_dose = 1,
       n_prot = dim(proteomic_responses)[2],
       proteomic_responses = proteomic_responses[i, ],
-      n_perm = 1000,
+      n_perm = 1,
       verbose = FALSE,
       fs_dat = fs
     )
