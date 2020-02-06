@@ -21,6 +21,25 @@
 optimize_parameter_hybrid <- function(data, prior = NULL,
                                       rho = 10^seq(-2, 0, 0.02),
                                       kappa = 10^seq(-2, 0, 0.02)) {
+  # Extract from SignedPC for prior
+
+  # READ ANTIBODY FILE ----
+  mab_to_genes <- read.table(system.file("targetscoreData", "antibodyMapFile_08092019.txt", package = "zeptosensPkg"),
+    sep = "\t",
+    header = TRUE,
+    stringsAsFactors = FALSE
+  )
+
+  if (is.null(prior)) {
+    network_ref <- zeptosensPkg::predict_bio_network(
+      n_prot = ncol(data),
+      proteomic_responses = data,
+      max_dist = 1,
+      mab_to_genes = mab_to_genes
+    )
+    wk <- network_ref$wk
+    prior <- wk
+  }
 
   # Match the data with prior
   index <- colnames(prior[, which(colnames(prior) %in% colnames(data))]) # match the data
@@ -31,7 +50,7 @@ optimize_parameter_hybrid <- function(data, prior = NULL,
   prior1 <- ifelse(prior1 != 0, 1, 0) # information matrix of prior
   prior2 <- prior1 # symmetrical prior information
   for (i in seq_len(nrow(prior1))) {
-    for (j in seq_len(prior1)) {
+    for (j in seq_len(ncol(prior1))) {
       if (prior1[i, j] != 0) {
         prior2[i, j] <- prior1[i, j]
         prior2[j, i] <- prior1[i, j]

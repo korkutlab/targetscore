@@ -321,6 +321,6 @@ test_that("get_target_score", {
   colnames(ts_q) <- colnames(proteomic_responses)
   ts_q <- data.frame(rownames(proteomic_responses), ts_q)
 
-
-  expect_identical(ts, ts_org$ts)
+  ts_result <- list(ts = ts, ts_p = ts_p, ts_q = ts_q)
+  expect_identical(ts_result$ts, ts_org$ts)
 })
