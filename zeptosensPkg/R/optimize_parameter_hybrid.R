@@ -41,7 +41,7 @@ optimize_parameter_hybrid <- function(data, prior = NULL,
   prior2 <- ifelse(prior2 != 0, 1, 0)
 
   # Calculate covariance matrix
-  covmatrix <- cov(data)
+  covmatrix <- (nrow(data) - 1) / nrow(data) * stats::cov(data)
 
   # Set initial value
   bic <- matrix(NA, length(rho), length(kappa))

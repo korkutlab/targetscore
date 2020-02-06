@@ -15,7 +15,7 @@
 optimize_parameter_dat <- function(data, rho = 10^seq(-2, 0, 0.02)) {
 
   # Calculate covariance matrix
-  covmatrix <- cov(data)
+  covmatrix <- (nrow(data) - 1) / nrow(data) * stats::cov(data)
 
   # Set initial value
   bic <- rho
