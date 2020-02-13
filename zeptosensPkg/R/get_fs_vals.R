@@ -74,6 +74,11 @@ get_fs_vals <- function(n_prot, proteomic_responses, mab_to_genes, fs_override =
 
   # Override with Self setting/external fs value
   if (!is.null(fs_override)) {
+    # Select fs_override
+    index <- match(fs$prot, fs_override$prot)
+    fs_override <- fs_override[index, ]
+
+    # override fs with fs_override
     index <- match(fs_override$prot, fs$prot)
     fs[index, 2] <- fs_override$fs
   }
