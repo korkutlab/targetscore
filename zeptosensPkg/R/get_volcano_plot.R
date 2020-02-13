@@ -49,6 +49,7 @@ get_volcano_plot <- function(ts, q_value,
     ylab("-log10 (Q-Value)") +
     ggtitle("") +
     scale_color_manual(name = "", values = c("black", "red")) +
+    xlim(-2, 2) +
     theme_bw()
 
   if (include_labels) {
