@@ -29,19 +29,21 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
   }
 
   # pathway distance matrix
-  if (is.null(dist_file)) {
-    dist_file <- system.file("targetScoreData", "distances.txt", package = "zeptosensPkg")
-  }
+  ####################### FIXME##########################
+  # if (is.null(dist_file)) {
+  #  dist_file <- system.file("targetScoreData", "distances.txt", package = "zeptosensPkg")
+  # }
+  # tmp_dist <- read.table(dist_file, sep = "\t", header = TRUE, stringsAsFactors = FALSE)
 
-  tmp_dist <- read.table(dist_file, sep = "\t", header = TRUE, stringsAsFactors = FALSE)
+  ######################################################
 
   if (n_prot != ncol(proteomic_responses)) {
     stop("ERROR: n_prot is not equal to proteomic_responses column number")
   }
 
   # Filter dist to only keep those with a distance less than max_dist
-  idx <- which(tmp_dist[, 3] <= max_dist)
-  dist <- tmp_dist[idx, ]
+  # idx <- which(tmp_dist[, 3] <= max_dist)
+  # dist <- tmp_dist[idx, ]
   # dist
   idx_ab_map <- which(mab_to_genes[, 1] %in% colnames(proteomic_responses))
   #    print(mab_to_genes[, 1])
@@ -65,12 +67,12 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
 
   mab_genes <- mab_to_genes[idx_ab_map, 4]
   names(mab_genes) <- mab_to_genes[idx_ab_map, 1]
-
-  dist_list <- match_genes_to_edgelist(
-    genes1 = mab_genes, genes2 = NULL, annot_edgelist = dist,
-    antibody_vec = colnames(proteomic_responses), use_annot = TRUE, verbose = TRUE
-  )
-
+  ########################### FIXME#################################################
+  # dist_list <- match_genes_to_edgelist(
+  #  genes1 = mab_genes, genes2 = NULL, annot_edgelist = dist,
+  #  antibody_vec = colnames(proteomic_responses), use_annot = TRUE, verbose = TRUE
+  # )
+  #################################################################################
   # # Get interactions for measured genes
   # dist_gene1 <- pmatch(dist[, 1], mab_to_genes[measured_genes, 4], duplicates.ok = TRUE)
   # dist_gene1Name <- mab_to_genes[measured_genes, 4][dist_gene1]
@@ -78,8 +80,10 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
   # dist_gene2Name <- mab_to_genes[measured_genes, 4][dist_gene2]
   #
   # # distance framework
+  #################### FIXME############################
   # dist_list <- data.frame(dist_gene1=dist_gene1, dist_gene2=dist_gene2, dist=dist[, 3],
   #                         dist_gene1Name=dist_gene1Name, dist_gene2Name=dist_gene2Name, stringsAsFactors = FALSE)
+  #####################################################
   # dist_list[is.na(dist_list[, 1]), 3] <- 100
   # dist_list[is.na(dist_list[, 2]), 3] <- 100
   # dist_list[, 1]
@@ -89,18 +93,19 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
     ncol = n_prot, nrow = n_prot,
     dimnames = list(colnames(proteomic_responses), colnames(proteomic_responses))
   )
+  #### Distance File not functional #########FIXME
+  # for (i in 1:length(dist_list[, 1])) {
+  #  dist_ind[dist_list[i, 1], dist_list[i, 2]] <- dist_list[i, 3]
 
-  for (i in 1:length(dist_list[, 1])) {
-    dist_ind[dist_list[i, 1], dist_list[i, 2]] <- dist_list[i, 3]
+  #    if (dist_ind[dist_list[i, 1], dist_list[i, 2]] > max_dist) {
+  #    dist_ind[dist_list[i, 1], dist_list[i, 2]] <- Inf
+  #  }
 
-    if (dist_ind[dist_list[i, 1], dist_list[i, 2]] > max_dist) {
-      dist_ind[dist_list[i, 1], dist_list[i, 2]] <- Inf
-    }
-
-    if (dist_ind[dist_list[i, 1], dist_list[i, 2]] == 0) {
-      dist_ind[dist_list[i, 1], dist_list[i, 2]] <- Inf
-    }
-  }
+  #    if (dist_ind[dist_list[i, 1], dist_list[i, 2]] == 0) {
+  #    dist_ind[dist_list[i, 1], dist_list[i, 2]] <- Inf
+  # }
+  # }
+  ##################################################
 
   ### get the network product### phospFile <- system.file('SignedPC', 'phosphorylates.txt',
   ### package='zeptosensPkg') phosp <- read.csv(phospFile, sep='\t', header=TRUE, na.strings =
@@ -237,6 +242,17 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
     print(inter)
   }
 
+  # dist_file
+
+  for (i in 1:n_prot) {
+    for (j in 1:n_prot) {
+      if (wk[i, j] != 0) {
+        dist_ind[i, j] <- 1
+      } else {
+        dist_ind[i, j] <- Inf
+      }
+    }
+  }
   # Network to edgelist
   edgelist <- zeptosensPkg::create_sif_from_matrix(
     t_net = wk,
