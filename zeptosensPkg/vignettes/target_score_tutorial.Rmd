@@ -49,7 +49,7 @@ Other files that can be attached are:
 1. mab_to_genes: list of antibodies, their associated genes, modification sites and effect.
 2. fs_override :a listing of functional scores for each gene manually set up for overriding COSMIC Database given value, the modification path.
 
-```{r Load Data}
+```{r load_data}
 # data_dir <- "../data(ts)/ts_anil"
 # protein_list_dir <- "../data(ts)/Protein_Name_List"
 data_dir <- system.file("test_data", package = "zeptosensPkg")
@@ -84,7 +84,7 @@ Three ways of constructing reference networks are provided in the algorithm incl
 
 Inferred from Pathway Commons and BioPax based database. knowledge base reference network integrates detailed human pathway data from multiple public resources such as Reactome, NCI PID, PhosphoSitePlus and Panther pathway database. Of interest to us, only four relationship was extracted out as: phosphorylation, dephosphorylation, expression upregulation, and expression downregulation.
 
-```{r Extract Network}
+```{r extract_network}
 # Extract network
 network <- zeptosensPkg::predict_bio_network(
   n_prot = n_prot,
@@ -104,7 +104,7 @@ To be explained, the data-driven signaling network captures the protein-protein 
 
      argmax(Θ)=(log( detΘ -tr(SΘ)-rho*||Θ||)
 
-```{r Extract Network}
+```{r extract_data-driven_network}
 # Read Global Signaling file for BRCA
 signaling_responses <- read.csv(system.file("test_data", "TCGA-BRCA-L4.csv", package = "zeptosensPkg"), row.names = 1)
 
@@ -129,7 +129,7 @@ The prior information is incorporated into the inference with a probabilistic te
 Which ro be explained, is to give smaller penalty parameter to the interaction that already existed in the knowledge base reference network.
 
 
-```{r Extract Network}
+```{r extract_biology_network}
 
 # Extract protein-protein interaction knowledge
 network <- zeptosensPkg::predict_bio_network(
@@ -157,7 +157,7 @@ saveRDS(network, file.path(output_dir, "bt474_hybnetwork.rds"))
 
 A function score was given inferred from COSMIC database indicating whether the protein is an onco-protein or tumor suppressor overrided by the user provided functional score.
 
-```{r Extract fs}
+```{r extract_fs}
 # Extract functional score
 fs <- zeptosensPkg::get_fs_vals(
   n_prot = n_prot,
@@ -173,7 +173,7 @@ saveRDS(fs, file.path(output_dir, "bt474_fs.rds"))
 
 The Target Score is calculated for each measured entity (e.g, protein) under each condition. It is quantified as the network interaction weighted sum of the "self-change" of the corresponding entity and the change in the pathway/network neighborhood in response to targeted perturbations. The statistical assessment of Target Score is then reached at Random sampling of proteomic responses (randomized Ab label mixing) at each drug dose generates the randomized data sets over all antibody readouts.
 
-```{r Target Score Calculation example, message=FALSE, warning=FALSE}
+```{r target_score_calculation_example, message=FALSE, warning=FALSE}
 ## Calculate Target Score
 
 # reference network
