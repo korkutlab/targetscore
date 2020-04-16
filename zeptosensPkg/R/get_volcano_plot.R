@@ -25,7 +25,9 @@ get_volcano_plot <- function(ts, q_value,
                              path = getwd(),
                              sig_value = 0.4,
                              include_labels = TRUE,
-                             save_output = TRUE) {
+                             save_output = TRUE,
+                             x_min = -2,
+                             x_max = 2) {
   ts <- as.matrix(ts)
   p_adj <- as.matrix(q_value)
 
@@ -49,7 +51,6 @@ get_volcano_plot <- function(ts, q_value,
     ylab("-log10 (Q-Value)") +
     ggtitle("") +
     scale_color_manual(name = "", values = c("black", "red")) +
-    xlim(-2, 2) +
     theme_bw()
 
   if (include_labels) {

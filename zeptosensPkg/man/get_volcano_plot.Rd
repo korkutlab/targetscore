@@ -13,7 +13,9 @@ get_volcano_plot(
   path = getwd(),
   sig_value = 0.4,
   include_labels = TRUE,
-  save_output = TRUE
+  save_output = TRUE,
+  x_min = -2,
+  x_max = 2
 )
 }
 \arguments{
