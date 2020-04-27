@@ -22,3 +22,7 @@ Suggests:
 VignetteBuilder: knitr
 RoxygenNote: 7.0.2
 Encoding: UTF-8
+biocViews: CellBasedAssays, Proteomics, GeneExpression,
+    Pharmacogenomics, Pharmacogenetics, Visualization,
+    Software, SystemsBiology
+
