@@ -18,7 +18,59 @@
 #' @param ts_factor a scaling factor for the pathway component of the target score
 #' @param fs_dat a dataset with the functional score data.First coloumn as the protein name and second
 #' column as the functional score. Can be inferred from get_fs_value or be User defined and curated.
-#'
+#' 
+#' @examples 
+#' # read proteomic responce file
+#' signaling_responses <- read.csv(system.file("test_data", "TCGA-BRCA-L4.csv",
+#' package = "zeptosensPkg"
+#' ), row.names = 1)
+#' 
+#' # Read in Biology knowlegde base protein interaction
+#' network <- readRDS(system.file("test_data_files", "predict_bio_network_network_output.rds",
+#' package = "zeptosensPkg"
+#' ))
+#' 
+#' # read proteomic responce file
+#' proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "zeptosensPkg"),
+#' row.names = 1
+#' )
+#' 
+#' # read functional score value
+#' fs <- readRDS(system.file("test_data_files", "get_fs_vals_output.rds",
+#' package = "zeptosensPkg"
+#' ))
+#' 
+#' # Calculate Target Score
+#' ts <- array(0, dim = c(dim(proteomic_responses)[1], dim(proteomic_responses)[2]))
+#' ts_p <- array(0, dim = c(dim(proteomic_responses)[1], dim(proteomic_responses)[2]))
+#' ts_q <- array(0, dim = c(dim(proteomic_responses)[1], dim(proteomic_responses)[2]))
+#' for (i in seq_len(2)) {
+#' results <- zeptosensPkg::get_target_score(
+#'   wk = network$wk,
+#'   wks = network$wks,
+#'   dist_ind = network$dist_ind,
+#'   inter = network$inter,
+#'   n_dose = 1,
+#'   n_prot = dim(proteomic_responses)[2],
+#'   proteomic_responses = proteomic_responses[i, ],
+#'   n_perm = 1,
+#'   verbose = FALSE,
+#'   fs_dat = fs
+#' )
+#' ts[i, ] <- results$ts
+#' ts_p[i, ] <- results$pts
+#' ts_q[i, ] <- results$q
+#' } 
+#' colnames(ts) <- colnames(proteomic_responses)
+#' ts <- data.frame(rownames(proteomic_responses), ts)
+#' colnames(ts_p) <- colnames(proteomic_responses)
+#' ts_p <- data.frame(rownames(proteomic_responses), ts_p)
+#' colnames(ts_q) <- colnames(proteomic_responses)
+#' ts_q <- data.frame(rownames(proteomic_responses), ts_q)
+#' ts_result <- list(ts = ts, ts_p = ts_p, ts_q = ts_q)
+#' expect_identical(ts_result$ts, ts_org$ts)
+#' })
+#' 
 #' @details
 #' data: multiple dose single drug perturbation
 #' ts: integral_dose(fs*(xi+sigma_j(2^p*xj*product_k(wk))))

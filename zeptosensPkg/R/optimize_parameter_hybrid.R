@@ -12,7 +12,17 @@
 #' \item{kappa}{optimized scaler parameter.}
 #' \item{rho_m}{optimized regulization matrix for the expression data.}
 #' \item{bic}{Calculated model BIC error for differnet regularization parameters.}
-#'
+#' 
+#' @examples 
+#' # read proteomic responce file
+#' signaling_responses <- read.csv(system.file("test_data", "TCGA-BRCA-L4.csv", package = "zeptosensPkg"), row.names = 1)
+#' 
+#' # Read in Biology knowlegde base protein interaction
+#' prior_org <- readRDS(system.file("test_data_files", "predict_bio_network_network_output.rds",
+#' package = "zeptosensPkg"
+#' ))
+#' parameters <- zeptosensPkg::optimize_parameter_hybrid(data = signaling_responses, prior = prior_org$wk)
+#' 
 #' @importFrom glasso glasso
 #' @importFrom stats cov
 #'

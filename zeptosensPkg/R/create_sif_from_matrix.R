@@ -6,6 +6,16 @@
 #'
 #' @return Edgelist description data.frame contain G(V,E) including Vertex and Edges
 #' (1 positive/-1 negative) edgevalue (the strength of association) and vertices numbers from the graph
+#' 
+#' @examples 
+#' network_org <- readRDS(system.file("test_data_files", "predict_bio_network_network_output.rds",
+#' package = "zeptosensPkg"
+#' ))
+#' edgelist_wk <- create_sif_from_matrix(
+#' t_net = network_org$wk,
+#' col_genelist = colnames(network_org$wk),
+#' row_genelist = rownames(network_org$wk)
+#' )
 #'
 #' @concept zeptosensPkg
 #' @export

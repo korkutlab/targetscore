@@ -7,7 +7,12 @@
 #' @return Parameter of regulization BIC error calculated.
 #' \item{rho}{penalty parameter optimized.}
 #' \item{bic}{BIC error calculated for penalty parameters.}
-#'
+#' 
+#' @examples 
+#' # read proteomic responce file
+#' signaling_responses <- read.csv(system.file("test_data", "TCGA-BRCA-L4.csv", package = "zeptosensPkg"), row.names = 1)
+#'  parameters <- zeptosensPkg::optimize_parameter_dat(data = signaling_responses)
+#' 
 #' @importFrom glasso glasso
 #'
 #' @concept zeptosensPkg

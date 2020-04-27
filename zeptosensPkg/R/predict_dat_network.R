@@ -8,6 +8,20 @@
 #' @param rho positive tuning parameter vector for elastic net penalty. Default at 10^seq(-2,0, 0.02).
 #'
 #' @return Parameter of regulization decided lowest BIC.Including regularize parameter(L1 norm parameter) as rho.
+#' 
+#' @examples 
+#' # Read proteomic response for cellline1
+#' proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "zeptosensPkg"), row.names = 1)
+#' 
+#' # Read Global Signaling file for BRCA
+#' signaling_responses <- read.csv(system.file("test_data", "TCGA-BRCA-L4.csv", package = "zeptosensPkg"), row.names = 1)
+#' 
+#'  # Extract network
+#'  network <- zeptosensPkg::predict_dat_network(
+#'  data <- signaling_responses,
+#'  n_prot = dim(proteomic_responses)[2],
+#'  proteomic_responses = proteomic_responses
+#'  )
 #'
 #' @importFrom glasso glasso
 #' @importFrom stats cov

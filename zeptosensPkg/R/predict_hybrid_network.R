@@ -27,6 +27,35 @@
 #' {edgelist}{as the edgelist for predicted network.}
 #' {nedges}{as the number of edges of the predicted network.}
 #'
+#' @examples 
+#' # READ ANTIBODY FILE ----
+#' mab_to_genes <- read.table(system.file("targetscoreData", "antibodyMapFile.txt", package = "zeptosensPkg"),
+#' sep = "\t",
+#' header = TRUE,
+#' stringsAsFactors = FALSE
+#' )
+#' 
+#' # Read proteomic response for cellline1
+#' proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "zeptosensPkg"), row.names = 1)
+#' 
+#'  # Read Global Signaling file for BRCA
+#'  signaling_responses <- read.csv(system.file("test_data", "TCGA-BRCA-L4.csv", package = "zeptosensPkg"), row.names = 1)
+#'  
+#'  # Read Biology knowledge
+#'  prior_org <- readRDS(system.file("test_data_files", "predict_bio_network_network_output.rds",
+#'  package = "zeptosensPkg"
+#'  ))
+#'  
+#'  # Extract network
+#'  network <- zeptosensPkg::predict_hybrid_network(
+#'  data = signaling_responses,
+#'  prior = prior_org$wk,
+#'  n_prot = dim(proteomic_responses)[2],
+#'  proteomic_responses = proteomic_responses,
+#'  mab_to_genes = mab_to_genes,
+#'  max_dist = 1
+#'  )
+#'
 #' @importFrom glasso glasso
 #' @importFrom stats cov median na.omit
 #'

@@ -6,7 +6,31 @@
 #' @param fs_override a listing of functional scores for each gene manually set up
 #' for overriding COSMIC Database given value, the modification path. (.txt)
 #' @param verbose Default as FALSE. If given TRUE, will print out the gene seq mapped with Antibody Map File.
+#' 
+#' @return 
+#' * "fs_final" dataframe with two coloumns: prot as Antibody label; fs as functional #' score 
 #'
+#' @examples
+#' # Read fs_manually set file
+#' fs_override_org <- readRDS(system.file("test_data_files", "fs_value_file.rds",
+#' package = "zeptosensPkg"
+#' ))
+#' 
+#' # Read proteomic responce file
+#' proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "zeptosensPkg"), row.names = 1)
+#' 
+#' # Read antibody file
+#' mab_to_genes <- read.table(system.file("targetscoreData", "antibodyMapFile.txt", package = "zeptosensPkg"),
+#' sep = "\t",
+#' header = TRUE,
+#' stringsAsFactors = FALSE
+#' )
+#' 
+#' fs <- get_fs_vals(
+#' n_prot = ncol(proteomic_responses), proteomic_responses = proteomic_responses,
+#' mab_to_genes = mab_to_genes, fs_override = fs_override_org
+#' )
+#' 
 #' @importFrom utils read.table
 #'
 #' @concept zeptosensPkg

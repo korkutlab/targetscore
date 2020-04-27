@@ -5,7 +5,15 @@
 #' @param n_prot Antibody number of input data.
 #' @param n_dose doses number of input data.
 #' @param replace_missing Replace missing values NA with 0 (Default: TRUE)
-#'
+#' 
+#' @examples 
+#' # read proteomic responce file
+#' proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "zeptosensPkg"), row.names = 1)
+#' samp_d <- samp_sdev(
+#' n_x = proteomic_responses, n_sample = dim(proteomic_responses)[1],
+#' n_prot = dim(proteomic_responses)[2], n_dose = 1
+#' )
+#' 
 #' @concept zeptosensPkg
 #' @export
 samp_sdev <- function(n_sample, n_prot, n_dose, n_x, replace_missing = TRUE) {

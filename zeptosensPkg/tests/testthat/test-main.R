@@ -179,14 +179,15 @@ test_that("create_sif_from_matrix", {
 })
 
 test_that("get_fs_vals", {
-  # read fs_manually set file
+  # Read fs_manually set file
   fs_override_org <- readRDS(system.file("test_data_files", "fs_value_file.rds",
     package = "zeptosensPkg"
   ))
 
-  # read proteomic responce file
+  # Read proteomic responce file
   proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "zeptosensPkg"), row.names = 1)
-  # read antibody file
+  
+  # Read antibody file
   mab_to_genes <- read.table(system.file("targetscoreData", "antibodyMapFile.txt", package = "zeptosensPkg"),
     sep = "\t",
     header = TRUE,

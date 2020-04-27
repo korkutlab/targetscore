@@ -9,6 +9,30 @@
 #'   between the genes in the interaction
 #' @param verbose logical, whether to show additional debugging information
 #'
+#' @return a list is returned with the following entries:
+#' * "wk" inferred network matrix form with edge strength value default at 1 for
+#' upregulate and -1 for down regulate.
+#' * "wks" as inferred network matrix form with edge strength value default at 1 for
+#' upregulate and -1 for down regulate and 2 for phosphorylation and -2 for dephosphorylation.
+#' * "dist_ind" A distance file of edgelist with a third column as the network distance
+#' between the genes in the interaction.
+#' * "inter" file as edgelist of inferred network.
+#' 
+#' @examples 
+#' # Read proteomic response for cellline1
+#' proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "zeptosensPkg"), row.names = 1)
+#'  
+#'  # Read in network output
+#'  wk_org <- readRDS(system.file("test_data_files", "predict_hybrid_network_network_output.rds",
+#'  package = "zeptosensPkg"
+#'  ))
+#'  
+#'  network <- zeptosensPkg::network2(
+#'  wk <- wk_org$wk,
+#'  n_prot = dim(proteomic_responses)[2],
+#'  proteomic_responses = proteomic_responses
+#'  )
+#' 
 #' @importFrom utils write.table
 #'
 #' @concept zeptosensPkg
