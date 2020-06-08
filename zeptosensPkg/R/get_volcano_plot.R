@@ -9,6 +9,7 @@
 #' @param filename Manually set filename of volcano plot.
 #' @param path Plot Store path. Default at working environment.
 #' @param sig_value  Manually set significant cut-off value for log10(q_value). (Default at 0.4)
+#' @param sig_TS Manually set significant cut-off value for calculated Target Score Value. (Default at 0.5)
 #' @param include_labels a boolean whether to point labels
 #' @param save_output a boolean whether to save plots and point data to file
 #'
@@ -24,6 +25,7 @@ get_volcano_plot <- function(ts, q_value,
                              filename,
                              path = getwd(),
                              sig_value = 0.4,
+                             sig_TS = 0.5,
                              include_labels = TRUE,
                              save_output = TRUE,
                              x_min = -2,
@@ -42,7 +44,8 @@ get_volcano_plot <- function(ts, q_value,
   rownames(color) <- rownames(ts)
   tmp_dat$labelnames <- row.names(tmp_dat)
   sig01 <- subset(tmp_dat, tmp_dat$neglogQ > -1 * log10(sig_value))
-  siglabel <- sig01$labelnames
+  sig001<- subset(sig01, abs(sig01$ts) > sig_TS )
+  siglabel <- sig001$labelnames
   tmp_dat$color <- color
 
   p <- ggplot() +
@@ -54,7 +57,7 @@ get_volcano_plot <- function(ts, q_value,
     theme_bw()
 
   if (include_labels) {
-    p <- p + geom_label_repel(data = sig01, aes(x = sig01$ts, y = sig01$neglogQ, label = siglabel), size = 5)
+    p <- p + geom_label_repel(data = sig001, aes(x = sig001$ts, y = sig001$neglogQ, label = siglabel), size = 5)
   }
 
   if (save_output) {
