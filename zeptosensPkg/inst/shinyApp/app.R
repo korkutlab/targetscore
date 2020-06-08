@@ -1,9 +1,8 @@
-# Update Module
-# library(rsconnect)
-# rsconnect::setAccountInfo(name='hithut', token='B512E4272720432CD9C6F5E47388416D',
-#   secret='/Y5XUfYMz02GGocWAcE/vQ+AsSrhpfEA8mBSk8Gl')
-# rsconnect::deployApp()
+# install neccessary libraries
 
+install.packages("devtools")
+library(devtools)
+install_github("HepingWang/zeptosensPkg")
 library(shiny)
 library(DT)
 library(zeptosensPkg)
