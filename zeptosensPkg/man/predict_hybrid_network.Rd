@@ -56,4 +56,34 @@ data as "rho_m".
 \description{
 Choose the optimal regulization parameter and scale paramter for prior information adjusted network construction.
 }
+\examples{
+# READ ANTIBODY FILE ----
+mab_to_genes <- read.table(system.file("targetscoreData", "antibodyMapFile.txt", package = "zeptosensPkg"),
+sep = "\t",
+header = TRUE,
+stringsAsFactors = FALSE
+)
+
+# Read proteomic response for cellline1
+proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "zeptosensPkg"), row.names = 1)
+
+ # Read Global Signaling file for BRCA
+ signaling_responses <- read.csv(system.file("test_data", "TCGA-BRCA-L4.csv", package = "zeptosensPkg"), row.names = 1)
+ 
+ # Read Biology knowledge
+ prior_org <- readRDS(system.file("test_data_files", "predict_bio_network_network_output.rds",
+ package = "zeptosensPkg"
+ ))
+ 
+ # Extract network
+ network <- zeptosensPkg::predict_hybrid_network(
+ data = signaling_responses,
+ prior = prior_org$wk,
+ n_prot = dim(proteomic_responses)[2],
+ proteomic_responses = proteomic_responses,
+ mab_to_genes = mab_to_genes,
+ max_dist = 1
+ )
+
+}
 \concept{zeptosensPkg}

@@ -12,6 +12,7 @@ get_volcano_plot(
   filename,
   path = getwd(),
   sig_value = 0.4,
+  sig_TS = 0.5,
   include_labels = TRUE,
   save_output = TRUE,
   x_min = -2,
@@ -30,6 +31,8 @@ Gene in coloumns and samples in row. With colnames as gene tags and rownames as 
 \item{path}{Plot Store path. Default at working environment.}
 
 \item{sig_value}{Manually set significant cut-off value for log10(q_value). (Default at 0.4)}
+
+\item{sig_TS}{Manually set significant cut-off value for calculated Target Score Value. (Default at 0.5)}
 
 \item{include_labels}{a boolean whether to point labels}
 

@@ -2,7 +2,7 @@
 
 install.packages("devtools")
 library(devtools)
-install_github("HepingWang/zeptosensPkg")
+devtools::install_github("HepingWang/zeptosensPkg/zeptosensPkg")
 library(shiny)
 library(DT)
 library(zeptosensPkg)

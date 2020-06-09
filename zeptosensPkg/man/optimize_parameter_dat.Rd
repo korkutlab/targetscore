@@ -20,4 +20,10 @@ Parameter of regulization BIC error calculated.
 \description{
 Choose the optimal regulization parameter for only data-driven network.
 }
+\examples{
+# read proteomic responce file
+signaling_responses <- read.csv(system.file("test_data", "TCGA-BRCA-L4.csv", package = "zeptosensPkg"), row.names = 1)
+ parameters <- zeptosensPkg::optimize_parameter_dat(data = signaling_responses)
+
+}
 \concept{zeptosensPkg}
