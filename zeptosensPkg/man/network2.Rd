@@ -35,7 +35,8 @@ Network for adjusted-glasso
 }
 \examples{
 # Read proteomic response for cellline1
-proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "zeptosensPkg"), row.names = 1)
+file <- system.file("test_data", "BT474.csv", package = "zeptosensPkg")
+proteomic_responses <- read.csv(file, row.names = 1)
  
  # Read in network output
  wk_org <- readRDS(system.file("test_data_files", "predict_hybrid_network_network_output.rds",

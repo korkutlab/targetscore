@@ -43,14 +43,16 @@ Predict Network from signedPC (Bio-inferred network)
 }
 \examples{
 # READ ANTIBODY FILE ----
-mab_to_genes <- read.table(system.file("targetscoreData", "antibodyMapFile_08092019.txt", package = "zeptosensPkg"),
+file <- system.file("targetscoreData", "antibodyMapFile_08092019.txt", package = "zeptosensPkg")
+mab_to_genes <- read.table(file,
 sep = "\t",
 header = TRUE,
 stringsAsFactors = FALSE
 )
 
 # Read proteomic response for cellline1
-proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "zeptosensPkg"), row.names = 1)
+file <- system.file("test_data", "BT474.csv", package = "zeptosensPkg")
+proteomic_responses <- read.csv(file, row.names = 1)
 
  # Extract network
  network <-  predict_bio_network(

@@ -33,14 +33,17 @@ Parameter list of regulization parameter decided by the prior information and th
 Choose the optimal regulization parameter and scale paramter for adjusted-glasso algorithm network construction
 }
 \examples{
-# read proteomic responce file
-signaling_responses <- read.csv(system.file("test_data", "TCGA-BRCA-L4.csv", package = "zeptosensPkg"), row.names = 1)
+# read proteomic response file
+file <- system.file("test_data", "TCGA-BRCA-L4.csv", package = "zeptosensPkg")
+signaling_responses <- read.csv(, row.names = 1)
 
 # Read in Biology knowlegde base protein interaction
-prior_org <- readRDS(system.file("test_data_files", "predict_bio_network_network_output.rds",
-package = "zeptosensPkg"
-))
-parameters <- zeptosensPkg::optimize_parameter_hybrid(data = signaling_responses, prior = prior_org$wk)
+file <- system.file("test_data_files", "predict_bio_network_network_output.rds",
+  package = "zeptosensPkg")
+
+prior_org <- readRDS(file)
+parameters <- zeptosensPkg::optimize_parameter_hybrid(data = signaling_responses, 
+  prior = prior_org$wk)
 
 }
 \concept{zeptosensPkg}
