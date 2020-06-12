@@ -53,7 +53,7 @@ stringsAsFactors = FALSE
 proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "zeptosensPkg"), row.names = 1)
 
  # Extract network
- network <- zeptosensPkg::predict_bio_network(
+ network <-  predict_bio_network(
  n_prot = dim(proteomic_responses)[2],
  proteomic_responses = proteomic_responses,
  max_dist = 1,

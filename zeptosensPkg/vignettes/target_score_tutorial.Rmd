@@ -57,7 +57,7 @@ resource_dir <- system.file("targetScoreData", package = "zeptosensPkg")
 output_dir <- "inst/test_data/tutorial_output"
 
 # Number of antibodies
-n_prot <- 304
+n_prot <- 100
 
 # Max distance
 max_dist <- 1 # changing this value requires additional work to compute product(wk). This is not a priority
@@ -71,7 +71,7 @@ mab_to_genes <- read.table(file.path(resource_dir, "antibodyMapFile_08092019.txt
 )
 
 # Read drug perturbation data for BT474
-proteomic_responses <- read.csv(file.path(data_dir, "BT474.csv"), row.names = 1) # n_prot=304
+proteomic_responses <- read.csv(file.path(data_dir, "BT474.csv"), row.names = 1) # n_prot=100
 
 # Read in User defined functional scores
 fs_override <- read.csv(file.path(data_dir, "fs.csv"), header = TRUE, stringsAsFactors = FALSE)
