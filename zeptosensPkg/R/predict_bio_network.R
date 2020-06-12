@@ -30,7 +30,7 @@
 #' proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "zeptosensPkg"), row.names = 1)
 #' 
 #'  # Extract network
-#'  network <- zeptosensPkg::predict_bio_network(
+#'  network <-  predict_bio_network(
 #'  n_prot = dim(proteomic_responses)[2],
 #'  proteomic_responses = proteomic_responses,
 #'  max_dist = 1,
@@ -192,7 +192,7 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
   # saveRDS(colnames(proteomic_responses), "colnames_proteomic_responses.rds")
 
   # only concentration and act. phospho nodes are included in up & downregulation
-  upexp_gene <- match_genes_to_edgelist(
+  upexp_gene <-  match_genes_to_edgelist(
     genes1 = tmp_genes_a, genes2 = tmp_genes_c, annot_edgelist = upexp,
     antibody_vec = colnames(proteomic_responses), use_annot = FALSE, verbose = verbose
   )
@@ -209,7 +209,7 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
   }
 
   # downregulation expression, wk=-1
-  dwnexp_gene <- match_genes_to_edgelist(
+  dwnexp_gene <-  match_genes_to_edgelist(
     genes1 = tmp_genes_a, genes2 = tmp_genes_c, annot_edgelist = dwnexp,
     antibody_vec = colnames(proteomic_responses), use_annot = FALSE, verbose = verbose
   )
@@ -227,7 +227,7 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
   # phos_gene2 <- pmatch(phosp[, 3], mabToGenes_d[measured_genes, 4], duplicates.ok = TRUE)
   # phos_gene <- cbind(phos_gene1, phos_gene2)
 
-  phos_gene <- match_genes_to_edgelist(
+  phos_gene <-  match_genes_to_edgelist(
     genes1 = tmp_genes_ao, genes2 = tmp_genes_d, annot_edgelist = phosp,
     antibody_vec = colnames(proteomic_responses), use_annot = FALSE, verbose = verbose
   )
@@ -245,7 +245,7 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
   # dephos_gene2 <- pmatch(dephosp[, 3], mabToGenes_d[measured_genes, 4], duplicates.ok = TRUE)
   # dephos_gene <- cbind(dephos_gene1, dephos_gene2)
 
-  dephos_gene <- match_genes_to_edgelist(
+  dephos_gene <-  match_genes_to_edgelist(
     genes1 = tmp_genes_a, genes2 = tmp_genes_d, annot_edgelist = dephosp,
     antibody_vec = colnames(proteomic_responses), use_annot = FALSE, verbose = verbose
   )
@@ -273,7 +273,7 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
     }
   }
   # Network to edgelist
-  edgelist <- zeptosensPkg::create_sif_from_matrix(
+  edgelist <-  create_sif_from_matrix(
     t_net = wk,
     col_genelist = colnames(wk),
     row_genelist = rownames(wk)
