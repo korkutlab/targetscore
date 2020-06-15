@@ -49,7 +49,7 @@ get_volcano_plot <- function(ts, q_value,
   tmp_dat$color <- color
 
   p <- ggplot() +
-    geom_point(data = tmp_dat, aes(text = labelnames, x = ts, y = neglogQ, color = color), alpha = 0.4, size = 2) +
+    geom_point(data = tmp_dat, aes(text = tmp_dat$labelnames, x = ts, y = tmp_dat$neglogQ, color = color), alpha = 0.4, size = 2) +
     xlab("<ts>") +
     ylab("-log10 (Q-Value)") +
     ggtitle("") +
