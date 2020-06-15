@@ -20,7 +20,7 @@ data_dir <- "inst/test_data"
 resource_dir <- "inst/targetscoreData"
 output_dir <- "inst/test_data/output3"
 
-n_prot <- 304
+n_prot <- 100
 max_dist <- 1 # changing this value requires additional work to compute product(wk). This is not a priority
 verbose <- FALSE
 
@@ -33,7 +33,7 @@ mab_to_genes <- read.table(file.path(resource_dir, "antibodyMapFile.txt"),
 
 # READ IN DATA ----
 # Read proteomic response for cellline1
-proteomic_responses <- read.csv(file.path(data_dir, "BT474.csv"), row.names = 1) # n_prot=304
+proteomic_responses <- read.csv(file.path(data_dir, "BT474.csv"), row.names = 1) # n_prot=100
 
 # Read in functional scores
 fs_dat <- read.csv(file.path(data_dir, "fs.csv"), header = TRUE, stringsAsFactors = FALSE)

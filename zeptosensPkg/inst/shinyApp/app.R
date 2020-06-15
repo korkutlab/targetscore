@@ -1,7 +1,7 @@
 # install neccessary libraries
 
 install.packages("devtools")
-library(devtools)
+install.packages("morpheus")
 devtools::install_github("HepingWang/zeptosensPkg/zeptosensPkg")
 library(shiny)
 library(DT)
@@ -9,6 +9,7 @@ library(zeptosensPkg)
 library(pheatmap)
 library(morpheus)
 library(plotly)
+library(devtools)
 source("modal.R")
 
 
@@ -84,7 +85,7 @@ ui <- navbarPage(
         helpText(
           a("Perturbation Response Example", href = "data/BT474.csv", target = "_blank"),
           br(),
-          a("Background Network Example", href = "data/TCGA_BRCA_L4_1.csv", target = "_blank"),
+          a("Background Network Example", href = "data/TCGA_BRCA_L4.csv", target = "_blank"),
           br(),
           a("Mapping Example", href = "data/antibodyMapfile.txt", target = "_blank"),
           br(),
