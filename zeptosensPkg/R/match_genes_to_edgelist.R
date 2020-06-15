@@ -37,6 +37,8 @@
 #' verbose = TRUE
 #' )
 #' 
+#' @importFrom stats complete.cases
+#' 
 #' @concept zeptosensPkg
 #' @export
 match_genes_to_edgelist <- function(genes1, genes2 = NULL, annot_edgelist, antibody_vec,

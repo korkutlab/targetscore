@@ -20,14 +20,16 @@
 #'
 #' @examples 
 #' # READ ANTIBODY FILE ----
-#' mab_to_genes <- read.table(system.file("targetscoreData", "antibodyMapFile_08092019.txt", package = "zeptosensPkg"),
+#' file <- system.file("targetscoreData", "antibodyMapFile_08092019.txt", package = "zeptosensPkg")
+#' mab_to_genes <- read.table(file,
 #' sep = "\t",
 #' header = TRUE,
 #' stringsAsFactors = FALSE
 #' )
 #' 
 #' # Read proteomic response for cellline1
-#' proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "zeptosensPkg"), row.names = 1)
+#' file <- system.file("test_data", "BT474.csv", package = "zeptosensPkg")
+#' proteomic_responses <- read.csv(file, row.names = 1)
 #' 
 #'  # Extract network
 #'  network <-  predict_bio_network(
@@ -143,10 +145,11 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
     package = "zeptosensPkg"
   ), sep = "\t", header = TRUE, fill = TRUE, stringsAsFactors = FALSE)
   # write.table(results, file="results_network1.txt",quote=F)
-  dephosp <- paxtoolsr::filterSif(results, interactionTypes = "dephosphorylates")
-  phosp <- paxtoolsr::filterSif(results, interactionTypes = "phosphorylates")
-  dwnexp <- paxtoolsr::filterSif(results, interactionTypes = "downregulates-expression")
-  upexp <- paxtoolsr::filterSif(results, interactionTypes = "upregulates-expression")
+  
+  dephosp <- results[which(results$INTERACTION_TYPE == "dephosphorylates"),]
+  phosp <- results[which(results$INTERACTION_TYPE == "phosphorylates"),]
+  dwnexp <- results[which(results$INTERACTION_TYPE == "downregulates-expression"),]
+  upexp <- results[which(results$INTERACTION_TYPE == "upregulates-expression"),]
 
   # NOTE: SIF has interaction type as column 2, edgelists (like distances) do
   # not have this, so convert the SIF to an edgelist

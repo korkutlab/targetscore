@@ -11,10 +11,12 @@
 #' 
 #' @examples 
 #' # Read proteomic response for cellline1
-#' proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "zeptosensPkg"), row.names = 1)
+#' file <- system.file("test_data", "BT474.csv", package = "zeptosensPkg")
+#' proteomic_responses <- read.csv(file, row.names = 1)
 #' 
 #' # Read Global Signaling file for BRCA
-#' signaling_responses <- read.csv(system.file("test_data", "TCGA-BRCA-L4.csv", package = "zeptosensPkg"), row.names = 1)
+#' file <- system.file("test_data", "TCGA-BRCA-L4.csv", package = "zeptosensPkg")
+#' signaling_responses <- read.csv(file, row.names = 1)
 #' 
 #'  # Extract network
 #'  network <- zeptosensPkg::predict_dat_network(

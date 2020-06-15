@@ -18,7 +18,13 @@ Suggests:
     knitr,
     testthat (>= 2.1.0), 
     morpheus,
-    plotly
+    plotly,
+    gplots,
+    RColorBrewer,
+    pheatmap,
+    plyr,
+    data.table,
+    matrixStats
 VignetteBuilder: knitr
 RoxygenNote: 7.1.0
 Encoding: UTF-8
