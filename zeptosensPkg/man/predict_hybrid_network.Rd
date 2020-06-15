@@ -66,25 +66,28 @@ stringsAsFactors = FALSE
 )
 
 # Read proteomic response for cellline1
-proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "zeptosensPkg"), row.names = 1)
+file <- system.file("test_data", "BT474.csv", package = "zeptosensPkg")
+proteomic_responses <- read.csv(file, row.names = 1)
 
- # Read Global Signaling file for BRCA
- signaling_responses <- read.csv(system.file("test_data", "TCGA-BRCA-L4.csv", package = "zeptosensPkg"), row.names = 1)
+# Read Global Signaling file for BRCA
+file <- system.file("test_data", "TCGA-BRCA-L4.csv", package = "zeptosensPkg")
+signaling_responses <- read.csv(file, row.names = 1)
  
- # Read Biology knowledge
- prior_org <- readRDS(system.file("test_data_files", "predict_bio_network_network_output.rds",
- package = "zeptosensPkg"
- ))
+# Read Biology knowledge
+file <- system.file("test_data_files", "predict_bio_network_network_output.rds", 
+  package = "zeptosensPkg"
+)
+prior_org <- readRDS(file)
  
- # Extract network
- network <- zeptosensPkg::predict_hybrid_network(
- data = signaling_responses,
- prior = prior_org$wk,
- n_prot = dim(proteomic_responses)[2],
- proteomic_responses = proteomic_responses,
- mab_to_genes = mab_to_genes,
- max_dist = 1
- )
+# Extract network
+network <- zeptosensPkg::predict_hybrid_network(
+data = signaling_responses,
+prior = prior_org$wk,
+n_prot = dim(proteomic_responses)[2],
+proteomic_responses = proteomic_responses,
+mab_to_genes = mab_to_genes,
+max_dist = 1
+)
 
 }
 \concept{zeptosensPkg}
