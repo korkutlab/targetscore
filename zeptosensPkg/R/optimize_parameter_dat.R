@@ -9,8 +9,9 @@
 #' \item{bic}{BIC error calculated for penalty parameters.}
 #' 
 #' @examples 
-#' # read proteomic responce file
-#' signaling_responses <- read.csv(system.file("test_data", "TCGA-BRCA-L4.csv", package = "zeptosensPkg"), row.names = 1)
+#' # read proteomic response file
+#' file <- system.file("test_data", "TCGA-BRCA-L4.csv", package = "zeptosensPkg")
+#' signaling_responses <- read.csv(file, row.names = 1)
 #'  parameters <- zeptosensPkg::optimize_parameter_dat(data = signaling_responses)
 #' 
 #' @importFrom glasso glasso

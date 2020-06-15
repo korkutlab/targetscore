@@ -58,7 +58,8 @@ Choose the optimal regulization parameter and scale paramter for prior informati
 }
 \examples{
 # READ ANTIBODY FILE ----
-mab_to_genes <- read.table(system.file("targetscoreData", "antibodyMapFile.txt", package = "zeptosensPkg"),
+file <- system.file("targetscoreData", "antibodyMapFile.txt", package = "zeptosensPkg")
+mab_to_genes <- read.table(file,
 sep = "\t",
 header = TRUE,
 stringsAsFactors = FALSE

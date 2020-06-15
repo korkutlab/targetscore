@@ -35,7 +35,7 @@ Choose the optimal regulization parameter and scale paramter for adjusted-glasso
 \examples{
 # read proteomic response file
 file <- system.file("test_data", "TCGA-BRCA-L4.csv", package = "zeptosensPkg")
-signaling_responses <- read.csv(, row.names = 1)
+signaling_responses <- read.csv(file, row.names = 1)
 
 # Read in Biology knowlegde base protein interaction
 file <- system.file("test_data_files", "predict_bio_network_network_output.rds",
