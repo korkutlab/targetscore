@@ -1,7 +1,7 @@
 # install neccessary libraries
 
 install.packages("devtools")
-install.packages("morpheus")
+devtools::install_github('cmap/morpheus.R')
 devtools::install_github("HepingWang/zeptosensPkg/zeptosensPkg")
 library(shiny)
 library(DT)
