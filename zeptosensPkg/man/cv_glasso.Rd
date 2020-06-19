@@ -21,43 +21,52 @@ cv_glasso(
 )
 }
 \arguments{
-\item{rho}{positive tuning parameter for elastic net penalty. Default at 10^seq(-2,0, 0.02).}
+\item{data}{option to provide a nxp data matrix. Each row corresponds to a 
+single observation and each column contains n observations of a single
+feature/variable.}
+
+\item{s_matrix}{option to provide a pxp sample covariance matrix (denominator n). 
+If argument is NULL and "data" is provided instead then "s_matrix" 
+will be computed automatically.}
+
+\item{prior}{Prior information data frame ,with colnames and rownames as 
+gene tags.}
+
+\item{rho}{positive tuning parameter for elastic net penalty. Default at
+10^seq(-2,0, 0.02).}
 
 \item{kappa}{positive scaler parameter for biology prior contribution. Default at seq(0.01,1,length=100)}
 
-\item{diagonal}{option to penalize the diagonal elements of the estimated precision matrix
-(\eqn{\Omega}). Defaults to \code{FALSE}.}
+\item{diagonal}{option to penalize the diagonal elements of the estimated
+precision matrix (\eqn{\Omega}). Defaults to "FALSE".}
 
-\item{tol}{convergence tolerance. Iterations will stop when the average absolute difference
-in parameter estimates in less than \code{tol} times multiple. Defaults to 1e-4.}
+\item{tol}{convergence tolerance. Iterations will stop when the average
+absolute difference in parameter estimates in less than "tol" times
+multiple. Defaults to 1e-4.}
 
 \item{maxit}{maximum number of iterations. Defaults to 1e4.}
 
 \item{adjmaxit}{adjusted maximum number of iterations. During cross validation this option
-allows the user to adjust the maximum number of iterations after the first \code{lam} tuning
- parameter has converged. This option is intended to be paired with \code{warm} starts and
+allows the user to adjust the maximum number of iterations after the first "lam" tuning
+ parameter has converged. This option is intended to be paired with "warm" starts and
  allows for 'one-step' estimators. Defaults to NULL.}
 
 \item{k_fold}{specify the number of folds for cross validation.(Default at 5)}
 
-\item{crit_cv}{cross validation criterion (\code{loglik}, \code{AIC}, or \code{BIC}). Defaults to \code{loglik}.}
+\item{crit_cv}{cross validation criterion ("loglik", "AIC", or "BIC"). Defaults to "loglik".}
 
 \item{start}{specify \code{warm} or \code{cold} start for cross validation. Default is \code{warm}.}
 
 \item{algorithm}{Flexible toolbox implementing network estimating algorithms for robustness test.
 (\code{data_driven},or \code{hybrid_driven}).}
-
-\item{S}{option to provide a pxp sample covariance matrix (denominator n). If argument is
-\code{NULL} and \code{data} is provided instead then \code{S} will be computed automatically.}
 }
 \value{
 returns list of returns which includes:
-\item{lam}{optimized penalty parameter through traing data.}
-\item{avg_error}{average cross validation error across all folds.}
-\item{cv_error}{cross validation errors.}
+{lam} optimized penalty parameter through traing data.
+{avg_error} average cross validation error across all folds.
+{cv_error} cross validation errors.
 }
 \description{
-@param data option to provide a nxp data matrix. Each row corresponds to a single observation
-  and each column contains n observations of a single feature/variable.
+Run k-fold cross validation for data.(reference from CVglasso)
 }
 \concept{zeptosensPkg}

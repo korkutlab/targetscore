@@ -37,6 +37,10 @@ Gene in coloumns and samples in row. With colnames as gene tags and rownames as 
 \item{include_labels}{a boolean whether to point labels}
 
 \item{save_output}{a boolean whether to save plots and point data to file}
+
+\item{x_min}{Manually set minimum value for x lab. (Default at -2)}
+
+\item{x_max}{Manually set maximum value for x lab. (Default at 2)}
 }
 \value{
 volcano plots as ggplot object; plots and data maybe be saved as well

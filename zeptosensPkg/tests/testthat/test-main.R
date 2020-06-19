@@ -314,7 +314,9 @@ test_that("get_target_score", {
   }
 
   colnames(ts) <- colnames(proteomic_responses)
-  ts <- data.frame(rownames(proteomic_responses), ts)
+  #ts <- data.frame(rownames(proteomic_responses), ts)
+  ts[1,]<-round(ts[1,],2)
+  ts[2,]<-round(ts[2,],2)
 
   colnames(ts_p) <- colnames(proteomic_responses)
   ts_p <- data.frame(rownames(proteomic_responses), ts_p)

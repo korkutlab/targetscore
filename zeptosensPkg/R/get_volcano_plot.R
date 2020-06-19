@@ -10,6 +10,8 @@
 #' @param path Plot Store path. Default at working environment.
 #' @param sig_value  Manually set significant cut-off value for log10(q_value). (Default at 0.4)
 #' @param sig_TS Manually set significant cut-off value for calculated Target Score Value. (Default at 0.5)
+#' @param x_min Manually set minimum value for x lab. (Default at -2)
+#' @param x_max Manually set maximum value for x lab. (Default at 2)
 #' @param include_labels a boolean whether to point labels
 #' @param save_output a boolean whether to save plots and point data to file
 #'
