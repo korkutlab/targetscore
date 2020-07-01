@@ -35,6 +35,11 @@ ui <- navbarPage(
     sidebarLayout(
       sidebarPanel(
         width = 4,
+        fileInput("ts_result_file", "Target Score Result File (.rds; REQUIRED)",
+                  buttonLabel = "Browse...",
+                  placeholder = "No file selected",
+                  accept = ".rds"
+        ),
         fileInput("drug_data_file", "Perturbation Response File (.csv; REQUIRED)",
           buttonLabel = "Browse...",
           placeholder = "No file selected",
@@ -148,9 +153,14 @@ ui <- navbarPage(
 server <- function(input, output, session) {
   results <- eventReactive(input$submit, {
     cat("DEBUG\n")
-
+   #Result Load in or Calculate start
+      ts_result_file <- input$ts_result_file
+      if(!is.null(ts_result_file)){
+         results <- readRDS(ts_result_file$datapath)
+        }
+      else{
     validate(
-      need(input$drug_data_file, "ERROR: REQUIRED: Drug Response File")
+      need(input$drug_data_file, "ERROR: REQUIRED: Drug Response File or Target Score Result File")
     )
 
     # Drug Data
@@ -378,6 +388,7 @@ server <- function(input, output, session) {
       mab_to_genes = mab_to_genes,
       network = network
     )
+  }
   })
 
   # OBSERVERS ----

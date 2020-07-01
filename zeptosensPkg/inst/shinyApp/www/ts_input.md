@@ -2,6 +2,13 @@
 
 Please cite the following when using these data: Anil K.et al ...
 
+# Target Score Result File
+
+## File Descriptions
+
+Target Score Result File is the target score calculated result provided by the user. The data file should be an RDS data file as a list with ts_r: the target score calculated result list, proteomic_responses: Perturbation Response, fs_dat:Functional Score, mab_to_genes: Mapping Gene list(Example:Mapping File), network: network used by the calculation. The Input Panel is provided for users who are insterested in Shiny App visualization part and want to short the calculation time.
+
+
 # Perturbation Response File
 
 ## File Descriptions
