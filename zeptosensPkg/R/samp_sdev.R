@@ -4,7 +4,7 @@
 #' @param n_sample samples number of input data.
 #' @param n_prot Antibody number of input data.
 #' @param n_dose doses number of input data.
-#' @param replace_missing Replace missing values NA with 0 (Default: TRUE)
+#' @param replace_missing Replace missing values NA with 0 (DEFAULT: TRUE)
 #' 
 #' @examples 
 #' # read proteomic responce file
