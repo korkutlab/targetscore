@@ -1,8 +1,8 @@
 # install neccessary libraries
 
-if(!require("devtools")) { install.packages("devtools") }
-if(!require("morpheus")) { devtools::install_github('cmap/morpheus.R') }
-if(!require("zeptosensPkg")) { devtools::install_github("HepingWang/zeptosensPkg/zeptosensPkg") }
+#if(!require("devtools")) { install.packages("devtools") }
+#if(!require("morpheus")) { devtools::install_github('cmap/morpheus.R') }
+#if(!require("zeptosensPkg")) { devtools::install_github("HepingWang/zeptosensPkg/zeptosensPkg") }
 
 library(shiny)
 library(DT)
