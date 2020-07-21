@@ -88,17 +88,18 @@ ui <- navbarPage(
         actionButton("submit", label = "Submit", icon = NULL, width = NULL),
 
         hr(),
-        helpText(
-          a("Perturbation Response Example", href = "data/BT474.csv", target = "_blank"),
-          br(),
-          a("Mapping Example", href = "data/antibodyMapfile.txt", target = "_blank"),
-          br(),
-          a("Background Network Example", href = "data/TCGA_BRCA_L4.csv", target = "_blank"),
-          br(),
-          a("Functional Score Example", href = "data/Cosmic.txt", target = "_blank"),
-          br(),
-          a("Pre-computed Results for Visualization Example", href = "data/BT474_results_example.rds", target = "_blank"),
-        ),
+        helpText("Example: ", a(href="data/ovarian_tcga_cclp.zip", target="_blank", download="ovarian_tcga_cclp.zip", "Sample Breast Dataset (.zip)")),
+        # helpText(
+        #   a("Perturbation Response Example", href = "data/BT474.csv", target = "_blank"),
+        #   br(),
+        #   a("Mapping Example", href = "data/antibodyMapfile.txt", target = "_blank"),
+        #   br(),
+        #   a("Background Network Example", href = "data/TCGA_BRCA_L4.csv", target = "_blank"),
+        #   br(),
+        #   a("Functional Score Example", href = "data/Cosmic.txt", target = "_blank"),
+        #   br(),
+        #   a("Pre-computed Results for Visualization Example", href = "data/BT474_results_example.rds", target = "_blank"),
+        # ),
       ),
       # Results showing
       mainPanel(
