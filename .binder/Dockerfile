@@ -8,7 +8,7 @@ COPY . ${HOME}
 RUN pwd
 RUN ls -la
 RUN ls -la .binder 
-RUN R -e 'source("~/.binder/installPackages.R")'
+RUN R -e 'source("~/.binder/installPackages.R"); installPackages("~/.binder/r-requirements.dcf")'
 RUN chown -R ${NB_USER} ${HOME}
 
 USER ${NB_USER}
