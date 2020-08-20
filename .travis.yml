@@ -20,7 +20,8 @@ before_script:
   - R -e 'BiocManager::valid()'
   
 install:
-  - R -e 'devtools::install_deps(pkg = "zeptosensPkg", dep = TRUE, upgrade = FALSE)'
+  - ls -la 
+  - R -e 'devtools::install_deps(pkg = "zeptosensPkg", dependencies = TRUE, upgrade = FALSE)'
   
 script:
   - R -e 'devtools::document(pkg = "zeptosensPkg")'
