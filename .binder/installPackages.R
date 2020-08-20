@@ -136,5 +136,3 @@ installPackages <- function(file=NULL, packages=NULL,
   idx <- which(!(packageNames %in% rownames(installed.packages())))
   cat("Missing packages: ", paste(packageNames[idx], collapse=", "), "\n")
 }
-
-installPackages("./dependencies/r-requirements.dcf")
