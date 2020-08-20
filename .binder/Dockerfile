@@ -5,7 +5,9 @@ ARG NB_UID
 
 USER root
 COPY . ${HOME}
-RUN ls -la 
+RUN pwd
+RUN ls -la
+RUN ls -la .binder 
 RUN R -e 'source("~/.binder/installPackages.R")'
 RUN chown -R ${NB_USER} ${HOME}
 
