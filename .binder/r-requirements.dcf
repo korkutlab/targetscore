@@ -1,0 +1,13 @@
+notes: NA
+r-version: 3.6
+mran-date: 2019-06-15
+update-packages: FALSE
+depends:
+  DT
+  igraph
+  lsa
+  magrittr
+  readr
+  reticulate
+  tidytext
+  github::cannin/listutils
