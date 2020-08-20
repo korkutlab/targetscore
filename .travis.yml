@@ -1,5 +1,7 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
-language: R
+language: r
+
+# Either bioc-devel/bioc-release
 r: bioc-devel
 
 cache: packages
@@ -8,21 +10,25 @@ cache: packages
 bioc_required: true
 bioc_check: true
 
-r_packages:
-  - rmarkdown
-  - BiocManager
-  - covr
-
 # On CRAN all warnings are treated as errors; this is not true on Bioconductor.
 warnings_are_errors: false
 
+# Ensure bioc-devel is being used
 before_script:
-  # ensure bioc-devel is being used
+  - R -e "r_package <- c('devtools', 'roxygen2', 'testthat', 'rmarkdown', 'BiocManager', 'covr'); lapply(r_package, function(x) {if (!(x %in% .packages(T))) install.packages(x)})"
   - R -e 'BiocManager::install(version = "devel", ask=FALSE)'
   - R -e 'BiocManager::valid()'
+  
+install:
+  - R -e 'devtools::install_deps(pkg = "zeptosensPkg", dep = TRUE, upgrade = FALSE)'
+  
+script:
+  - R -e 'devtools::document(pkg = "zeptosensPkg")'
+  - R -e "if (dir.exists('zeptosensPkg/tests/testthat')) devtools::test('zeptosensPkg')"
+  - cd zeptosensPkg; R CMD build .
 
-after_success:
-  - Rscript -e 'covr::codecov()'
+#after_success:
+#  - Rscript -e 'covr::codecov()'
 
 # Install Java 8 for RCDK
 #addons:
