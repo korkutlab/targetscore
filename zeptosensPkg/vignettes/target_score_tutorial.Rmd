@@ -47,14 +47,15 @@ Mandatory loading data including: Drug perturbation data (proteomic_responses). 
 2.n_prot: Number of Antibodies included in the User provided drug perturbation data.
 Other files that can be attached are:
 1. mab_to_genes: list of antibodies, their associated genes, modification sites and effect.
-2. fs_override :a listing of functional scores for each gene manually set up for overriding COSMIC Database given value, the modification path.
+2. fs_override: a listing of functional scores for each gene manually set up for overriding COSMIC Database given value, the modification path.
 
 ```{r load_data}
 # data_dir <- "../data(ts)/ts_anil"
 # protein_list_dir <- "../data(ts)/Protein_Name_List"
 data_dir <- system.file("test_data", package = "zeptosensPkg")
 resource_dir <- system.file("targetScoreData", package = "zeptosensPkg")
-output_dir <- "inst/test_data/tutorial_output"
+output_dir <- "."
+# output_dir <- "inst/test_data/tutorial_output"
 
 # Number of antibodies
 n_prot <- 100
@@ -64,11 +65,8 @@ max_dist <- 1 # changing this value requires additional work to compute product(
 # verbose <- FALSE
 
 # READ ANTIBODY FILE ----
-mab_to_genes <- read.table(file.path(resource_dir, "antibodyMapFile_08092019.txt"),
-  sep = "\t",
-  header = TRUE,
-  stringsAsFactors = FALSE
-)
+mab_to_genes <- read.csv(file.path(resource_dir, "antibodyMapFile_08272020.csv"), 
+                         stringsAsFactors = FALSE)
 
 # Read drug perturbation data for BT474
 proteomic_responses <- read.csv(file.path(data_dir, "BT474.csv"), row.names = 1) # n_prot=100
