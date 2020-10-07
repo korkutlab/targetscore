@@ -15,7 +15,7 @@ samp_sdev(n_sample, n_prot, n_dose, n_x, replace_missing = TRUE)
 
 \item{n_x}{vertically merged data from all samples rows condition columns proteins}
 
-\item{replace_missing}{Replace missing values NA with 0 (DEFAULT: TRUE)}
+\item{replace_missing}{Replace missing values NA with 0 (Default: TRUE)}
 }
 \description{
 Calculate the standard deviation over all samples

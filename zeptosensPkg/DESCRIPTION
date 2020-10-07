@@ -26,7 +26,7 @@ Suggests:
     data.table,
     matrixStats
 VignetteBuilder: knitr
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.0
 Encoding: UTF-8
 biocViews: CellBasedAssays, Proteomics, GeneExpression,
     Pharmacogenomics, Pharmacogenetics, Visualization,
