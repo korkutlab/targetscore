@@ -3,7 +3,7 @@ test_that("multiplication works", {
 })
 
 test_that("match_genes_to_edgelist", {
-  antibody_map_file <- system.file("targetScoreData", "antibodyMap.txt", package = "zeptosensPkg")
+  antibody_map_file <- system.file("targetScoreData/old_files", "antibodyMap.txt", package = "zeptosensPkg")
   mab_to_genes <- read.table(antibody_map_file, sep = "\t", header = TRUE, stringsAsFactors = FALSE)
 
   proteomic_responses_file <- system.file("test_data", "BT474.csv", package = "zeptosensPkg")
@@ -38,7 +38,7 @@ test_that("predict_bio_network", {
   skip_on_cran()
 
   # READ ANTIBODY FILE ----
-  mab_to_genes <- read.table(system.file("targetscoreData", "antibodyMapFile_08092019.txt", package = "zeptosensPkg"),
+  mab_to_genes <- read.table(system.file("targetscoreData", "antibodyMapFile.txt", package = "zeptosensPkg"),
     sep = "\t",
     header = TRUE,
     stringsAsFactors = FALSE

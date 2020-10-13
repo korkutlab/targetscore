@@ -37,7 +37,7 @@ optimize_parameter_hybrid <- function(data, prior = NULL,
   # Extract from SignedPC for prior
 
   # READ ANTIBODY FILE ----
-  mab_to_genes <- read.table(system.file("targetscoreData", "antibodyMapFile_08092019.txt", package = "zeptosensPkg"),
+  mab_to_genes <- read.table(system.file("targetscoreData/old_files", "antibodyMapFile_08092019.txt", package = "zeptosensPkg"),
     sep = "\t",
     header = TRUE,
     stringsAsFactors = FALSE
