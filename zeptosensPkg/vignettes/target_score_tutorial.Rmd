@@ -65,7 +65,7 @@ max_dist <- 1 # changing this value requires additional work to compute product(
 # verbose <- FALSE
 
 # READ ANTIBODY FILE ----
-mab_to_genes <- read.csv(file.path(resource_dir, "antibodyMapFile_08272020.csv"), 
+mab_to_genes <- read.csv(file.path(resource_dir, "antibodyMapFile_08092019.csv"), 
                          stringsAsFactors = FALSE)
 
 # Read drug perturbation data for BT474
