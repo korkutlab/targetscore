@@ -25,7 +25,8 @@ Suggests:
     plyr,
     data.table,
     matrixStats,
-    markdown
+    markdown,
+    usethis
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
 Encoding: UTF-8
