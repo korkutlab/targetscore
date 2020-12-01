@@ -1,7 +1,7 @@
 # Introduction to TargetScore
 
 ## Code Availability 
-[Code available as the TargetScore R Package](http://www.git.com)
+[Code available as the TargetScore R Package](https://github.com/HepingWang/zeptosensPkg)
         
 ## Why we developed TargetScore?
 
@@ -14,6 +14,6 @@ _(Gu et al., 2016; Manzano et al., 2016; Mayekar and Bivona, 2017; Ohmoto and Ya
 
 2) The combination and collective result from pathway may be a better predicter in drug response analysis.
 
-## What does Target Score provided?
+## What does Target Score provide?
 
 Target Score currently have three functional modules which are: Reference network contruction; target score calculation; calculated result visualization. The detailed information of target score calculation process is explained in Help page.

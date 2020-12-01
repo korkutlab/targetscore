@@ -1,4 +1,4 @@
-# Citatation for Data and Algorithm Usage
+# Citation for Data and Algorithm Usage
 
 Please cite the following when using these data: Anil K.et al ...
 
@@ -17,7 +17,7 @@ Perturbation Response File is the drug perturbation data provided by the user. W
 
 ## Download
 
-[Perturbation Responce File](data/BT474.csv)
+[Perturbation Response File](data/BT474.csv)
 
 # Mapping File
 
