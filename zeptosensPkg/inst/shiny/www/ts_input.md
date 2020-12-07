@@ -1,6 +1,7 @@
 # Citation for Data and Algorithm Usage
 
-Please cite the following when using these data: Anil K.et al ...
+Please cite the following when using the example data/source code/TargetScore calculator: 
+Anil Korkut, Heping Wang, Augustin Luna.
 
 # Target Score Result File
 
@@ -16,8 +17,8 @@ Target Score Result File is the target score calculated result provided by the u
 Perturbation Response File is the drug perturbation data provided by the user. We have provided an example drug perturbation response file here which provided by Anil Korkut lab. The data file contains Antibody Label as column and drug perturbation treatments as rows.
 
 ## Download
-
-[Perturbation Response File](data/BT474.csv)
+Here provided an example from Anil Korkut lab of cell line BT474 (Breast Cancer cell line).Protein level expression data for ~300 proteins, Log2 transformed and median centered.
+[BT474](https://github.com/HepingWang/zeptosensPkg/tree/master/zeptosensPkg/inst/test_data)
 
 # Mapping File
 
@@ -36,8 +37,8 @@ Mapping file is the Gene Name list database developed by [Anil Korkut Group](htt
   * i : inhibition
 
 ## Download
-
-[Mapping file](data/antibodyMapfile.txt)
+Here provided an example file of Mapping file which used by Korkut lab currently. 
+[Mapping file](https://github.com/HepingWang/zeptosensPkg/tree/master/zeptosensPkg/inst/targetScoreData)
 
 # Background Network File
 
@@ -50,7 +51,7 @@ Background Network File, which capture the signaling co-variations serve as  the
 ## DownLoad
 Here provided an example from Public database TCGA of Breast Cancer.Protein level expression data for all genes, Log2 transformed.
 
-[TCGA BRCA file](data/TCGA-BRCA-L4_1.csv)
+[TCGA BRCA file](https://github.com/HepingWang/zeptosensPkg/tree/master/zeptosensPkg/inst/test_data)
 
 # Functional Score file
 ## File Description
@@ -65,5 +66,8 @@ A functional role is assigned as a numeric score to proteomic entities.
 * fs : Corresponding functional score
 
 ## Download
-
-[Functional Score file](data/Cosmic.txt)
+Here provided an example file of functional score file from the Catalogue Of Somatic Mutations In Cancer project resource where corresponding functional score of listed proteins:
+0 for dual or unknown proteins;
+-1 for tumor suppressors;
+1 for onco-proteins.
+[Cosmic](https://github.com/HepingWang/zeptosensPkg/tree/master/zeptosensPkg/inst/extdata)

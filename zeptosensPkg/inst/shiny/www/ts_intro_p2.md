@@ -21,10 +21,10 @@ We have modified the glasso algorithm and developed the Adjusted-glasso algorith
 
 ## Step2. Calculating Target Score Through Reference Network
 
-target score (TS) that quantifies the adaptive pathway responses to a perturbation as a sum of the response from each individual phosphoprotein level and its pathway neighborhood is calculated for each protein in each sample.The calculation combines the cell type-specific drug response data with the reference network model information. High target score identifies genes involved in adaptive response (e.g., upregulation of RTK mRNA expression by MEK inhibitor via a feedback loop _[[CITE]])_ and low target score corresponds to the immediate impact of the drug.") # tags$a(href="https://github.com/HepingWang/zeptosensPkg","TargetScore Pakage Bio")
+target score (TS) that quantifies the adaptive pathway responses to a perturbation as a sum of the response from each individual phosphoprotein level and its pathway neighborhood is calculated for each protein in each sample.The calculation combines the cell type-specific drug response data with the reference network model information. High target score identifies genes involved in adaptive response (e.g., upregulation of RTK mRNA expression by MEK inhibitor via a feedback loop and low target score corresponds to the immediate impact of the drug.") 
 
 **Functional Score for Antibodies**
-A functional score of +1 is assigned to proteomic entities representing total level and activating phosphorylations of oncogenes or deactivating phosphorylations of tumor suppressors. Similarly, a functional score of (-1) is assigned to total levels and activating phosphorylations of tumor suppressors and inhibitory phosphorylations of oncoproteins. The shiny app provided default functional score inferred from Cosmic Database _[[CITE]]_ with portal for users to upload self-defined functional score to override.
+A functional score of +1 is assigned to proteomic entities representing total level and activating phosphorylations of oncogenes or deactivating phosphorylations of tumor suppressors. Similarly, a functional score of (-1) is assigned to total levels and activating phosphorylations of tumor suppressors and inhibitory phosphorylations of oncoproteins. The shiny app provided default functional score inferred from Cosmic Database [Cosmic Resources](https://cancer.sanger.ac.uk/cosmic) with portal for users to upload self-defined functional score to override.
 
 **TargetScore Calculation method**
 
