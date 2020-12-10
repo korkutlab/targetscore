@@ -18,7 +18,7 @@ Perturbation Response File is the drug perturbation data provided by the user. W
 
 ## Download
 Here provided an example from Anil Korkut lab of cell line BT474 (Breast Cancer cell line).Protein level expression data for ~300 proteins, Log2 transformed and median centered.
-[BT474](https://github.com/HepingWang/zeptosensPkg/tree/master/zeptosensPkg/inst/test_data)
+[Perturbation Response file directory](https://github.com/HepingWang/zeptosensPkg/blob/master/zeptosensPkg/inst/test_data/BT474.csv)
 
 # Mapping File
 
@@ -38,7 +38,7 @@ Mapping file is the Gene Name list database developed by [Anil Korkut Group](htt
 
 ## Download
 Here provided an example file of Mapping file which used by Korkut lab currently. 
-[Mapping file](https://github.com/HepingWang/zeptosensPkg/tree/master/zeptosensPkg/inst/targetScoreData)
+[Mapping file directory](https://github.com/HepingWang/zeptosensPkg/blob/master/zeptosensPkg/inst/targetScoreData/antibodyMapfile_08272020.csv)
 
 # Background Network File
 
@@ -51,7 +51,7 @@ Background Network File, which capture the signaling co-variations serve as  the
 ## DownLoad
 Here provided an example from Public database TCGA of Breast Cancer.Protein level expression data for all genes, Log2 transformed.
 
-[TCGA BRCA file](https://github.com/HepingWang/zeptosensPkg/tree/master/zeptosensPkg/inst/test_data)
+[TCGA BRCA file directory](https://github.com/HepingWang/zeptosensPkg/blob/master/zeptosensPkg/inst/test_data/TCGA-BRCA-L4.csv)
 
 # Functional Score file
 ## File Description
@@ -70,4 +70,4 @@ Here provided an example file of functional score file from the Catalogue Of Som
 0 for dual or unknown proteins;
 -1 for tumor suppressors;
 1 for onco-proteins.
-[Cosmic](https://github.com/HepingWang/zeptosensPkg/tree/master/zeptosensPkg/inst/extdata)
+[Functional Score file directory](https://github.com/HepingWang/zeptosensPkg/blob/master/zeptosensPkg/inst/extdata/Cosmic.txt)
