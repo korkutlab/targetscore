@@ -149,7 +149,9 @@ ui <- navbarPage(
   tabPanel(
     "About",
     mainPanel(
-      includeMarkdown("www/ts_about.md")
+      includeMarkdown("www/ts_about.md"),
+      h1("Version"),
+      p(paste0("TargetScore: ", packageVersion("zeptosensPkg")))
     )
   ),
   loading_modal("Calculating TargetScore ...")
