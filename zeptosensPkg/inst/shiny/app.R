@@ -5,6 +5,7 @@
 #if(!require("zeptosensPkg")) { devtools::install_github("HepingWang/zeptosensPkg/zeptosensPkg") }
 
 library(shiny)
+library(markdown)
 library(DT)
 library(zeptosensPkg)
 library(pheatmap)
