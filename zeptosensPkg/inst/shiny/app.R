@@ -89,7 +89,7 @@ ui <- navbarPage(
         actionButton("submit", label = "Submit", icon = NULL, width = NULL),
 
         hr(),
-        helpText("Example: ", a(href="data/ovarian_tcga_cclp.zip", target="_blank", download="ovarian_tcga_cclp.zip", "Sample Breast Dataset (.zip)"))
+        helpText("Example: ", a(href="data/sample_breast_cancer_perturbation_data.zip", target="_blank", download="sample_breast_cancer_perturbation_data.zip", "Sample Breast Dataset (.zip)"))
         # helpText(
         #   a("Perturbation Response Example", href = "data/BT474.csv", target = "_blank"),
         #   br(),
