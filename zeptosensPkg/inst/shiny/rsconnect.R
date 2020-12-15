@@ -7,7 +7,7 @@ shinyapps_token <- Sys.getenv("SHINY_TOKEN")
 shinyapps_secret <- Sys.getenv("SHINY_SECRET")
 rsconnect::setAccountInfo(name=shinyapps_user, token=shinyapps_token, secret=shinyapps_secret)
 
-remove.packages(c("zeptosensPkg", "morpheus"))
+#remove.packages(c("zeptosensPkg", "morpheus"))
 devtools::install_github('korkutlab/zeptosensPkg', subdir="zeptosensPkg", upgrade='never', dependencies=TRUE)
 devtools::install_github('cmap/morpheus.R', upgrade="never")
 
