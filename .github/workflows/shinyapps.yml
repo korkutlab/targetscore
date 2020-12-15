@@ -13,5 +13,5 @@ jobs:
     - name: Main
       run: |
            docker pull rocker/shiny-verse:3.6.3
-           docker run -it --env SHINY_USER=${{ secrets.SHINY_USER }} --env SHINY_TOKEN=${{ secrets.SHINY_TOKEN }} --env SHINY_SECRET=${{ secrets.SHINY_SECRET }} rocker/shiny-verse:3.6.3 bash -c "R -e 'source(\"https://raw.githack.com/korkutlab/zeptosensPkg/master/zeptosensPkg/inst/shiny/rsconnect.R\")'"
+           docker run --env SHINY_USER=${{ secrets.SHINY_USER }} --env SHINY_TOKEN=${{ secrets.SHINY_TOKEN }} --env SHINY_SECRET=${{ secrets.SHINY_SECRET }} rocker/shiny-verse:3.6.3 bash -c "R -e 'source(\"https://raw.githack.com/korkutlab/zeptosensPkg/master/zeptosensPkg/inst/shiny/rsconnect.R\")'"
          
