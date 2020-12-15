@@ -16,4 +16,4 @@ The phospho-proteomic landscape of ~300 proteins within specific cell-lines was 
 
 # Feedback
 
-This web application is still under heavy development, and we appreciate any feedback/suggestions you may have. Please forward feedback to [Heping Wang](mailto:HWang29@mdanderson.org).
+This web application is still under heavy development, and we appreciate any feedback/suggestions you may have. Please forward feedback to [Heping Wang](mailto:HWang29@mdanderson.org) or [Anil Korkut](mailto:akorkut@mdanderson.org)
