@@ -8,8 +8,10 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
     - name: Main
       run: |
            docker pull rocker/shiny-verse:3.6.3
+           docker run -it --env SHINY_USER=${{ secrets.SHINY_USER }} --env SHINY_TOKEN=${{ secrets.SHINY_TOKEN }} --env SHINY_SECRET=${{ secrets.SHINY_SECRET }} rocker/shiny-verse:3.6.3 bash -c "R -e 'source(\"https://github.com/korkutlab/zeptosensPkg/blob/master/zeptosensPkg/inst/shiny/rsconnect.R\")'"
+         
