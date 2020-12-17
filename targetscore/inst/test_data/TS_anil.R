@@ -25,7 +25,7 @@ max_dist <- 1 # changing this value requires additional work to compute product(
 verbose <- FALSE
 
 # READ ANTIBODY FILE ----
-mab_to_genes <- read.csv(file.path(resource_dir, "antibody_map.txt"),
+mab_to_genes <- read.csv(file.path(resource_dir, "antibody_map.csv"),
   header = TRUE,
   stringsAsFactors = FALSE
 )
