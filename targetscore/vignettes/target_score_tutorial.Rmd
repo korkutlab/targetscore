@@ -213,7 +213,6 @@ for (i in 1:n_cond) {
   ts_q[i, ] <- results$q
 }
 
-
 ## Set column and rownames to results
 colnames(ts) <- colnames(proteomic_responses)
 rownames(ts) <- rownames(proteomic_responses)
@@ -223,17 +222,28 @@ rownames(ts_p) <- rownames(proteomic_responses)
 
 colnames(ts_q) <- colnames(proteomic_responses)
 rownames(ts_q) <- rownames(proteomic_responses)
+```
 
-overall_results <- list(ts = ts, ts_p = ts_p, ts_q = ts_q)
-saveRDS(overall_results, file.path(output_dir, "bt474_results.rds"))
+## Save Results
+```{r}
+results <- list(
+  ts_r = list(ts = ts, ts_p = ts_p, ts_q = ts_q),
+  proteomic_responses = proteomic_responses,
+  fs_dat = fs,
+  mab_to_genes = mab_to_genes,
+  network = network
+)
+
+saveRDS(results, file.path(output_dir, "bt474_results.rds"))
 ```
 
 # Plot 
-Visualization of Target Score calculation result.
+Visualization of Target Score calculation result
+
 ## Heatmap
 ```{r}
 results <- readRDS(file.path(output_dir, "bt474_results.rds"))
-data <- results$ts
+data <- results$ts_r$ts
 
 bk <- c(seq(min(data), -0.1, by = 0.01), seq(0, max(data), by = 0.01))
 
@@ -255,8 +265,8 @@ dev.off()
 
 ```{r}
 tmp <- readRDS(file.path(output_dir, "bt474_results.rds"))
-data <- tmp$ts
-data_p <- tmp$ts_p
+data <- tmp$ts_r$ts
+data_p <- tmp$ts_r$ts_p
 
 # Significant level
 sig_value <- 0.01
@@ -271,11 +281,11 @@ for (i in 1:nrow(data)) {
 }
 ```
 
-## Subnetwork for Top 30 Proteins Under Different Conditions ----
+## Subnetwork for Top 30 Proteins Under Different Conditions
 
 ```{r}
 tmp <- readRDS(file.path(output_dir, "bt474_results.rds"))
-bt474_ts <- tmp$ts
+bt474_ts <- tmp$ts_r$ts
 
 ## MCL1
 data <- sort(bt474_ts["BT474_MCL1", ], decreasing = TRUE)
