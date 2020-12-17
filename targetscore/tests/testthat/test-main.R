@@ -29,7 +29,7 @@ test_that("match_genes_to_edgelist", {
   )
 
   snapshot_file <- system.file("test_data_files", "match_genes_to_edgelist_test_output.rds", package = "targetscore")
-  #saveRDS(dist_list, snapshot_file)
+  #saveRDS(dist_list, "match_genes_to_edgelist_test_output.rds")
   snapshot <- readRDS(snapshot_file)
 
   expect_identical(dist_list, snapshot)
