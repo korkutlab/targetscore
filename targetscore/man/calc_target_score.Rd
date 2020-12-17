@@ -58,4 +58,4 @@ data: multiple dose single drug perturbation
 ts: integral_dose(fs*(xi+sigma_j(2^p*xj*product_k(wk))))
 missing: For phosp and dephosp based wk, there is no 'exact match' between known and measured phospho-sites
 }
-\concept{zeptosensPkg}
+\concept{targetscore}

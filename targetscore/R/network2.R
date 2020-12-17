@@ -20,15 +20,15 @@
 #' 
 #' @examples 
 #' # Read proteomic response for cellline1
-#' file <- system.file("test_data", "BT474.csv", package = "zeptosensPkg")
+#' file <- system.file("test_data", "BT474.csv", package = "targetscore")
 #' proteomic_responses <- read.csv(file, row.names = 1)
 #'  
 #'  # Read in network output
 #'  wk_org <- readRDS(system.file("test_data_files", "predict_hybrid_network_network_output.rds",
-#'  package = "zeptosensPkg"
+#'  package = "targetscore"
 #'  ))
 #'  
-#'  network <- zeptosensPkg::network2(
+#'  network <- targetscore::network2(
 #'  wk <- wk_org$wk,
 #'  n_prot = dim(proteomic_responses)[2],
 #'  proteomic_responses = proteomic_responses
@@ -36,7 +36,7 @@
 #' 
 #' @importFrom utils write.table
 #'
-#' @concept zeptosensPkg
+#' @concept targetscore
 #' @export
 network2 <- function(wk, n_prot, proteomic_responses, dist_file = NULL, verbose = FALSE) {
   if (n_prot != ncol(proteomic_responses)) {

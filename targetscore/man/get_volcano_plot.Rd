@@ -50,4 +50,4 @@ Plot volcano plot of Target Score Result.
 As Significant Proteins (p value< Defalut or Manually set value) will show in red.
 The inverse log 10 of Target Score q value and Target Score calculated were shown.
 }
-\concept{zeptosensPkg}
+\concept{targetscore}

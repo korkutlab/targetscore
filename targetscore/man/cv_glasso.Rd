@@ -69,4 +69,4 @@ returns list of returns which includes:
 \description{
 Run k-fold cross validation for data.(reference from CVglasso)
 }
-\concept{zeptosensPkg}
+\concept{targetscore}

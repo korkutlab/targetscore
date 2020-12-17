@@ -34,16 +34,16 @@ Choose the optimal regulization parameter and scale paramter for adjusted-glasso
 }
 \examples{
 # read proteomic response file
-file <- system.file("test_data", "TCGA-BRCA-L4.csv", package = "zeptosensPkg")
+file <- system.file("test_data", "TCGA-BRCA-L4.csv", package = "targetscore")
 signaling_responses <- read.csv(file, row.names = 1)
 
 # Read in Biology knowlegde base protein interaction
 file <- system.file("test_data_files", "predict_bio_network_network_output.rds",
-  package = "zeptosensPkg")
+  package = "targetscore")
 
 prior_org <- readRDS(file)
-parameters <- zeptosensPkg::optimize_parameter_hybrid(data = signaling_responses, 
+parameters <- targetscore::optimize_parameter_hybrid(data = signaling_responses, 
   prior = prior_org$wk)
 
 }
-\concept{zeptosensPkg}
+\concept{targetscore}

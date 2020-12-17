@@ -24,7 +24,7 @@
 #'
 #' @importFrom glasso glasso
 #'
-#' @concept zeptosensPkg
+#' @concept targetscore
 #' @export
 
 run_cross_validation <- function(data,
@@ -46,7 +46,7 @@ run_cross_validation <- function(data,
 
   # Import prior biology information/NULL from SignedPC
   if (is.null(prior)) {
-    network_ref <- zeptosensPkg::predict_bio_network(
+    network_ref <- targetscore::predict_bio_network(
       n_prot = n_prot,
       proteomic_responses = proteomic_responses,
       max_dist = max_dist,

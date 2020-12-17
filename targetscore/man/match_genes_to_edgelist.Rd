@@ -38,11 +38,11 @@ a data.frame, columns 1-2 are indicies of the edgelist participants,
 Match a vector of genes to a SIF network
 }
 \examples{
-antibody_map_file <- system.file("targetScoreData", "antibodyMap.txt", package = "zeptosensPkg")
+antibody_map_file <- system.file("targetScoreData", "antibodyMap.txt", package = "targetscore")
 mab_to_genes <- read.table(antibody_map_file, sep = "\t", header = TRUE, stringsAsFactors = FALSE)
-proteomic_responses_file <- system.file("test_data", "BT474.csv", package = "zeptosensPkg")
+proteomic_responses_file <- system.file("test_data", "BT474.csv", package = "targetscore")
 proteomic_responses <- read.csv(proteomic_responses_file, row.names = 1)
-dist_file <- system.file("targetScoreData", "distances.txt", package = "zeptosensPkg")
+dist_file <- system.file("targetScoreData", "distances.txt", package = "targetscore")
 tmp_dist <- read.table(dist_file, sep = "\t", header = TRUE, stringsAsFactors = FALSE)
 
 dist <- tmp_dist[which(tmp_dist[, 3] <= 1), ]
@@ -61,4 +61,4 @@ verbose = TRUE
 )
 
 }
-\concept{zeptosensPkg}
+\concept{targetscore}

@@ -15,21 +15,21 @@
 #' 
 #' @examples 
 #' # read proteomic response file
-#' file <- system.file("test_data", "TCGA-BRCA-L4.csv", package = "zeptosensPkg")
+#' file <- system.file("test_data", "TCGA-BRCA-L4.csv", package = "targetscore")
 #' signaling_responses <- read.csv(file, row.names = 1)
 #' 
 #' # Read in Biology knowlegde base protein interaction
 #' file <- system.file("test_data_files", "predict_bio_network_network_output.rds",
-#'   package = "zeptosensPkg")
+#'   package = "targetscore")
 #' 
 #' prior_org <- readRDS(file)
-#' parameters <- zeptosensPkg::optimize_parameter_hybrid(data = signaling_responses, 
+#' parameters <- targetscore::optimize_parameter_hybrid(data = signaling_responses, 
 #'   prior = prior_org$wk)
 #' 
 #' @importFrom glasso glasso
 #' @importFrom stats cov
 #'
-#' @concept zeptosensPkg
+#' @concept targetscore
 #' @export
 optimize_parameter_hybrid <- function(data, prior = NULL,
                                       rho = 10^seq(-2, 0, 0.02),
@@ -37,14 +37,14 @@ optimize_parameter_hybrid <- function(data, prior = NULL,
   # Extract from SignedPC for prior
 
   # READ ANTIBODY FILE ----
-  mab_to_genes <- read.table(system.file("targetscoreData/old_files", "antibodyMapFile_08092019.txt", package = "zeptosensPkg"),
+  mab_to_genes <- read.table(system.file("targetscoreData/old_files", "antibodyMapFile_08092019.txt", package = "targetscore"),
     sep = "\t",
     header = TRUE,
     stringsAsFactors = FALSE
   )
 
   if (is.null(prior)) {
-    network_ref <- zeptosensPkg::predict_bio_network(
+    network_ref <- targetscore::predict_bio_network(
       n_prot = ncol(data),
       proteomic_responses = data,
       max_dist = 1,

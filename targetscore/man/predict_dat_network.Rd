@@ -32,19 +32,19 @@ predict data-driven only network.
 }
 \examples{
 # Read proteomic response for cellline1
-file <- system.file("test_data", "BT474.csv", package = "zeptosensPkg")
+file <- system.file("test_data", "BT474.csv", package = "targetscore")
 proteomic_responses <- read.csv(file, row.names = 1)
 
 # Read Global Signaling file for BRCA
-file <- system.file("test_data", "TCGA-BRCA-L4.csv", package = "zeptosensPkg")
+file <- system.file("test_data", "TCGA-BRCA-L4.csv", package = "targetscore")
 signaling_responses <- read.csv(file, row.names = 1)
 
  # Extract network
- network <- zeptosensPkg::predict_dat_network(
+ network <- targetscore::predict_dat_network(
  data <- signaling_responses,
  n_prot = dim(proteomic_responses)[2],
  proteomic_responses = proteomic_responses
  )
 
 }
-\concept{zeptosensPkg}
+\concept{targetscore}

@@ -8,14 +8,14 @@
 #' 
 #' @examples 
 #' # read proteomic responce file
-#' file <- system.file("test_data", "BT474.csv", package = "zeptosensPkg")
+#' file <- system.file("test_data", "BT474.csv", package = "targetscore")
 #' proteomic_responses <- read.csv(file, row.names = 1)
 #' samp_d <- samp_sdev(
 #' n_x = proteomic_responses, n_sample = dim(proteomic_responses)[1],
 #' n_prot = dim(proteomic_responses)[2], n_dose = 1
 #' )
 #' 
-#' @concept zeptosensPkg
+#' @concept targetscore
 #' @export
 samp_sdev <- function(n_sample, n_prot, n_dose, n_x, replace_missing = TRUE) {
   n_x[is.na(n_x)] <- 0

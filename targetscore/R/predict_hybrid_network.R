@@ -29,7 +29,7 @@
 #'
 #' @examples 
 #' # READ ANTIBODY FILE ----
-#' file <- system.file("targetscoreData", "antibodyMapFile.txt", package = "zeptosensPkg")
+#' file <- system.file("targetscoreData", "antibodyMapFile.txt", package = "targetscore")
 #' mab_to_genes <- read.table(file,
 #' sep = "\t",
 #' header = TRUE,
@@ -37,21 +37,21 @@
 #' )
 #' 
 #' # Read proteomic response for cellline1
-#' file <- system.file("test_data", "BT474.csv", package = "zeptosensPkg")
+#' file <- system.file("test_data", "BT474.csv", package = "targetscore")
 #' proteomic_responses <- read.csv(file, row.names = 1)
 #' 
 #' # Read Global Signaling file for BRCA
-#' file <- system.file("test_data", "TCGA-BRCA-L4.csv", package = "zeptosensPkg")
+#' file <- system.file("test_data", "TCGA-BRCA-L4.csv", package = "targetscore")
 #' signaling_responses <- read.csv(file, row.names = 1)
 #'  
 #' # Read Biology knowledge
 #' file <- system.file("test_data_files", "predict_bio_network_network_output.rds", 
-#'   package = "zeptosensPkg"
+#'   package = "targetscore"
 #' )
 #' prior_org <- readRDS(file)
 #'  
 #' # Extract network
-#' network <- zeptosensPkg::predict_hybrid_network(
+#' network <- targetscore::predict_hybrid_network(
 #' data = signaling_responses,
 #' prior = prior_org$wk,
 #' n_prot = dim(proteomic_responses)[2],
@@ -63,14 +63,14 @@
 #' @importFrom glasso glasso
 #' @importFrom stats cov median na.omit
 #'
-#' @concept zeptosensPkg
+#' @concept targetscore
 #' @export
 predict_hybrid_network <- function(data, prior = NULL, cut_off = 0.1, proteomic_responses, n_prot,
                                    max_dist = 1, mab_to_genes,
                                    rho = 10^seq(-2, 0, 0.02),
                                    kappa = 10^seq(-2, 0, 0.02)) {
   if (is.null(prior)) {
-    network_ref <- zeptosensPkg::predict_bio_network(
+    network_ref <- targetscore::predict_bio_network(
       n_prot = n_prot,
       proteomic_responses = proteomic_responses,
       max_dist = 1,
@@ -195,7 +195,7 @@ predict_hybrid_network <- function(data, prior = NULL, cut_off = 0.1, proteomic_
     network_total <- t_net_d
   }
 
-  edgelist_total <- zeptosensPkg::create_sif_from_matrix(
+  edgelist_total <- targetscore::create_sif_from_matrix(
     t_net = network_total,
     col_genelist = colnames(network_total),
     row_genelist = rownames(network_total)
@@ -206,7 +206,7 @@ predict_hybrid_network <- function(data, prior = NULL, cut_off = 0.1, proteomic_
 
   #
   wk <- network_total
-  networks <- zeptosensPkg::network2(
+  networks <- targetscore::network2(
     wk = wk, n_prot = n_prot,
     proteomic_responses = proteomic_responses,
   )

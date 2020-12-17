@@ -57,4 +57,4 @@ returns list of cross validation results which includes:
 \description{
 Run cross validation through data.
 }
-\concept{zeptosensPkg}
+\concept{targetscore}

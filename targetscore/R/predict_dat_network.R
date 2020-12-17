@@ -11,15 +11,15 @@
 #' 
 #' @examples 
 #' # Read proteomic response for cellline1
-#' file <- system.file("test_data", "BT474.csv", package = "zeptosensPkg")
+#' file <- system.file("test_data", "BT474.csv", package = "targetscore")
 #' proteomic_responses <- read.csv(file, row.names = 1)
 #' 
 #' # Read Global Signaling file for BRCA
-#' file <- system.file("test_data", "TCGA-BRCA-L4.csv", package = "zeptosensPkg")
+#' file <- system.file("test_data", "TCGA-BRCA-L4.csv", package = "targetscore")
 #' signaling_responses <- read.csv(file, row.names = 1)
 #' 
 #'  # Extract network
-#'  network <- zeptosensPkg::predict_dat_network(
+#'  network <- targetscore::predict_dat_network(
 #'  data <- signaling_responses,
 #'  n_prot = dim(proteomic_responses)[2],
 #'  proteomic_responses = proteomic_responses
@@ -28,7 +28,7 @@
 #' @importFrom glasso glasso
 #' @importFrom stats cov
 #'
-#' @concept zeptosensPkg
+#' @concept targetscore
 #' @export
 predict_dat_network <- function(data, cut_off = 0.1, n_prot, proteomic_responses,
                                 rho = 10^seq(-2, 0, 0.02)) {
@@ -71,14 +71,14 @@ predict_dat_network <- function(data, cut_off = 0.1, n_prot, proteomic_responses
   nedges <- sum(t_net != 0)
 
   # Network to edgelist
-  edgelist <- zeptosensPkg::create_sif_from_matrix(
+  edgelist <- targetscore::create_sif_from_matrix(
     t_net = t_net,
     col_genelist = colnames(t_net),
     row_genelist = rownames(t_net)
   )
 
-  # network2 function into networkinfor
-  network_inferred <- zeptosensPkg::network2(
+  # network2 function into network
+  network_inferred <- targetscore::network2(
     wk = t_net, n_prot = n_prot,
     proteomic_responses = proteomic_responses,
   )

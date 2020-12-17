@@ -34,7 +34,7 @@
 #'
 #' @importFrom glasso glasso
 #'
-#' @concept zeptosensPkg
+#' @concept targetscore
 #' @export
 
 cv_glasso <- function(data = NULL,
@@ -107,7 +107,7 @@ cv_glasso <- function(data = NULL,
     # for tuning parameters
     # choosing optimal parameter tuning parameter for training data
     if (algorithm == "data_driven") {
-      optimize_param <- zeptosensPkg::optimize_parameter_dat(
+      optimize_param <- targetscore::optimize_parameter_dat(
         data = data_train,
         rho = rho
       )
@@ -115,7 +115,7 @@ cv_glasso <- function(data = NULL,
     }
 
     if (algorithm == "hybrid_driven") {
-      optimize_param <- zeptosensPkg::optimize_parameter_hybrid(
+      optimize_param <- targetscore::optimize_parameter_hybrid(
         data = data_train,
         rho = rho,
         kappa = kappa,

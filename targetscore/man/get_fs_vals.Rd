@@ -33,15 +33,15 @@ Extracted functional score value from COMIC/ONCODRIVE Database. Can be override 
 \examples{
 # Read fs_manually set file
 fs_override_org <- readRDS(system.file("test_data_files", "fs_value_file.rds",
-package = "zeptosensPkg"
+package = "targetscore"
 ))
 
 # Read proteomic responce file
-file <- system.file("test_data", "BT474.csv", package = "zeptosensPkg")
+file <- system.file("test_data", "BT474.csv", package = "targetscore")
 proteomic_responses <- read.csv(file, row.names = 1)
 
 # Read antibody file
-file <- system.file("targetscoreData", "antibodyMapFile.txt", package = "zeptosensPkg")
+file <- system.file("targetscoreData", "antibodyMapFile.txt", package = "targetscore")
 mab_to_genes <- read.table(file,
 sep = "\t",
 header = TRUE,
@@ -54,4 +54,4 @@ mab_to_genes = mab_to_genes, fs_override = fs_override_org
 )
 
 }
-\concept{zeptosensPkg}
+\concept{targetscore}

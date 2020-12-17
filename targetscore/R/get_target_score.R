@@ -22,22 +22,22 @@
 #' @examples 
 #' # read proteomic responce file
 #' signaling_responses <- read.csv(system.file("test_data", "TCGA-BRCA-L4.csv",
-#' package = "zeptosensPkg"
+#' package = "targetscore"
 #' ), row.names = 1)
 #' 
 #' # Read in Biology knowlegde base protein interaction
 #' network <- readRDS(system.file("test_data_files", "predict_bio_network_network_output.rds",
-#' package = "zeptosensPkg"
+#' package = "targetscore"
 #' ))
 #' 
 #' # read proteomic responce file
-#' proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "zeptosensPkg"),
+#' proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "targetscore"),
 #' row.names = 1
 #' )
 #' 
 #' # read functional score value
 #' fs <- readRDS(system.file("test_data_files", "get_fs_vals_output.rds",
-#' package = "zeptosensPkg"
+#' package = "targetscore"
 #' ))
 #' 
 #' # Calculate Target Score
@@ -45,7 +45,7 @@
 #' ts_p <- array(0, dim = c(dim(proteomic_responses)[1], dim(proteomic_responses)[2]))
 #' ts_q <- array(0, dim = c(dim(proteomic_responses)[1], dim(proteomic_responses)[2]))
 #' for (i in seq_len(2)) {
-#' results <- zeptosensPkg::get_target_score(
+#' results <- targetscore::get_target_score(
 #'   wk = network$wk,
 #'   wks = network$wks,
 #'   dist_ind = network$dist_ind,
@@ -80,7 +80,7 @@
 #' @importFrom stats sd pnorm p.adjust
 #' @importFrom utils write.table
 #'
-#' @concept zeptosensPkg
+#' @concept targetscore
 #' @export
 get_target_score <- function(wk, wks, dist_ind, inter, n_dose, n_prot, proteomic_responses,
                              n_perm, verbose = TRUE, ts_factor = 1, fs_dat) {

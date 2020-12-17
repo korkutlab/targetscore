@@ -1,7 +1,7 @@
 # Introduction to TargetScore
 
 ## Code Availability 
-[Code available as the TargetScore R Package](https://github.com/HepingWang/zeptosensPkg)
+[Code available as the TargetScore R Package](https://github.com/korkutlab/targetscore)
         
 ## Why we developed TargetScore?
 

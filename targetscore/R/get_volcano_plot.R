@@ -21,7 +21,7 @@
 #' @importFrom ggrepel geom_label_repel
 #' @importFrom utils write.csv
 #'
-#' @concept zeptosensPkg
+#' @concept targetscore
 #' @export
 get_volcano_plot <- function(ts, q_value,
                              filename,

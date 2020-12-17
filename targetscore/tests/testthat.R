@@ -1,4 +1,4 @@
 library(testthat)
-library(zeptosensPkg)
+library(targetscore)
 
-test_check("zeptosensPkg")
+test_check("targetscore")

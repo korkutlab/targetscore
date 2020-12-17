@@ -10,13 +10,13 @@
 #' 
 #' @examples 
 #' # read proteomic response file
-#' file <- system.file("test_data", "TCGA-BRCA-L4.csv", package = "zeptosensPkg")
+#' file <- system.file("test_data", "TCGA-BRCA-L4.csv", package = "targetscore")
 #' signaling_responses <- read.csv(file, row.names = 1)
-#'  parameters <- zeptosensPkg::optimize_parameter_dat(data = signaling_responses)
+#'  parameters <- targetscore::optimize_parameter_dat(data = signaling_responses)
 #' 
 #' @importFrom glasso glasso
 #'
-#' @concept zeptosensPkg
+#' @concept targetscore
 #' @export
 optimize_parameter_dat <- function(data, rho = 10^seq(-2, 0, 0.02)) {
 

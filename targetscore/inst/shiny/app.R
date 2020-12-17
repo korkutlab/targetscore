@@ -2,12 +2,12 @@
 
 #if(!require("devtools")) { install.packages("devtools") }
 #if(!require("morpheus")) { devtools::install_github('cmap/morpheus.R') }
-#if(!require("zeptosensPkg")) { devtools::install_github("HepingWang/zeptosensPkg/zeptosensPkg") }
+#if(!require("targetscore")) { devtools::install_github("korkutlab/targetscore/targetscore") }
 
 library(shiny)
 library(markdown)
 library(DT)
-library(zeptosensPkg)
+library(targetscore)
 library(pheatmap)
 library(morpheus)
 library(plotly)
@@ -152,7 +152,7 @@ ui <- navbarPage(
     mainPanel(
       includeMarkdown("www/ts_about.md"),
       h1("Version"),
-      p(paste0("TargetScore: ", packageVersion("zeptosensPkg")))
+      p(paste0("TargetScore: ", packageVersion("targetscore")))
     )
   ),
   loading_modal("Calculating TargetScore ...")
@@ -172,7 +172,7 @@ server <- function(input, output, session) {
       drug_data_file <- input$drug_data_file
       drug_data_file <- drug_data_file$datapath
       # DEBUG
-      # drug_data_file <- system.file("test_data", "BT474.csv", package = "zeptosensPkg")
+      # drug_data_file <- system.file("test_data", "BT474.csv", package = "targetscore")
       cat("X: ", drug_data_file, "\n")
       
       # Read drug dataset, NOTE: must have row names
@@ -188,7 +188,7 @@ server <- function(input, output, session) {
       # Antibody Map
       antibody_map_file <- input$antibody
       if (is.null(antibody_map_file)) {
-        antibody_map_file <- system.file("targetScoreData", "antibodyMapfile_08092019.txt", package = "zeptosensPkg")
+        antibody_map_file <- system.file("targetScoreData", "antibodyMapfile_08092019.txt", package = "targetscore")
         mab_to_genes <- read.table(antibody_map_file, sep = "\t", header = TRUE, stringsAsFactors = FALSE)
       } else {
         antibody_map_file <- antibody_map_file$datapath
@@ -198,17 +198,17 @@ server <- function(input, output, session) {
       # FS File
       fs_file <- input$fs_file
       if (!is.null(fs_file)) {
-        # fs_file <- system.file("targetScoreData", "fs.csv", package = "zeptosensPkg")
+        # fs_file <- system.file("targetScoreData", "fs.csv", package = "targetscore")
         fs_data <- read.csv(fs_file$datapath, header = TRUE, stringsAsFactors = FALSE)
         
-        fs_dat <- zeptosensPkg::get_fs_vals(
+        fs_dat <- targetscore::get_fs_vals(
           n_prot = n_prot,
           proteomic_responses = proteomic_responses,
           mab_to_genes = mab_to_genes,
           fs_override = fs_data
         )
       } else {
-        fs_dat <- zeptosensPkg::get_fs_vals(
+        fs_dat <- targetscore::get_fs_vals(
           n_prot = n_prot,
           proteomic_responses = proteomic_responses,
           mab_to_genes = mab_to_genes
@@ -233,7 +233,7 @@ server <- function(input, output, session) {
       # choosing the way to construct reference network
       if (network_algorithm == "bio") {
         # reference network
-        network <- zeptosensPkg::predict_bio_network(
+        network <- targetscore::predict_bio_network(
           n_prot = n_prot,
           proteomic_responses = proteomic_responses,
           mab_to_genes = mab_to_genes,
@@ -257,7 +257,7 @@ server <- function(input, output, session) {
         sig_dat <- read.csv(sig_file$datapath, header = TRUE, stringsAsFactors = FALSE)
         
         if (network_algorithm == "dat") {
-          network <- zeptosensPkg::predict_dat_network(
+          network <- targetscore::predict_dat_network(
             data = sig_dat,
             n_prot = n_prot,
             proteomic_responses = proteomic_responses,
@@ -271,14 +271,14 @@ server <- function(input, output, session) {
         
         if (network_algorithm == "hybrid") {
           # prior
-          wk <- zeptosensPkg::predict_bio_network(
+          wk <- targetscore::predict_bio_network(
             n_prot = n_prot,
             proteomic_responses = proteomic_responses,
             max_dist = max_dist,
             mab_to_genes = mab_to_genes
           )$wk
           # Hyb
-          network <- zeptosensPkg::predict_hybrid_network(
+          network <- targetscore::predict_hybrid_network(
             data = sig_dat,
             prior = wk,
             n_prot = n_prot,
@@ -301,7 +301,7 @@ server <- function(input, output, session) {
         
         # Calc Std (Normalization request)
         # FIXME REMOVE? there should be no na's included in preoteomic responses. What if so?
-        # stdev <- zeptosensPkg::samp_sdev(nSample=nrow(proteomic_responses),
+        # stdev <- targetscore::samp_sdev(nSample=nrow(proteomic_responses),
         #   n_prot=ncol(proteomic_responses),n_dose=1,nX=proteomic_responses)
         # #normalization
         # proteomic_responses<- proteomic_responses
@@ -318,7 +318,7 @@ server <- function(input, output, session) {
         ts_q <- array(0, dim = c(n_cond, n_prot))
         
         for (i in 1:n_cond) {
-          results <- zeptosensPkg::get_target_score(
+          results <- targetscore::get_target_score(
             wk = wk,
             wks = wks,
             dist_ind = dist_ind,
@@ -346,7 +346,7 @@ server <- function(input, output, session) {
       
       if (ts_type == "pooled") {
         # Calc Std
-        stdev <- zeptosensPkg::samp_sdev(
+        stdev <- targetscore::samp_sdev(
           n_sample = nrow(proteomic_responses),
           n_prot = ncol(proteomic_responses),
           n_dose = 1,
@@ -361,7 +361,7 @@ server <- function(input, output, session) {
           }
         }
         
-        results <- zeptosensPkg::get_target_score(
+        results <- targetscore::get_target_score(
           wk = wk,
           wks = wks,
           dist_ind = dist_ind,
@@ -450,7 +450,7 @@ server <- function(input, output, session) {
   #output$edgelist <- DT::renderDataTable({
     results <- results()
     network <- results$network
-    edgelist <- zeptosensPkg::create_sif_from_matrix(
+    edgelist <- targetscore::create_sif_from_matrix(
       t_net = network$wk,
       col_genelist = colnames(network$wk),
       row_genelist = rownames(network$wk)

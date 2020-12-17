@@ -35,19 +35,19 @@ Network for adjusted-glasso
 }
 \examples{
 # Read proteomic response for cellline1
-file <- system.file("test_data", "BT474.csv", package = "zeptosensPkg")
+file <- system.file("test_data", "BT474.csv", package = "targetscore")
 proteomic_responses <- read.csv(file, row.names = 1)
  
  # Read in network output
  wk_org <- readRDS(system.file("test_data_files", "predict_hybrid_network_network_output.rds",
- package = "zeptosensPkg"
+ package = "targetscore"
  ))
  
- network <- zeptosensPkg::network2(
+ network <- targetscore::network2(
  wk <- wk_org$wk,
  n_prot = dim(proteomic_responses)[2],
  proteomic_responses = proteomic_responses
  )
 
 }
-\concept{zeptosensPkg}
+\concept{targetscore}

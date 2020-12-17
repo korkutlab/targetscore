@@ -58,7 +58,7 @@ Choose the optimal regulization parameter and scale paramter for prior informati
 }
 \examples{
 # READ ANTIBODY FILE ----
-file <- system.file("targetscoreData", "antibodyMapFile.txt", package = "zeptosensPkg")
+file <- system.file("targetscoreData", "antibodyMapFile.txt", package = "targetscore")
 mab_to_genes <- read.table(file,
 sep = "\t",
 header = TRUE,
@@ -66,21 +66,21 @@ stringsAsFactors = FALSE
 )
 
 # Read proteomic response for cellline1
-file <- system.file("test_data", "BT474.csv", package = "zeptosensPkg")
+file <- system.file("test_data", "BT474.csv", package = "targetscore")
 proteomic_responses <- read.csv(file, row.names = 1)
 
 # Read Global Signaling file for BRCA
-file <- system.file("test_data", "TCGA-BRCA-L4.csv", package = "zeptosensPkg")
+file <- system.file("test_data", "TCGA-BRCA-L4.csv", package = "targetscore")
 signaling_responses <- read.csv(file, row.names = 1)
  
 # Read Biology knowledge
 file <- system.file("test_data_files", "predict_bio_network_network_output.rds", 
-  package = "zeptosensPkg"
+  package = "targetscore"
 )
 prior_org <- readRDS(file)
  
 # Extract network
-network <- zeptosensPkg::predict_hybrid_network(
+network <- targetscore::predict_hybrid_network(
 data = signaling_responses,
 prior = prior_org$wk,
 n_prot = dim(proteomic_responses)[2],
@@ -90,4 +90,4 @@ max_dist = 1
 )
 
 }
-\concept{zeptosensPkg}
+\concept{targetscore}

@@ -1,5 +1,5 @@
 library(plyr)
-library(zeptosensPkg)
+library(targetscore)
 library(data.table)
 library(RColorBrewer)
 library(gplots)
@@ -39,7 +39,7 @@ proteomic_responses <- read.csv(file.path(data_dir, "BT474.csv"), row.names = 1)
 fs_dat <- read.csv(file.path(data_dir, "fs.csv"), header = TRUE, stringsAsFactors = FALSE)
 
 # Extract network
-network <- zeptosensPkg::predict_bio_network(
+network <- targetscore::predict_bio_network(
   n_prot = n_prot,
   proteomic_responses = proteomic_responses,
   max_dist = max_dist,
@@ -48,8 +48,8 @@ network <- zeptosensPkg::predict_bio_network(
 
 saveRDS(network, file.path(output_dir, "bt474_network.rds"))
 
-# source("~/default/workspaceNotSynced/zeptosenspkg/zeptosensPkg/R/predictBioNetwork.R")
-# source("~/default/workspaceNotSynced/zeptosenspkg/zeptosensPkg/R/matchGenesToEdgelist.R")
+# source("~/default/workspaceNotSynced/targetscore/targetscore/R/predictBioNetwork.R")
+# source("~/default/workspaceNotSynced/targetscore/targetscore/R/matchGenesToEdgelist.R")
 # network_org <- predictBioNetwork(
 #   nProt = n_prot,
 #   proteomicResponses = proteomic_responses,
@@ -79,7 +79,7 @@ ts_q <- array(0, dim = c(n_cond, n_prot))
 n_perm <- 25
 
 for (i in 1:n_cond) {
-  results <- zeptosensPkg::get_target_score(
+  results <- targetscore::get_target_score(
     wk = wk,
     wks = wks,
     dist_ind = dist_ind,
@@ -97,7 +97,7 @@ for (i in 1:n_cond) {
   ts_q[i, ] <- results$q
 }
 
-ts_cond1 <- zeptosensPkg::get_target_score(
+ts_cond1 <- targetscore::get_target_score(
   wk = wk,
   wks = wks,
   dist_ind = dist_ind,
@@ -163,7 +163,7 @@ data_30 <- head(data, 30)
 wk <- network$wk
 index <- which(colnames(wk) %in% names(data_30))
 subnet <- wk[index, index]
-edgelist_subnet <- zeptosensPkg::create_sif_from_matrix(t_net = subnet, genelist = colnames(subnet))
+edgelist_subnet <- targetscore::create_sif_from_matrix(t_net = subnet, genelist = colnames(subnet))
 write.table(edgelist_subnet,
   file.path(output_dir, "signed_pc_BT474_MCL1_TOP30_positive_subnet.txt"),
   quote = FALSE,
@@ -175,7 +175,7 @@ data_30 <- tail(data, 30)
 wk <- network$wk
 index <- which(colnames(wk) %in% names(data_30))
 subnet <- wk[index, index]
-edgelist_subnet <- zeptosensPkg::create_sif_from_matrix(t_net = subnet, genelist = colnames(subnet))
+edgelist_subnet <- targetscore::create_sif_from_matrix(t_net = subnet, genelist = colnames(subnet))
 write.table(edgelist_subnet,
   file.path(output_dir, "signed_pc_BT474_MCL1_TOP30_negative_subnet.txt"),
   quote = FALSE,
@@ -189,7 +189,7 @@ data_30 <- head(data, 30)
 wk <- network$wk
 index <- which(colnames(wk) %in% names(data_30))
 subnet <- wk[index, index]
-edgelist_subnet <- zeptosensPkg::create_sif_from_matrix(t_net = subnet, genelist = colnames(subnet))
+edgelist_subnet <- targetscore::create_sif_from_matrix(t_net = subnet, genelist = colnames(subnet))
 write.table(edgelist_subnet,
   file.path(output_dir, "signed_pc_BT474_COMB_TOP30_positive_subnet.txt"),
   quote = FALSE,
@@ -200,7 +200,7 @@ data_30 <- tail(data, 30)
 
 index <- which(colnames(wk) %in% names(data_30))
 subnet <- wk[index, index]
-edgelist_subnet <- zeptosensPkg::create_sif_from_matrix(t_net = subnet, genelist = colnames(subnet))
+edgelist_subnet <- targetscore::create_sif_from_matrix(t_net = subnet, genelist = colnames(subnet))
 write.table(edgelist_subnet,
   file.path(output_dir, "signed_pc_BT474_COMB_TOP30_negative_subnet.txt"),
   quote = FALSE,

@@ -3,13 +3,13 @@ test_that("multiplication works", {
 })
 
 test_that("match_genes_to_edgelist", {
-  antibody_map_file <- system.file("targetScoreData/old_files", "antibodyMap.txt", package = "zeptosensPkg")
+  antibody_map_file <- system.file("targetScoreData/old_files", "antibodyMap.txt", package = "targetscore")
   mab_to_genes <- read.table(antibody_map_file, sep = "\t", header = TRUE, stringsAsFactors = FALSE)
 
-  proteomic_responses_file <- system.file("test_data", "BT474.csv", package = "zeptosensPkg")
+  proteomic_responses_file <- system.file("test_data", "BT474.csv", package = "targetscore")
   proteomic_responses <- read.csv(proteomic_responses_file, row.names = 1)
 
-  dist_file <- system.file("targetScoreData", "distances.txt", package = "zeptosensPkg")
+  dist_file <- system.file("targetScoreData", "distances.txt", package = "targetscore")
   tmp_dist <- read.table(dist_file, sep = "\t", header = TRUE, stringsAsFactors = FALSE)
 
   dist <- tmp_dist[which(tmp_dist[, 3] <= 1), ]
@@ -28,7 +28,7 @@ test_that("match_genes_to_edgelist", {
     verbose = TRUE
   )
 
-  snapshot_file <- system.file("test_data_files", "match_genes_to_edgelist_test_output.rds", package = "zeptosensPkg")
+  snapshot_file <- system.file("test_data_files", "match_genes_to_edgelist_test_output.rds", package = "targetscore")
   snapshot <- readRDS(snapshot_file)
 
   expect_identical(dist_list, snapshot)
@@ -38,17 +38,17 @@ test_that("predict_bio_network", {
   skip_on_cran()
 
   # READ ANTIBODY FILE ----
-  mab_to_genes <- read.table(system.file("targetscoreData", "antibodyMapFile.txt", package = "zeptosensPkg"),
+  mab_to_genes <- read.table(system.file("targetscoreData", "antibodyMapFile.txt", package = "targetscore"),
     sep = "\t",
     header = TRUE,
     stringsAsFactors = FALSE
   )
 
   # Read proteomic response for cellline1
-  proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "zeptosensPkg"), row.names = 1)
+  proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "targetscore"), row.names = 1)
 
   # Extract network
-  network <- zeptosensPkg::predict_bio_network(
+  network <- targetscore::predict_bio_network(
     n_prot = dim(proteomic_responses)[2],
     proteomic_responses = proteomic_responses,
     max_dist = 1,
@@ -56,7 +56,7 @@ test_that("predict_bio_network", {
   )
 
   network_org <- readRDS(system.file("test_data_files", "predict_bio_network_network_output.rds",
-    package = "zeptosensPkg"
+    package = "targetscore"
   ))
 
   expect_identical(network$wk, network_org$wk)
@@ -69,20 +69,20 @@ test_that("predict_dat_network", {
   skip_on_cran()
 
   # Read proteomic response for cellline1
-  proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "zeptosensPkg"), row.names = 1)
+  proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "targetscore"), row.names = 1)
 
   # Read Global Signaling file for BRCA
-  signaling_responses <- read.csv(system.file("test_data", "TCGA-BRCA-L4.csv", package = "zeptosensPkg"), row.names = 1)
+  signaling_responses <- read.csv(system.file("test_data", "TCGA-BRCA-L4.csv", package = "targetscore"), row.names = 1)
 
   # Extract network
-  network <- zeptosensPkg::predict_dat_network(
+  network <- targetscore::predict_dat_network(
     data <- signaling_responses,
     n_prot = dim(proteomic_responses)[2],
     proteomic_responses = proteomic_responses
   )
 
   network_org <- readRDS(system.file("test_data_files", "predict_dat_network_output.rds",
-    package = "zeptosensPkg"
+    package = "targetscore"
   ))
 
   expect_identical(network$wk, network_org$wk)
@@ -95,25 +95,25 @@ test_that("predict_hybrid_network", {
   skip_on_cran()
 
   # READ ANTIBODY FILE ----
-  mab_to_genes <- read.table(system.file("targetscoreData", "antibodyMapFile.txt", package = "zeptosensPkg"),
+  mab_to_genes <- read.table(system.file("targetscoreData", "antibodyMapFile.txt", package = "targetscore"),
     sep = "\t",
     header = TRUE,
     stringsAsFactors = FALSE
   )
 
   # Read proteomic response for cellline1
-  proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "zeptosensPkg"), row.names = 1)
+  proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "targetscore"), row.names = 1)
 
   # Read Global Signaling file for BRCA
-  signaling_responses <- read.csv(system.file("test_data", "TCGA-BRCA-L4.csv", package = "zeptosensPkg"), row.names = 1)
+  signaling_responses <- read.csv(system.file("test_data", "TCGA-BRCA-L4.csv", package = "targetscore"), row.names = 1)
 
   # Read Biology knowledge
   prior_org <- readRDS(system.file("test_data_files", "predict_bio_network_network_output.rds",
-    package = "zeptosensPkg"
+    package = "targetscore"
   ))
 
   # Extract network
-  network <- zeptosensPkg::predict_hybrid_network(
+  network <- targetscore::predict_hybrid_network(
     data = signaling_responses,
     prior = prior_org$wk,
     n_prot = dim(proteomic_responses)[2],
@@ -123,7 +123,7 @@ test_that("predict_hybrid_network", {
   )
 
   network_org <- readRDS(system.file("test_data_files", "predict_hybrid_network_network_output.rds",
-    package = "zeptosensPkg"
+    package = "targetscore"
   ))
 
   expect_identical(network$wk, network_org$wk)
@@ -135,19 +135,19 @@ test_that("predict_hybrid_network", {
 test_that("network2", {
 
   # Read proteomic response for cellline1
-  proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "zeptosensPkg"), row.names = 1)
+  proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "targetscore"), row.names = 1)
 
   # Read network output
   network_org <- readRDS(system.file("test_data_files", "network2_network_output.rds",
-    package = "zeptosensPkg"
+    package = "targetscore"
   ))
 
   # Read in network output
   wk_org <- readRDS(system.file("test_data_files", "predict_hybrid_network_network_output.rds",
-    package = "zeptosensPkg"
+    package = "targetscore"
   ))
 
-  network <- zeptosensPkg::network2(
+  network <- targetscore::network2(
     wk <- wk_org$wk,
     n_prot = dim(proteomic_responses)[2],
     proteomic_responses = proteomic_responses
@@ -162,11 +162,11 @@ test_that("network2", {
 
 test_that("create_sif_from_matrix", {
   network_org <- readRDS(system.file("test_data_files", "predict_bio_network_network_output.rds",
-    package = "zeptosensPkg"
+    package = "targetscore"
   ))
 
   wk_org <- readRDS(system.file("test_data_files", "create_sif_from_matrix_output.rds",
-    package = "zeptosensPkg"
+    package = "targetscore"
   ))
 
   edgelist_wk <- create_sif_from_matrix(
@@ -181,21 +181,21 @@ test_that("create_sif_from_matrix", {
 test_that("get_fs_vals", {
   # Read fs_manually set file
   fs_override_org <- readRDS(system.file("test_data_files", "fs_value_file.rds",
-    package = "zeptosensPkg"
+    package = "targetscore"
   ))
 
   # Read proteomic responce file
-  proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "zeptosensPkg"), row.names = 1)
+  proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "targetscore"), row.names = 1)
   
   # Read antibody file
-  mab_to_genes <- read.table(system.file("targetscoreData", "antibodyMapFile.txt", package = "zeptosensPkg"),
+  mab_to_genes <- read.table(system.file("targetscoreData", "antibodyMapFile.txt", package = "targetscore"),
     sep = "\t",
     header = TRUE,
     stringsAsFactors = FALSE
   )
 
   wk_org <- readRDS(system.file("test_data_files", "get_fs_vals_output.rds",
-    package = "zeptosensPkg"
+    package = "targetscore"
   ))
 
   fs <- get_fs_vals(
@@ -209,11 +209,11 @@ test_that("get_fs_vals", {
 test_that("samp_sdev", {
 
   # read proteomic responce file
-  proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "zeptosensPkg"), row.names = 1)
+  proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "targetscore"), row.names = 1)
 
   # test-data sdev
   sd_org <- readRDS(system.file("test_data_files", "samp_sdev_output.rds",
-    package = "zeptosensPkg"
+    package = "targetscore"
   ))
 
   samp_d <- samp_sdev(
@@ -227,13 +227,13 @@ test_that("samp_sdev", {
 test_that("optimize_parameter_dat", {
 
   # read proteomic responce file
-  signaling_responses <- read.csv(system.file("test_data", "TCGA-BRCA-L4.csv", package = "zeptosensPkg"), row.names = 1)
+  signaling_responses <- read.csv(system.file("test_data", "TCGA-BRCA-L4.csv", package = "targetscore"), row.names = 1)
 
   # test-data data parameter output
   parameter_org <- readRDS(system.file("test_data_files", "optimize_parameter_dat_output.rds",
-    package = "zeptosensPkg"
+    package = "targetscore"
   ))
-  parameters <- zeptosensPkg::optimize_parameter_dat(data = signaling_responses)
+  parameters <- targetscore::optimize_parameter_dat(data = signaling_responses)
 
   expect_identical(parameters$rho, parameter_org$rho)
   expect_identical(parameters$bic, parameter_org$bic)
@@ -242,18 +242,18 @@ test_that("optimize_parameter_dat", {
 test_that("optimize_parameter_hybrid", {
 
   # read proteomic responce file
-  signaling_responses <- read.csv(system.file("test_data", "TCGA-BRCA-L4.csv", package = "zeptosensPkg"), row.names = 1)
+  signaling_responses <- read.csv(system.file("test_data", "TCGA-BRCA-L4.csv", package = "targetscore"), row.names = 1)
 
   # Read in Biology knowlegde base protein interaction
   prior_org <- readRDS(system.file("test_data_files", "predict_bio_network_network_output.rds",
-    package = "zeptosensPkg"
+    package = "targetscore"
   ))
 
   # test-data hybrid parameter output
   parameter_org <- readRDS(system.file("test_data_files", "optimize_parameter_hybrid_output.rds",
-    package = "zeptosensPkg"
+    package = "targetscore"
   ))
-  parameters <- zeptosensPkg::optimize_parameter_hybrid(data = signaling_responses, prior = prior_org$wk)
+  parameters <- targetscore::optimize_parameter_hybrid(data = signaling_responses, prior = prior_org$wk)
 
   expect_identical(parameters$rho_m, parameter_org$rho_m)
   expect_identical(parameters$rho, parameter_org$rho)
@@ -265,28 +265,28 @@ test_that("get_target_score", {
 
   # Target Score output
   ts_org <- readRDS(system.file("test_data_files", "get_target_score_output.rds",
-    package = "zeptosensPkg"
+    package = "targetscore"
   ))
 
 
   # read proteomic responce file
   signaling_responses <- read.csv(system.file("test_data", "TCGA-BRCA-L4.csv",
-    package = "zeptosensPkg"
+    package = "targetscore"
   ), row.names = 1)
 
   # Read in Biology knowlegde base protein interaction
   network <- readRDS(system.file("test_data_files", "predict_bio_network_network_output.rds",
-    package = "zeptosensPkg"
+    package = "targetscore"
   ))
 
   # read proteomic responce file
-  proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "zeptosensPkg"),
+  proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "targetscore"),
     row.names = 1
   )
 
   # read functional score value
   fs <- readRDS(system.file("test_data_files", "get_fs_vals_output.rds",
-    package = "zeptosensPkg"
+    package = "targetscore"
   ))
 
   # Calculate Target Score
@@ -296,7 +296,7 @@ test_that("get_target_score", {
   ts_q <- array(0, dim = c(dim(proteomic_responses)[1], dim(proteomic_responses)[2]))
 
   for (i in seq_len(2)) {
-    results <- zeptosensPkg::get_target_score(
+    results <- targetscore::get_target_score(
       wk = network$wk,
       wks = network$wks,
       dist_ind = network$dist_ind,

@@ -18,7 +18,7 @@ Perturbation Response File is the drug perturbation data provided by the user. W
 
 ## Download
 Here provided an example from Korkut lab of cell line BT474 (Breast Cancer cell line). Protein level expression data for ~300 proteins, Log2 transformed and median centered.
-[Perturbation Response file directory](https://github.com/HepingWang/zeptosensPkg/blob/master/zeptosensPkg/inst/test_data/BT474.csv)
+[Perturbation Response file directory](https://github.com/korkutlab/targetscore/blob/master/targetscore/inst/test_data/BT474.csv)
 
 # Mapping File
 
@@ -38,7 +38,7 @@ Mapping file is the Gene Name list database developed by [Anil Korkut Group](htt
 
 ## Download
 Here provided an example file of Mapping file which used by Korkut lab currently. 
-[Mapping file directory](https://github.com/HepingWang/zeptosensPkg/blob/master/zeptosensPkg/inst/targetScoreData/antibodyMapfile_08272020.csv)
+[Mapping file directory](https://github.com/korkutlab/targetscore/blob/master/targetscore/inst/targetScoreData/antibodyMapfile_08272020.csv)
 
 # Background Network File
 
@@ -51,7 +51,7 @@ Background Network File, which captures the signaling co-variations serves as th
 ## DownLoad
 Here provided an example from the Public database TCGA of Breast Cancer. Protein level expression data for all genes, Log2 transformed.
 
-[TCGA BRCA file directory](https://github.com/HepingWang/zeptosensPkg/blob/master/zeptosensPkg/inst/test_data/TCGA-BRCA-L4.csv)
+[TCGA BRCA file directory](https://github.com/korkutlab/targetscore/blob/master/targetscore/inst/test_data/TCGA-BRCA-L4.csv)
 
 # Functional Score file
 ## File Description
@@ -68,4 +68,4 @@ A functional role is assigned as a numeric score to proteomic entities.
 ## Download
 Here provided an example file of functional score file from the Catalogue Of Somatic Mutations In Cancer project resource.
 
-[Functional Score file directory](https://github.com/HepingWang/zeptosensPkg/blob/master/zeptosensPkg/inst/extdata/Cosmic.txt)
+[Functional Score file directory](https://github.com/korkutlab/targetscore/blob/master/targetscore/inst/extdata/Cosmic.txt)

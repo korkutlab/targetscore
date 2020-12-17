@@ -13,15 +13,15 @@
 #' @examples
 #' # Read fs_manually set file
 #' fs_override_org <- readRDS(system.file("test_data_files", "fs_value_file.rds",
-#' package = "zeptosensPkg"
+#' package = "targetscore"
 #' ))
 #' 
 #' # Read proteomic responce file
-#' file <- system.file("test_data", "BT474.csv", package = "zeptosensPkg")
+#' file <- system.file("test_data", "BT474.csv", package = "targetscore")
 #' proteomic_responses <- read.csv(file, row.names = 1)
 #' 
 #' # Read antibody file
-#' file <- system.file("targetscoreData", "antibodyMapFile.txt", package = "zeptosensPkg")
+#' file <- system.file("targetscoreData", "antibodyMapFile.txt", package = "targetscore")
 #' mab_to_genes <- read.table(file,
 #' sep = "\t",
 #' header = TRUE,
@@ -35,7 +35,7 @@
 #' 
 #' @importFrom utils read.table
 #'
-#' @concept zeptosensPkg
+#' @concept targetscore
 #' @export
 get_fs_vals <- function(n_prot, proteomic_responses, mab_to_genes, fs_override = NULL, verbose = FALSE) {
   if (verbose) {
@@ -63,7 +63,7 @@ get_fs_vals <- function(n_prot, proteomic_responses, mab_to_genes, fs_override =
   mab_value <- mab_to_genes[idx_ab_map, 6]
   mab_fs <- ifelse(mab_value == "a", 1, ifelse(mab_value == "i", -1, ifelse(mab_value == "c", 1, 0)))
 
-  cancer_role <- read.table(system.file("extdata", "Cosmic.txt", package = "zeptosensPkg"),
+  cancer_role <- read.table(system.file("extdata", "Cosmic.txt", package = "targetscore"),
     sep = "\t", header = TRUE, fill = TRUE
   )
   index <- match(mab_genes, cancer_role$gene)

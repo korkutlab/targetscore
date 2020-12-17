@@ -17,7 +17,7 @@
 #'
 #' @return result of validation score. for random network and the network predicted with the algorithm.
 #'
-#' @concept zeptosensPkg
+#' @concept targetscore
 #' @export
 run_robustness_test <- function(data, prior = NULL, proteomic_responses,
                                 n_prot, max_dist = 1, boot_time = 100,
@@ -35,7 +35,7 @@ run_robustness_test <- function(data, prior = NULL, proteomic_responses,
 
   # Prior extraction
   if (algorithm == "hybrid_driven" & is.null(prior)) {
-    prior <- zeptosensPkg::predict_bio_network(
+    prior <- targetscore::predict_bio_network(
       n_prot = dim(proteomic_responses)[2],
       proteomic_responses = proteomic_responses,
       max_dist = 1,
@@ -70,27 +70,27 @@ run_robustness_test <- function(data, prior = NULL, proteomic_responses,
     # Network construction
     if (algorithm == "data_driven") {
       # Data-driven Network
-      network <- zeptosensPkg::predict_dat_network(
+      network <- targetscore::predict_dat_network(
         data = data, cut_off = cut_off, n_prot = n_prot,
         proteomic_responses = proteomic_responses
       )$wk
-      network_50p <- zeptosensPkg::predict_dat_network(
+      network_50p <- targetscore::predict_dat_network(
         data = data_50p, cut_off = cut_off, n_prot = n_prot,
         proteomic_responses = proteomic_responses
       )$wk
-      network_60p <- zeptosensPkg::predict_dat_network(
+      network_60p <- targetscore::predict_dat_network(
         data = data_60p, cut_off = cut_off, n_prot = n_prot,
         proteomic_responses = proteomic_responses
       )$wk
-      network_70p <- zeptosensPkg::predict_dat_network(
+      network_70p <- targetscore::predict_dat_network(
         data = data_70p, cut_off = cut_off, n_prot = n_prot,
         proteomic_responses = proteomic_responses
       )$wk
-      network_80p <- zeptosensPkg::predict_dat_network(
+      network_80p <- targetscore::predict_dat_network(
         data = data_80p, cut_off = cut_off, n_prot = n_prot,
         proteomic_responses = proteomic_responses
       )$wk
-      network_90p <- zeptosensPkg::predict_dat_network(
+      network_90p <- targetscore::predict_dat_network(
         data = data_90p, cut_off = cut_off, n_prot = n_prot,
         proteomic_responses = proteomic_responses
       )$wk
@@ -99,27 +99,27 @@ run_robustness_test <- function(data, prior = NULL, proteomic_responses,
 
     # Hybrid-driven network
     if (algorithm == "hybrid_driven") {
-      network <- zeptosensPkg::predict_hybrid_network(
+      network <- targetscore::predict_hybrid_network(
         data = data, cut_off = cut_off, n_prot = n_prot, prior = prior,
         proteomic_responses = proteomic_responses, mab_to_genes = mab_to_genes
       )$wk
-      network_50p <- zeptosensPkg::predict_hybrid_network(
+      network_50p <- targetscore::predict_hybrid_network(
         data = data_50p, cut_off = cut_off, n_prot = n_prot, prior = prior,
         proteomic_responses = proteomic_responses, mab_to_genes = mab_to_genes
       )$wk
-      network_60p <- zeptosensPkg::predict_hybrid_network(
+      network_60p <- targetscore::predict_hybrid_network(
         data = data_60p, cut_off = cut_off, n_prot = n_prot, prior = prior,
         proteomic_responses = proteomic_responses, mab_to_genes = mab_to_genes
       )$wk
-      network_70p <- zeptosensPkg::predict_hybrid_network(
+      network_70p <- targetscore::predict_hybrid_network(
         data = data_70p, cut_off = cut_off, n_prot = n_prot, prior = prior,
         proteomic_responses = proteomic_responses, mab_to_genes = mab_to_genes
       )$wk
-      network_80p <- zeptosensPkg::predict_hybrid_network(
+      network_80p <- targetscore::predict_hybrid_network(
         data = data_80p, cut_off = cut_off, n_prot = n_prot, prior = prior,
         proteomic_responses = proteomic_responses, mab_to_genes = mab_to_genes
       )$wk
-      network_90p <- zeptosensPkg::predict_hybrid_network(
+      network_90p <- targetscore::predict_hybrid_network(
         data = data_90p, cut_off = cut_off, n_prot = n_prot, prior = prior,
         proteomic_responses = proteomic_responses, mab_to_genes = mab_to_genes
       )$wk

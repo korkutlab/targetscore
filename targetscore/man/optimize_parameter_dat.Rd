@@ -22,9 +22,9 @@ Choose the optimal regulization parameter for only data-driven network.
 }
 \examples{
 # read proteomic response file
-file <- system.file("test_data", "TCGA-BRCA-L4.csv", package = "zeptosensPkg")
+file <- system.file("test_data", "TCGA-BRCA-L4.csv", package = "targetscore")
 signaling_responses <- read.csv(file, row.names = 1)
- parameters <- zeptosensPkg::optimize_parameter_dat(data = signaling_responses)
+ parameters <- targetscore::optimize_parameter_dat(data = signaling_responses)
 
 }
-\concept{zeptosensPkg}
+\concept{targetscore}

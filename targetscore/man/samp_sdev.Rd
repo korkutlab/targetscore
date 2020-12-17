@@ -22,7 +22,7 @@ Calculate the standard deviation over all samples
 }
 \examples{
 # read proteomic responce file
-file <- system.file("test_data", "BT474.csv", package = "zeptosensPkg")
+file <- system.file("test_data", "BT474.csv", package = "targetscore")
 proteomic_responses <- read.csv(file, row.names = 1)
 samp_d <- samp_sdev(
 n_x = proteomic_responses, n_sample = dim(proteomic_responses)[1],
@@ -30,4 +30,4 @@ n_prot = dim(proteomic_responses)[2], n_dose = 1
 )
 
 }
-\concept{zeptosensPkg}
+\concept{targetscore}

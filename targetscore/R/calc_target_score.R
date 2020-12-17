@@ -26,7 +26,7 @@
 #' ts: integral_dose(fs*(xi+sigma_j(2^p*xj*product_k(wk))))
 #' missing: For phosp and dephosp based wk, there is no 'exact match' between known and measured phospho-sites
 #'
-#' @concept zeptosensPkg
+#' @concept targetscore
 #' @export
 calc_target_score <- function(wk, wks, dist_ind, inter, n_dose, n_prot, proteomic_responses, fs_dat,
                               verbose = TRUE, ts_factor = 1, dist_file = NULL) {

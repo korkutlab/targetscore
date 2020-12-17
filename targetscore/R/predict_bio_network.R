@@ -20,7 +20,7 @@
 #'
 #' @examples 
 #' # READ ANTIBODY FILE ----
-#' file <- system.file("targetscoreData", "antibodyMapFile_08092019.txt", package = "zeptosensPkg")
+#' file <- system.file("targetscoreData", "antibodyMapFile_08092019.txt", package = "targetscore")
 #' mab_to_genes <- read.table(file,
 #' sep = "\t",
 #' header = TRUE,
@@ -28,7 +28,7 @@
 #' )
 #' 
 #' # Read proteomic response for cellline1
-#' file <- system.file("test_data", "BT474.csv", package = "zeptosensPkg")
+#' file <- system.file("test_data", "BT474.csv", package = "targetscore")
 #' proteomic_responses <- read.csv(file, row.names = 1)
 #' 
 #'  # Extract network
@@ -41,7 +41,7 @@
 #' 
 #' @importFrom utils write.table
 #'
-#' @concept zeptosensPkg
+#' @concept targetscore
 #' @export
 predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
                                 mab_to_genes, dist_file = NULL, verbose = FALSE) {
@@ -52,7 +52,7 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
   # pathway distance matrix
   ####################### FIXME##########################
   # if (is.null(dist_file)) {
-  #  dist_file <- system.file("targetScoreData", "distances.txt", package = "zeptosensPkg")
+  #  dist_file <- system.file("targetScoreData", "distances.txt", package = "targetscore")
   # }
   # tmp_dist <- read.table(dist_file, sep = "\t", header = TRUE, stringsAsFactors = FALSE)
 
@@ -129,20 +129,20 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
   ##################################################
 
   ### get the network product### phospFile <- system.file('SignedPC', 'phosphorylates.txt',
-  ### package='zeptosensPkg') phosp <- read.csv(phospFile, sep='\t', header=TRUE, na.strings =
+  ### package='targetscore') phosp <- read.csv(phospFile, sep='\t', header=TRUE, na.strings =
   ### c('', ' ')) phosp <- phosp[,-3] dephospFile <- system.file('SignedPC',
-  ### 'dephosphorylates.txt', package='zeptosensPkg') dephosp <- read.csv(dephospFile, sep='\t',
+  ### 'dephosphorylates.txt', package='targetscore') dephosp <- read.csv(dephospFile, sep='\t',
   ### header=TRUE, na.strings = c('', ' ')) dephosp <- dephosp[,-3] upexpFile <-
-  ### system.file('SignedPC', 'dephosphorylates.txt', package='zeptosensPkg') upexp <-
+  ### system.file('SignedPC', 'dephosphorylates.txt', package='targetscore') upexp <-
   ### read.csv(upexpFile, sep='\t', header=TRUE, na.strings = c('', ' ')) upexp <- upexp[,-3]
-  ### dwnexpFile <- system.file('SignedPC', 'downregulates-expression.txt', package='zeptosensPkg')
+  ### dwnexpFile <- system.file('SignedPC', 'downregulates-expression.txt', package='targetscore')
   ### dwnexp <- read.csv(dwnexpFile, sep='\t', header=TRUE, na.strings = c('', ' ')) dwnexp <-
   ### dwnexp[,-3]
 
   #    results <- downloadSignedPC(forceCache=TRUE)
   #    results <- read.table(file="results_network1.txt",header=T)
   results <- read.table(system.file("extdata", "filteredSignedPc_20191113.txt",
-    package = "zeptosensPkg"
+    package = "targetscore"
   ), sep = "\t", header = TRUE, fill = TRUE, stringsAsFactors = FALSE)
   # write.table(results, file="results_network1.txt",quote=F)
   
