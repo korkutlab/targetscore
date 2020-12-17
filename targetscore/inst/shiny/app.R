@@ -37,7 +37,13 @@ ui <- navbarPage(
       sidebarPanel(
         width = 4,
         
+        helpText(a(href="data/sample_breast_cancer_perturbation_data.csv", target="_blank", download="sample_breast_cancer_perturbation_data.csv", "Sample Breast Dataset (.csv)")),
+        helpText(a(href="data/sample_targetscore_result_file.rds", target="_blank", download="sample_targetscore_result_file.rds", "Sample TargetScore Result (.rds)"), " (Visualization Only)"),
+        
+        hr(),
+        
         h4("Run TargetScore"),
+        helpText("Run online (not suitable for large datasets)"),
         
         fileInput("drug_data_file", "Perturbation Response File (.csv; REQUIRED)",
           buttonLabel = "Browse...",
@@ -85,7 +91,8 @@ ui <- navbarPage(
 
         hr(),
         
-        h4("Visualization Only"),
+        h4("Alternative: Visualization Only"),
+        helpText("Run locally & visualize online (see ", a(href="https://github.com/korkutlab/targetscore", target="_blank", "targetscore"), " vignette)"),
         
         fileInput("ts_result_file", "TargetScore Result File (.rds)",
                   buttonLabel = "Browse...",
@@ -95,11 +102,6 @@ ui <- navbarPage(
         
         actionButton("submit", label = "Submit", icon = NULL, width = NULL),
 
-        hr(),
-        
-        helpText("Example: ", a(href="data/sample_breast_cancer_perturbation_data.csv", target="_blank", download="sample_breast_cancer_perturbation_data.csv", "Sample Breast Dataset (.csv)")),
-        helpText("Example: ", a(href="data/sample_targetscore_result_file.rds", target="_blank", download="sample_targetscore_result_file.rds", "Sample TargetScore Result (.rds)"))
-        
         # helpText(
         #   a("Perturbation Response Example", href = "data/BT474.csv", target = "_blank"),
         #   br(),
