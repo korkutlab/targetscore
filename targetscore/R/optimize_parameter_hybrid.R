@@ -33,12 +33,13 @@
 #' @export
 optimize_parameter_hybrid <- function(data, prior = NULL,
                                       rho = 10^seq(-2, 0, 0.02),
-                                      kappa = 10^seq(-2, 0, 0.02)) {
+                                      kappa = 10^seq(-2, 0, 0.02),
+                                      antibody_map_file=system.file("targetscoreData", 
+                                        "antibody_map_08092019.csv", package = "targetscore")) {
   # Extract from SignedPC for prior
 
   # READ ANTIBODY FILE ----
-  mab_to_genes <- read.table(system.file("targetscoreData/old_files", "antibodyMapFile_08092019.txt", package = "targetscore"),
-    sep = "\t",
+  mab_to_genes <- read.csv(antibody_map_file,
     header = TRUE,
     stringsAsFactors = FALSE
   )

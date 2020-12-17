@@ -103,15 +103,11 @@ ui <- navbarPage(
         actionButton("submit", label = "Submit", icon = NULL, width = NULL),
 
         # helpText(
-        #   a("Perturbation Response Example", href = "data/BT474.csv", target = "_blank"),
-        #   br(),
-        #   a("Mapping Example", href = "data/antibodyMapfile.txt", target = "_blank"),
+        #   a("Mapping Example", href = "data/antibody_map.txt", target = "_blank"),
         #   br(),
         #   a("Background Network Example", href = "data/TCGA_BRCA_L4.csv", target = "_blank"),
         #   br(),
         #   a("Functional Score Example", href = "data/Cosmic.txt", target = "_blank"),
-        #   br(),
-        #   a("Pre-computed Results for Visualization Example", href = "data/BT474_results_example.rds", target = "_blank"),
         # ),
       ),
       # Results showing
@@ -199,7 +195,7 @@ server <- function(input, output, session) {
       # Antibody Map
       antibody_map_file <- input$antibody
       if (is.null(antibody_map_file)) {
-        antibody_map_file <- system.file("targetScoreData", "antibodyMapfile_08092019.csv", package = "targetscore")
+        antibody_map_file <- system.file("targetScoreData", "antibody_map_08092019.csv", package = "targetscore")
         mab_to_genes <- read.csv(antibody_map_file, header = TRUE, stringsAsFactors = FALSE)
       } else {
         antibody_map_file <- antibody_map_file$datapath

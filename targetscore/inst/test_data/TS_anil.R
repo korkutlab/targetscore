@@ -25,7 +25,7 @@ max_dist <- 1 # changing this value requires additional work to compute product(
 verbose <- FALSE
 
 # READ ANTIBODY FILE ----
-mab_to_genes <- read.table(file.path(resource_dir, "antibodyMapFile.txt"),
+mab_to_genes <- read.table(file.path(resource_dir, "antibody_map.txt"),
   sep = "\t",
   header = TRUE,
   stringsAsFactors = FALSE

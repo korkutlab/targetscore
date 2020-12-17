@@ -29,7 +29,7 @@
 #'
 #' @examples 
 #' # READ ANTIBODY FILE ----
-#' file <- system.file("targetscoreData", "antibodyMapFile.txt", package = "targetscore")
+#' file <- system.file("targetscoreData", "antibody_map.txt", package = "targetscore")
 #' mab_to_genes <- read.table(file,
 #' sep = "\t",
 #' header = TRUE,
@@ -129,7 +129,7 @@ predict_hybrid_network <- function(data, prior = NULL, cut_off = 0.1, proteomic_
   niter <- g_result$niter
   print(niter) # if niter = 10,000
   if (niter == 10000) {
-    stop("ERROR: Algorithmn does not convergence!")
+    stop("ERROR: Algorithm does not convergence!")
   }
 
   pcor_matrix <- matrix(0, nrow = ncol(data), ncol = ncol(data))

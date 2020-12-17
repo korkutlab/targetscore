@@ -5,10 +5,12 @@
 #' @param mab_to_genes A list of antibodies, their associated genes, modification sites and effect.
 #' @param fs_override a listing of functional scores for each gene manually set up
 #' for overriding COSMIC Database given value, the modification path. (.txt)
-#' @param verbose Default as FALSE. If given TRUE, will print out the gene seq mapped with Antibody Map File.
+#' @param cancer_role_file a file specifying the role of cancer genes; 2-column table "gene" and "fs"; 
+#'   fs 1 is oncogene, 0 is dual or unknown, -1 is tumor supressor
+#' @param verbose Default as FALSE. If given TRUE, will print out the gene seq mapped with antibody map file.
 #' 
 #' @return 
-#' * "fs_final" dataframe with two coloumns: prot as Antibody label; fs as functional #' score 
+#' * "fs_final" dataframe with two coloumns: prot as antibody label; fs as functional #' score 
 #'
 #' @examples
 #' # Read fs_manually set file
@@ -21,7 +23,7 @@
 #' proteomic_responses <- read.csv(file, row.names = 1)
 #' 
 #' # Read antibody file
-#' file <- system.file("targetscoreData", "antibodyMapFile.txt", package = "targetscore")
+#' file <- system.file("targetscoreData", "antibody_map.txt", package = "targetscore")
 #' mab_to_genes <- read.table(file,
 #' sep = "\t",
 #' header = TRUE,
@@ -37,7 +39,9 @@
 #'
 #' @concept targetscore
 #' @export
-get_fs_vals <- function(n_prot, proteomic_responses, mab_to_genes, fs_override = NULL, verbose = FALSE) {
+get_fs_vals <- function(n_prot, proteomic_responses, mab_to_genes, fs_override=NULL, 
+  cancer_role_file=system.file("extdata", "Cosmic.txt", package = "targetscore"), verbose=FALSE) {
+  
   if (verbose) {
     print(mab_to_genes)
   }
@@ -46,7 +50,7 @@ get_fs_vals <- function(n_prot, proteomic_responses, mab_to_genes, fs_override =
     stop("ERROR: n_prot is not equal to proteomic_responses column number")
   }
 
-  # Match the protein names in the proteomicresponce with the AntibodyMapfile
+  # Match the protein names in the proteomicresponce with the antibody map file
   idx_ab_map <- which(mab_to_genes[, 1] %in% colnames(proteomic_responses))
   if (length(idx_ab_map) < n_prot) {
     stop("ERROR: Not all columns in data were matched in antibody map")
@@ -63,7 +67,7 @@ get_fs_vals <- function(n_prot, proteomic_responses, mab_to_genes, fs_override =
   mab_value <- mab_to_genes[idx_ab_map, 6]
   mab_fs <- ifelse(mab_value == "a", 1, ifelse(mab_value == "i", -1, ifelse(mab_value == "c", 1, 0)))
 
-  cancer_role <- read.table(system.file("extdata", "Cosmic.txt", package = "targetscore"),
+  cancer_role <- read.table(cancer_role_file,
     sep = "\t", header = TRUE, fill = TRUE
   )
   index <- match(mab_genes, cancer_role$gene)

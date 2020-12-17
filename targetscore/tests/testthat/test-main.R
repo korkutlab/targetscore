@@ -3,7 +3,7 @@ test_that("multiplication works", {
 })
 
 test_that("match_genes_to_edgelist", {
-  antibody_map_file <- system.file("targetScoreData/old_files", "antibodyMap.txt", package = "targetscore")
+  antibody_map_file <- system.file("targetScoreData", "antibody_map.txt", package = "targetscore")
   mab_to_genes <- read.table(antibody_map_file, sep = "\t", header = TRUE, stringsAsFactors = FALSE)
 
   proteomic_responses_file <- system.file("test_data", "BT474.csv", package = "targetscore")
@@ -38,7 +38,7 @@ test_that("predict_bio_network", {
   skip_on_cran()
 
   # READ ANTIBODY FILE ----
-  mab_to_genes <- read.table(system.file("targetscoreData", "antibodyMapFile.txt", package = "targetscore"),
+  mab_to_genes <- read.table(system.file("targetscoreData", "antibody_map.txt", package = "targetscore"),
     sep = "\t",
     header = TRUE,
     stringsAsFactors = FALSE
@@ -95,7 +95,7 @@ test_that("predict_hybrid_network", {
   skip_on_cran()
 
   # READ ANTIBODY FILE ----
-  mab_to_genes <- read.table(system.file("targetscoreData", "antibodyMapFile.txt", package = "targetscore"),
+  mab_to_genes <- read.table(system.file("targetscoreData", "antibody_map.txt", package = "targetscore"),
     sep = "\t",
     header = TRUE,
     stringsAsFactors = FALSE
@@ -188,7 +188,7 @@ test_that("get_fs_vals", {
   proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "targetscore"), row.names = 1)
   
   # Read antibody file
-  mab_to_genes <- read.table(system.file("targetscoreData", "antibodyMapFile.txt", package = "targetscore"),
+  mab_to_genes <- read.table(system.file("targetscoreData", "antibody_map.txt", package = "targetscore"),
     sep = "\t",
     header = TRUE,
     stringsAsFactors = FALSE

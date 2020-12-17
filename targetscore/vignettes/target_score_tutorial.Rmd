@@ -19,7 +19,7 @@ This tutorial describes the basic introduction and usage of TargetScore.
 
 # Introduction
 
-In Cancer treatment,Targeted therapies have been substantially successful in treatment of diverse cancer types. However, resistance to therapy is virtually inevitable and can manifest as a lack of initial response to therapy (intrinsic) or disease progression after temporary response.we have hypothesized that robust activation of functionally connected oncogene groups in response to therapy are better predictors of adaptive drug resistance. And the collective adaptive responses can be targeted with drug combinations to overcome the resistance and induce more durable therapeutic responses. Accordingly, we have developed a statistical network modeling method Target Score.
+In cancer treatment, targeted therapies have been substantially successful in treatment of diverse cancer types. However, resistance to therapy is virtually inevitable and can manifest as a lack of initial response to therapy (intrinsic) or disease progression after temporary response.we have hypothesized that robust activation of functionally connected oncogene groups in response to therapy are better predictors of adaptive drug resistance. And the collective adaptive responses can be targeted with drug combinations to overcome the resistance and induce more durable therapeutic responses. Accordingly, we have developed a statistical network modeling method Target Score.
 
 # Setup 
 ## Load Packages 
@@ -57,13 +57,12 @@ Other files that can be attached are:
 
 data_dir <- system.file("test_data", package = "targetscore")
 resource_dir <- system.file("targetScoreData", package = "targetscore")
+output_dir <- "inst/test_data/tutorial_output"
 
 # Check if package installed or just downloaded from code repo
 data_dir <- ifelse(dir.exists(data_dir), data_dir, "inst/test_data")
 resource_dir <- ifelse(dir.exists(resource_dir), resource_dir, "inst/targetScoreData")
-
-output_dir <- "."
-# output_dir <- "inst/test_data/tutorial_output"
+output_dir <- ifelse(dir.exists(output_dir), output_dir, ".")
 
 # Number of antibodies
 n_prot <- 100
@@ -75,7 +74,7 @@ max_dist <- 1 # changing this value requires additional work to compute product(
 
 ### Read Antibody File 
 ```{r load_data}
-mab_to_genes <- read.csv(file.path(resource_dir, "antibodyMapFile_08092019.csv"), 
+mab_to_genes <- read.csv(file.path(resource_dir, "antibody_map_08092019.csv"), 
                          stringsAsFactors = FALSE)
 
 # Read drug perturbation data for BT474
@@ -184,7 +183,7 @@ The Target Score is calculated for each measured entity (e.g, protein) under eac
 ```{r target_score_calculation_example, message=FALSE, warning=FALSE}
 ## Calculate Target Score
 
-# reference network
+# Reference network
 wk <- network$wk
 wks <- network$wks
 dist_ind <- network$dist_ind

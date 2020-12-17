@@ -20,7 +20,7 @@
 #'
 #' @examples 
 #' # READ ANTIBODY FILE ----
-#' file <- system.file("targetscoreData", "antibodyMapfile_08272020.csv", package = "targetscore")
+#' file <- system.file("targetscoreData", "antibody_map_08272020.csv", package = "targetscore")
 #' mab_to_genes <- read.csv(file,
 #' header = TRUE,
 #' stringsAsFactors = FALSE
