@@ -3,3 +3,4 @@
 ^.lintr$
 ^doc$
 ^Meta$
+^ignore_rsconnect.R$
