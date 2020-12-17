@@ -224,7 +224,7 @@ test_that("samp_sdev", {
 
 test_that("optimize_parameter_dat", {
 
-  # read proteomic responce file
+  # read proteomic response file
   signaling_responses <- read.csv(system.file("test_data", "TCGA-BRCA-L4.csv", package = "targetscore"), row.names = 1)
 
   # test-data data parameter output
@@ -233,8 +233,8 @@ test_that("optimize_parameter_dat", {
   ))
   parameters <- targetscore::optimize_parameter_dat(data = signaling_responses)
 
-  expect_identical(parameters$rho, parameter_org$rho)
-  expect_identical(parameters$bic, parameter_org$bic)
+  expect_equal(parameters$rho, parameter_org$rho)
+  expect_equal(parameters$bic, parameter_org$bic)
 })
 
 test_that("optimize_parameter_hybrid", {
@@ -253,10 +253,10 @@ test_that("optimize_parameter_hybrid", {
   ))
   parameters <- targetscore::optimize_parameter_hybrid(data = signaling_responses, prior = prior_org$wk)
 
-  expect_identical(parameters$rho_m, parameter_org$rho_m)
-  expect_identical(parameters$rho, parameter_org$rho)
-  expect_identical(parameters$kappa, parameter_org$kappa)
-  expect_identical(parameters$bic, parameter_org$bic)
+  expect_equal(parameters$rho_m, parameter_org$rho_m)
+  expect_equal(parameters$rho, parameter_org$rho)
+  expect_equal(parameters$kappa, parameter_org$kappa)
+  expect_equal(parameters$bic, parameter_org$bic)
 })
 
 test_that("get_target_score", {
