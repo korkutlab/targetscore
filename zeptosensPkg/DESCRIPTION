@@ -1,12 +1,12 @@
-Package: zeptosensPkg
+Package: targetscore
 Type: Package
-Title: zeptosensPkg
-Version: 0.99.9
-Date: 2020-12-15
+Title: TargetScore
+Version: 0.99.10
+Date: 2020-12-16
 Author: Augustin Luna, Anil Korkut
 Maintainer: Augustin Luna <lunaa@cbio.mskcc.org>
 Description: A statistical pathway analysis method that 1) reveals pathways involved in drug activity and adaptive resistance and 2) nominates combination therapies to down regulate the resistance pathways. 
-License: LGPL-3
+License: Apache-2.0 + file LICENSE
 LazyData: false
 Imports: 
     glasso,
@@ -26,6 +26,7 @@ Suggests:
     data.table,
     matrixStats,
     markdown
+URL: https://github.com/korkutlab/targetscore
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
 Encoding: UTF-8
