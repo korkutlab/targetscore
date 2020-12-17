@@ -43,7 +43,7 @@ Predict Network from signedPC (Bio-inferred network)
 }
 \examples{
 # READ ANTIBODY FILE ----
-file <- system.file("targetscoreData", "antibody_map_08272020.csv", package = "targetscore")
+file <- system.file("target_score_data", "antibody_map_08272020.csv", package = "targetscore")
 mab_to_genes <- read.csv(file,
 header = TRUE,
 stringsAsFactors = FALSE

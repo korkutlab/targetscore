@@ -37,8 +37,9 @@ Mapping file is the Gene Name list database developed by [Anil Korkut Group](htt
   * i : inhibition
 
 ## Download
-Here provided an example file of Mapping file which used by Korkut lab currently. 
-[Mapping file directory](https://github.com/korkutlab/targetscore/blob/master/targetscore/inst/targetScoreData/antibodyMapfile_08272020.csv)
+Here provided is the latest example file of mapping file which used by Korkut lab currently. 
+
+[Mapping file directory](https://github.com/korkutlab/targetscore/blob/master/targetscore/inst/target_score_data/antibodyMapfile_08272020.csv)
 
 # Background Network File
 

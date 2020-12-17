@@ -56,12 +56,12 @@ Other files that can be attached are:
 # data_dir <- "../data(ts)/ts_anil"
 
 data_dir <- system.file("test_data", package = "targetscore")
-resource_dir <- system.file("targetScoreData", package = "targetscore")
+resource_dir <- system.file("target_score_data", package = "targetscore")
 output_dir <- "inst/test_data/tutorial_output"
 
 # Check if package installed or just downloaded from code repo
 data_dir <- ifelse(dir.exists(data_dir), data_dir, "inst/test_data")
-resource_dir <- ifelse(dir.exists(resource_dir), resource_dir, "inst/targetScoreData")
+resource_dir <- ifelse(dir.exists(resource_dir), resource_dir, "inst/target_score_data")
 output_dir <- ifelse(dir.exists(output_dir), output_dir, ".")
 
 # Number of antibodies

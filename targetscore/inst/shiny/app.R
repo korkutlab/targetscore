@@ -195,7 +195,7 @@ server <- function(input, output, session) {
       # Antibody Map
       antibody_map_file <- input$antibody
       if (is.null(antibody_map_file)) {
-        antibody_map_file <- system.file("targetScoreData", "antibody_map_08092019.csv", package = "targetscore")
+        antibody_map_file <- system.file("target_score_data", "antibody_map_08092019.csv", package = "targetscore")
         mab_to_genes <- read.csv(antibody_map_file, header = TRUE, stringsAsFactors = FALSE)
       } else {
         antibody_map_file <- antibody_map_file$datapath
@@ -205,7 +205,7 @@ server <- function(input, output, session) {
       # FS File
       fs_file <- input$fs_file
       if (!is.null(fs_file)) {
-        # fs_file <- system.file("targetScoreData", "fs.csv", package = "targetscore")
+        # fs_file <- system.file("target_score_data", "fs.csv", package = "targetscore")
         fs_data <- read.csv(fs_file$datapath, header = TRUE, stringsAsFactors = FALSE)
         
         fs_dat <- targetscore::get_fs_vals(

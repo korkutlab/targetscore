@@ -20,7 +20,7 @@
 #'
 #' @examples 
 #' # READ ANTIBODY FILE ----
-#' file <- system.file("targetscoreData", "antibody_map_08272020.csv", package = "targetscore")
+#' file <- system.file("target_score_data", "antibody_map_08272020.csv", package = "targetscore")
 #' mab_to_genes <- read.csv(file,
 #' header = TRUE,
 #' stringsAsFactors = FALSE
@@ -51,7 +51,7 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
   # pathway distance matrix
   ####################### FIXME##########################
   # if (is.null(dist_file)) {
-  #  dist_file <- system.file("targetScoreData", "distances.txt", package = "targetscore")
+  #  dist_file <- system.file("target_score_data", "distances.txt", package = "targetscore")
   # }
   # tmp_dist <- read.table(dist_file, sep = "\t", header = TRUE, stringsAsFactors = FALSE)
 

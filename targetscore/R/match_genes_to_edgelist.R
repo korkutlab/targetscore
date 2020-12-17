@@ -15,12 +15,12 @@
 #'   edgelist participants
 #'
 #' @examples
-#' antibody_map_file <- system.file("targetScoreData", "antibody_map_08272020.csv", 
+#' antibody_map_file <- system.file("target_score_data", "antibody_map_08272020.csv", 
 #'   package = "targetscore")
 #' mab_to_genes <- read.csv(antibody_map_file, header = TRUE, stringsAsFactors = FALSE)
 #' proteomic_responses_file <- system.file("test_data", "BT474.csv", package = "targetscore")
 #' proteomic_responses <- read.csv(proteomic_responses_file, row.names = 1)
-#' dist_file <- system.file("targetScoreData", "distances.txt", package = "targetscore")
+#' dist_file <- system.file("target_score_data", "distances.txt", package = "targetscore")
 #' tmp_dist <- read.table(dist_file, sep = "\t", header = TRUE, stringsAsFactors = FALSE)
 #' 
 #' dist <- tmp_dist[which(tmp_dist[, 3] <= 1), ]

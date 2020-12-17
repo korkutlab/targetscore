@@ -17,7 +17,7 @@ set.seed(1)
 # data_dir <- "../data(ts)/ts_anil"
 # protein_list_dir <- "../data(ts)/Protein_Name_List"
 data_dir <- "inst/test_data"
-resource_dir <- "inst/targetscoreData"
+resource_dir <- "inst/target_score_data"
 output_dir <- "inst/test_data/output3"
 
 n_prot <- 100

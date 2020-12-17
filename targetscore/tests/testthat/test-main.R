@@ -3,13 +3,13 @@ test_that("multiplication works", {
 })
 
 test_that("match_genes_to_edgelist", {
-  antibody_map_file <- system.file("targetScoreData", "antibody_map.csv", package = "targetscore")
+  antibody_map_file <- system.file("target_score_data", "antibody_map.csv", package = "targetscore")
   mab_to_genes <- read.csv(antibody_map_file, header = TRUE, stringsAsFactors = FALSE)
   
   proteomic_responses_file <- system.file("test_data", "BT474.csv", package = "targetscore")
   proteomic_responses <- read.csv(proteomic_responses_file, row.names = 1)
 
-  dist_file <- system.file("targetScoreData", "distances.txt", package = "targetscore")
+  dist_file <- system.file("target_score_data", "distances.txt", package = "targetscore")
   tmp_dist <- read.table(dist_file, sep = "\t", header = TRUE, stringsAsFactors = FALSE)
 
   dist <- tmp_dist[which(tmp_dist[, 3] <= 1), ]
@@ -39,7 +39,7 @@ test_that("predict_bio_network", {
   skip_on_cran()
 
   # READ ANTIBODY FILE ----
-  mab_to_genes <- read.csv(system.file("targetscoreData", "antibody_map.csv", package = "targetscore"),
+  mab_to_genes <- read.csv(system.file("target_score_data", "antibody_map.csv", package = "targetscore"),
     header = TRUE,
     stringsAsFactors = FALSE
   )
@@ -95,7 +95,7 @@ test_that("predict_hybrid_network", {
   skip_on_cran()
 
   # READ ANTIBODY FILE ----
-  mab_to_genes <- read.csv(system.file("targetscoreData", "antibody_map.csv", package = "targetscore"),
+  mab_to_genes <- read.csv(system.file("target_score_data", "antibody_map.csv", package = "targetscore"),
     header = TRUE,
     stringsAsFactors = FALSE
   )
@@ -187,7 +187,7 @@ test_that("get_fs_vals", {
   proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "targetscore"), row.names = 1)
   
   # Read antibody file
-  mab_to_genes <- read.csv(system.file("targetscoreData", "antibody_map.csv", package = "targetscore"),
+  mab_to_genes <- read.csv(system.file("target_score_data", "antibody_map.csv", package = "targetscore"),
     header = TRUE,
     stringsAsFactors = FALSE
   )
@@ -239,10 +239,10 @@ test_that("optimize_parameter_dat", {
 
 test_that("optimize_parameter_hybrid", {
 
-  # read proteomic responce file
+  # read proteomic response file
   signaling_responses <- read.csv(system.file("test_data", "TCGA-BRCA-L4.csv", package = "targetscore"), row.names = 1)
 
-  # Read in Biology knowlegde base protein interaction
+  # Read in biology knowledge base protein interaction
   prior_org <- readRDS(system.file("test_data_files", "predict_bio_network_network_output.rds",
     package = "targetscore"
   ))
@@ -260,7 +260,6 @@ test_that("optimize_parameter_hybrid", {
 })
 
 test_that("get_target_score", {
-
   # Target Score output
   ts_org <- readRDS(system.file("test_data_files", "get_target_score_output.rds",
     package = "targetscore"
@@ -272,12 +271,12 @@ test_that("get_target_score", {
     package = "targetscore"
   ), row.names = 1)
 
-  # Read in Biology knowlegde base protein interaction
+  # Read in biology knowledge base protein interaction
   network <- readRDS(system.file("test_data_files", "predict_bio_network_network_output.rds",
     package = "targetscore"
   ))
 
-  # read proteomic responce file
+  # read proteomic response file
   proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "targetscore"),
     row.names = 1
   )

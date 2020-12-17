@@ -58,7 +58,7 @@ Choose the optimal regulization parameter and scale paramter for prior informati
 }
 \examples{
 # READ ANTIBODY FILE ----
-file <- system.file("targetscoreData", "antibody_map.csv", package = "targetscore")
+file <- system.file("target_score_data", "antibody_map.csv", package = "targetscore")
 mab_to_genes <- read.csv(file,
 header = TRUE,
 stringsAsFactors = FALSE

@@ -9,7 +9,7 @@ optimize_parameter_hybrid(
   prior = NULL,
   rho = 10^seq(-2, 0, 0.02),
   kappa = 10^seq(-2, 0, 0.02),
-  antibody_map_file = system.file("targetscoreData", "antibody_map_08092019.csv",
+  antibody_map_file = system.file("target_score_data", "antibody_map_08092019.csv",
     package = "targetscore")
 )
 }

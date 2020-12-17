@@ -45,7 +45,7 @@ file <- system.file("test_data", "BT474.csv", package = "targetscore")
 proteomic_responses <- read.csv(file, row.names = 1)
 
 # Read antibody file
-file <- system.file("targetscoreData", "antibody_map.csv", package = "targetscore")
+file <- system.file("target_score_data", "antibody_map.csv", package = "targetscore")
 mab_to_genes <- read.csv(file,
 header = TRUE,
 stringsAsFactors = FALSE
