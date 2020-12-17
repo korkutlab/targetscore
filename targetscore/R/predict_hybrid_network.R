@@ -29,9 +29,8 @@
 #'
 #' @examples 
 #' # READ ANTIBODY FILE ----
-#' file <- system.file("targetscoreData", "antibody_map.txt", package = "targetscore")
-#' mab_to_genes <- read.table(file,
-#' sep = "\t",
+#' file <- system.file("targetscoreData", "antibody_map.csv", package = "targetscore")
+#' mab_to_genes <- read.csv(file,
 #' header = TRUE,
 #' stringsAsFactors = FALSE
 #' )

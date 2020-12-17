@@ -8,7 +8,9 @@ optimize_parameter_hybrid(
   data,
   prior = NULL,
   rho = 10^seq(-2, 0, 0.02),
-  kappa = 10^seq(-2, 0, 0.02)
+  kappa = 10^seq(-2, 0, 0.02),
+  antibody_map_file = system.file("targetscoreData", "antibody_map_08092019.csv",
+    package = "targetscore")
 )
 }
 \arguments{
@@ -21,6 +23,11 @@ With colnames and rownames as gene tags.Can be inferred from Public data source 
 \item{rho}{positive tuning parameter for elastic net penalty. Default at seq10^seq(-2, 0, 0.02).}
 
 \item{kappa}{positive scaler parameter for biology-knowledge base contribution. Default at seq10^seq(-2, 0, 0.02).}
+
+\item{antibody_map_file}{a CSV file containing a table columns: 
+AntibodyLabel (a unique for antibody), Source (supplier), NodeName (a label for entry for visualization), 
+Gene_Symbol (approved gene symbol) Sites (affected sites divided by vertical bar, |), 
+Effect (effect of phosphorylation: c: constitutively expressed, a: activating, i: inhibiting)}
 }
 \value{
 Parameter list of regulization parameter decided by the prior information and the algorithmn lowest BIC.

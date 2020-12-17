@@ -9,6 +9,7 @@ get_fs_vals(
   proteomic_responses,
   mab_to_genes,
   fs_override = NULL,
+  cancer_role_file = system.file("extdata", "Cosmic.txt", package = "targetscore"),
   verbose = FALSE
 )
 }
@@ -22,10 +23,13 @@ get_fs_vals(
 \item{fs_override}{a listing of functional scores for each gene manually set up
 for overriding COSMIC Database given value, the modification path. (.txt)}
 
-\item{verbose}{Default as FALSE. If given TRUE, will print out the gene seq mapped with Antibody Map File.}
+\item{cancer_role_file}{a file specifying the role of cancer genes; 2-column table "gene" and "fs"; 
+fs 1 is oncogene, 0 is dual or unknown, -1 is tumor supressor}
+
+\item{verbose}{Default as FALSE. If given TRUE, will print out the gene seq mapped with antibody map file.}
 }
 \value{
-* "fs_final" dataframe with two coloumns: prot as Antibody label; fs as functional #' score
+* "fs_final" dataframe with two coloumns: prot as antibody label; fs as functional #' score
 }
 \description{
 Extracted functional score value from COMIC/ONCODRIVE Database. Can be override with Manually set functional score.
@@ -41,9 +45,8 @@ file <- system.file("test_data", "BT474.csv", package = "targetscore")
 proteomic_responses <- read.csv(file, row.names = 1)
 
 # Read antibody file
-file <- system.file("targetscoreData", "antibodyMapFile.txt", package = "targetscore")
-mab_to_genes <- read.table(file,
-sep = "\t",
+file <- system.file("targetscoreData", "antibody_map.csv", package = "targetscore")
+mab_to_genes <- read.csv(file,
 header = TRUE,
 stringsAsFactors = FALSE
 )

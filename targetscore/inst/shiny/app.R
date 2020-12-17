@@ -103,7 +103,7 @@ ui <- navbarPage(
         actionButton("submit", label = "Submit", icon = NULL, width = NULL),
 
         # helpText(
-        #   a("Mapping Example", href = "data/antibody_map.txt", target = "_blank"),
+        #   a("Mapping Example", href = "data/antibody_map.csv", target = "_blank"),
         #   br(),
         #   a("Background Network Example", href = "data/TCGA_BRCA_L4.csv", target = "_blank"),
         #   br(),

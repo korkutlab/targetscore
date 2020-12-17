@@ -6,7 +6,11 @@
 #' With colnames and rownames as gene tags.Can be inferred from Public data source (for example:SignedPC).
 #' @param rho positive tuning parameter for elastic net penalty. Default at seq10^seq(-2, 0, 0.02).
 #' @param kappa positive scaler parameter for biology-knowledge base contribution. Default at seq10^seq(-2, 0, 0.02).
-#'
+#' @param antibody_map_file a CSV file containing a table columns: 
+#'   AntibodyLabel (a unique for antibody), Source (supplier), NodeName (a label for entry for visualization), 
+#'   Gene_Symbol (approved gene symbol) Sites (affected sites divided by vertical bar, |), 
+#'   Effect (effect of phosphorylation: c: constitutively expressed, a: activating, i: inhibiting)
+#' 
 #' @return Parameter list of regulization parameter decided by the prior information and the algorithmn lowest BIC.
 #' \item{rho}{optimized penalty parameter.}
 #' \item{kappa}{optimized scaler parameter.}

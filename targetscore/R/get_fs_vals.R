@@ -23,9 +23,8 @@
 #' proteomic_responses <- read.csv(file, row.names = 1)
 #' 
 #' # Read antibody file
-#' file <- system.file("targetscoreData", "antibody_map.txt", package = "targetscore")
-#' mab_to_genes <- read.table(file,
-#' sep = "\t",
+#' file <- system.file("targetscoreData", "antibody_map.csv", package = "targetscore")
+#' mab_to_genes <- read.csv(file,
 #' header = TRUE,
 #' stringsAsFactors = FALSE
 #' )
@@ -50,7 +49,7 @@ get_fs_vals <- function(n_prot, proteomic_responses, mab_to_genes, fs_override=N
     stop("ERROR: n_prot is not equal to proteomic_responses column number")
   }
 
-  # Match the protein names in the proteomicresponce with the antibody map file
+  # Match the protein names in the proteomic responce with the antibody map file
   idx_ab_map <- which(mab_to_genes[, 1] %in% colnames(proteomic_responses))
   if (length(idx_ab_map) < n_prot) {
     stop("ERROR: Not all columns in data were matched in antibody map")

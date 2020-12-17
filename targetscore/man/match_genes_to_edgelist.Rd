@@ -38,7 +38,7 @@ a data.frame, columns 1-2 are indicies of the edgelist participants,
 Match a vector of genes to a SIF network
 }
 \examples{
-antibody_map_file <- system.file("targetScoreData", "antibodyMapfile_08272020.csv", 
+antibody_map_file <- system.file("targetScoreData", "antibody_map_08272020.csv", 
   package = "targetscore")
 mab_to_genes <- read.csv(antibody_map_file, header = TRUE, stringsAsFactors = FALSE)
 proteomic_responses_file <- system.file("test_data", "BT474.csv", package = "targetscore")

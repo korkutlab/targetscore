@@ -25,8 +25,7 @@ max_dist <- 1 # changing this value requires additional work to compute product(
 verbose <- FALSE
 
 # READ ANTIBODY FILE ----
-mab_to_genes <- read.table(file.path(resource_dir, "antibody_map.txt"),
-  sep = "\t",
+mab_to_genes <- read.csv(file.path(resource_dir, "antibody_map.txt"),
   header = TRUE,
   stringsAsFactors = FALSE
 )
@@ -47,20 +46,6 @@ network <- targetscore::predict_bio_network(
 )
 
 saveRDS(network, file.path(output_dir, "bt474_network.rds"))
-
-# source("~/default/workspaceNotSynced/targetscore/targetscore/R/predictBioNetwork.R")
-# source("~/default/workspaceNotSynced/targetscore/targetscore/R/matchGenesToEdgelist.R")
-# network_org <- predictBioNetwork(
-#   nProt = n_prot,
-#   proteomicResponses = proteomic_responses,
-#   maxDist = 1,
-#   antibodyMapFile = mab_to_genes
-# )
-#
-# identical(network_org$wk, network$wk)
-# identical(network_org$wks, network$wks)
-# identical(network_org$dist_ind, network$dist_ind)
-# identical(network_org$inter, network$inter)
 
 # BT474 ----
 ## Calculate Target Score
