@@ -14,7 +14,6 @@ library(plotly)
 library(devtools)
 source("modal.R")
 
-
 # UI ----
 ui <- navbarPage(
   "Target Score",
@@ -197,8 +196,8 @@ server <- function(input, output, session) {
       # Antibody Map
       antibody_map_file <- input$antibody
       if (is.null(antibody_map_file)) {
-        antibody_map_file <- system.file("targetScoreData", "antibodyMapfile_08092019.txt", package = "targetscore")
-        mab_to_genes <- read.table(antibody_map_file, sep = "\t", header = TRUE, stringsAsFactors = FALSE)
+        antibody_map_file <- system.file("targetScoreData", "antibodyMapfile_08092019.csv", package = "targetscore")
+        mab_to_genes <- read.csv(antibody_map_file, header = TRUE, stringsAsFactors = FALSE)
       } else {
         antibody_map_file <- antibody_map_file$datapath
         mab_to_genes <- read.csv(antibody_map_file, header = TRUE, stringsAsFactors = FALSE)
