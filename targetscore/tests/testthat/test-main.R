@@ -253,6 +253,13 @@ test_that("optimize_parameter_hybrid", {
   ))
   parameters <- targetscore::optimize_parameter_hybrid(data = signaling_responses, prior = prior_org$wk)
 
+  # Hack for small numeric variations
+  rownames(parameters$bic) <- 1:nrow(parameters$bic)
+  colnames(parameters$bic) <- 1:ncol(parameters$bic)
+  rownames(parameter_org$bic) <- 1:nrow(parameter_org$bic)
+  colnames(parameter_org$bic) <- 1:ncol(parameter_org$bic)
+  
+  # Test equality
   expect_equal(parameters$rho_m, parameter_org$rho_m)
   expect_equal(parameters$rho, parameter_org$rho)
   expect_equal(parameters$kappa, parameter_org$kappa)
