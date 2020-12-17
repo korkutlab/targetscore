@@ -57,4 +57,55 @@ ts: integral_dose(fs*(xi+sigma_j(2^p*xj*product_k(wk))))
 to be converted to integral_dose(fs*((xi/(stdev_xi)+sigma_j(2^p*((xj/stdev_xj)*product_k(wk))))
 missing: For phosp and dephosp based wk, there is no 'exact match' between known and measured phospho-sites
 }
+\examples{
+# read proteomic responce file
+signaling_responses <- read.csv(system.file("test_data", "TCGA-BRCA-L4.csv",
+package = "targetscore"
+), row.names = 1)
+
+# Read in biology knowledge base protein interaction
+network <- readRDS(system.file("test_data_files", "predict_bio_network_network_output.rds",
+package = "targetscore"
+))
+
+# read proteomic responce file
+proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "targetscore"),
+row.names = 1
+)
+
+# read functional score value
+fs <- readRDS(system.file("test_data_files", "get_fs_vals_output.rds",
+package = "targetscore"
+))
+
+# Calculate Target Score
+ts <- array(0, dim = c(dim(proteomic_responses)[1], dim(proteomic_responses)[2]))
+ts_p <- array(0, dim = c(dim(proteomic_responses)[1], dim(proteomic_responses)[2]))
+ts_q <- array(0, dim = c(dim(proteomic_responses)[1], dim(proteomic_responses)[2]))
+for (i in seq_len(2)) {
+results <- targetscore::get_target_score(
+  wk = network$wk,
+  wks = network$wks,
+  dist_ind = network$dist_ind,
+  inter = network$inter,
+  n_dose = 1,
+  n_prot = dim(proteomic_responses)[2],
+  proteomic_responses = proteomic_responses[i,],
+  n_perm = 1,
+  verbose = FALSE,
+  fs_dat = fs
+)
+ts[i,] <- results$ts
+ts_p[i,] <- results$pts
+ts_q[i,] <- results$q
+} 
+colnames(ts) <- colnames(proteomic_responses)
+ts <- data.frame(rownames(proteomic_responses), ts)
+colnames(ts_p) <- colnames(proteomic_responses)
+ts_p <- data.frame(rownames(proteomic_responses), ts_p)
+colnames(ts_q) <- colnames(proteomic_responses)
+ts_q <- data.frame(rownames(proteomic_responses), ts_q)
+ts_result <- list(ts = ts, ts_p = ts_p, ts_q = ts_q)
+
+}
 \concept{targetscore}

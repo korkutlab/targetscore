@@ -25,7 +25,7 @@
 #' package = "targetscore"
 #' ), row.names = 1)
 #' 
-#' # Read in Biology knowlegde base protein interaction
+#' # Read in biology knowledge base protein interaction
 #' network <- readRDS(system.file("test_data_files", "predict_bio_network_network_output.rds",
 #' package = "targetscore"
 #' ))
@@ -52,14 +52,14 @@
 #'   inter = network$inter,
 #'   n_dose = 1,
 #'   n_prot = dim(proteomic_responses)[2],
-#'   proteomic_responses = proteomic_responses[i, ],
+#'   proteomic_responses = proteomic_responses[i,],
 #'   n_perm = 1,
 #'   verbose = FALSE,
 #'   fs_dat = fs
 #' )
-#' ts[i, ] <- results$ts
-#' ts_p[i, ] <- results$pts
-#' ts_q[i, ] <- results$q
+#' ts[i,] <- results$ts
+#' ts_p[i,] <- results$pts
+#' ts_q[i,] <- results$q
 #' } 
 #' colnames(ts) <- colnames(proteomic_responses)
 #' ts <- data.frame(rownames(proteomic_responses), ts)
@@ -68,8 +68,6 @@
 #' colnames(ts_q) <- colnames(proteomic_responses)
 #' ts_q <- data.frame(rownames(proteomic_responses), ts_q)
 #' ts_result <- list(ts = ts, ts_p = ts_p, ts_q = ts_q)
-#' expect_identical(ts_result$ts, ts_org$ts)
-#' })
 #' 
 #' @details
 #' data: multiple dose single drug perturbation
