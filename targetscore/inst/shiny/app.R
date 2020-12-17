@@ -37,11 +37,9 @@ ui <- navbarPage(
     sidebarLayout(
       sidebarPanel(
         width = 4,
-        fileInput("ts_result_file", "TargetScore Result File (.rds; Visualization Only)",
-                  buttonLabel = "Browse...",
-                  placeholder = "No file selected",
-                  accept = ".rds"
-        ),
+        
+        h4("Run TargetScore"),
+        
         fileInput("drug_data_file", "Perturbation Response File (.csv; REQUIRED)",
           buttonLabel = "Browse...",
           placeholder = "No file selected",
@@ -83,14 +81,25 @@ ui <- navbarPage(
         # Number of permutations
         numericInput("n_perm", "Permutation Number", value = 25, min = 25, max = 2000), # FIXME
 
-        # max distance of protein network
+        # Max distance of protein network
         numericInput("max_dist", "Maximum Network Distance", "1"),
 
+        hr(),
+        
+        h4("Visualization Only"),
+        
+        fileInput("ts_result_file", "TargetScore Result File (.rds)",
+                  buttonLabel = "Browse...",
+                  placeholder = "No file selected",
+                  accept = ".rds"
+        ),
+        
         actionButton("submit", label = "Submit", icon = NULL, width = NULL),
 
         hr(),
-        helpText("Example: ", a(href="data/sample_breast_cancer_perturbation_data.zip", target="_blank", download="sample_breast_cancer_perturbation_data.zip", "Sample Breast Dataset (.zip)")),
-        helpText("Example: ", a(href="data/predict_hybrid_network_network_output.zip", target="_blank", download="predict_hybrid_network_network_output.zip", "Sample TargetScore result (.zip)"))
+        
+        helpText("Example: ", a(href="data/sample_breast_cancer_perturbation_data.csv", target="_blank", download="sample_breast_cancer_perturbation_data.csv", "Sample Breast Dataset (.csv)")),
+        helpText("Example: ", a(href="data/sample_targetscore_result_file.rds", target="_blank", download="sample_targetscore_result_file.rds", "Sample TargetScore Result (.rds)"))
         # helpText(
         #   a("Perturbation Response Example", href = "data/BT474.csv", target = "_blank"),
         #   br(),
