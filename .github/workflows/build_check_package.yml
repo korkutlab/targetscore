@@ -13,4 +13,4 @@ jobs:
     - name: Main
       run: |
            docker pull rocker/shiny-verse:3.6.3
-           docker run rocker/shiny-verse:3.6.3 bash -c "R -e 'r_package <- c(\"devtools\", \"roxygen2\", \"testthat\", \"rmarkdown\", \"git2r\"); lapply(r_package, function(x) {if (!(x %in% .packages(TRUE))) install.packages(x)}); git2r::clone(url = \"https://github.com/korkutlab/targetscore.git\", local_path = \"targetscore\"); devtools::install_deps(pkg = \"targetscore\", dependencies = TRUE, upgrade = FALSE)\"; devtools::check(\"targetscore\"); devtools::build(\"targetscore\")'"
+           docker run rocker/shiny-verse:3.6.3 bash -c "R -e 'r_package <- c(\"devtools\", \"roxygen2\", \"testthat\", \"rmarkdown\", \"git2r\"); lapply(r_package, function(x) {if (!(x %in% .packages(TRUE))) install.packages(x)}); git2r::clone(url = \"https://github.com/korkutlab/targetscore.git\", local_path = \"targetscore\"); setwd(\"targetscore/targetscore\"); devtools::install_deps(dependencies = TRUE, upgrade = FALSE); devtools::check(); devtools::build()'"
