@@ -99,6 +99,7 @@ ui <- navbarPage(
         
         helpText("Example: ", a(href="data/sample_breast_cancer_perturbation_data.csv", target="_blank", download="sample_breast_cancer_perturbation_data.csv", "Sample Breast Dataset (.csv)")),
         helpText("Example: ", a(href="data/sample_targetscore_result_file.rds", target="_blank", download="sample_targetscore_result_file.rds", "Sample TargetScore Result (.rds)"))
+        
         # helpText(
         #   a("Perturbation Response Example", href = "data/BT474.csv", target = "_blank"),
         #   br(),
