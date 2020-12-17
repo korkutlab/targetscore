@@ -7,10 +7,10 @@ shinyapps_token <- Sys.getenv("SHINY_TOKEN")
 shinyapps_secret <- Sys.getenv("SHINY_SECRET")
 rsconnect::setAccountInfo(name=shinyapps_user, token=shinyapps_token, secret=shinyapps_secret)
 
-devtools::install_github('korkutlab/zeptosensPkg', subdir="zeptosensPkg", upgrade='never', dependencies=TRUE)
+devtools::install_github('korkutlab/targetscore', subdir="targetscore", upgrade='never', dependencies=TRUE)
 devtools::install_github('cmap/morpheus.R', upgrade="never")
 
-pkg_dir <- find.package("zeptosensPkg")
+pkg_dir <- find.package("targetscore")
 shiny_dir <- file.path(pkg_dir, "shiny")
 
 rsconnect::deployApp(appDir=shiny_dir, 
