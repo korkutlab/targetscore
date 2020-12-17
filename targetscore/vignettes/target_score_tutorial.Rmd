@@ -42,18 +42,26 @@ library(matrixStats)
 
 ## Load Data 
 
-Mandatory loading data including: Drug perturbation data (proteomic_responses). User may also provided Anitibody file and defined function score for certain antibody. Several parameters should be settled:
+Mandatory loading data including: Drug perturbation data (proteomic_responses). User may also provided antibody file and defined function score for certain antibody. 
+
+Several parameters should be settled:
 1.max_dist: Max distance between protein network was default at 1 which limits the maximum protein-protein distance.
 2.n_prot: Number of Antibodies included in the User provided drug perturbation data.
+
 Other files that can be attached are:
 1. mab_to_genes: list of antibodies, their associated genes, modification sites and effect.
 2. fs_override: a listing of functional scores for each gene manually set up for overriding COSMIC Database given value, the modification path.
 
 ```{r parameters}
 # data_dir <- "../data(ts)/ts_anil"
-# protein_list_dir <- "../data(ts)/Protein_Name_List"
+
 data_dir <- system.file("test_data", package = "targetscore")
 resource_dir <- system.file("targetScoreData", package = "targetscore")
+
+# Check if package installed or just downloaded from code repo
+data_dir <- ifelse(dir.exists(data_dir), data_dir, "inst/test_data")
+resource_dir <- ifelse(dir.exists(resource_dir), resource_dir, "inst/targetScoreData")
+
 output_dir <- "."
 # output_dir <- "inst/test_data/tutorial_output"
 
