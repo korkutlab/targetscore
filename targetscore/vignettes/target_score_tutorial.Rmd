@@ -49,7 +49,7 @@ Other files that can be attached are:
 1. mab_to_genes: list of antibodies, their associated genes, modification sites and effect.
 2. fs_override: a listing of functional scores for each gene manually set up for overriding COSMIC Database given value, the modification path.
 
-```{r load_data}
+```{r parameters}
 # data_dir <- "../data(ts)/ts_anil"
 # protein_list_dir <- "../data(ts)/Protein_Name_List"
 data_dir <- system.file("test_data", package = "targetscore")
@@ -63,8 +63,10 @@ n_prot <- 100
 # Max distance
 max_dist <- 1 # changing this value requires additional work to compute product(wk). This is not a priority
 # verbose <- FALSE
+```
 
-# READ ANTIBODY FILE ----
+### Read Antibody File 
+```{r load_data}
 mab_to_genes <- read.csv(file.path(resource_dir, "antibodyMapFile_08092019.csv"), 
                          stringsAsFactors = FALSE)
 
