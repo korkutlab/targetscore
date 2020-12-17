@@ -32,6 +32,7 @@
 #' 
 #' @importFrom glasso glasso
 #' @importFrom stats cov
+#' @importFrom utils read.csv
 #'
 #' @concept targetscore
 #' @export

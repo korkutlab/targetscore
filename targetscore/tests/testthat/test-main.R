@@ -5,7 +5,7 @@ test_that("multiplication works", {
 test_that("match_genes_to_edgelist", {
   antibody_map_file <- system.file("targetScoreData", "antibody_map.csv", package = "targetscore")
   mab_to_genes <- read.csv(antibody_map_file, header = TRUE, stringsAsFactors = FALSE)
-
+  
   proteomic_responses_file <- system.file("test_data", "BT474.csv", package = "targetscore")
   proteomic_responses <- read.csv(proteomic_responses_file, row.names = 1)
 
@@ -29,6 +29,7 @@ test_that("match_genes_to_edgelist", {
   )
 
   snapshot_file <- system.file("test_data_files", "match_genes_to_edgelist_test_output.rds", package = "targetscore")
+  #saveRDS(dist_list, snapshot_file)
   snapshot <- readRDS(snapshot_file)
 
   expect_identical(dist_list, snapshot)
