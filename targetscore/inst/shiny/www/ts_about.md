@@ -1,5 +1,5 @@
 # TargetScore 
-TargeScore is a statiscal network modeling and analysis algorithm
+TargeScore is a statiscal network modeling and analysis algorithm for drug response analysis in cancer
 
 The algorithm 
 
