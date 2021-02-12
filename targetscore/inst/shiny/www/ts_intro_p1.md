@@ -1,19 +1,24 @@
-# Introduction to TargetScore
+# TargetScore 
 
-## Code Availability 
-[Code available as the TargetScore R Package](https://github.com/korkutlab/targetscore)
-        
-## Why we developed TargetScore?
+TargeScore is a data-driven network modeling algorithm for drug response analysis in cancer
 
-Targeted therapies have been substantially successful in the treatment of diverse cancer types 
-_(Gu et al., 2016; Manzano et al., 2016; Mayekar and Bivona, 2017; Ohmoto and Yachida, 2017; Tapia Rico et al., 2017)_. However, resistance to therapy is virtually inevitable and can manifest as a lack of response to therapy (intrinsic)or disease progression after the temporary response (acquired resistance) _(Holohan et al., 2013)_. A recurrent mechanism of resistance is an activation of compensatory oncogenic pathways (e.g., via feedback loops in short-term or secondary oncogenic alterations in the long-term) in response to targeting a genomic aberration _(Holohan et al., 2013; Niederst and Engelman, 2013)_ A relatively simple way to interrogate adaptive responses to targeted agents is to rank changes in mRNA and (phospho)protein expression for individual genes based on high throughput omics data.  However, the rank-based approach cannot capture collective changes that lead to robust phenotypic transitions such as drug resistance. It is also more likely to detect druggable targets within collectively functioning network modules compared to individual genes/proteins. Here, with this motivation, we developed a method to analyze drug response, collective pathway adaptation mechanisms ,and discover effective drug combinations. **Shown as in Fig.**
+The algorithm
 
-## Hypothesis in Target Score Method:
+(i) infers how drugs rewire signaling pathway activities in time, dose and sample (drug resistant vs. sensitive) space.
+(ii) nominates combination therapies to block the resistance pathways. 
 
-1) To overcome resistance, use combination therapy to target the drug-stimulated pathway.
+The minimal molecular data requirement is molecular responses to a single sample treated with a single agent. 
 
-2) The combination and collective result from the pathway may be a better predictor in drug response analysis.
+TargetScore scales to analysis of hundreds of samples perturbed with dosens of drugs in multiple doses and profiled accross time points.
 
-## What does Target Score provide?
+TS_figure.png
 
-Target Score currently has three functional modules which are: Reference network construction; target score calculation; calculated result visualization. The detailed information of the target score calculation process is explained on the Help page.
+#The algorithm steps
+1. Molecular profiling of the cellular response to a perturbation; 2. Inference of a reference network (e.g., breast cancer signaling network) that captures potential relations between measured proteomic entities across diverse samples in a specific class; 3. Quantification of a sample and context-specific adaptation score (i.e., a TargetScore value) which links protein interactions to drug response on the reference network using molecular drug response data. The TargetScore values reflect adaptive responses and are calculated for each protein under each condition. It is quantified as the network interaction weighted sum of the "self-change" of the corresponding entity and the change in the pathway/network neighborhood in response to targeted perturbations. 4. Identification of network modules (collective changes) that have a significantly high TargetScore (i.e., collectively participate in adaptive responses) in each sample. The network modules involved in adaptive responses are determined by mapping the TargetScore values back on the reference network and extracting the connected sub-networks enriched with high TargetScore values. 5. Selection of actionable targets that participate in adaptive responses in a given sample and test drug combinations in pre-clinical models. 
+
+# Code Availability
+Code available as the TargetScore R Package (github link)
+
+# Feedback
+
+We appreciate any feedback/suggestions you may have. Please forward feedback to [Anil Korkut](mailto:akorkut@mdanderson.org)
