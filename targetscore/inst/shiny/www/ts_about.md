@@ -1,16 +1,17 @@
 # TargetScore 
+
+This the TargetScore interactive web application. 
+
 TargeScore is a statiscal network modeling and analysis algorithm for drug response analysis in cancer
 
-The algorithm 
+The algorithm
 
-(i) reveals and visualizes collective/pathway drug-activated network modules of signaling;  
+(i) infers how drugs rewire signaling pathway activities in time, dose and sample (drug resistant vs. sensitive) space.
 (ii) nominates combination therapies to down-regulate the resistance pathways. 
-
-This the TargetScore web application and enables calculation of drug-activated network modules of signaling. 
 
 The minimal molecular data requirement is molecular responses to a single sample treated with a single agent. 
 
-The comparison of TargetScore values over different cancer samples (e.g., sensitive vs. resistant), across different drug doses or time points reveals how drugs rewire pathway activities in time, dose and sample space.
+TargetScore scales to analysis of hundreds of samples perturbed with dosens of drugs in multiple doses and profiled accross time points.
 
 TS_figure.png
 
@@ -22,3 +23,5 @@ Code available as the TargetScore R Package (github link)
 # Feedback
 
 We appreciate any feedback/suggestions you may have. Please forward feedback to [Anil Korkut](mailto:akorkut@mdanderson.org)
+
+
