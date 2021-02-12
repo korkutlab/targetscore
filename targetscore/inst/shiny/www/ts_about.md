@@ -1,13 +1,11 @@
 # TargetScore 
 
-This the TargetScore interactive web application. 
-
 TargeScore is a statiscal network modeling and analysis algorithm for drug response analysis in cancer
 
 The algorithm
 
 (i) infers how drugs rewire signaling pathway activities in time, dose and sample (drug resistant vs. sensitive) space.
-(ii) nominates combination therapies to down-regulate the resistance pathways. 
+(ii) nominates combination therapies to block the resistance pathways. 
 
 The minimal molecular data requirement is molecular responses to a single sample treated with a single agent. 
 
