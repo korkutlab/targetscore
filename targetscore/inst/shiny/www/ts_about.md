@@ -3,7 +3,7 @@ TargeScore is a statiscal network modeling and analysis algorithm for drug respo
 
 The algorithm 
 
-(i) reveals and visualizes collective/pathway activity changes involved in adaptive resistance as drug-activated network modules of signaling;  
+(i) reveals and visualizes collective/pathway drug-activated network modules of signaling;  
 (ii) nominates combination therapies to down-regulate the resistance pathways. 
 
 This the TargetScore web application and enables calculation of drug-activated network modules of signaling. 
