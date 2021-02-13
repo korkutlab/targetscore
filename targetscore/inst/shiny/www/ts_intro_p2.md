@@ -14,8 +14,8 @@ Step 1. Load the targetscore library
 Step 2. Definitions and parameters
  Set the maximum pathway neighborhood distance (recommended value: 1)
  Load the antibody Map file to match gene and protein names as well as protein phosphorylation annotations
- >>link to the antibody map file
- >>link to file descriptions
+ !link to the antibody map file
+ !link to file descriptions
 Step 3. Read sample specific drug response data (Log2 normalized to no drug condition). This is needed fo rTargetScopre calculations
  >>link to sample file
  >>link to file descriptions
