@@ -2,7 +2,7 @@
 
 The tutorial describes running the TargetScore using the package. Users can opt to use the web interface. On the web interface, the data can be uploaded and similar options are provided on dropdown menus.  
 
-## Download and install
+# Download and install
 For the package and instructions:
 https://github.com/korkutlab/targetscore/tree/master/targetscore
 
