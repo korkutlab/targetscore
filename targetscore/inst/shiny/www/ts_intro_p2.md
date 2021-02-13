@@ -14,18 +14,22 @@ Step 1. Load the targetscore library
 Step 2. Definitions and parameters
  Set the maximum pathway neighborhood distance (recommended value: 1)
  Load the antibody Map file to match gene and protein names as well as protein phosphorylation annotations
- 
+ >> link to the antibody map file
+ >> link to file descriptions
 Step 3. Read sample specific drug response data (Log2 normalized to no drug condition). This is needed fo rTargetScopre calculations
-
+ >> link to sample file
+ >> link to file descriptions
 Step 4. Read the proteomic data for network inference (e.g., TCG?A RPPA datasets or any proteomic constraints that represent the model system).
-
+ >> link to sample file
+ >> link to file descriptions
 Step 5. Prior information from SignedPC or other databases
- 
- 
+ >> link to signed PC
+ >> link to file descriptions
 Step 6. Functional score file (fs) to annotate proliferative/survival and anti-proflirative/death signals
+ >> link to fs.txt file
+ >> link to file descriptions
 
-See sample files for data formats. 
-
+Example code
 Tutorial_1.png
 
 # Reference network inference
@@ -47,40 +51,25 @@ Data-driven reference network captures the molecular associations and inter-tumo
 
  **Hybrid**
 
-We have modified the glasso algorithm and developed the Adjusted-glasso algorithm to infer the reference network model using priors and the directionality information. Adjusted-glasso algorithm introduces the biology prior information from Pathway Commons Database. The introduction of this symmetric prior information matrix can be seen as an adjustment to the inference penalty and allows us to apply varying amounts of penalties to different elements in the precision matrix based on prior interactions. The developed algorithm gives a larger probability for the pre-existing/experimentally validated interactions from Pathway Commons database while taking disease-specific global signaling into account.
+We have modified the glasso algorithm and developed the prior-glasso algorithm to infer the reference network model using priors and the directionality information. The prior-glasso algorithm introduces the biologically relavant prior information from Pathway Commons Database.  
 
- The sif file can be visualised wit network analysis tools (e.g., Cytospcape)
  Tutorial_2.png
  
  # TargetScore calculation 
- (Equation 4 in Wang/Luna et al, 2021)
+ 
  
 Input files and parameters are the proteomic responses, network file (wk), functional scores (fs), nperm sets the number of disstributionss to calculate a null model for statistical assessment.
 
-target score (TS) that quantifies the adaptive pathway responses to a perturbation as a sum of the response from each phosphoprotein level and its pathway neighborhood is calculated for each protein in each sample. The calculation combines the cell type-specific drug response data with the reference network model information. High target score identifies genes involved in adaptive response (e.g., upregulation of RTK mRNA expression by MEK inhibitor via a feedback loop and low target score corresponds to the immediate impact of the drug.") 
+target score (TS)  quantifies the adaptive pathway responses to a perturbation as a sum of the response from each phosphoprotein level and its pathway neighborhood is calculated for each protein in each sample. The calculation combines the cell type-specific drug response data with the reference network model information. High TargetScore identifies processes involved in adaptive response (e.g., upregulation of RTK mRNA expression by MEK inhibitor via a feedback loop and low target score corresponds to the immediate impact of the drug.") 
 
 **Functional Score for proteins**
 A functional score of +1 is assigned to proteomic entities representing total level and activating phosphorylations of oncogenes or deactivating phosphorylations of tumor suppressors. Similarly, a functional score of (-1) is assigned to total levels and activating phosphorylations of tumor suppressors and inhibitory phosphorylations of oncoproteins. The shiny app provided a default functional score inferred from Cosmic Database [Cosmic Resources](https://cancer.sanger.ac.uk/cosmic) with a portal for users to upload the self-defined functional score to override.
-
-**TargetScore Calculation method**
-
-Target Score currently provided two methods in the calculation. One listed as Line by Line and the other listed as Pooled.
-
-* **Line by Line**  
-Calculation line by line limited the calculation by putting the number of doses as one and calculate target score for each 
-every line for the provided Perturbation Response File dataset.
-
-* **Pooled**
-Calculation Pooled provided the calculation by putting the number of doses as the number of rows which sum up target score for each 
-every line for the provided Perturbation Response File dataset.
+ 
 
 **Permutation Number**
 
 To eliminate the connectivity bias, we assess the significance of Target Score for each proteomic entity. For this purpose, the probability of observing a Target Score is calculated over a fixed reference network structure and drug response data with randomized protein labels. The randomized data is generated by random sampling of proteomic responses across all conditions for each antibody. Permutation Number (Default at 25) is the number of randomly bootstrapped data sets, and the null distribution of Target Scores for a given network topology is calculated.
 
-**Maximum Network Distance**
-
-Maximum Network Distance between two nodes. Which limits the distance between nodes from the reference network that will be included in the Target Score calculation.
 
  
 Tutorial_3.png
