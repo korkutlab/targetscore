@@ -1,3 +1,4 @@
+Delete this/ Notes: What is the package name, refine-read the text.
 # TargetScore  Tutorial
 
 The tutorial describes running the TargetScore using the package. Users can opt to use the web interface. On the web interface, the data can be uploaded and similar options are provided on dropdown menus.  
@@ -33,7 +34,7 @@ Use the data from (Step4) and  priors (Step5) to infer the reference network
 options
  targetscore::predict_bio_network -> inference based on nly priors from databases (or user set)
  targetscore::predict_dat_network -> inference based on data only with glasso algorithm
- targetscore::predict_hybrid_network -> Inference based on both data and prior constrints (see Wang et al)
+ targetscore::predict_hybrid_network -> Inference based on both data and prior constrints (see Wang/Luna et al)
  
  **Literature-Based**
 Construct the network through Pathway Commons database. Of interest to this study, biochemical reactions, posttranslational modifications, and complex formation, which are all    encoded in BioPAX language are taken into account. [Pathway Commons](https://www.pathwaycommons.org). The pathway interactions that match to the proteomic species profiled by the RPPA data are defined with 4 relation types: phosphorylation, dephosphorylation, expression upregulation, and expression downregulation. The list of gene names and corresponding posttranslational modifications (phosphorylation) is provided to the TargetScore package. The interactions between the molecules of interest are extracted using the signedPC module in BioPAX.The extracted interaction set is evaluated with expert curation and serves as the reference network.
@@ -52,13 +53,13 @@ We have modified the glasso algorithm and developed the Adjusted-glasso algorith
  Tutorial_2.png
  
  # TargetScore calculation 
- (Equation 4 in Wang et al, 2021)
+ (Equation 4 in Wang/Luna et al, 2021)
  
 Input files and parameters are the proteomic responses, network file (wk), functional scores (fs), nperm sets the number of disstributionss to calculate a null model for statistical assessment.
 
 target score (TS) that quantifies the adaptive pathway responses to a perturbation as a sum of the response from each phosphoprotein level and its pathway neighborhood is calculated for each protein in each sample. The calculation combines the cell type-specific drug response data with the reference network model information. High target score identifies genes involved in adaptive response (e.g., upregulation of RTK mRNA expression by MEK inhibitor via a feedback loop and low target score corresponds to the immediate impact of the drug.") 
 
-**Functional Score for Antibodies**
+**Functional Score for proteins**
 A functional score of +1 is assigned to proteomic entities representing total level and activating phosphorylations of oncogenes or deactivating phosphorylations of tumor suppressors. Similarly, a functional score of (-1) is assigned to total levels and activating phosphorylations of tumor suppressors and inhibitory phosphorylations of oncoproteins. The shiny app provided a default functional score inferred from Cosmic Database [Cosmic Resources](https://cancer.sanger.ac.uk/cosmic) with a portal for users to upload the self-defined functional score to override.
 
 **TargetScore Calculation method**
