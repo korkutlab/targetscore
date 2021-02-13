@@ -23,7 +23,7 @@ Step 5. Prior information from SignedPC or other databases
  
 Step 6. Functional score file (fs) to annotate proliferative/survival and anti-proflirative/death signals
 
-See sample files for data formats
+See sample files for data formats. 
 
 Tutorial_1.png
 
