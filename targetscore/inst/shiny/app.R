@@ -23,6 +23,7 @@ ui <- navbarPage(
     # Use JQuery (built into Shiny) calls to show/hide modal based on message
     tags$head(includeScript("www/js/showLoading.js"))
   ),
+  tabPanel("KorkutLab", a("KorkutLab", href="https://odin.mdacc.tmc.edu/~akorkut", target="_blank")),
   tabPanel(
     "Overview",
     mainPanel(
@@ -148,14 +149,14 @@ ui <- navbarPage(
     )
   ),
   tabPanel(
-    "Help",
+    "Tutorial",
     mainPanel(
       includeMarkdown("www/ts_intro_p2.md"),
       includeMarkdown("www/ts_input.md")
     )
   ),
   tabPanel(
-    "About",
+    "People",
     mainPanel(
       includeMarkdown("www/ts_about.md"),
       h1("Version"),
