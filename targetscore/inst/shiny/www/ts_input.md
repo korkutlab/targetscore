@@ -4,14 +4,12 @@ Please cite the following when using the example data/source code/TargetScore ca
 Anil Korkut, Heping Wang, Augustin Luna.
 
 # Target Score Result File
-
 ## File Descriptions
 
 Target Score Result File is the target score calculated result provided by the user. The data file should be an RDS data file as a list with ts_r: the target score calculated result list, proteomic_responses: Perturbation Response, fs_dat: Functional Score, mab_to_genes: Mapping Gene list(Example: Mapping File), network: network used by the calculation. The Input Panel is provided for users who are interested in Shiny App visualization part and want to short the calculation time.
 
 
 # Perturbation Response File
-
 ## File Descriptions
 
 Perturbation Response File is the drug perturbation data provided by the user. We have provided an example drug perturbation response file here which was provided by Anil Korkut lab. The data file contains Antibody Label as columns and drug perturbation treatments as rows.
@@ -21,7 +19,6 @@ Here provided an example from Korkut lab of cell line BT474 (Breast Cancer cell 
 [Perturbation Response file directory](https://github.com/korkutlab/targetscore/blob/master/targetscore/inst/test_data/BT474.csv)
 
 # Mapping File
-
 ## File Descriptions
 
 Mapping file is the Gene Name list database developed by [Anil Korkut Group](https://odin.mdacc.tmc.edu/~akorkut/#/home), which provided the onsite AnitobodyLabel of local upload files with the Gene_Symbol used within the database.  While antibody_map_file also provided the information of phosphorylation activation/deactivation.
