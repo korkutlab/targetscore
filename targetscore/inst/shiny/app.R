@@ -150,8 +150,8 @@ ui <- navbarPage(
   tabPanel(
     "Tutorial",
     mainPanel(
-      includeMarkdown("www/ts_intro_p2.md"),
-      includeMarkdown("www/ts_input.md")
+      includeMarkdown("www/ts_intro_p2.md")
+      #includeMarkdown("www/ts_input.md")
     )
   ),
   tabPanel(
