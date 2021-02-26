@@ -13,56 +13,25 @@ https://github.com/korkutlab/targetscore/tree/master/targetscore
 1. Load the targetscore library 
 2. Definitions and parameters
   * Set the maximum pathway neighborhood distance (recommended value: 1)
-  * Load the antibody Map file to match gene and protein names as well as protein phosphorylation annotations
-  * Antibody Map File: FIXME link to the antibody map file
-  * File Description: FIXME link to file descriptions
+  * Load the antibody map file to match gene and protein names as well as protein phosphorylation annotations
+  * Antibody Map File: See "Example Input Files" section
 3. Read sample specific drug response data (log2-normalized to no drug condition). This is needed fo targetScore calculations
-  * Sample File: link to sample file
-  * File Description: link to file descriptions
+  * Sample File: See "Example Input Files" section
 4. Read the proteomic data for network inference (e.g., TCGA RPPA datasets or any proteomic constraints that represent the model system).
-  * Sample File: link to sample file
-  * File Descriptions: link to file descriptions
+  * Sample File: See "Example Input Files" section
 5. Prior information from SignedPC or other databases
-  * Signed PC File: link to signed PC
-  * File Description: link to file descriptions
-6. Functional score file (fs) to annotate proliferative/survival and anti-proflirative/death signals
-  * Functional Score File: link to fs.txt file
-  * File Description: link to file descriptions
+  * Signed PC File: See "Example Input Files" section
+6. Functional score file (fs) to annotate proliferative/survival and anti-proliferative/death signals
+  * Functional Score File: See "Example Input Files" section
+  
+## Code and Example Input Files (Plus File Descriptions)
+An RMarkdown tutorial is provided 
+https://github.com/korkutlab/targetscore/blob/master/targetscore/vignettes/target_score_tutorial.Rmd
 
-## Code
-```
-#LOAD THE PACKAGE/LOAD DATA AND INPUT PARAMETERS
-#1. Load Library
-library(zeptosensPkg)
-# 2. Set the maximum pathway neighborhood distance in TS calculations)
-maxDist <- 1 
-# Read in Protein list file
-mab_to_genes <- read.table(system.file("targetscoreData", "antibodyMapfile.csv", package = "zeptosensPkg"),
-                           sep = ",",
-                           header = TRUE,
-                           stringsAsFactors = FALSE)
+Paths to example files are mentioned in the tutorial are relative to the inst/ folder: 
+https://github.com/korkutlab/targetscore/tree/master/targetscore/inst
 
-#3. Read proteomic response for cellline1 (This is needed in the nertwork inference to import protein names & as data for TS calculation)
-x_1 <- read.csv( "data_TS/HCC1954.csv",row.names = 1)  #nProt=304
-
-
-#4. Read The Global Signaling file for BRCA (Source: TCGA, data for reference network inference)
-RefNetworkData <- read.csv( "data_TS/TCGA-BRCA-L4.csv",row.names = 1)
-
-# 5. Read priors (Source: SignedPC, Babur et al, 2019)
-prior <- read.csv(file="data_TS/Bio_network.csv",row.names = 1)
-##
-
-# 6. Get the functional scores
-fs_override_org <- readRDS(system.file("test_data_files", "fs_value_file.rds",
-                                       package = "zeptosensPkg"
-))
-
-fs_value <- zeptosensPkg::get_fs_vals(
-  n_prot = ncol(x_1), proteomic_responses = x_1,
-  mab_to_genes = mab_to_genes, fs_override = fs_override_org
-)
-```
+File description are included in the FIXME_HEPING_ADD_THIS_TO_RMD
 
 # Reference Network Inference
 The reference network model captures the signaling interactions underlying the drug responses.
@@ -80,26 +49,6 @@ Data-driven reference network captures the molecular associations and inter-tumo
 
 ## Hybrid
 We have modified the glasso algorithm and developed the prior-glasso algorithm to infer the reference network model using priors and the directionality information. The prior-glasso algorithm introduces the biologically relavant prior information from Pathway Commons Database.  
-
-### Code
-```
-#REFERENCE NETWORK INFERENCE
-#prior-glasso inference
-network.Hyb<-zeptosensPkg::predict_hybrid_network(
-  n_prot = 304 ,
- proteomic_responses = x_1,
-  prior = prior,
-  data =tcga_data,
-  cut_off = 0.05
-)
-#write the network matrix
-write.csv(network.Hyb$wk,file="RefNetwork.csv")
-
-hybnet<-read.csv(file="RefNetwork.csv",row.names = 1)
-#write the network SIF file
-hybnet_sif<-zeptosensPkg::create_sif_from_matrix(t_net = hybnet,col_genelist = colnames(hybnet),row_genelist = rownames(hybnet))
-write.table(hybnet_sif,file="ReferenceNetwork_sif.txt",quote = F,sep = "\t",row.names = F)
-```
  
 # TargetScore Calculation 
 Input files and parameters are the proteomic responses, network file (wk), functional scores (fs), nperm sets the number of disstributionss to calculate a null model for statistical assessment.
@@ -111,58 +60,11 @@ A functional score of +1 is assigned to proteomic entities representing total le
  
 ## Permutation Number
 To eliminate the connectivity bias, we assess the significance of Target Score for each proteomic entity. For this purpose, the probability of observing a Target Score is calculated over a fixed reference network structure and drug response data with randomized protein labels. The randomized data is generated by random sampling of proteomic responses across all conditions for each antibody. Permutation Number (Default at 25) is the number of randomly bootstrapped data sets, and the null distribution of Target Scores for a given network topology is calculated.
-
-### Code
-```
-#TARGET SCORE CALCULATION
-proteomic_responses_1 <- x_1
-length(proteomic_responses_1)
-
-# Calculate Target Score
-ts <- array(0, dim = c(dim(proteomic_responses_1)[1], dim(proteomic_responses_1)[2]))
-ts_p <- array(0, dim = c(dim(proteomic_responses_1)[1], dim(proteomic_responses_1)[2]))
-ts_q <- array(0, dim = c(dim(proteomic_responses_1)[1], dim(proteomic_responses_1)[2]))
-
-for (i in seq_len(dim(proteomic_responses_1)[1])) {
-  results <- zeptosensPkg::get_target_score(
-    wk = network.Hyb$wk,
-    wks = network.Hyb$wks,
-    dist_ind = network.Hyb$dist_ind,
-    inter = network.Hyb$inter,
-    n_dose = 1,
-    n_prot = dim(proteomic_responses_1)[2],
-    proteomic_responses = proteomic_responses_1[i, ],
-    n_perm = 1000,
-    verbose = FALSE,
-    fs_dat = fs_value
-  )
-  ts[i, ] <- results$ts
-  ts_p[i, ] <- results$pts
-  ts_q[i, ] <- results$q
-}
-```
  
 # Output Files
 * TS_sample.csv: The target scores for each protein profiled
 * TS_sample_pvalue.csv: The p-values for each TargetScore against a null model generated by bootstrapping with label randomized data
 * TS_sample_qvalue.csv: The FDR-adjusted (BH-method) q-values based on the p-values
-
-## Code
-```
-#OUTPUT FILES
-colnames(ts) <- colnames(proteomic_responses_1)
-ts <- data.frame(rownames(proteomic_responses_1), ts)
-write.csv(ts,file="data_TS/TS_HCC1954.csv",row.names = F)
-
-colnames(ts_p) <- colnames(proteomic_responses_1)
-ts_p <- data.frame(rownames(proteomic_responses_1), ts_p)
-write.csv(ts_p,file="data_TS/TS_HCC1954_pvalue.csv",row.names = F)
-
-
-colnames(ts_q) <- colnames(proteomic_responses_1)
-ts_q <- data.frame(rownames(proteomic_responses_1), ts_q)
-write.csv(ts_q,file="data_TS/TS_HCC1954_qvalue.csv",row.names = F)
-```
 
 # TargetScore Visualization
 We provided three modules for visualization including network edgelist from reference network construction, heatmap for calculated target score, and Target Score volcano plot.

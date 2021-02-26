@@ -41,7 +41,6 @@ library(matrixStats)
 ```
 
 ## Load Data 
-
 Mandatory loading data including: Drug perturbation data (proteomic_responses). User may also provided antibody file and defined function score for certain antibody. 
 
 Several parameters should be settled:
@@ -73,21 +72,33 @@ max_dist <- 1 # changing this value requires additional work to compute product(
 ```
 
 ### Read Antibody File 
+This file represents [FIXME_DESCRIPTION]
+
+#### Columns
+* FIXME_target_symbol: Gene symbol of drug target
+* FIXME_target_id: Target DrugBank ID (e.g., https://go.drugbank.com/bio_entities/BE0009463)
+* FIXME_drug_name: Drug name
+
 ```{r load_data}
 mab_to_genes <- read.csv(file.path(resource_dir, "antibody_map_08092019.csv"), 
                          stringsAsFactors = FALSE)
+```
 
+### Read Drug Perturbation Data
+```{r}
 # Read drug perturbation data for BT474
 proteomic_responses <- read.csv(file.path(data_dir, "BT474.csv"), row.names = 1) # n_prot=100
+```
 
-# Read in User defined functional scores
+### Read Functional Scores
+```{r}
 fs_override <- read.csv(file.path(data_dir, "fs.csv"), header = TRUE, stringsAsFactors = FALSE)
 ```
 
 # Extract Network 
 Three ways of constructing reference networks are provided in the algorithm including knowledge-base reference network from SignedPC; data-driven reference network based on graphical lasso and hybrid-approach reference network termed pr-glasso.
 
-## Knowledge base reference network
+## Knowledge-base reference network
 
 Inferred from Pathway Commons and BioPax based database. knowledge base reference network integrates detailed human pathway data from multiple public resources such as Reactome, NCI PID, PhosphoSitePlus and Panther pathway database. Of interest to us, only four relationship was extracted out as: phosphorylation, dephosphorylation, expression upregulation, and expression downregulation.
 
