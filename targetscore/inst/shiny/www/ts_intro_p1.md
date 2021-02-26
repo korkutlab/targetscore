@@ -2,17 +2,17 @@
 
 TargeScore is a data-driven network modeling algorithm for drug response analysis in cancer
 
-The algorithm
+## Algorithm Goals
 1. infers how drugs rewire signaling pathway activities in time, dose and sample (drug resistant vs. sensitive) space.
 2. nominates combination therapies to block the resistance pathways. 
 
 The minimal molecular data requirement is molecular responses to a single sample treated with a single agent. 
 
-TargetScore scales to analysis of hundreds of samples perturbed with dosens of drugs in multiple doses and profiled accross time points.
+TargetScore scales to analysis of hundreds of samples perturbed with dozens of drugs in multiple doses and profiled accross time points.
 
-![Tutorial](TS_figure.png)
+<img src="TS_figure.png" alt="TargetScore Overview" width="1024" />
 
-#The algorithm steps
+# Algorithm Steps
 1. Molecular profiling of the cellular response to a perturbation; 
 2. Inference of a reference network (e.g., breast cancer signaling network) that captures potential relations between measured proteomic entities across diverse samples in a specific class; 
 3. Quantification of a sample and context-specific adaptation score (i.e., a TargetScore value) which links protein interactions to drug response on the reference network using molecular drug response data. The TargetScore values reflect adaptive responses and are calculated for each protein under each condition. It is quantified as the network interaction weighted sum of the "self-change" of the corresponding entity and the change in the pathway/network neighborhood in response to targeted perturbations. 
@@ -23,5 +23,4 @@ TargetScore scales to analysis of hundreds of samples perturbed with dosens of d
 Code available as the TargetScore R Package (https://github.com/korkutlab/targetscore)
 
 # Feedback
-
 We appreciate any feedback/suggestions you may have. Please forward feedback to [Anil Korkut](mailto:akorkut@mdanderson.org)

@@ -11,7 +11,7 @@ The minimal molecular data requirement is molecular responses to a single sample
 
 TargetScore scales to analysis of hundreds of samples perturbed with dozens of drugs in multiple doses and profiled accross time points.
 
-![Tutorial](TS_figure.png){width=1024px}
+<img src="TS_figure.png" alt="TargetScore Overview" width="1024" />
 
 # Algorithm Steps
 1. Molecular profiling of the cellular response to a perturbation; 
