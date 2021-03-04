@@ -32,7 +32,7 @@ ui <- navbarPage(
     )
   ),
   tabPanel(
-    "Run",
+    "Run on Website",
     sidebarLayout(
       sidebarPanel(
         width = 4,
@@ -148,7 +148,7 @@ ui <- navbarPage(
     )
   ),
   tabPanel(
-    "Tutorial",
+    "Local Installation",
     mainPanel(
       includeMarkdown("www/ts_intro_p2.md")
       #includeMarkdown("www/ts_input.md")
@@ -157,7 +157,7 @@ ui <- navbarPage(
   tabPanel(
     "People",
     mainPanel(
-      includeMarkdown("www/ts_about.md"),
+      includeMarkdown("www/ts_people.md"),
       h1("Version"),
       p(paste0("TargetScore: ", packageVersion("targetscore")))
     )
