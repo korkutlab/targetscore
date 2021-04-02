@@ -25,13 +25,13 @@ https://github.com/korkutlab/targetscore
   * Functional Score File: See "Example Input Files" section
   
 #### Code and Example Input Files (Plus File Descriptions)
-An RMarkdown tutorial is provided 
+An R Markdown tutorial is provided 
 https://github.com/korkutlab/targetscore/blob/master/targetscore/vignettes/target_score_tutorial.Rmd
 
 Paths to example files are mentioned in the tutorial are relative to the inst/ folder: 
 https://github.com/korkutlab/targetscore/tree/master/targetscore/inst
 
-File description are included in the FIXME_HEPING_ADD_THIS_TO_RMD
+File description are included in the R Markdown.
 
 ## Reference Network Inference
 The reference network model captures the signaling interactions underlying the drug responses.
