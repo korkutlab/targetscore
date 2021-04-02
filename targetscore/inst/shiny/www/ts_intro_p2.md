@@ -31,7 +31,7 @@ https://github.com/korkutlab/targetscore/blob/master/targetscore/vignettes/targe
 Paths to example files are mentioned in the tutorial are relative to the inst/ folder: 
 https://github.com/korkutlab/targetscore/tree/master/targetscore/inst
 
-File description are included in the R Markdown.
+File description are included in the R Markdown tutorial.
 
 ## Reference Network Inference
 The reference network model captures the signaling interactions underlying the drug responses.
