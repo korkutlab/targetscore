@@ -44,12 +44,12 @@ create_sif_from_matrix <- function(t_net,
     }
   }
   edgelist <- data.frame(
-    upper_node = node1,
+    source_node = node1,
     edge_value = edges,
-    down_node = node2,
+    target_node = node2,
     edges_value = edges_value,
-    upper_index = node1_n,
-    down_index = node2_n,
+    source_index = node1_n,
+    target_index = node2_n,
     stringsAsFactors = FALSE
   )
   return(edgelist)

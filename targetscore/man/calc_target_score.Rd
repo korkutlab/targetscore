@@ -50,6 +50,13 @@ antibody in the first column and functional score in the second column
 \item{dist_file}{A distance file an edgelist with a third column which is the network distance
 between the genes in the interaction}
 }
+\value{
+a list is returned with the following entries:
+{ts}{TargetScore values summed over individual drug doses}
+{tsd}{TargetScore values summed for individual drug doses}
+{wk}{inferred network matrix form with edge strength value estimated as the partial correlation.}
+{wks}{inferred network matrix form with edge strength value estimated as the partial correlation.}
+}
 \description{
 Compute Target score for randomized data/compute P value for each TS given a network topology
 }

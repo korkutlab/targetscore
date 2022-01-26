@@ -1,12 +1,17 @@
-#' Extracted functional score value from COMIC/ONCODRIVE Database. Can be override with Manually set functional score.
+#' Extracted functional score value from COMIC database; this can be overriden with manually curated scores
 #'
 #' @param n_prot Antibody number of input data.
 #' @param proteomic_responses Input drug perturbation data. With columns as antibody, rows as samples.
 #' @param mab_to_genes A list of antibodies, their associated genes, modification sites and effect.
 #' @param fs_override a listing of functional scores for each gene manually set up
 #' for overriding COSMIC Database given value, the modification path. (.txt)
-#' @param cancer_role_file a file specifying the role of cancer genes; 2-column table "gene" and "fs"; 
-#'   fs 1 is oncogene, 0 is dual or unknown, -1 is tumor supressor
+#' @param cancer_role_file File with at two least columns: "Gene.Symbol" and 
+#'   "Role.in.Cancer" where the "Role.in.Cancer" has mainly values "TSG" 
+#'   (tumor suppressor gene) or "oncogene"; "TSG, fusion" and "oncogene, fusion" 
+#'   are also understood. Other values (e.g., "TSG, oncogene", "NA", or blank) 
+#'   will be interpreted as dual or unknown as part of the functional score. 
+#'   One source for this is the COSMIC 
+#'   Cancer Gene Census: https://cancer.sanger.ac.uk/cosmic/download
 #' @param verbose Default as FALSE. If given TRUE, will print out the gene seq mapped with antibody map file.
 #' 
 #' @return 
@@ -39,7 +44,7 @@
 #' @concept targetscore
 #' @export
 get_fs_vals <- function(n_prot, proteomic_responses, mab_to_genes, fs_override=NULL, 
-  cancer_role_file=system.file("extdata", "Cosmic.txt", package = "targetscore"), verbose=FALSE) {
+  cancer_role_file=system.file("extdata", "cancer_gene_census_v95.txt", package="targetscore"), verbose=FALSE) {
   
   if (verbose) {
     print(mab_to_genes)
@@ -62,30 +67,51 @@ get_fs_vals <- function(n_prot, proteomic_responses, mab_to_genes, fs_override=N
   mab_genes <- mab_to_genes[idx_ab_map, 4]
   names(mab_genes) <- mab_to_genes[idx_ab_map, 1]
 
-  # Get FS value
+  # Get Functional Score Value
+  ## Get the protein/phosphoprotein effect information from the antibody map
   mab_value <- mab_to_genes[idx_ab_map, 6]
-  mab_fs <- ifelse(mab_value == "a", 1, ifelse(mab_value == "i", -1, ifelse(mab_value == "c", 1, 0)))
-
-  cancer_role <- read.table(cancer_role_file,
-    sep = "\t", header = TRUE, fill = TRUE
-  )
+  mab_phospho_effect <- ifelse(mab_value == "a", 1, ifelse(mab_value == "i", -1, ifelse(mab_value == "c", 1, 0)))
+  
+  cancer_role <- read.csv(cancer_role_file)
+  cancer_role <- cancer_role[, c("Gene.Symbol", "Role.in.Cancer")]
+  
+  # For consistency with existing code
+  colnames(cancer_role) <- c("gene", "role_in_cancer")
+  
+  # Mapping: oncogene as +1, tumor suppressor as -1, or 0 both or unknown
+  cancer_role$fs <- 0
+  cancer_role$fs[cancer_role$role_in_cancer == "oncogene" | cancer_role$role_in_cancer == "oncogene, fusion"] <- 1
+  cancer_role$fs[cancer_role$role_in_cancer == "TSG" | cancer_role$role_in_cancer == "TSG, fusion"] <- -1
+  
   index <- match(mab_genes, cancer_role$gene)
   cos_fs <- cancer_role[index, ]$fs
   cos_fs[is.na(cos_fs)] <- 0
 
-  fs_value <- mab_fs * cos_fs
+  ## Final functional score values will the multiplication of the protein effect and the functional annotation
+  fs_value <- mab_phospho_effect * cos_fs
 
   fs <- data.frame(prot = mab_to_genes[idx_ab_map, 1], fs = fs_value, stringsAsFactors = FALSE)
-
+  
+  # Replace NAs with 0 (i.e., unknown)
+  fs$fs[is.na(fs$fs)] <- 0
+  
   # Uniqueness of fs value
   fs <- unique(fs)
 
-  # deal with duplicate and double value extracted
+  # Deal with duplicate and double value extracted
   prot_dup <- fs$prot[duplicated(fs$prot)]
-  for (i in seq_along(prot_dup)) {
+  for (i in 1:length(prot_dup)) {
+    if(verbose) {
+      cat("DEBUG: Duplicate: ",  prot_dup[i], "\n")
+    }
+    
     index <- which(fs$prot %in% prot_dup[i])
     fs_dup <- fs[index, ]
+    
+    # Remove the duplicate
     fs <- fs[-index, ]
+    
+    # Replace the former duplicates with a new entry based on these rules
     if (any(c(fs_dup$fs) == 0) & any(c(fs_dup$fs) == 1)) {
       dup <- c(as.character(prot_dup[i]), 1)
     }
@@ -98,10 +124,11 @@ get_fs_vals <- function(n_prot, proteomic_responses, mab_to_genes, fs_override=N
     if (any(c(fs_dup$fs) == 0) & any(c(fs_dup$fs) == -1) & any(c(fs_dup$fs) == 1)) {
       dup <- c(as.character(prot_dup[i]), 0)
     }
+    
     fs <- rbind(fs, dup)
   }
 
-  # Override with Self setting/external fs value
+  # Override with self setting/external fs value
   if (!is.null(fs_override)) {
     # Select fs_override
     index <- match(fs$prot, fs_override$prot)

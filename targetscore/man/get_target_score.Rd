@@ -48,6 +48,16 @@ between the genes in the interaction}
 \item{fs_dat}{a dataset with the functional score data.First coloumn as the protein name and second
 column as the functional score. Can be inferred from get_fs_value or be User defined and curated.}
 }
+\value{
+a list is returned with the following entries:
+{ts}{TargetScore values summed over individual drug doses}
+{tsd}{TargetScore values summed for individual drug doses}
+{wk}{Inferred network matrix form with edge strength value estimated as the partial correlation}
+{wks}{Inferred network matrix form with edge strength value estimated as the partial correlation}
+{pts}{Unadjusted p-values calculated for using permutation testing where proteomic responses for each row have been randomized}
+{q}{Q-values (derived from FDR adjusted p-values) calculated for using permutation testing where proteomic responses for each row have been randomized}
+{rand_ts}{TargetScores for each randomized permutation}
+}
 \description{
 Target Score Pilot Run
 }
@@ -58,7 +68,7 @@ to be converted to integral_dose(fs*((xi/(stdev_xi)+sigma_j(2^p*((xj/stdev_xj)*p
 missing: For phosp and dephosp based wk, there is no 'exact match' between known and measured phospho-sites
 }
 \examples{
-# read proteomic responce file
+# read proteomic response file
 signaling_responses <- read.csv(system.file("test_data", "TCGA-BRCA-L4.csv",
 package = "targetscore"
 ), row.names = 1)

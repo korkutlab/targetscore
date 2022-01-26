@@ -79,7 +79,7 @@ The Antibody file is the Gene Name list database which provided the onsite Anito
 * Source: Source of the Antibody. The provided antibody_map_file contains two sources including MDACC as MD Anderson Cancer Center and MSKCC standing for Memorial Sloan Kettering Cancer Center.
 * NodeName: MDACC standardized Antibody Name.
 * Gene_Symbol: Corresponding HGNC symbol and Ensembl ID
-* Sites: phosphorylation site. na stands for no phosphorylation. One site phosphorylation, for example:S473 for Akt_pS473, Two site phosphorylation, for example :Y1234|Y1235 for c.Met_pY1234_Y1235.
+* Sites: Phosphorylation site. NA stands for no phosphorylation. One site phosphorylation, for example:S473 for Akt_pS473, Two site phosphorylation, for example :Y1234|Y1235 for c.Met_pY1234_Y1235.
 * Effect: The effect of Phosphorylation. Including:
   * c : no phosphorylation
   * a : activation
@@ -109,8 +109,8 @@ proteomic_responses <- read.csv(file.path(data_dir, "BT474.csv"), row.names = 1)
 
 ### Read Functional Scores
 Functional scores is a functional role assigned as a numeric score to proteomic entities.there is evidence for an entity’s function as an oncogene or tumor suppressor in cancer. A central basis for this cancer role comes the curated and widely-used COSMIC database.
-* Two different functional score value were assigned: oncogene as +1,and tumor suppressor as -1.
-* it is also possible for users to manually alter these scores referring from literature or through expert editing, if necessary.
+* Different functional score value are assigned: oncogene as +1, tumor suppressor as -1, or 0 both or unknown
+* It is also possible for users to manually alter these scores referring from literature or through expert editing, if necessary.
 
 ### Columns
 * gene : HGNC symbol and Ensembl ID
@@ -219,8 +219,17 @@ saveRDS(fs, file.path(output_dir, "bt474_fs.rds"))
 
 The Target Score is calculated for each measured entity (e.g, protein) under each condition. It is quantified as the network interaction weighted sum of the "self-change" of the corresponding entity and the change in the pathway/network neighborhood in response to targeted perturbations. The statistical assessment of Target Score is then reached at Random sampling of proteomic responses (randomized Ab label mixing) at each drug dose generates the randomized data sets over all antibody readouts.
 
+**NOTE:** n_perm is set to 25 for demonstration purposes. 
+
+# Guidance for Selecting Number of Perturbations (n_perm)
+
+Choose a number greater than the total number of nodes; 1000 is often reasonable. Different large values (e.g., 1000, 2000, etc.) can be examined to ensure that p-values have converged and are stable. 
+
 ```{r target_score_calculation_example, message=FALSE, warning=FALSE}
 ## Calculate Target Score
+
+# Permutation times
+n_perm <- 25
 
 # Reference network
 wk <- network$wk
@@ -238,9 +247,6 @@ n_cond <- nrow(proteomic_responses)
 ts <- array(0, dim = c(n_cond, n_prot))
 ts_p <- array(0, dim = c(n_cond, n_prot))
 ts_q <- array(0, dim = c(n_cond, n_prot))
-
-# Permutation time
-n_perm <- 25
 
 # TS
 for (i in 1:n_cond) {

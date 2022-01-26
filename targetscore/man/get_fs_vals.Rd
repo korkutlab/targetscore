@@ -2,14 +2,15 @@
 % Please edit documentation in R/get_fs_vals.R
 \name{get_fs_vals}
 \alias{get_fs_vals}
-\title{Extracted functional score value from COMIC/ONCODRIVE Database. Can be override with Manually set functional score.}
+\title{Extracted functional score value from COMIC database; this can be overriden with manually curated scores}
 \usage{
 get_fs_vals(
   n_prot,
   proteomic_responses,
   mab_to_genes,
   fs_override = NULL,
-  cancer_role_file = system.file("extdata", "Cosmic.txt", package = "targetscore"),
+  cancer_role_file = system.file("extdata", "cancer_gene_census_v95.txt", package =
+    "targetscore"),
   verbose = FALSE
 )
 }
@@ -23,8 +24,13 @@ get_fs_vals(
 \item{fs_override}{a listing of functional scores for each gene manually set up
 for overriding COSMIC Database given value, the modification path. (.txt)}
 
-\item{cancer_role_file}{a file specifying the role of cancer genes; 2-column table "gene" and "fs"; 
-fs 1 is oncogene, 0 is dual or unknown, -1 is tumor supressor}
+\item{cancer_role_file}{File with at two least columns: "Gene.Symbol" and 
+"Role.in.Cancer" where the "Role.in.Cancer" has mainly values "TSG" 
+(tumor suppressor gene) or "oncogene"; "TSG, fusion" and "oncogene, fusion" 
+are also understood. Other values (e.g., "TSG, oncogene", "NA", or blank) 
+will be interpreted as dual or unknown as part of the functional score. 
+One source for this is the COSMIC 
+Cancer Gene Census: https://cancer.sanger.ac.uk/cosmic/download}
 
 \item{verbose}{Default as FALSE. If given TRUE, will print out the gene seq mapped with antibody map file.}
 }
@@ -32,7 +38,7 @@ fs 1 is oncogene, 0 is dual or unknown, -1 is tumor supressor}
 * "fs_final" dataframe with two coloumns: prot as antibody label; fs as functional #' score
 }
 \description{
-Extracted functional score value from COMIC/ONCODRIVE Database. Can be override with Manually set functional score.
+Extracted functional score value from COMIC database; this can be overriden with manually curated scores
 }
 \examples{
 # Read fs_manually set file

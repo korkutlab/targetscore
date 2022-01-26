@@ -8,7 +8,7 @@
 #' function. Where predict_bio_network edge value default at 1 for upregulate, -1 for down regulate,
 #' 2 for phosphorylation and -2 for dephosphorylation.
 #' @param dist_ind i distance file of edgelist with a third column as the network distance
-#'   between the genes in the interaction
+#' between the genes in the interaction
 #' @param inter edgelist of inferred network.
 #' @param n_dose dose number of input data.
 #' @param n_prot antibody number of input data.
@@ -19,8 +19,17 @@
 #' @param fs_dat a dataset with the functional score data.First coloumn as the protein name and second
 #' column as the functional score. Can be inferred from get_fs_value or be User defined and curated.
 #' 
+#' @return a list is returned with the following entries:
+#' {ts}{TargetScore values summed over individual drug doses}
+#' {tsd}{TargetScore values summed for individual drug doses}
+#' {wk}{Inferred network matrix form with edge strength value estimated as the partial correlation}
+#' {wks}{Inferred network matrix form with edge strength value estimated as the partial correlation}
+#' {pts}{Unadjusted p-values calculated for using permutation testing where proteomic responses for each row have been randomized}
+#' {q}{Q-values (derived from FDR adjusted p-values) calculated for using permutation testing where proteomic responses for each row have been randomized}
+#' {rand_ts}{TargetScores for each randomized permutation}
+#' 
 #' @examples 
-#' # read proteomic responce file
+#' # read proteomic response file
 #' signaling_responses <- read.csv(system.file("test_data", "TCGA-BRCA-L4.csv",
 #' package = "targetscore"
 #' ), row.names = 1)
@@ -92,7 +101,7 @@ get_target_score <- function(wk, wks, dist_ind, inter, n_dose, n_prot, proteomic
     n_dose = n_dose,
     n_prot = n_prot,
     proteomic_responses = proteomic_responses,
-    verbose = TRUE,
+    verbose = verbose,
     ts_factor = ts_factor,
     fs_dat = fs_dat
   )
@@ -101,7 +110,7 @@ get_target_score <- function(wk, wks, dist_ind, inter, n_dose, n_prot, proteomic
   tsd <- results$tsd
   wks <- results$wks
 
-  # random TS for each node over n permutations comes from randTargetScore.R
+  # Random TS for each node over n permutations
   rand_ts <- matrix(0, nrow = n_prot, ncol = n_perm)
 
   # p value for a given target score computed over the distribution from randTS
@@ -157,7 +166,7 @@ get_target_score <- function(wk, wks, dist_ind, inter, n_dose, n_prot, proteomic
   rownames(pts) <- colnames(proteomic_responses)
 
   # RETURN RESULTS ----
-  results <- list(ts = ts, wk = wk, tsd = tsd, q = q, wks = wks, pts = pts, rand_ts = rand_ts)
+  results <- list(wk = wk, wks = wks, ts = ts, tsd = tsd, pts = pts, q = q, rand_ts = rand_ts)
 
   return(results)
 }

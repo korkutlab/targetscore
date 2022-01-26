@@ -21,6 +21,12 @@
 #'   between the genes in the interaction
 #' @param ts_factor a scaling factor for the pathway component in the target score
 #'
+#' @return a list is returned with the following entries:
+#' {ts}{TargetScore values summed over individual drug doses}
+#' {tsd}{TargetScore values summed for individual drug doses}
+#' {wk}{inferred network matrix form with edge strength value estimated as the partial correlation.}
+#' {wks}{inferred network matrix form with edge strength value estimated as the partial correlation.}
+#'
 #' @details
 #' data: multiple dose single drug perturbation
 #' ts: integral_dose(fs*(xi+sigma_j(2^p*xj*product_k(wk))))
@@ -78,6 +84,6 @@ calc_target_score <- function(wk, wks, dist_ind, inter, n_dose, n_prot, proteomi
 
   ts <- colSums(tsd)
   # colnames(ts) <- colnames(proteomic_responses) rownames(ts) <- rownames(proteomic_responses)
-  results <- list(ts = ts, wk = wk, tsd = tsd, wks = wks)
+  results <- list(wk = wk, wks = wks, ts = ts, tsd = tsd)
   return(results)
 }
