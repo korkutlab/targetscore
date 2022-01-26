@@ -9,7 +9,7 @@ get_fs_vals(
   proteomic_responses,
   mab_to_genes,
   fs_override = NULL,
-  cancer_role_file = system.file("extdata", "cancer_gene_census_v95.txt", package =
+  cancer_role_file = system.file("extdata", "cancer_gene_census_v88.csv", package =
     "targetscore"),
   verbose = FALSE
 )

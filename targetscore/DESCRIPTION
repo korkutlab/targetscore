@@ -1,7 +1,7 @@
 Package: targetscore
 Type: Package
 Title: TargetScore
-Version: 0.99.15
+Version: 0.99.16
 Date: 2022-01-26
 Author: Augustin Luna, Anil Korkut
 Maintainer: Augustin Luna <lunaa@cbio.mskcc.org>

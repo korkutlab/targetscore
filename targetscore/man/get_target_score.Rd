@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_target_score.R
 \name{get_target_score}
 \alias{get_target_score}
-\title{Target Score Pilot Run}
+\title{Get Target Score Value Significance}
 \usage{
 get_target_score(
   wk,
@@ -51,7 +51,7 @@ column as the functional score. Can be inferred from get_fs_value or be User def
 \value{
 a list is returned with the following entries:
 {ts}{TargetScore values summed over individual drug doses}
-{tsd}{TargetScore values summed for individual drug doses}
+{tsd}{TargetScore values for individual drug doses}
 {wk}{Inferred network matrix form with edge strength value estimated as the partial correlation}
 {wks}{Inferred network matrix form with edge strength value estimated as the partial correlation}
 {pts}{Unadjusted p-values calculated for using permutation testing where proteomic responses for each row have been randomized}
@@ -59,7 +59,7 @@ a list is returned with the following entries:
 {rand_ts}{TargetScores for each randomized permutation}
 }
 \description{
-Target Score Pilot Run
+Get Target Score Value Significance
 }
 \details{
 data: multiple dose single drug perturbation

@@ -173,8 +173,11 @@ test_that("create_sif_from_matrix", {
     col_genelist = colnames(network_org$wk),
     row_genelist = rownames(network_org$wk)
   )
+  
+  # Save snapshot
+  #saveRDS(edgelist_wk, file.path("inst", "test_data_files", "create_sif_from_matrix_output.rds"))
 
-  expect_identical(edgelist_wk, wk_org)
+  expect_identical(wk_org, edgelist_wk)
 })
 
 test_that("get_fs_vals", {

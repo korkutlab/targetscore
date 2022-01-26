@@ -4,12 +4,19 @@
 \alias{check_antibody_map_presence}
 \title{Check the Presence of Antibodies in the TargetScore Antibody Map}
 \usage{
-check_antibody_map_presence(antibody_vec, antibody_map = NULL)
+check_antibody_map_presence(
+  antibody_vec,
+  antibody_map = NULL,
+  antibody_map_file = system.file("target_score_data", "antibody_map_12162021.csv",
+    package = "targetscore")
+)
 }
 \arguments{
 \item{antibody_vec}{a vector of antibody labels}
 
-\item{antibody_map}{if NULL then a default map will be used (see inst/target_score_data)}
+\item{antibody_map}{if NULL then a default map will be used from antibody_map_file}
+
+\item{antibody_map_file}{uses an antibody map file from inst/target_score_data}
 }
 \value{
 a vector of antibodies not present in the TargetScore Antibody Map
@@ -26,7 +33,7 @@ The function will make several edits before the comparison:
 }
 }
 \examples{
-antibody_vec <- readLines(system.file("test_data/test_antibody_names.txt", package="targetscore"))
+antibody_vec <- readLines(system.file("test_data", "test_antibody_names.txt", package="targetscore"))
 # BADANTIBODY should be returned as the only entry of 50
 check_antibody_map_presence(antibody_vec) 
 
