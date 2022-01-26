@@ -44,7 +44,7 @@
 #' @concept targetscore
 #' @export
 get_fs_vals <- function(n_prot, proteomic_responses, mab_to_genes, fs_override=NULL, 
-  cancer_role_file=system.file("extdata", "cancer_gene_census_v95.txt", package="targetscore"), verbose=FALSE) {
+  cancer_role_file=system.file("extdata", "cancer_gene_census_v88.csv", package="targetscore"), verbose=FALSE) {
   
   if (verbose) {
     print(mab_to_genes)
@@ -100,32 +100,35 @@ get_fs_vals <- function(n_prot, proteomic_responses, mab_to_genes, fs_override=N
 
   # Deal with duplicate and double value extracted
   prot_dup <- fs$prot[duplicated(fs$prot)]
-  for (i in 1:length(prot_dup)) {
-    if(verbose) {
-      cat("DEBUG: Duplicate: ",  prot_dup[i], "\n")
-    }
-    
-    index <- which(fs$prot %in% prot_dup[i])
-    fs_dup <- fs[index, ]
-    
-    # Remove the duplicate
-    fs <- fs[-index, ]
-    
-    # Replace the former duplicates with a new entry based on these rules
-    if (any(c(fs_dup$fs) == 0) & any(c(fs_dup$fs) == 1)) {
-      dup <- c(as.character(prot_dup[i]), 1)
-    }
-    if (any(c(fs_dup$fs) == 1) & any(c(fs_dup$fs) == -1)) {
-      dup <- c(as.character(prot_dup[i]), 0)
-    }
-    if (any(c(fs_dup$fs) == 0) & any(c(fs_dup$fs) == -1)) {
-      dup <- c(as.character(prot_dup[i]), -1)
-    }
-    if (any(c(fs_dup$fs) == 0) & any(c(fs_dup$fs) == -1) & any(c(fs_dup$fs) == 1)) {
-      dup <- c(as.character(prot_dup[i]), 0)
-    }
-    
-    fs <- rbind(fs, dup)
+  
+  if(length(prot_dup) > 0) {
+    for (i in 1:length(prot_dup)) {
+      if(verbose) {
+        cat("DEBUG: Duplicate: ",  prot_dup[i], "\n")
+      }
+      
+      index <- which(fs$prot %in% prot_dup[i])
+      fs_dup <- fs[index, ]
+      
+      # Remove the duplicate
+      fs <- fs[-index, ]
+      
+      # Replace the former duplicates with a new entry based on these rules
+      if (any(c(fs_dup$fs) == 0) & any(c(fs_dup$fs) == 1)) {
+        dup <- c(as.character(prot_dup[i]), 1)
+      }
+      if (any(c(fs_dup$fs) == 1) & any(c(fs_dup$fs) == -1)) {
+        dup <- c(as.character(prot_dup[i]), 0)
+      }
+      if (any(c(fs_dup$fs) == 0) & any(c(fs_dup$fs) == -1)) {
+        dup <- c(as.character(prot_dup[i]), -1)
+      }
+      if (any(c(fs_dup$fs) == 0) & any(c(fs_dup$fs) == -1) & any(c(fs_dup$fs) == 1)) {
+        dup <- c(as.character(prot_dup[i]), 0)
+      }
+      
+      fs <- rbind(fs, dup)
+    }    
   }
 
   # Override with self setting/external fs value

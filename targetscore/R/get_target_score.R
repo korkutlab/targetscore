@@ -1,4 +1,4 @@
-#' Target Score Pilot Run
+#' Get Target Score Value Significance
 #'
 #' @param wk inference network constructed in matrix form with edge strength value estimated.
 #' Can be extracted directly from predict_bio_network,predict_dat_network or predictt_hyb_network

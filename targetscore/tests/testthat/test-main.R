@@ -183,7 +183,7 @@ test_that("get_fs_vals", {
     package = "targetscore"
   ))
 
-  # Read proteomic responce file
+  # Read proteomic response file
   proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "targetscore"), row.names = 1)
   
   # Read antibody file
