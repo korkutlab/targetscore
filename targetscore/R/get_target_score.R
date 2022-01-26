@@ -21,7 +21,7 @@
 #' 
 #' @return a list is returned with the following entries:
 #' {ts}{TargetScore values summed over individual drug doses}
-#' {tsd}{TargetScore values summed for individual drug doses}
+#' {tsd}{TargetScore values for individual drug doses}
 #' {wk}{Inferred network matrix form with edge strength value estimated as the partial correlation}
 #' {wks}{Inferred network matrix form with edge strength value estimated as the partial correlation}
 #' {pts}{Unadjusted p-values calculated for using permutation testing where proteomic responses for each row have been randomized}
