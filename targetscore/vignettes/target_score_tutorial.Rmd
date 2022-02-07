@@ -130,6 +130,8 @@ Three ways of constructing reference networks are provided in the algorithm incl
 
 Inferred from Pathway Commons and BioPax based database. knowledge base reference network integrates detailed human pathway data from multiple public resources such as Reactome, NCI PID, PhosphoSitePlus and Panther pathway database. Of interest to us, only four relationship was extracted out as: phosphorylation, dephosphorylation, expression upregulation, and expression downregulation.
 
+**NOTE:**: Here the antibody map file provides antibody site-specific information in a structured form
+
 ```{r extract_network}
 # Extract network
 network <- targetscore::predict_bio_network(
@@ -164,9 +166,9 @@ network <- targetscore::predict_dat_network(
 saveRDS(network, file.path(output_dir, "bt474_datnetwork.rds"))
 ```
 
-## Hybrid-approach (pr-glasso) reference network
+## Hybrid-approach (prior-glasso) reference network
 
-We have developed a modified version of the glasso algorithm, termed pr (prior) -glasso. pr-glasso integrates experimental constraints with prior information from knowledge signaling databases
+We have developed a modified version of the glasso algorithm, termed prior-glasso. prior-glasso integrates experimental constraints with prior information from knowledge signaling databases
 
 The prior information is incorporated into the inference with a probabilistic term that favors prior interactions that conform to the experimental data, eliminates priors that do not conform and predict novel interactions dictated solely by the experimental data. The prior information narrows the potential solutions to a biologically more relevant domain of the search space.
 
@@ -236,6 +238,7 @@ wk <- network$wk
 wks <- network$wks
 dist_ind <- network$dist_ind
 inter <- network$inter
+edgelist <- network$edgelist
 
 # functional score
 fs <- readRDS(file.path(output_dir, "bt474_fs.rds"))

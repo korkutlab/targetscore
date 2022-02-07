@@ -2,13 +2,13 @@
 % Please edit documentation in R/calc_target_score.R
 \name{calc_target_score}
 \alias{calc_target_score}
-\title{Compute Target score for randomized data/compute P value for each TS given a network topology}
+\title{Compute a TargetScore for randomized data/compute P value for each TS given a network topology}
 \usage{
 calc_target_score(
   wk,
   wks,
   dist_ind,
-  inter,
+  edgelist,
   n_dose,
   n_prot,
   proteomic_responses,
@@ -31,7 +31,7 @@ function. Where predict_bio_network edge value default at 1 for upregulate, -1 f
 \item{dist_ind}{A distance file of edgelist with a third column as the network distance
 between the genes in the interaction}
 
-\item{inter}{Edgelist of inferred network}
+\item{edgelist}{Edgelist of inferred network}
 
 \item{n_dose}{Dose number of input data.}
 
@@ -58,7 +58,7 @@ a list is returned with the following entries:
 {wks}{inferred network matrix form with edge strength value estimated as the partial correlation.}
 }
 \description{
-Compute Target score for randomized data/compute P value for each TS given a network topology
+Compute a TargetScore for randomized data/compute P value for each TS given a network topology
 }
 \details{
 data: multiple dose single drug perturbation

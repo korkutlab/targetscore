@@ -1,4 +1,4 @@
-#' Predict Network from signedPC (Bio-inferred network)
+#' Predict Network from signedPC (curated knowledge bio-inferred network)
 #'
 #' @param n_prot Antibody number of input data.
 #' @param proteomic_responses Input drug perturbation data. With columns as antibody, rows as samples.
@@ -7,6 +7,9 @@
 #' @param dist_file A distance file an edgelist with a third column which is the network distance
 #'   between the genes in the interaction
 #' @param verbose whether to show debugging information
+#' 
+#' @note proteomic_responses is used only to retrieve the desired list of 
+#' entries for the resulting network
 #'
 #' @return a list is returned with the following entries:
 #' * "wk" inferred network matrix form with edge strength value default at 1 for
@@ -15,7 +18,7 @@
 #' upregulate and -1 for down regulate and 2 for phosphorylation and -2 for dephosphorylation.
 #' * "dist_ind" A distance file of edgelist with a third column as the network distance
 #' between the genes in the interaction.
-#' * "inter" file as edgelist of inferred network.
+#' * "inter" file as edgelist of inferred network
 #' * "edgelist" file as sif file of edgelist for inferred network.
 #'
 #' @examples 

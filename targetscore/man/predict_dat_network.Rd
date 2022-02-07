@@ -2,14 +2,15 @@
 % Please edit documentation in R/predict_dat_network.R
 \name{predict_dat_network}
 \alias{predict_dat_network}
-\title{predict data-driven only network.}
+\title{Predict data-driven only network using glasso}
 \usage{
 predict_dat_network(
   data,
   cut_off = 0.1,
   n_prot,
   proteomic_responses,
-  rho = 10^seq(-2, 0, 0.02)
+  rho = 10^seq(-2, 0, 0.02),
+  verbose = FALSE
 )
 }
 \arguments{
@@ -22,13 +23,19 @@ With colnames as gene tags and rownames as sample tags.}
 
 \item{proteomic_responses}{Input drug perturbation data. With columns as antibody, rows as samples.}
 
-\item{rho}{positive tuning parameter vector for elastic net penalty. Default at 10^seq(-2,0, 0.02).}
+\item{rho}{positive tuning parameter vector for elastic net penalty. Default at 10^seq(-2,0, 0.02)}
+
+\item{verbose}{logical, whether to show additional debugging information}
 }
 \value{
-Parameter of regulization decided lowest BIC.Including regularize parameter(L1 norm parameter) as rho.
+Parameter of regulization decided lowest BIC. Including regularize parameter(L1 norm parameter) as rho.
 }
 \description{
-predict data-driven only network.
+Predict data-driven only network using glasso
+}
+\note{
+proteomic_responses is used only to retrieve the desired list of 
+entries for the resulting network
 }
 \examples{
 # Read proteomic response for cellline1

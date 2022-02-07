@@ -8,7 +8,7 @@ get_target_score(
   wk,
   wks,
   dist_ind,
-  inter,
+  edgelist,
   n_dose,
   n_prot,
   proteomic_responses,
@@ -31,7 +31,7 @@ function. Where predict_bio_network edge value default at 1 for upregulate, -1 f
 \item{dist_ind}{i distance file of edgelist with a third column as the network distance
 between the genes in the interaction}
 
-\item{inter}{edgelist of inferred network.}
+\item{edgelist}{edgelist of inferred network.}
 
 \item{n_dose}{dose number of input data.}
 
@@ -97,7 +97,7 @@ results <- targetscore::get_target_score(
   wk = network$wk,
   wks = network$wks,
   dist_ind = network$dist_ind,
-  inter = network$inter,
+  edgelist = network$edgelist,
   n_dose = 1,
   n_prot = dim(proteomic_responses)[2],
   proteomic_responses = proteomic_responses[i,],

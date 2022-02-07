@@ -13,7 +13,8 @@ predict_hybrid_network(
   max_dist = 1,
   mab_to_genes,
   rho = 10^seq(-2, 0, 0.02),
-  kappa = 10^seq(-2, 0, 0.02)
+  kappa = 10^seq(-2, 0, 0.02),
+  verbose = FALSE
 )
 }
 \arguments{
@@ -36,6 +37,8 @@ With colnames and rownames as gene tags. Can be inferred from predict_bio_networ
 \item{rho}{positive tuning parameter vector for elastic net penalty. Default at 10^seq(-2,0, 0.02).}
 
 \item{kappa}{positive scale parameter vector for prior information matrix contribution. Default at 10^seq(-2,0, 0.02)}
+
+\item{verbose}{logical, whether to show additional debugging information}
 }
 \value{
 a list is returned with the following entries:
@@ -55,6 +58,10 @@ data as "rho_m".
 }
 \description{
 Choose the optimal regulization parameter and scale paramter for prior information adjusted network construction.
+}
+\note{
+proteomic_responses is used only to retrieve the desired list of 
+entries for the resulting network
 }
 \examples{
 # READ ANTIBODY FILE ----

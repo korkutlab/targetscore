@@ -2,7 +2,7 @@
 % Please edit documentation in R/predict_bio_network.R
 \name{predict_bio_network}
 \alias{predict_bio_network}
-\title{Predict Network from signedPC (Bio-inferred network)}
+\title{Predict Network from signedPC (curated knowledge bio-inferred network)}
 \usage{
 predict_bio_network(
   n_prot,
@@ -35,11 +35,15 @@ upregulate and -1 for down regulate.
 upregulate and -1 for down regulate and 2 for phosphorylation and -2 for dephosphorylation.
 * "dist_ind" A distance file of edgelist with a third column as the network distance
 between the genes in the interaction.
-* "inter" file as edgelist of inferred network.
+* "inter" file as edgelist of inferred network
 * "edgelist" file as sif file of edgelist for inferred network.
 }
 \description{
-Predict Network from signedPC (Bio-inferred network)
+Predict Network from signedPC (curated knowledge bio-inferred network)
+}
+\note{
+proteomic_responses is used only to retrieve the desired list of 
+entries for the resulting network
 }
 \examples{
 # READ ANTIBODY FILE ----

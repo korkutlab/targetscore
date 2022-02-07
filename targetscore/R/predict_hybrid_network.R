@@ -11,6 +11,10 @@
 #' @param mab_to_genes A list of antibodies, their associated genes, modification sites and effect.
 #' @param rho positive tuning parameter vector for elastic net penalty. Default at 10^seq(-2,0, 0.02).
 #' @param kappa positive scale parameter vector for prior information matrix contribution. Default at 10^seq(-2,0, 0.02)
+#' @param verbose logical, whether to show additional debugging information
+#' 
+#' @note proteomic_responses is used only to retrieve the desired list of 
+#' entries for the resulting network
 #'
 #' @return a list is returned with the following entries:
 #' {parameters} as the parameter list of regulization parameter decided by the prior information
@@ -67,7 +71,8 @@
 predict_hybrid_network <- function(data, prior = NULL, cut_off = 0.1, proteomic_responses, n_prot,
                                    max_dist = 1, mab_to_genes,
                                    rho = 10^seq(-2, 0, 0.02),
-                                   kappa = 10^seq(-2, 0, 0.02)) {
+                                   kappa = 10^seq(-2, 0, 0.02),
+                                   verbose=FALSE) {
   if (is.null(prior)) {
     network_ref <- targetscore::predict_bio_network(
       n_prot = n_prot,
@@ -85,7 +90,7 @@ predict_hybrid_network <- function(data, prior = NULL, cut_off = 0.1, proteomic_
   data <- data[, index]
   prior1 <- prior[index, index]
 
-  # prior information extration
+  # prior information extraction
   prior1 <- ifelse(prior1 != 0, 1, 0) # information matrix of prior
   prior2 <- prior1 # symmetrical prior information
   for (i in seq_len(nrow(prior1))) {
@@ -123,15 +128,21 @@ predict_hybrid_network <- function(data, prior = NULL, cut_off = 0.1, proteomic_
   parameters <- list(rho_m = rho_m, rho = rho, kappa = kappa)
 
   # Estimated inverse covariance (precision)
+  # Default glasso max iterations (maxit) is 10000
   g_result <- glasso::glasso(covmatrix, rho = rho_m, nobs = nrow(covmatrix))
   sigma_matrix <- g_result$wi
   niter <- g_result$niter
-  print(niter) # if niter = 10,000
+  
+  if(verbose) {
+    print(niter) # if niter = 10,000    
+  }
+  
   if (niter == 10000) {
-    stop("ERROR: Algorithm does not convergence!")
+    stop("ERROR: Algorithm does not converge!")
   }
 
   pcor_matrix <- matrix(0, nrow = ncol(data), ncol = ncol(data))
+  
   for (i in 1:ncol(data)) {
     for (j in 1:ncol(data)) {
       pcor_matrix[i, j] <- -sigma_matrix[i, j] / sqrt(sigma_matrix[i, i] * sigma_matrix[j, j])
@@ -205,7 +216,7 @@ predict_hybrid_network <- function(data, prior = NULL, cut_off = 0.1, proteomic_
 
   #
   wk <- network_total
-  networks <- targetscore::network2(
+  networks <- targetscore::predict_dat_network_get_properties(
     wk = wk, n_prot = n_prot,
     proteomic_responses = proteomic_responses,
   )

@@ -131,13 +131,13 @@ test_that("predict_hybrid_network", {
   expect_identical(network$inter, network_org$inter)
 })
 
-test_that("network2", {
+test_that("predict_dat_network_get_properties", {
 
   # Read proteomic response for cellline1
   proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "targetscore"), row.names = 1)
 
   # Read network output
-  network_org <- readRDS(system.file("test_data_files", "network2_network_output.rds",
+  network_org <- readRDS(system.file("test_data_files", "network_properties_output.rds",
     package = "targetscore"
   ))
 
@@ -146,7 +146,7 @@ test_that("network2", {
     package = "targetscore"
   ))
 
-  network <- targetscore::network2(
+  network <- targetscore::predict_dat_network_calc_properties(
     wk <- wk_org$wk,
     n_prot = dim(proteomic_responses)[2],
     proteomic_responses = proteomic_responses

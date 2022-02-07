@@ -9,7 +9,7 @@
 #' 2 for phosphorylation and -2 for dephosphorylation.
 #' @param dist_ind i distance file of edgelist with a third column as the network distance
 #' between the genes in the interaction
-#' @param inter edgelist of inferred network.
+#' @param edgelist edgelist of inferred network.
 #' @param n_dose dose number of input data.
 #' @param n_prot antibody number of input data.
 #' @param proteomic_responses input drug perturbation data. With columns as antibody, rows as samples.
@@ -58,7 +58,7 @@
 #'   wk = network$wk,
 #'   wks = network$wks,
 #'   dist_ind = network$dist_ind,
-#'   inter = network$inter,
+#'   edgelist = network$edgelist,
 #'   n_dose = 1,
 #'   n_prot = dim(proteomic_responses)[2],
 #'   proteomic_responses = proteomic_responses[i,],
@@ -89,7 +89,7 @@
 #'
 #' @concept targetscore
 #' @export
-get_target_score <- function(wk, wks, dist_ind, inter, n_dose, n_prot, proteomic_responses,
+get_target_score <- function(wk, wks, dist_ind, edgelist, n_dose, n_prot, proteomic_responses,
                              n_perm, verbose = TRUE, ts_factor = 1, fs_dat) {
 
   # CALCULATE TARGET SCORE ----
@@ -97,7 +97,7 @@ get_target_score <- function(wk, wks, dist_ind, inter, n_dose, n_prot, proteomic
     wk = wk,
     wks = wks,
     dist_ind = dist_ind,
-    inter = inter,
+    edgelist = edgelist,
     n_dose = n_dose,
     n_prot = n_prot,
     proteomic_responses = proteomic_responses,
@@ -119,7 +119,7 @@ get_target_score <- function(wk, wks, dist_ind, inter, n_dose, n_prot, proteomic
   # CREATE Q-VALUES ----
   for (k in seq_len(n_perm)) {
     #        if(verbose) {
-    cat("Permutation Iteration: ", k, "\n")
+    cat("MSG: Permutation Iteration: ", k, "\n")
     #        }
 
     # print(fs) randomize the readouts over proteomic entities
@@ -133,7 +133,7 @@ get_target_score <- function(wk, wks, dist_ind, inter, n_dose, n_prot, proteomic
       wk = wk,
       wks = wks,
       dist_ind = dist_ind,
-      inter = inter,
+      edgelist = edgelist,
       n_dose = n_dose,
       n_prot = n_prot,
       proteomic_responses = rand_proteomic_responses,

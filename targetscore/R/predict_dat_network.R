@@ -1,13 +1,17 @@
-#' predict data-driven only network.
+#' Predict data-driven only network using glasso 
 #'
 #' @param data  input proteomics dataset for network inference. Gene in coloumns and samples in row.
 #' With colnames as gene tags and rownames as sample tags.
 #' @param cut_off Manually Setup cut off value for the strength of edge. Default at 0.1.
 #' @param n_prot Antibody number of input data.
 #' @param proteomic_responses Input drug perturbation data. With columns as antibody, rows as samples.
-#' @param rho positive tuning parameter vector for elastic net penalty. Default at 10^seq(-2,0, 0.02).
+#' @param rho positive tuning parameter vector for elastic net penalty. Default at 10^seq(-2,0, 0.02)
+#' @param verbose logical, whether to show additional debugging information
 #'
-#' @return Parameter of regulization decided lowest BIC.Including regularize parameter(L1 norm parameter) as rho.
+#' @note proteomic_responses is used only to retrieve the desired list of 
+#' entries for the resulting network
+#'
+#' @return Parameter of regulization decided lowest BIC. Including regularize parameter(L1 norm parameter) as rho.
 #' 
 #' @examples 
 #' # Read proteomic response for cellline1
@@ -31,7 +35,7 @@
 #' @concept targetscore
 #' @export
 predict_dat_network <- function(data, cut_off = 0.1, n_prot, proteomic_responses,
-                                rho = 10^seq(-2, 0, 0.02)) {
+                                rho = 10^seq(-2, 0, 0.02), verbose=FALSE) {
   covmatrix <- (nrow(data) - 1) / nrow(data) * stats::cov(data)
 
   # optimize penalty parameter rho
@@ -49,7 +53,11 @@ predict_dat_network <- function(data, cut_off = 0.1, n_prot, proteomic_responses
   glasso_result <- glasso::glasso(covmatrix, rho = parameter, nobs = nrow(covmatrix))
   sigma_matrix <- glasso_result$wi
   niter <- glasso_result$niter
-  print(niter) # if niter = 10,000
+  
+  if(verbose) {
+    print(niter) # if niter = 10,000    
+  }
+
   if (niter == 10000) {
     stop("ERROR: Algorithm does not convergence!")
   }
@@ -77,9 +85,10 @@ predict_dat_network <- function(data, cut_off = 0.1, n_prot, proteomic_responses
     row_genelist = rownames(t_net)
   )
 
-  # network2 function into network
-  network_inferred <- targetscore::network2(
-    wk = t_net, n_prot = n_prot,
+  # Calculate various properties for network, including wk and dist_ind
+  network_inferred <- targetscore::predict_dat_network_get_properties(
+    wk = t_net, 
+    n_prot = n_prot,
     proteomic_responses = proteomic_responses,
   )
   wk <- network_inferred$wk
