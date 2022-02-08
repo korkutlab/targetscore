@@ -28,7 +28,21 @@ With colnames as gene tags and rownames as sample tags.}
 \item{verbose}{logical, whether to show additional debugging information}
 }
 \value{
-Parameter of regulization decided lowest BIC. Including regularize parameter(L1 norm parameter) as rho.
+a list is returned with the following entries:
+* "nedges": Number of edges in final network
+* "t_net_no_cutoff": Network with out cutoff filtering calculated at optimal_rho
+* "t_net": Network with cutoff filtering
+* "optimal_rho": rho at minimum BIC
+* "bic": Calculated BIC values  
+* "rho": rho values examined
+* "wk" inferred network matrix form with edge strength value default at 1 for
+upregulate and -1 for down regulate.
+* "wks" as inferred network matrix form with edge strength value default at 1 for
+upregulate and -1 for down regulate and 2 for phosphorylation and -2 for dephosphorylation.
+* "dist_ind" A distance file of edgelist with a third column as the network distance
+between the genes in the interaction.
+* "inter" file as edgelist of inferred network.
+* "edgelist" file as sif file of edgelist for inferred network.
 }
 \description{
 Predict data-driven only network using glasso

@@ -11,7 +11,21 @@
 #' @note proteomic_responses is used only to retrieve the desired list of 
 #' entries for the resulting network
 #'
-#' @return Parameter of regulization decided lowest BIC. Including regularize parameter(L1 norm parameter) as rho.
+#' @return a list is returned with the following entries:
+#' * "nedges": Number of edges in final network
+#' * "t_net_no_cutoff": Network with out cutoff filtering calculated at optimal_rho
+#' * "t_net": Network with cutoff filtering
+#' * "optimal_rho": rho at minimum BIC
+#' * "bic": Calculated BIC values  
+#' * "rho": rho values examined
+#' * "wk" inferred network matrix form with edge strength value default at 1 for
+#' upregulate and -1 for down regulate.
+#' * "wks" as inferred network matrix form with edge strength value default at 1 for
+#' upregulate and -1 for down regulate and 2 for phosphorylation and -2 for dephosphorylation.
+#' * "dist_ind" A distance file of edgelist with a third column as the network distance
+#' between the genes in the interaction.
+#' * "inter" file as edgelist of inferred network.
+#' * "edgelist" file as sif file of edgelist for inferred network.
 #' 
 #' @examples 
 #' # Read proteomic response for cellline1
@@ -36,6 +50,7 @@
 #' @export
 predict_dat_network <- function(data, cut_off = 0.1, n_prot, proteomic_responses,
                                 rho = 10^seq(-2, 0, 0.02), verbose=FALSE) {
+  # FIXME: The scaling is for ...
   covmatrix <- (nrow(data) - 1) / nrow(data) * stats::cov(data)
 
   # optimize penalty parameter rho
@@ -47,10 +62,10 @@ predict_dat_network <- function(data, cut_off = 0.1, n_prot, proteomic_responses
     p_off_d <- sum(g_result$wi != 0 & col(covmatrix) < row(covmatrix))
     bic[i] <- -2 * (g_result$loglik) + p_off_d * log(nrow(data))
   }
-  parameter <- rho[which.min(bic)]
+  optimal_rho <- rho[which.min(bic)]
 
   # Estimated inverse covariance (precision matrix)
-  glasso_result <- glasso::glasso(covmatrix, rho = parameter, nobs = nrow(covmatrix))
+  glasso_result <- glasso::glasso(covmatrix, rho = optimal_rho, nobs = nrow(covmatrix))
   sigma_matrix <- glasso_result$wi
   niter <- glasso_result$niter
   
@@ -61,6 +76,7 @@ predict_dat_network <- function(data, cut_off = 0.1, n_prot, proteomic_responses
   if (niter == 10000) {
     stop("ERROR: Algorithm does not convergence!")
   }
+  
   pcor_matrix <- matrix(0, nrow = ncol(data), ncol = ncol(data))
   for (i in 1:ncol(data)) {
     for (j in 1:ncol(data)) {
@@ -68,10 +84,12 @@ predict_dat_network <- function(data, cut_off = 0.1, n_prot, proteomic_responses
     }
   }
 
-  t_edges <- pcor_matrix
-
+  t_net_no_cutoff <- pcor_matrix
+  colnames(t_net_no_cutoff) <- colnames(data)
+  rownames(t_net_no_cutoff) <- colnames(data)
+  
   # cut off small edge value edges
-  t_net <- as.data.frame(ifelse(abs(t_edges) >= cut_off & row(t_edges) != col(t_edges), t_edges, 0))
+  t_net <- as.data.frame(ifelse(abs(t_net_no_cutoff) >= cut_off & row(t_net_no_cutoff) != col(t_net_no_cutoff), t_net_no_cutoff, 0))
   colnames(t_net) <- colnames(data)
   rownames(t_net) <- colnames(data)
 
@@ -97,8 +115,17 @@ predict_dat_network <- function(data, cut_off = 0.1, n_prot, proteomic_responses
   inter <- network_inferred$inter
 
   result <- list(
-    optimize_rho = parameter, nedges = nedges, t_net = t_net, edgelist = edgelist, bic = bic,
-    wk = wk, wks = wks, dist_ind = dist_ind, inter = inter, rho = rho
+    nedges = nedges, 
+    t_net_no_cutoff=t_net_no_cutoff, 
+    t_net = t_net,
+    optimal_rho = optimal_rho, 
+    bic = bic,
+    rho = rho,
+    wk = wk, 
+    wks = wks, 
+    dist_ind = dist_ind,
+    inter = inter,
+    edgelist = edgelist
   )
 
   return(result)
