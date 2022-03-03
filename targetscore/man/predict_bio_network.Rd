@@ -10,6 +10,8 @@ predict_bio_network(
   max_dist,
   mab_to_genes,
   dist_file = NULL,
+  network_file = system.file("extdata", "filteredSignedPc_20191113.txt", package =
+    "targetscore"),
   verbose = FALSE
 )
 }
@@ -24,6 +26,12 @@ predict_bio_network(
 
 \item{dist_file}{A distance file an edgelist with a third column which is the network distance
 between the genes in the interaction}
+
+\item{network_file}{A path to a plain-text, tab-delimited file with the columns: 
+"PARTICIPANT_A", "INTERACTION_TYPE", "PARTICIPANT_B", "IDS", "SITES". 
+"INTERACTION_TYPE" is one of "dephosphorylates", "phosphorylates", "downregulates-expression", or "upregulates-expression"
+"IDS" is a string of the source of the interaction (e.g., "KEGG")
+"SITES is a semi-colon separated list of sites that are being phosphorylation or dephosphorylated (e.g., Y398;Y362) otherwise empty string ""}
 
 \item{verbose}{whether to show debugging information}
 }

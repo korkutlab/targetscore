@@ -8,10 +8,10 @@
 #' Gene in coloumns and samples in row. With colnames as gene tags and rownames as sample tags.
 #' @param filename Manually set filename of volcano plot.
 #' @param path Plot Store path. Default at working environment.
-#' @param sig_value  Manually set significant cut-off value for log10(q_value). (Default at 0.4)
-#' @param sig_TS Manually set significant cut-off value for calculated Target Score Value. (Default at 0.5)
-#' @param x_min Manually set minimum value for x lab. (Default at -2)
-#' @param x_max Manually set maximum value for x lab. (Default at 2)
+#' @param sig_value  Manually set significant cut-off value for log10(q_value). (Default: 0.4)
+#' @param sig_TS Manually set significant cut-off value for calculated Target Score Value. (Default: 0.5)
+#' @param x_min Manually set minimum value for x lab. (Default: -2)
+#' @param x_max Manually set maximum value for x lab. (Default: 2)
 #' @param include_labels a boolean whether to point labels
 #' @param save_output a boolean whether to save plots and point data to file
 #'
@@ -23,7 +23,8 @@
 #'
 #' @concept targetscore
 #' @export
-get_volcano_plot <- function(ts, q_value,
+get_volcano_plot <- function(ts, 
+                             q_value,
                              filename,
                              path = getwd(),
                              sig_value = 0.4,
@@ -46,12 +47,12 @@ get_volcano_plot <- function(ts, q_value,
   rownames(color) <- rownames(ts)
   tmp_dat$labelnames <- row.names(tmp_dat)
   sig01 <- subset(tmp_dat, tmp_dat$neglogQ > -1 * log10(sig_value))
-  sig001<- subset(sig01, abs(sig01$ts) > sig_TS )
+  sig001<- subset(sig01, abs(sig01$ts) > sig_TS)
   siglabel <- sig001$labelnames
   tmp_dat$color <- color
 
   p <- ggplot() +
-    geom_point(data = tmp_dat, aes(text = tmp_dat$labelnames, x = ts, y = tmp_dat$neglogQ, color = color), alpha = 0.4, size = 2) +
+    geom_point(data = tmp_dat, aes_string(text = "labelnames", x = "ts", y = "neglogQ", color = "color"), alpha = 0.4, size = 2) +
     xlab("<ts>") +
     ylab("-log10 (Q-Value)") +
     ggtitle("") +
@@ -59,7 +60,7 @@ get_volcano_plot <- function(ts, q_value,
     theme_bw()
 
   if (include_labels) {
-    p <- p + geom_label_repel(data = sig001, aes(x = sig001$ts, y = sig001$neglogQ, label = siglabel), size = 5)
+    p <- p + geom_label_repel(data = sig001, aes_string(x = "ts", y = "neglogQ", label = siglabel), size = 5)
   }
 
   if (save_output) {

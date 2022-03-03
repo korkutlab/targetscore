@@ -14,7 +14,7 @@ get_target_score(
   proteomic_responses,
   n_perm,
   verbose = TRUE,
-  ts_factor = 1,
+  ts_pathway_scale = 1,
   fs_dat
 )
 }
@@ -43,7 +43,7 @@ between the genes in the interaction}
 
 \item{verbose}{a flag for debugging output}
 
-\item{ts_factor}{a scaling factor for the pathway component of the target score}
+\item{ts_pathway_scale}{a scaling factor for the pathway component of the target score}
 
 \item{fs_dat}{a dataset with the functional score data.First coloumn as the protein name and second
 column as the functional score. Can be inferred from get_fs_value or be User defined and curated.}

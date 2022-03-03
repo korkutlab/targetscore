@@ -30,17 +30,17 @@ Gene in coloumns and samples in row. With colnames as gene tags and rownames as 
 
 \item{path}{Plot Store path. Default at working environment.}
 
-\item{sig_value}{Manually set significant cut-off value for log10(q_value). (Default at 0.4)}
+\item{sig_value}{Manually set significant cut-off value for log10(q_value). (Default: 0.4)}
 
-\item{sig_TS}{Manually set significant cut-off value for calculated Target Score Value. (Default at 0.5)}
+\item{sig_TS}{Manually set significant cut-off value for calculated Target Score Value. (Default: 0.5)}
 
 \item{include_labels}{a boolean whether to point labels}
 
 \item{save_output}{a boolean whether to save plots and point data to file}
 
-\item{x_min}{Manually set minimum value for x lab. (Default at -2)}
+\item{x_min}{Manually set minimum value for x lab. (Default: -2)}
 
-\item{x_max}{Manually set maximum value for x lab. (Default at 2)}
+\item{x_max}{Manually set maximum value for x lab. (Default: 2)}
 }
 \value{
 volcano plots as ggplot object; plots and data maybe be saved as well

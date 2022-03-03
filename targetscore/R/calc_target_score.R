@@ -19,7 +19,7 @@
 #'   (i.e. 1 oncogene, 0 tumor supressor/oncogene, -1 tumor supressor characteristics)
 #' @param dist_file A distance file an edgelist with a third column which is the network distance
 #'   between the genes in the interaction
-#' @param ts_factor a scaling factor for the pathway component in the target score
+#' @param ts_pathway_scale a scaling factor for the pathway component in the TargetScore
 #'
 #' @return a list is returned with the following entries:
 #' {ts}{TargetScore values summed over individual drug doses}
@@ -35,7 +35,7 @@
 #' @concept targetscore
 #' @export
 calc_target_score <- function(wk, wks, dist_ind, edgelist, n_dose, n_prot, proteomic_responses, fs_dat,
-                              verbose = TRUE, ts_factor = 1, dist_file = NULL) {
+                              verbose = TRUE, ts_pathway_scale = 1, dist_file = NULL) {
   if (verbose) {
     print(fs_dat)
   }
@@ -43,14 +43,17 @@ calc_target_score <- function(wk, wks, dist_ind, edgelist, n_dose, n_prot, prote
 
   # Calculate TS for each dose
   # print(n_dose)
+  ## This will be the targetscore for each dose
   tsd <- matrix(0,
-    nrow = n_dose, ncol = n_prot,
+    nrow = n_dose, 
+    ncol = n_prot,
     dimnames = list(
       rownames(proteomic_responses),
       colnames(proteomic_responses)
     )
   )
   
+  ## This will be the pathway component for each targetscore
   tsp <- array(0:0,
     dim = c(n_dose, n_prot, n_prot),
     dimnames = list(
@@ -60,8 +63,10 @@ calc_target_score <- function(wk, wks, dist_ind, edgelist, n_dose, n_prot, prote
     )
   )
   
+  ## This will be the final targetscore summed over multiple doses; always 1 row
   ts <- matrix(0,
-    ncol = n_prot, nrow = 1,
+    ncol = n_prot, 
+    nrow = 1,
     dimnames = list("targetScore", colnames(proteomic_responses))
   )
 
@@ -74,10 +79,10 @@ calc_target_score <- function(wk, wks, dist_ind, edgelist, n_dose, n_prot, prote
       # for (k in 1:n_prot) {
       node1 <- edgelist$source_node[j]
       node2 <- edgelist$target_node[j]
-      # tsp[i,k,j] <- ts_factor*(2^-(dist_ind[k, j])) * proteomic_responses[i, k] * wk[k, j]
+      # tsp[i,k,j] <- ts_pathway_scale*(2^-(dist_ind[k, j])) * proteomic_responses[i, k] * wk[k, j]
       
       if(node1 %in% colnames(proteomic_responses) & node2 %in% colnames(proteomic_responses)) {
-        tsp[i, node1, node2] <- ts_factor * (2^-(dist_ind[node1, node2])) * proteomic_responses[i, node1] * wk[node1, node2]
+        tsp[i, node1, node2] <- ts_pathway_scale * (2^-(dist_ind[node1, node2])) * proteomic_responses[i, node1] * wk[node1, node2]
         
         edges_used <- edges_used + 1
       }
@@ -102,6 +107,7 @@ calc_target_score <- function(wk, wks, dist_ind, edgelist, n_dose, n_prot, prote
 
   ts <- colSums(tsd)
   # colnames(ts) <- colnames(proteomic_responses) rownames(ts) <- rownames(proteomic_responses)
+  
   results <- list(wk = wk, wks = wks, ts = ts, tsd = tsd)
   return(results)
 }

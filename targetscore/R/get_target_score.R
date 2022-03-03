@@ -15,7 +15,7 @@
 #' @param proteomic_responses input drug perturbation data. With columns as antibody, rows as samples.
 #' @param n_perm number of random TS calculations for building the null distribution
 #' @param verbose a flag for debugging output
-#' @param ts_factor a scaling factor for the pathway component of the target score
+#' @param ts_pathway_scale a scaling factor for the pathway component of the target score
 #' @param fs_dat a dataset with the functional score data.First coloumn as the protein name and second
 #' column as the functional score. Can be inferred from get_fs_value or be User defined and curated.
 #' 
@@ -90,7 +90,7 @@
 #' @concept targetscore
 #' @export
 get_target_score <- function(wk, wks, dist_ind, edgelist, n_dose, n_prot, proteomic_responses,
-                             n_perm, verbose = TRUE, ts_factor = 1, fs_dat) {
+                             n_perm, verbose = TRUE, ts_pathway_scale = 1, fs_dat) {
 
   # CALCULATE TARGET SCORE ----
   results <- calc_target_score(
@@ -102,19 +102,23 @@ get_target_score <- function(wk, wks, dist_ind, edgelist, n_dose, n_prot, proteo
     n_prot = n_prot,
     proteomic_responses = proteomic_responses,
     verbose = verbose,
-    ts_factor = ts_factor,
+    ts_pathway_scale = ts_pathway_scale,
     fs_dat = fs_dat
   )
+  
   ts <- results$ts
   wk <- results$wk
   tsd <- results$tsd
   wks <- results$wks
 
   # Random TS for each node over n permutations
-  rand_ts <- matrix(0, nrow = n_prot, ncol = n_perm)
+  rand_ts <- matrix(NA, nrow = n_prot, ncol = n_perm)
 
   # p value for a given target score computed over the distribution from randTS
-  pts <- matrix(0, ncol = 1, nrow = n_prot)
+  pts <- matrix(NA, ncol = 1, nrow = n_prot)
+  
+  ## This will be the final targetscore summed over multiple doses; always 1 row
+  #ts <- matrix(NA, ncol = n_prot, nrow = 1)
 
   # CREATE Q-VALUES ----
   for (k in seq_len(n_perm)) {
@@ -138,7 +142,7 @@ get_target_score <- function(wk, wks, dist_ind, edgelist, n_dose, n_prot, proteo
       n_prot = n_prot,
       proteomic_responses = rand_proteomic_responses,
       verbose = verbose,
-      ts_factor = ts_factor,
+      ts_pathway_scale = ts_pathway_scale,
       fs_dat = fs_dat
     )$ts
 
@@ -157,14 +161,40 @@ get_target_score <- function(wk, wks, dist_ind, edgelist, n_dose, n_prot, proteo
   }
 
   q <- as.matrix(p.adjust(pts, method = "fdr", n = n_prot))
+  q <- t(q)
 
   # Set row and column names for results
-  rownames(q) <- colnames(proteomic_responses)
-  colnames(q) <- "FDR_adjusted_p"
+  colnames(q) <- colnames(proteomic_responses)
 
-  rownames(rand_ts) <- colnames(proteomic_responses)
-  rownames(pts) <- colnames(proteomic_responses)
-
+  rand_ts <- t(rand_ts)
+  colnames(rand_ts) <- colnames(proteomic_responses)
+  
+  pts <- t(pts)
+  colnames(pts) <- colnames(proteomic_responses)
+  
+  ts <- data.frame(as.list(ts))
+  colnames(ts) <- colnames(proteomic_responses)
+  row.names(ts) <- NULL
+  
+  # tsd is in the correct format
+  
+  # # Make sure everything is a named vector before returning results
+  # ts <- data.frame(as.list(ts))
+  # colnames(ts) <- colnames(proteomic_responses)
+  # ts <- unlist(ts)
+  # 
+  # tsd <- data.frame(as.list(tsd))
+  # colnames(tsd) <- colnames(proteomic_responses)
+  # tsd <- unlist(tsd)
+  # 
+  # pts <- data.frame(as.list(pts))
+  # colnames(pts) <- colnames(proteomic_responses)
+  # pts <- unlist(pts)
+  # 
+  #q_vec <- data.frame(as.list(q))
+  #colnames(q_vec) <- colnames(proteomic_responses)
+  #q_vec <- unlist(q)
+  
   # RETURN RESULTS ----
   results <- list(wk = wk, wks = wks, ts = ts, tsd = tsd, pts = pts, q = q, rand_ts = rand_ts)
 

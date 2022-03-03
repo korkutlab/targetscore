@@ -14,7 +14,7 @@ calc_target_score(
   proteomic_responses,
   fs_dat,
   verbose = TRUE,
-  ts_factor = 1,
+  ts_pathway_scale = 1,
   dist_file = NULL
 )
 }
@@ -45,7 +45,7 @@ antibody in the first column and functional score in the second column
 
 \item{verbose}{a boolean to show debugging information}
 
-\item{ts_factor}{a scaling factor for the pathway component in the target score}
+\item{ts_pathway_scale}{a scaling factor for the pathway component in the TargetScore}
 
 \item{dist_file}{A distance file an edgelist with a third column which is the network distance
 between the genes in the interaction}

@@ -6,6 +6,11 @@
 #' @param mab_to_genes A list of antibodies, their associated genes, modification sites and effect.
 #' @param dist_file A distance file an edgelist with a third column which is the network distance
 #'   between the genes in the interaction
+#' @param network_file A path to a plain-text, tab-delimited file with the columns: 
+#' "PARTICIPANT_A", "INTERACTION_TYPE", "PARTICIPANT_B", "IDS", "SITES". 
+#' "INTERACTION_TYPE" is one of "dephosphorylates", "phosphorylates", "downregulates-expression", or "upregulates-expression"
+#' "IDS" is a string of the source of the interaction (e.g., "KEGG")
+#' "SITES is a semi-colon separated list of sites that are being phosphorylation or dephosphorylated (e.g., Y398;Y362) otherwise empty string ""
 #' @param verbose whether to show debugging information
 #' 
 #' @note proteomic_responses is used only to retrieve the desired list of 
@@ -46,7 +51,10 @@
 #' @concept targetscore
 #' @export
 predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
-                                mab_to_genes, dist_file = NULL, verbose = FALSE) {
+                                mab_to_genes, 
+                                dist_file = NULL, 
+                                network_file=system.file("extdata", "filteredSignedPc_20191113.txt", package = "targetscore"),
+                                verbose = FALSE) {
   if (verbose) {
     print(mab_to_genes)
   }
@@ -143,9 +151,8 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
 
   #    results <- downloadSignedPC(forceCache=TRUE)
   #    results <- read.table(file="results_network1.txt",header=T)
-  results <- read.table(system.file("extdata", "filteredSignedPc_20191113.txt",
-    package = "targetscore"
-  ), sep = "\t", header = TRUE, fill = TRUE, stringsAsFactors = FALSE)
+  results <- read.table(network_file, sep = "\t", header = TRUE, 
+                        fill = TRUE, stringsAsFactors = FALSE)
   # write.table(results, file="results_network1.txt",quote=F)
   
   dephosp <- results[which(results$INTERACTION_TYPE == "dephosphorylates"),]
