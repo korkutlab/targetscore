@@ -50,19 +50,25 @@ match_genes_to_edgelist <- function(genes1, genes2 = NULL, annot_edgelist, antib
     stringsAsFactors = FALSE
   )
 
-  if (is.null(genes2)) {
+  if(is.null(genes2)) {
     genes2 <- genes1
   }
 
-  if (is.null(names(genes1)) || is.null(names(genes2))) {
+  if(is.null(names(genes1)) || is.null(names(genes2))) {
     stop("ERROR: genes1 and genes2 must be named vectors with antibody names")
   }
 
-  # annot_edgelist0 <- annot_edgelist
+  t1 <- unique(as.vector(genes1))
+  t2 <- setdiff(t1, c("a", "i", "c"))
+  if(length(t2) == 0) {
+    msg <- paste0("ERROR: genes1 do not appear to be gene names: ", paste(t1, sep=", "))
+    stop(msg)
+  }
 
-  # COMMENT OUT
+  # Use whole edgelist and filter by genes1
   tmp_idx <- which(annot_edgelist[, 1] %in% genes1)
   annot_edgelist0 <- annot_edgelist[tmp_idx, ]
+  # Use edgelist from the previous step  and filter by genes2
   tmp_idx <- which(annot_edgelist0[, 2] %in% genes2)
   annot_edgelist0 <- annot_edgelist0[tmp_idx, ]
 
@@ -71,7 +77,7 @@ match_genes_to_edgelist <- function(genes1, genes2 = NULL, annot_edgelist, antib
 
   tmp <- paste0(annot_edgelist0[, 1], ":", annot_edgelist0[, 2])
   if (any(duplicated(tmp))) {
-    stop("ERROR: Multiple shortest paths found. Check SignedPC network.")
+    stop("ERROR: Multiple shortest paths found. Check network.")
   }
 
   genes1_df <- data.frame(
@@ -125,65 +131,6 @@ match_genes_to_edgelist <- function(genes1, genes2 = NULL, annot_edgelist, antib
 
     results <- rbind(results, tmp_results)
   }
-
-  # cnt <- 1
-  #
-  # for (i in 1:length(genes1)) {
-  #   # if(verbose) {
-  #   #    cat("I: ", i, "\n")
-  #   # }
-  #
-  #   # COMMENT OUT
-  #   tmp_idx <- which(annot_edgelist0[, 1] == genes1[i])
-  #   cur_annot_edgelist <- annot_edgelist0[tmp_idx, ]
-  #
-  #   genes2x <- genes2[cur_annot_edgelist[, 2] %in% genes2]
-  #   genes2x <- genes2x[!is.na(genes2x)]
-  #
-  #   genes2x <- genes2
-  #   # cat("FAST\n")
-  #
-  #   for (j in 1:length(genes2x)) {
-  #     cat("C: ", cnt, "\n")
-  #     cnt <- cnt + 1
-  #
-  #     # if(verbose) {
-  #     #    cat("J: ", j, "\n")
-  #     # }
-  #
-  #     # tmp_idx <- which(cur_annot_edgelist[, 1] == genes1[i] & cur_annot_edgelist[, 2] == genes2x[j])
-  #     # COMMENT OUT
-  #     tmp_idx <- which(cur_annot_edgelist[, 2] == genes2x[j])
-  #
-  #     if (length(tmp_idx) == 1) {
-  #       if (use_annot) {
-  #         annot <- cur_annot_edgelist[tmp_idx, 3]
-  #       } else {
-  #         annot <- NA
-  #       }
-  #
-  #       # Get indicies based off antibody names rather than the gene names
-  #       gene1_ab_idx <- which(antibody_vec == names(genes1[i]))
-  #       gene2_ab_idx <- which(antibody_vec == names(genes2x[j]))
-  #
-  #       tmp_results <- data.frame(
-  #         gene1 = gene1_ab_idx,
-  #         gene2 = gene2_ab_idx,
-  #         annot = annot,
-  #         gene1_name = genes1[i],
-  #         gene2_name = genes2x[j],
-  #         gene1_ab = names(genes1[i]),
-  #         gene2_ab = names(genes2x[j]),
-  #         stringsAsFactors = FALSE
-  #       )
-  #       results <- rbind(results, tmp_results)
-  #     }
-  #
-  #     if (length(tmp_idx) > 1) {
-  #       stop("ERROR: Multiple shortest paths found. Check SignedPC network.")
-  #     }
-  #   }
-  # }
 
   return(results)
 }

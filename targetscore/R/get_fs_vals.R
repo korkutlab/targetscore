@@ -148,5 +148,7 @@ get_fs_vals <- function(n_prot, proteomic_responses, mab_to_genes, fs_override=N
 
   # as.numeric
   fs_final <- data.frame(prot = fs$prot, fs = as.numeric(fs$fs), stringsAsFactors = FALSE)
+  fs_final <- fs_final[order(fs_final$prot),]
+  
   return(fs_final)
 }

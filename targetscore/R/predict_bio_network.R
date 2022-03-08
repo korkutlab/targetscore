@@ -68,8 +68,14 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
 
   ######################################################
 
-  if (n_prot != ncol(proteomic_responses)) {
+  if(n_prot != ncol(proteomic_responses)) {
     stop("ERROR: n_prot is not equal to proteomic_responses column number")
+  }
+  
+  if(!identical(colnames(mab_to_genes), c("AntibodyLabel", "Source", "NodeName", "Gene_Symbol", "Sites", "Effect"))) {
+    t1 <- paste(c("AntibodyLabel", "Source", "NodeName", "Gene_Symbol", "Sites", "Effect"), collapse=", ")
+    t2 <- paste0("ERROR: mab_to_genes must have all these columns in this order: ", t2)
+    stop(t2)
   }
 
   # Filter dist to only keep those with a distance less than max_dist
@@ -201,7 +207,17 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
   names(tmp_genes_ai) <- mab_to_genes[tmp_idx_ai, 1]
   names(tmp_genes_a) <- mab_to_genes[tmp_idx_a, 1]
 
-  # saveRDS(colnames(proteomic_responses), "colnames_proteomic_responses.rds")
+  # DEBUGGING
+  # if(verbose) {
+  #   # saveRDS(colnames(proteomic_responses), "colnames_proteomic_responses.rds")
+  #   tmp_results <- list(tmp_genes_a=tmp_genes_a,
+  #                       tmp_genes_ac=tmp_genes_ac,
+  #                       tmp_genes_c=tmp_genes_c,
+  #                       tmp_genes_ai=tmp_genes_ai,
+  #                       upexp=upexp,
+  #                       proteomic_responses=proteomic_responses)
+  #   saveRDS(tmp_results, "debug_predict_bio_network.rds")    
+  # }
 
   # only concentration and act. phospho nodes are included in up & downregulation
   if(verbose) { cat("DEBUG: Processing upregulates-expression\n") }
@@ -222,7 +238,7 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
   }
 
   # downregulation expression, wk=-1
-  if(verbose) { cat("DEBUG: Processing down-expression\n") }
+  if(verbose) { cat("DEBUG: Processing downregulates-expression\n") }
   dwnexp_gene <-  match_genes_to_edgelist(
     genes1 = tmp_genes_ac, genes2 = tmp_genes_c, annot_edgelist = dwnexp,
     antibody_vec = colnames(proteomic_responses), use_annot = FALSE, verbose = verbose
@@ -242,15 +258,17 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
   # phos_gene <- cbind(phos_gene1, phos_gene2)
 
   if(verbose) { cat("DEBUG: Processing phosphorylates\n") }
-  phos_gene <-  match_genes_to_edgelist(
-    genes1 = tmp_genes_a, genes2 = tmp_genes_ai, annot_edgelist = phosp,
-    antibody_vec = colnames(proteomic_responses), use_annot = FALSE, verbose = verbose
-  )
-  # cov318 13 results
-
-  for (i in 1:length(phos_gene[, 1])) {
-    wk[phos_gene[i, 1], phos_gene[i, 2]] <- 1
-    wks[phos_gene[i, 1], phos_gene[i, 2]] <- 2
+  # Skip if no 'a' Effect genes
+  if(length(tmp_genes_a) > 0) {
+    phos_gene <-  match_genes_to_edgelist(
+      genes1 = tmp_genes_a, genes2 = tmp_genes_ai, annot_edgelist = phosp,
+      antibody_vec = colnames(proteomic_responses), use_annot = FALSE, verbose = verbose
+    )
+    
+    for (i in 1:length(phos_gene[, 1])) {
+      wk[phos_gene[i, 1], phos_gene[i, 2]] <- 1
+      wks[phos_gene[i, 1], phos_gene[i, 2]] <- 2
+    }    
   }
 
   # dephosphorylates wk=-1 only active and concentration states are upstream
@@ -261,14 +279,17 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
   # dephos_gene <- cbind(dephos_gene1, dephos_gene2)
 
   if(verbose) { cat("DEBUG: Processing dephosphorylates\n") }
-  dephos_gene <-  match_genes_to_edgelist(
-    genes1 = tmp_genes_ac, genes2 = tmp_genes_ai, annot_edgelist = dephosp,
-    antibody_vec = colnames(proteomic_responses), use_annot = FALSE, verbose = verbose
-  )
-
-  for (i in 1:length(dephos_gene[, 1])) {
-    wk[dephos_gene[i, 1], dephos_gene[i, 2]] <- -1
-    wks[dephos_gene[i, 1], dephos_gene[i, 2]] <- -2
+  # Skip if no 'a' Effect genes
+  if(length(tmp_genes_a) > 0) {
+    dephos_gene <-  match_genes_to_edgelist(
+      genes1 = tmp_genes_ac, genes2 = tmp_genes_ai, annot_edgelist = dephosp,
+      antibody_vec = colnames(proteomic_responses), use_annot = FALSE, verbose = verbose
+    )
+  
+    for (i in 1:length(dephos_gene[, 1])) {
+      wk[dephos_gene[i, 1], dephos_gene[i, 2]] <- -1
+      wks[dephos_gene[i, 1], dephos_gene[i, 2]] <- -2
+    }
   }
 
   inter <- (which(wk != 0, arr.ind = TRUE))
@@ -276,8 +297,6 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
   if (verbose) {
     print(inter)
   }
-
-  # dist_file
 
   for (i in 1:n_prot) {
     for (j in 1:n_prot) {
@@ -288,13 +307,13 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
       }
     }
   }
+  
   # Network to edgelist
   edgelist <-  create_sif_from_matrix(
     t_net = wk,
     col_genelist = colnames(wk),
     row_genelist = rownames(wk)
   )
-
 
   network <- list(wk = wk, wks = wks, dist_ind = dist_ind, inter = inter, edgelist = edgelist)
 
