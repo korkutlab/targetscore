@@ -192,20 +192,21 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
   tmp_idx_a <- intersect(idx_ab_map, which(mab_to_genes$Effect == "a"))
 
   tmp_genes_c <- mab_to_genes[tmp_idx_c, 4]
-  tmp_genes_a <- mab_to_genes[tmp_idx_ac, 4]
-  tmp_genes_d <- mab_to_genes[tmp_idx_ai, 4]
-  tmp_genes_ao <- mab_to_genes[tmp_idx_a, 4]
+  tmp_genes_ac <- mab_to_genes[tmp_idx_ac, 4]
+  tmp_genes_ai <- mab_to_genes[tmp_idx_ai, 4]
+  tmp_genes_a <- mab_to_genes[tmp_idx_a, 4]
 
   names(tmp_genes_c) <- mab_to_genes[tmp_idx_c, 1]
-  names(tmp_genes_a) <- mab_to_genes[tmp_idx_ac, 1]
-  names(tmp_genes_d) <- mab_to_genes[tmp_idx_ai, 1]
-  names(tmp_genes_ao) <- mab_to_genes[tmp_idx_a, 1]
+  names(tmp_genes_ac) <- mab_to_genes[tmp_idx_ac, 1]
+  names(tmp_genes_ai) <- mab_to_genes[tmp_idx_ai, 1]
+  names(tmp_genes_a) <- mab_to_genes[tmp_idx_a, 1]
 
   # saveRDS(colnames(proteomic_responses), "colnames_proteomic_responses.rds")
 
   # only concentration and act. phospho nodes are included in up & downregulation
+  if(verbose) { cat("DEBUG: Processing upregulates-expression\n") }
   upexp_gene <-  match_genes_to_edgelist(
-    genes1 = tmp_genes_a, genes2 = tmp_genes_c, annot_edgelist = upexp,
+    genes1 = tmp_genes_ac, genes2 = tmp_genes_c, annot_edgelist = upexp,
     antibody_vec = colnames(proteomic_responses), use_annot = FALSE, verbose = verbose
   )
 
@@ -221,8 +222,9 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
   }
 
   # downregulation expression, wk=-1
+  if(verbose) { cat("DEBUG: Processing down-expression\n") }
   dwnexp_gene <-  match_genes_to_edgelist(
-    genes1 = tmp_genes_a, genes2 = tmp_genes_c, annot_edgelist = dwnexp,
+    genes1 = tmp_genes_ac, genes2 = tmp_genes_c, annot_edgelist = dwnexp,
     antibody_vec = colnames(proteomic_responses), use_annot = FALSE, verbose = verbose
   )
   # cov318 results in 15
@@ -239,8 +241,9 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
   # phos_gene2 <- pmatch(phosp[, 3], mabToGenes_d[measured_genes, 4], duplicates.ok = TRUE)
   # phos_gene <- cbind(phos_gene1, phos_gene2)
 
+  if(verbose) { cat("DEBUG: Processing phosphorylates\n") }
   phos_gene <-  match_genes_to_edgelist(
-    genes1 = tmp_genes_ao, genes2 = tmp_genes_d, annot_edgelist = phosp,
+    genes1 = tmp_genes_a, genes2 = tmp_genes_ai, annot_edgelist = phosp,
     antibody_vec = colnames(proteomic_responses), use_annot = FALSE, verbose = verbose
   )
   # cov318 13 results
@@ -257,8 +260,9 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
   # dephos_gene2 <- pmatch(dephosp[, 3], mabToGenes_d[measured_genes, 4], duplicates.ok = TRUE)
   # dephos_gene <- cbind(dephos_gene1, dephos_gene2)
 
+  if(verbose) { cat("DEBUG: Processing dephosphorylates\n") }
   dephos_gene <-  match_genes_to_edgelist(
-    genes1 = tmp_genes_a, genes2 = tmp_genes_d, annot_edgelist = dephosp,
+    genes1 = tmp_genes_ac, genes2 = tmp_genes_ai, annot_edgelist = dephosp,
     antibody_vec = colnames(proteomic_responses), use_annot = FALSE, verbose = verbose
   )
 
