@@ -211,10 +211,9 @@ predict_hybrid_network <- function(data, prior = NULL, cut_off = 0.1, proteomic_
     row_genelist = rownames(network_total)
   )
 
-  # number of edges
+  # Number of edges
   nedges <- sum(network_total != 0)
 
-  #
   wk <- network_total
   networks <- targetscore::predict_dat_network_get_properties(
     wk = wk, n_prot = n_prot,
@@ -225,11 +224,12 @@ predict_hybrid_network <- function(data, prior = NULL, cut_off = 0.1, proteomic_
   dist_ind <- networks$dist_ind
   inter <- networks$inter
 
-  # return result
+  # Return result
   result <- list(
     parameters = parameters, nedges = nedges, inter = inter,
     wk = wk, wks = wks, dist_ind = dist_ind, edgelist = edgelist_total,
     bic = bic
   )
+  
   return(result)
 }

@@ -149,6 +149,7 @@ get_target_score <- function(wk, wks, dist_ind, edgelist, n_dose, n_prot, proteo
     # rand_ts[,k] <- as.matrix(rants) print('resi') print(resi$ts) rand_ts[,k]
   }
 
+  # NaN are created because the ts, mean, and sd are 0
   for (i in 1:n_prot) {
     mean <- mean(rand_ts[i, 1:n_perm])
     stdev <- sd(rand_ts[i, 1:n_perm])
@@ -160,12 +161,20 @@ get_target_score <- function(wk, wks, dist_ind, edgelist, n_dose, n_prot, proteo
     }
   }
 
+  # q and pts can be named vectors; ts must be a data.frame for multiple entries
   q <- as.matrix(p.adjust(pts, method = "fdr", n = n_prot))
   q <- t(q)
 
   # Set row and column names for results
   colnames(q) <- colnames(proteomic_responses)
 
+  # NOTE: At this point in the code all the outputs have been generated
+  # rand_ts: a matrix; (TS number by permutation count) 
+  # pts: a vector; 1 TS for each entity
+  # q: a vector 1 TS for each entity
+  # ts: a vector 1 TS for each entity
+  
+  # Process outputs
   rand_ts <- t(rand_ts)
   colnames(rand_ts) <- colnames(proteomic_responses)
   
@@ -195,8 +204,15 @@ get_target_score <- function(wk, wks, dist_ind, edgelist, n_dose, n_prot, proteo
   #colnames(q_vec) <- colnames(proteomic_responses)
   #q_vec <- unlist(q)
   
+  # NOTE: This will not work because ts can be multiple columns
+  ts_sig_df <- t(rbind(ts, pts, q))
+  colnames(ts_sig_df) <- c("ts", "p_value", "q_value")
+  ts_sig_df <- as.data.frame(ts_sig_df) # Returns a matrix with without as.data.frame
+  
   # RETURN RESULTS ----
-  results <- list(wk = wk, wks = wks, ts = ts, tsd = tsd, pts = pts, q = q, rand_ts = rand_ts)
-
+  results <- list(wk=wk, wks=wks, 
+                  ts=ts, tsd=tsd, rand_ts=rand_ts,
+                  pts=pts, q=q, ts_sig_df=ts_sig_df)
+  
   return(results)
 }

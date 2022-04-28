@@ -23,7 +23,7 @@
 #'
 #' @return a list is returned with the following entries:
 #' {ts}{TargetScore values summed over individual drug doses}
-#' {tsd}{TargetScore values summed for individual drug doses}
+#' {tsd}{TargetScore values for individual drug doses}
 #' {wk}{inferred network matrix form with edge strength value estimated as the partial correlation.}
 #' {wks}{inferred network matrix form with edge strength value estimated as the partial correlation.}
 #'

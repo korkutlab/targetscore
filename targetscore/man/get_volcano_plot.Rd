@@ -16,15 +16,17 @@ get_volcano_plot(
   include_labels = TRUE,
   save_output = TRUE,
   x_min = -2,
-  x_max = 2
+  x_max = 2,
+  label_names = NULL,
+  title = ""
 )
 }
 \arguments{
 \item{ts}{input Target Score calculated for each antibody data frame.
-Gene in coloumns and samples in row. With colnames as gene tags and rownames as sample tags.}
+Gene in columns and samples in row. With colnames as gene tags and rownames as sample tags.}
 
 \item{q_value}{input Target Score q value calculated for each antibody data frame.
-Gene in coloumns and samples in row. With colnames as gene tags and rownames as sample tags.}
+Gene in columns and samples in row. With colnames as gene tags and rownames as sample tags.}
 
 \item{filename}{Manually set filename of volcano plot.}
 
@@ -41,6 +43,8 @@ Gene in coloumns and samples in row. With colnames as gene tags and rownames as 
 \item{x_min}{Manually set minimum value for x lab. (Default: -2)}
 
 \item{x_max}{Manually set maximum value for x lab. (Default: 2)}
+
+\item{label_names}{a vector of strings to override the existing labels}
 }
 \value{
 volcano plots as ggplot object; plots and data maybe be saved as well
