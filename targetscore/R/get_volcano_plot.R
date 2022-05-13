@@ -15,10 +15,11 @@
 #' @param include_labels a boolean whether to point labels
 #' @param save_output a boolean whether to save plots and point data to file
 #' @param label_names a vector of strings to override the existing labels 
+#' @param include_cutoffs a boolean whether cutoffs should be shown with additional lines
 #'
 #' @return volcano plots as ggplot object; plots and data maybe be saved as well
 #'
-#' @importFrom ggplot2 ggsave ggplot aes xlab theme_bw ggtitle xlab ylab geom_point scale_color_manual aes_string
+#' @importFrom ggplot2 ggsave ggplot aes xlab theme_bw ggtitle xlab ylab geom_point scale_color_manual aes_string geom_hline geom_vline
 #' @importFrom ggrepel geom_label_repel
 #' @importFrom utils write.csv
 #'
@@ -35,7 +36,8 @@ get_volcano_plot <- function(ts,
                              x_min = -2,
                              x_max = 2,
                              label_names = NULL,
-                             title = ""
+                             title = "",
+                             include_cutoffs = FALSE
                              ) {
   ts <- as.matrix(ts)
   p_adj <- as.matrix(q_value)
@@ -56,7 +58,8 @@ get_volcano_plot <- function(ts,
     tmp_dat$label_name <- row.names(tmp_dat)
   }
   
-  sig01 <- subset(tmp_dat, tmp_dat$neglogQ > -1 * log10(sig_value))
+  sig_neglog <- -1 * log10(sig_value)
+  sig01 <- subset(tmp_dat, tmp_dat$neglogQ > sig_neglog)
   sig001<- subset(sig01, abs(sig01$ts) > sig_TS)
   siglabel <- sig001$label_name
   tmp_dat$color <- color
@@ -69,6 +72,13 @@ get_volcano_plot <- function(ts,
     ylab("-log10 (Q-Value)") +
     scale_color_manual(name = "", values = c("black", "red")) +
     theme_bw()
+  
+  if(include_cutoffs) {
+    p <- p + 
+      geom_hline(yintercept = sig_neglog, color = "red") + 
+      geom_vline(xintercept = sig_TS, color = "red") + 
+      geom_vline(xintercept = -1*sig_TS, color = "red")
+  }
 
   if(include_labels) {
     p <- p + geom_label_repel(data = sig001, aes_string(x = "ts", y = "neglogQ", label = "label_name"), size = 5)
@@ -78,13 +88,14 @@ get_volcano_plot <- function(ts,
     p <- p + ggtitle(title)
   }
   
-  if (save_output) {
+  if(save_output) {
     plotname <- file.path(path, paste0(filename, ".pdf"))
     ggplot2::ggsave(plotname, p)
+    
     tmp_dat_f <- cbind(tmp_dat$ts, tmp_dat$neglogQ)
     colnames(tmp_dat_f) <- c("ts", "neglogQ")
     csvname <- file.path(path, paste0(filename, ".csv"))
-    write.csv(tmp_dat_f, file = csvname)
+    write.csv(tmp_dat_f, file = csvname, row.names = FALSE, quote = FALSE)
   }
 
   return(p)

@@ -18,7 +18,8 @@ get_volcano_plot(
   x_min = -2,
   x_max = 2,
   label_names = NULL,
-  title = ""
+  title = "",
+  include_cutoffs = FALSE
 )
 }
 \arguments{
@@ -45,6 +46,8 @@ Gene in columns and samples in row. With colnames as gene tags and rownames as s
 \item{x_max}{Manually set maximum value for x lab. (Default: 2)}
 
 \item{label_names}{a vector of strings to override the existing labels}
+
+\item{include_cutoffs}{a boolean whether cutoffs should be shown with additional lines}
 }
 \value{
 volcano plots as ggplot object; plots and data maybe be saved as well

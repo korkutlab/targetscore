@@ -2,30 +2,31 @@
 % Please edit documentation in R/predict_dat_network.R
 \name{predict_dat_network}
 \alias{predict_dat_network}
-\title{Predict data-driven only network using glasso}
+\title{Predict data-driven only network using GLASSO}
 \usage{
 predict_dat_network(
   data,
   cut_off = 0.1,
   n_prot,
-  proteomic_responses,
+  proteomic_responses = data,
   rho = 10^seq(-2, 0, 0.02),
   verbose = FALSE
 )
 }
 \arguments{
-\item{data}{input proteomics dataset for network inference. Gene in coloumns and samples in row.
-With colnames as gene tags and rownames as sample tags.}
+\item{data}{Input proteomics dataset for network inference. Gene in columns and samples in row.}
 
 \item{cut_off}{Manually Setup cut off value for the strength of edge. Default at 0.1.}
 
 \item{n_prot}{Antibody number of input data.}
 
-\item{proteomic_responses}{Input drug perturbation data. With columns as antibody, rows as samples.}
+\item{proteomic_responses}{Input proteomics dataset for network inference (for 
+example: TCGA RPPA data or post-perturbation response data).
+With columns as antibody, rows as samples (Defaults to "data")}
 
-\item{rho}{positive tuning parameter vector for elastic net penalty. Default at 10^seq(-2,0, 0.02)}
+\item{rho}{Positive tuning parameter vector for elastic net penalty. Default at 10^seq(-2,0, 0.02)}
 
-\item{verbose}{logical, whether to show additional debugging information}
+\item{verbose}{Logical, whether to show additional debugging information}
 }
 \value{
 a list is returned with the following entries:
@@ -45,27 +46,22 @@ between the genes in the interaction.
 * "edgelist" file as sif file of edgelist for inferred network.
 }
 \description{
-Predict data-driven only network using glasso
+Predict data-driven only network using GLASSO
 }
 \note{
 proteomic_responses is used only to retrieve the desired list of 
 entries for the resulting network
 }
 \examples{
-# Read proteomic response for cellline1
-file <- system.file("test_data", "BT474.csv", package = "targetscore")
-proteomic_responses <- read.csv(file, row.names = 1)
-
 # Read Global Signaling file for BRCA
 file <- system.file("test_data", "TCGA-BRCA-L4.csv", package = "targetscore")
 signaling_responses <- read.csv(file, row.names = 1)
 
- # Extract network
- network <- targetscore::predict_dat_network(
- data <- signaling_responses,
- n_prot = dim(proteomic_responses)[2],
- proteomic_responses = proteomic_responses
- )
+# Extract network
+network <- targetscore::predict_dat_network(
+  data <- signaling_responses,
+  n_prot = dim(signaling_responses)[2]
+)
 
 }
 \concept{targetscore}

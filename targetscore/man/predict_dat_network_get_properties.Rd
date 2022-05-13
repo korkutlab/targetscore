@@ -14,12 +14,14 @@ predict_dat_network_get_properties(
 }
 \arguments{
 \item{wk}{Inference network constructed in matrix form with edge strength value estimated.
-Can be extracted directly from predict_bio_network,predict_dat_network or predictt_hyb_network
+Can be extracted directly from predict_bio_network, predict_dat_network or predict_hybrid_network
 function. Where predict_bio_network edge value default at 1 for upregulate and -1 for down regulate.}
 
 \item{n_prot}{Antibody number of input data.}
 
-\item{proteomic_responses}{Input drug perturbation data. With columns as antibody, rows as samples.}
+\item{proteomic_responses}{Input proteomics dataset for network inference (for 
+example: TCGA RPPA data or post-perturbation response data).
+With columns as antibody, rows as samples (Defaults to "data")}
 
 \item{dist_file}{A distance file an edgelist with a third column which is the network distance
 between the genes in the interaction}
@@ -44,16 +46,15 @@ Get TargetScore-Specific Properties for Adjusted-Glasso Network
 file <- system.file("test_data", "BT474.csv", package = "targetscore")
 proteomic_responses <- read.csv(file, row.names = 1)
  
- # Read in network output
- wk_org <- readRDS(system.file("test_data_files", "predict_hybrid_network_network_output.rds",
- package = "targetscore"
- ))
+# Read in network output
+wk_org <- readRDS(system.file("test_data_files", "predict_hybrid_network_network_output.rds",
+  package = "targetscore"))
  
- network <- targetscore::predict_dat_network_calc_properties(
+network <- targetscore::predict_dat_network_calc_properties(
  wk <- wk_org$wk,
  n_prot = dim(proteomic_responses)[2],
  proteomic_responses = proteomic_responses
- )
+)
 
 }
 \concept{targetscore}

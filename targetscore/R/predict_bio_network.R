@@ -1,8 +1,9 @@
-#' Predict Network from signedPC (curated knowledge bio-inferred network)
+#' Extract Network from signedPC (Curated Knowledge Network)
 #'
 #' @param n_prot Antibody number of input data.
-#' @param proteomic_responses Input drug perturbation data. With columns as antibody, rows as samples.
-#' @param max_dist maximum distance between two antibody. (Default at 1)
+#' @param proteomic_responses Input proteomics dataset for network inference (this can be drug perturbation response data data. 
+#'   With columns as gene/antibody names, samples as rows.
+#' @param max_dist Maximum distance between two antibody. (Default at 1)
 #' @param mab_to_genes A list of antibodies, their associated genes, modification sites and effect.
 #' @param dist_file A distance file an edgelist with a third column which is the network distance
 #'   between the genes in the interaction
@@ -59,7 +60,7 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
     print(mab_to_genes)
   }
 
-  # pathway distance matrix
+  # Pathway distance matrix
   ####################### FIXME##########################
   # if (is.null(dist_file)) {
   #  dist_file <- system.file("target_score_data", "distances.txt", package = "targetscore")
@@ -88,14 +89,16 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
   #    print(unique(mab_to_genes[idx_ab_map,]))
   #    if(length(idx_ab_map) < n_prot) {
   #    print(length(unique(mab_to_genes[idx_ab_map,1])))
+  
   if (length(idx_ab_map) < n_prot) {
     #        print(length(idx_ab_map))
     stop("ERROR: Not all columns in data were matched in antibody map")
   }
   #    print((unique(mab_to_genes[idx_ab_map, 1])))
+  
   if (length(unique(mab_to_genes[idx_ab_map, 1])) != n_prot) {
     print(unique(mab_to_genes[idx_ab_map, 1]))
-    stop("ERROR: Mismatch in the number of selected antibodies and the number of proteomic responses")
+    stop("ERROR: Mismatch in the number of selected antibodies and the number of proteomic responses. There are likely missing entries in the antibody map file.")
   }
 
   # Used by match_genes_to_edgelist to account for the cases where multiple entries for the same antibody

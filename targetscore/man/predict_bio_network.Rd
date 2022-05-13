@@ -2,7 +2,7 @@
 % Please edit documentation in R/predict_bio_network.R
 \name{predict_bio_network}
 \alias{predict_bio_network}
-\title{Predict Network from signedPC (curated knowledge bio-inferred network)}
+\title{Extract Network from signedPC (Curated Knowledge Network)}
 \usage{
 predict_bio_network(
   n_prot,
@@ -18,9 +18,10 @@ predict_bio_network(
 \arguments{
 \item{n_prot}{Antibody number of input data.}
 
-\item{proteomic_responses}{Input drug perturbation data. With columns as antibody, rows as samples.}
+\item{proteomic_responses}{Input proteomics dataset for network inference (this can be drug perturbation response data data. 
+With columns as gene/antibody names, samples as rows.}
 
-\item{max_dist}{maximum distance between two antibody. (Default at 1)}
+\item{max_dist}{Maximum distance between two antibody. (Default at 1)}
 
 \item{mab_to_genes}{A list of antibodies, their associated genes, modification sites and effect.}
 
@@ -47,7 +48,7 @@ between the genes in the interaction.
 * "edgelist" file as sif file of edgelist for inferred network.
 }
 \description{
-Predict Network from signedPC (curated knowledge bio-inferred network)
+Extract Network from signedPC (Curated Knowledge Network)
 }
 \note{
 proteomic_responses is used only to retrieve the desired list of 

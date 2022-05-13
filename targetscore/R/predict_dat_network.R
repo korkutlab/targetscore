@@ -1,12 +1,13 @@
-#' Predict data-driven only network using glasso 
+#' Predict data-driven only network using GLASSO 
 #'
-#' @param data  input proteomics dataset for network inference. Gene in coloumns and samples in row.
-#' With colnames as gene tags and rownames as sample tags.
+#' @param data Input proteomics dataset for network inference. Gene in columns and samples in row.
 #' @param cut_off Manually Setup cut off value for the strength of edge. Default at 0.1.
 #' @param n_prot Antibody number of input data.
-#' @param proteomic_responses Input drug perturbation data. With columns as antibody, rows as samples.
-#' @param rho positive tuning parameter vector for elastic net penalty. Default at 10^seq(-2,0, 0.02)
-#' @param verbose logical, whether to show additional debugging information
+#' @param proteomic_responses Input proteomics dataset for network inference (for 
+#'   example: TCGA RPPA data or post-perturbation response data).
+#'   With columns as antibody, rows as samples (Defaults to "data")
+#' @param rho Positive tuning parameter vector for elastic net penalty. Default at 10^seq(-2,0, 0.02)
+#' @param verbose Logical, whether to show additional debugging information
 #'
 #' @note proteomic_responses is used only to retrieve the desired list of 
 #' entries for the resulting network
@@ -28,27 +29,22 @@
 #' * "edgelist" file as sif file of edgelist for inferred network.
 #' 
 #' @examples 
-#' # Read proteomic response for cellline1
-#' file <- system.file("test_data", "BT474.csv", package = "targetscore")
-#' proteomic_responses <- read.csv(file, row.names = 1)
-#' 
 #' # Read Global Signaling file for BRCA
 #' file <- system.file("test_data", "TCGA-BRCA-L4.csv", package = "targetscore")
 #' signaling_responses <- read.csv(file, row.names = 1)
 #' 
-#'  # Extract network
-#'  network <- targetscore::predict_dat_network(
-#'  data <- signaling_responses,
-#'  n_prot = dim(proteomic_responses)[2],
-#'  proteomic_responses = proteomic_responses
-#'  )
+#' # Extract network
+#' network <- targetscore::predict_dat_network(
+#'   data <- signaling_responses,
+#'   n_prot = dim(signaling_responses)[2]
+#' )
 #'
 #' @importFrom glasso glasso
 #' @importFrom stats cov
 #'
 #' @concept targetscore
 #' @export
-predict_dat_network <- function(data, cut_off = 0.1, n_prot, proteomic_responses,
+predict_dat_network <- function(data, cut_off = 0.1, n_prot, proteomic_responses=data,
                                 rho = 10^seq(-2, 0, 0.02), verbose=FALSE) {
   # FIXME: The scaling is for ...
   covmatrix <- (nrow(data) - 1) / nrow(data) * stats::cov(data)
