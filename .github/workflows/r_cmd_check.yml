@@ -45,7 +45,7 @@ jobs:
       - name: Query dependencies
         run: |
           install.packages('remotes')
-          saveRDS(remotes::dev_package_deps(pkgdir=$PKGDIR, dependencies=TRUE), ".github/depends.Rds", version = 2)
+          saveRDS(remotes::dev_package_deps(pkgdir=${{ env.PKGDIR }}, dependencies=TRUE), ".github/depends.Rds", version = 2)
           writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
         shell: Rscript {0}
 
@@ -66,7 +66,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          remotes::install_deps(pkgdir=$PKGDIR, dependencies = TRUE)
+          remotes::install_deps(pkgdir=${{ env.PKGDIR }}, dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
         shell: Rscript {0}
         
@@ -80,7 +80,7 @@ jobs:
           _R_CHECK_CRAN_INCOMING_REMOTE_: false
         run: |
           options(crayon.enabled = TRUE)
-          rcmdcheck::rcmdcheck(path=$PKGDIR, args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
+          rcmdcheck::rcmdcheck(path=${{ env.PKGDIR }}, args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
         shell: Rscript {0}
 
       - name: Upload check results
