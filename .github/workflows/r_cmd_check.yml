@@ -56,6 +56,9 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
+      - name: Debug
+        run: ls -lR1
+
       - name: Install system dependencies
         if: runner.os == 'Linux'
         run: |
