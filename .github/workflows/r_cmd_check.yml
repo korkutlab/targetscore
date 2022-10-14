@@ -58,7 +58,7 @@ jobs:
 
       - name: Debug
         if: runner.os == 'Linux'
-        shell: ls -lR1
+        shell: ls -lR1 
 
       - name: Install system dependencies
         if: runner.os == 'Linux'
