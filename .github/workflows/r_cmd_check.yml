@@ -72,6 +72,7 @@ jobs:
       - name: Install dependencies
         run: |
           remotes::install_cran(c("rcmdcheck", "rmarkdown"))
+          remotes::install_github('cmap/morpheus.R')
           remotes::install_deps(pkgdir="${{ env.PKGDIR }}", dependencies = TRUE)
         shell: Rscript {0}
         
