@@ -57,6 +57,7 @@ jobs:
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
       - name: Debug
+        if: runner.os == 'Linux'
         shell: ls -lR1
 
       - name: Install system dependencies
@@ -69,8 +70,8 @@ jobs:
 
       - name: Install dependencies
         run: |
+          remotes::install_cran(c("rcmdcheck", "rmarkdown"))
           remotes::install_deps(pkgdir="${{ env.PKGDIR }}", dependencies = TRUE)
-          remotes::install_cran("rcmdcheck")
         shell: Rscript {0}
         
       - name: Check if on GitHub Actions
