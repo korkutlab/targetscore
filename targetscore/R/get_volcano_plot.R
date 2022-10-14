@@ -15,6 +15,7 @@
 #' @param include_labels a boolean whether to point labels
 #' @param save_output a boolean whether to save plots and point data to file
 #' @param label_names a vector of strings to override the existing labels 
+#' @param title plot title text to be included on plot
 #' @param include_cutoffs a boolean whether cutoffs should be shown with additional lines
 #'
 #' @return volcano plots as ggplot object; plots and data maybe be saved as well
