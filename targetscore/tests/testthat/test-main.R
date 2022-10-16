@@ -212,7 +212,7 @@ test_that("get_fs_vals", {
 
 test_that("samp_sdev", {
 
-  # read proteomic responce file
+  # read proteomic response file
   proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "targetscore"), row.names = 1)
 
   # test-data sdev
@@ -279,7 +279,7 @@ test_that("get_target_score", {
   ))
 
 
-  # read proteomic responce file
+  # read proteomic response file
   signaling_responses <- read.csv(system.file("test_data", "TCGA-BRCA-L4.csv",
     package = "targetscore"
   ), row.names = 1)
