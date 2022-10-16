@@ -98,8 +98,8 @@ match_genes_to_edgelist <- function(genes1, genes2 = NULL, annot_edgelist, antib
   cur_annot_edgelist <- cur_annot_edgelist[idx, ]
 
   if (verbose) {
-    cat("START MATCH GENES: ", as.character(Sys.time()), "\n")
-    cat("NROW: ", nrow(cur_annot_edgelist), "\n")
+    message("START MATCH GENES: ", as.character(Sys.time()), "\n")
+    message("NROW: ", nrow(cur_annot_edgelist), "\n")
   }
 
   for (i in 1:nrow(cur_annot_edgelist)) {

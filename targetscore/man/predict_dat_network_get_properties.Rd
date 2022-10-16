@@ -50,7 +50,7 @@ proteomic_responses <- read.csv(file, row.names = 1)
 wk_org <- readRDS(system.file("test_data_files", "predict_hybrid_network_network_output.rds",
   package = "targetscore"))
  
-network <- targetscore::predict_dat_network_calc_properties(
+network <- targetscore::predict_dat_network_get_properties(
  wk <- wk_org$wk,
  n_prot = dim(proteomic_responses)[2],
  proteomic_responses = proteomic_responses

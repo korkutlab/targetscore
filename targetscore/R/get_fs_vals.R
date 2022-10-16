@@ -104,7 +104,7 @@ get_fs_vals <- function(n_prot, proteomic_responses, mab_to_genes, fs_override=N
   if(length(prot_dup) > 0) {
     for (i in 1:length(prot_dup)) {
       if(verbose) {
-        cat("DEBUG: Duplicate: ",  prot_dup[i], "\n")
+        message("DEBUG: Duplicate: ",  prot_dup[i], "\n")
       }
       
       index <- which(fs$prot %in% prot_dup[i])

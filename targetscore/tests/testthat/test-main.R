@@ -146,7 +146,7 @@ test_that("predict_dat_network_get_properties", {
     package = "targetscore"
   ))
 
-  network <- targetscore::predict_dat_network_calc_properties(
+  network <- targetscore::predict_dat_network_get_properties(
     wk <- wk_org$wk,
     n_prot = dim(proteomic_responses)[2],
     proteomic_responses = proteomic_responses

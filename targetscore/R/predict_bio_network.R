@@ -223,7 +223,7 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
   # }
 
   # only concentration and act. phospho nodes are included in up & downregulation
-  if(verbose) { cat("DEBUG: Processing upregulates-expression\n") }
+  if(verbose) { message("DEBUG: Processing upregulates-expression\n") }
   upexp_gene <-  match_genes_to_edgelist(
     genes1 = tmp_genes_ac, genes2 = tmp_genes_c, annot_edgelist = upexp,
     antibody_vec = colnames(proteomic_responses), use_annot = FALSE, verbose = verbose
@@ -236,12 +236,12 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
     wks[upexp_gene[i, 1], upexp_gene[i, 2]] <- 1
 
     if (verbose) {
-      cat(upexp_gene[i, 1], "\n")
+      message(upexp_gene[i, 1], "\n")
     }
   }
 
   # downregulation expression, wk=-1
-  if(verbose) { cat("DEBUG: Processing downregulates-expression\n") }
+  if(verbose) { message("DEBUG: Processing downregulates-expression\n") }
   dwnexp_gene <-  match_genes_to_edgelist(
     genes1 = tmp_genes_ac, genes2 = tmp_genes_c, annot_edgelist = dwnexp,
     antibody_vec = colnames(proteomic_responses), use_annot = FALSE, verbose = verbose
@@ -260,7 +260,7 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
   # phos_gene2 <- pmatch(phosp[, 3], mabToGenes_d[measured_genes, 4], duplicates.ok = TRUE)
   # phos_gene <- cbind(phos_gene1, phos_gene2)
 
-  if(verbose) { cat("DEBUG: Processing phosphorylates\n") }
+  if(verbose) { message("DEBUG: Processing phosphorylates\n") }
   # Skip if no 'a' Effect genes
   if(length(tmp_genes_a) > 0) {
     phos_gene <-  match_genes_to_edgelist(
@@ -281,7 +281,7 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
   # dephos_gene2 <- pmatch(dephosp[, 3], mabToGenes_d[measured_genes, 4], duplicates.ok = TRUE)
   # dephos_gene <- cbind(dephos_gene1, dephos_gene2)
 
-  if(verbose) { cat("DEBUG: Processing dephosphorylates\n") }
+  if(verbose) { mesage("DEBUG: Processing dephosphorylates\n") }
   # Skip if no 'a' Effect genes
   if(length(tmp_genes_a) > 0) {
     dephos_gene <-  match_genes_to_edgelist(

@@ -90,13 +90,13 @@ calc_target_score <- function(wk, wks, dist_ind, edgelist, n_dose, n_prot, prote
   }
   
   if(verbose) {
-    cat("MSG: Edges used per dose: ", floor(edges_used / n_dose), "\n")  
+    message("MSG: Edges used per dose: ", floor(edges_used / n_dose), "\n")  
     
     network_nodes <- unique(c(edgelist$source_node, edgelist$target_node))
     response_nodes <- colnames(proteomic_responses)
     
     tmp <- paste(sort(setdiff(network_nodes, response_nodes)), collapse="|")
-    cat("MSG: IDs not present in network: ", tmp, "\n")
+    message("MSG: IDs not present in network: ", tmp, "\n")
   }
   
   for (i in 1:n_dose) {

@@ -123,7 +123,7 @@ get_target_score <- function(wk, wks, dist_ind, edgelist, n_dose, n_prot, proteo
   # CREATE Q-VALUES ----
   for (k in seq_len(n_perm)) {
     #        if(verbose) {
-    cat("MSG: Permutation Iteration: ", k, "\n")
+    message("MSG: Permutation Iteration: ", k, "\n")
     #        }
 
     # print(fs) randomize the readouts over proteomic entities
