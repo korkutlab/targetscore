@@ -203,7 +203,10 @@ test_that("get_fs_vals", {
     n_prot = ncol(proteomic_responses), proteomic_responses = proteomic_responses,
     mab_to_genes = mab_to_genes, fs_override = fs_override_org
   )
-
+  
+  fs <- fs[order(fs$prot),]
+  wk_org <- wk_org[order(wk_org$prot),]
+  
   expect_identical(fs, wk_org)
 })
 
