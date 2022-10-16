@@ -279,7 +279,7 @@ test_that("get_target_score", {
   ))
 
 
-  # read proteomic response file
+  # Read proteomic response file
   signaling_responses <- read.csv(system.file("test_data", "TCGA-BRCA-L4.csv",
     package = "targetscore"
   ), row.names = 1)
@@ -289,18 +289,17 @@ test_that("get_target_score", {
     package = "targetscore"
   ))
 
-  # read proteomic response file
+  # Read proteomic response file
   proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "targetscore"),
     row.names = 1
   )
 
-  # read functional score value
+  # Read functional score value
   fs <- readRDS(system.file("test_data_files", "get_fs_vals_output.rds",
     package = "targetscore"
   ))
 
   # Calculate Target Score
-
   ts <- array(0, dim = c(dim(proteomic_responses)[1], dim(proteomic_responses)[2]))
   ts_p <- array(0, dim = c(dim(proteomic_responses)[1], dim(proteomic_responses)[2]))
   ts_q <- array(0, dim = c(dim(proteomic_responses)[1], dim(proteomic_responses)[2]))
