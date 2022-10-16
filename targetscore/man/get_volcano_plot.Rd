@@ -47,6 +47,8 @@ Gene in columns and samples in row. With colnames as gene tags and rownames as s
 
 \item{label_names}{a vector of strings to override the existing labels}
 
+\item{title}{plot title text to be included on plot}
+
 \item{include_cutoffs}{a boolean whether cutoffs should be shown with additional lines}
 }
 \value{

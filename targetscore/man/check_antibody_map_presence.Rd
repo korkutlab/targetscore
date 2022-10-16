@@ -33,7 +33,8 @@ The function will make several edits before the comparison:
 }
 }
 \examples{
-antibody_vec <- readLines(system.file("test_data", "test_antibody_names.txt", package="targetscore"))
+antibody_vec <- readLines(system.file("test_data", 
+  "test_antibody_names.txt", package="targetscore"))
 # BADANTIBODY should be returned as the only entry of 50
 check_antibody_map_presence(antibody_vec) 
 
