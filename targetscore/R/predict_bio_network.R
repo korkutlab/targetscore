@@ -48,7 +48,6 @@
 #'  )
 #' 
 #' @importFrom utils write.table
-#' @importFrom base message
 #'
 #' @concept targetscore
 #' @export
@@ -282,7 +281,7 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
   # dephos_gene2 <- pmatch(dephosp[, 3], mabToGenes_d[measured_genes, 4], duplicates.ok = TRUE)
   # dephos_gene <- cbind(dephos_gene1, dephos_gene2)
 
-  if(verbose) { mesage("DEBUG: Processing dephosphorylates\n") }
+  if(verbose) { message("DEBUG: Processing dephosphorylates\n") }
   # Skip if no 'a' Effect genes
   if(length(tmp_genes_a) > 0) {
     dephos_gene <-  match_genes_to_edgelist(
