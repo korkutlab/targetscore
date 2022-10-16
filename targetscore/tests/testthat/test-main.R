@@ -307,7 +307,7 @@ test_that("get_target_score", {
       wk = network$wk,
       wks = network$wks,
       dist_ind = network$dist_ind,
-      inter = network$inter,
+      edgelist = network$inter,
       n_dose = 1,
       n_prot = dim(proteomic_responses)[2],
       proteomic_responses = proteomic_responses[i, ],
