@@ -48,6 +48,7 @@
 #'  )
 #' 
 #' @importFrom utils write.table
+#' @importFrom base message
 #'
 #' @concept targetscore
 #' @export

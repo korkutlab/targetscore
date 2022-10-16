@@ -318,9 +318,9 @@ test_that("get_target_score", {
       verbose = FALSE,
       fs_dat = fs
     )
-    ts[i, ] <- results$ts
-    ts_p[i, ] <- results$pts
-    ts_q[i, ] <- results$q
+    ts[i, ] <- t(results$ts)
+    ts_p[i, ] <- t(results$pts)
+    ts_q[i, ] <- t(results$q)
   }
 
   colnames(ts) <- colnames(proteomic_responses)
