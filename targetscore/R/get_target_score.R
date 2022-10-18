@@ -39,12 +39,12 @@
 #' package = "targetscore"
 #' ))
 #' 
-#' # read proteomic responce file
+#' # Read proteomic response file
 #' proteomic_responses <- read.csv(system.file("test_data", "BT474.csv", package = "targetscore"),
 #' row.names = 1
 #' )
 #' 
-#' # read functional score value
+#' # Read functional score value
 #' fs <- readRDS(system.file("test_data_files", "get_fs_vals_output.rds",
 #' package = "targetscore"
 #' ))

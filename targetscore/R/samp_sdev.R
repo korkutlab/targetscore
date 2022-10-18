@@ -7,7 +7,7 @@
 #' @param replace_missing Replace missing values NA with 0 (DEFAULT: TRUE)
 #' 
 #' @examples 
-#' # read proteomic responce file
+#' # read proteomic response file
 #' file <- system.file("test_data", "BT474.csv", package = "targetscore")
 #' proteomic_responses <- read.csv(file, row.names = 1)
 #' samp_d <- samp_sdev(
