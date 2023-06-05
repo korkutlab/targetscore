@@ -3,7 +3,7 @@
 #' @param data  input proteomics dataset for network inference. Gene in coloumns and samples in row.
 #' With colnames as gene tags and rownames as sample tags.
 #' @param prior Prior information matrix of gene interaction, with colnames and rownames as gene tags.
-#' With colnames and rownames as gene tags.Can be inferred from Public data source (for example:SignedPC).
+#' With colnames and rownames as gene tags. Can be inferred from Public data source (for example:SignedPC).
 #' @param rho positive tuning parameter for elastic net penalty. Default at seq10^seq(-2, 0, 0.02).
 #' @param kappa positive scaler parameter for biology-knowledge base contribution. Default at seq10^seq(-2, 0, 0.02).
 #' @param antibody_map_file a CSV file containing a table columns: 
@@ -11,7 +11,7 @@
 #'   Gene_Symbol (approved gene symbol) Sites (affected sites divided by vertical bar, |), 
 #'   Effect (effect of phosphorylation: c: constitutively expressed, a: activating, i: inhibiting)
 #' 
-#' @return Parameter list of regulization parameter decided by the prior information and the algorithmn lowest BIC.
+#' @return Parameter list of regularization parameter decided by the prior information and the algorithm lowest BIC.
 #' \item{rho}{optimized penalty parameter.}
 #' \item{kappa}{optimized scaler parameter.}
 #' \item{rho_m}{optimized regulization matrix for the expression data.}

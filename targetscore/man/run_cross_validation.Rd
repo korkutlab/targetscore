@@ -15,20 +15,20 @@ run_cross_validation(
   max_dist = 1,
   verbose = FALSE,
   boot_time = 100,
-  crit_cv = "loglik",
+  crit_cv = c("loglik", "AIC", "BIC"),
   algorithm = c("data_driven", "hybrid_driven")
 )
 }
 \arguments{
-\item{data}{input proteomics dataset for network inference. Gene in coloumns and samples in row.
+\item{data}{input proteomics dataset for network inference. Gene in columns and samples in row.
 With colnames as gene tags and rownames as sample tags.}
 
 \item{prior}{prior information matrix of gene interaction, with colnames and rownames as gene tags.
-With colnames and rownames as gene tags.Can be inferred from Public data source (for example:SignedPC).}
+With colnames and rownames as gene tags. Can be inferred from Public data source (for example:SignedPC).}
 
 \item{n_prot}{antibody number of input data.}
 
-\item{k_fold}{specify the number of folds for cross validation.(Default at 5)}
+\item{k_fold}{specify the number of folds for cross validation. (Default at 5)}
 
 \item{proteomic_responses}{input drug perturbation data. With columns as antibody, rows as samples.}
 
@@ -41,7 +41,7 @@ between the genes in the interaction}
 
 \item{verbose}{whether to show debugging information}
 
-\item{boot_time}{bootstrap time mannually set.Default at 100.}
+\item{boot_time}{bootstrap time manually set. Default at 100.}
 
 \item{crit_cv}{cross validation criterion (\code{loglik}, \code{AIC}, or \code{BIC}). Defaults to \code{loglik}.}
 
@@ -56,5 +56,8 @@ returns list of cross validation results which includes:
 }
 \description{
 Run cross validation through data.
+}
+\details{
+FIXME: FIG 3D BIORXIV
 }
 \concept{targetscore}

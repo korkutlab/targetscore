@@ -102,6 +102,8 @@ match_genes_to_edgelist <- function(genes1, genes2 = NULL, annot_edgelist, antib
     message("NROW: ", nrow(cur_annot_edgelist), "\n")
   }
 
+  # NOTE: Lack of interactions between nodes may trigger match_genes_to_edgelist 
+  #   errors generating data.frame when cur_annot_edgelist has a nrow = 0
   for (i in 1:nrow(cur_annot_edgelist)) {
     # i <- 1
     annot <- NA

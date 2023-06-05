@@ -1,10 +1,10 @@
-#' Choose the optimal regulization parameter for only data-driven network.
+#' Choose the optimal regularization parameter for only data-driven network.
 #'
 #' @param data input proteomics dataset for network inference. Gene in coloumns and samples in row.
 #' With colnames as gene tags and rownames as sample tags.
 #' @param rho positive tuning parameter for elastic net penalty. Default at 10^seq(-2, 0, 0.02).
 #'
-#' @return Parameter of regulization BIC error calculated.
+#' @return Parameter of regularization BIC error calculated.
 #' \item{rho}{penalty parameter optimized.}
 #' \item{bic}{BIC error calculated for penalty parameters.}
 #' 

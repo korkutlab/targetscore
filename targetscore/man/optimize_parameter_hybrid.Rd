@@ -18,7 +18,7 @@ optimize_parameter_hybrid(
 With colnames as gene tags and rownames as sample tags.}
 
 \item{prior}{Prior information matrix of gene interaction, with colnames and rownames as gene tags.
-With colnames and rownames as gene tags.Can be inferred from Public data source (for example:SignedPC).}
+With colnames and rownames as gene tags. Can be inferred from Public data source (for example:SignedPC).}
 
 \item{rho}{positive tuning parameter for elastic net penalty. Default at seq10^seq(-2, 0, 0.02).}
 
@@ -30,7 +30,7 @@ Gene_Symbol (approved gene symbol) Sites (affected sites divided by vertical bar
 Effect (effect of phosphorylation: c: constitutively expressed, a: activating, i: inhibiting)}
 }
 \value{
-Parameter list of regulization parameter decided by the prior information and the algorithmn lowest BIC.
+Parameter list of regularization parameter decided by the prior information and the algorithm lowest BIC.
 \item{rho}{optimized penalty parameter.}
 \item{kappa}{optimized scaler parameter.}
 \item{rho_m}{optimized regulization matrix for the expression data.}

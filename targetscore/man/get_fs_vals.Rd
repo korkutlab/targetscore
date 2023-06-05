@@ -46,7 +46,7 @@ fs_override_org <- readRDS(system.file("test_data_files", "fs_value_file.rds",
 package = "targetscore"
 ))
 
-# Read proteomic responce file
+# Read proteomic response file
 file <- system.file("test_data", "BT474.csv", package = "targetscore")
 proteomic_responses <- read.csv(file, row.names = 1)
 

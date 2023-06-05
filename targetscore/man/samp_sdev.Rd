@@ -21,7 +21,7 @@ samp_sdev(n_sample, n_prot, n_dose, n_x, replace_missing = TRUE)
 Calculate the standard deviation over all samples
 }
 \examples{
-# read proteomic responce file
+# read proteomic response file
 file <- system.file("test_data", "BT474.csv", package = "targetscore")
 proteomic_responses <- read.csv(file, row.names = 1)
 samp_d <- samp_sdev(

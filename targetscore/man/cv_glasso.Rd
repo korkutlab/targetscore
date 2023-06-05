@@ -2,7 +2,7 @@
 % Please edit documentation in R/cv_glasso.R
 \name{cv_glasso}
 \alias{cv_glasso}
-\title{Run k-fold cross validation for data.(reference from CVglasso)}
+\title{Run k-fold cross validation for data.}
 \usage{
 cv_glasso(
   data = NULL,
@@ -62,11 +62,14 @@ allows the user to adjust the maximum number of iterations after the first "lam"
 }
 \value{
 returns list of returns which includes:
-{lam} optimized penalty parameter through traing data.
+{lam} optimized penalty parameter through training data.
 {avg_error} average cross validation error across all folds.
 {cv_error} cross validation errors.
 }
 \description{
-Run k-fold cross validation for data.(reference from CVglasso)
+Run k-fold cross validation for data.
+}
+\seealso{
+This code modifies code from the CVglasso R package: https://github.com/MGallow/CVglasso/blob/master/R/CV.R
 }
 \concept{targetscore}

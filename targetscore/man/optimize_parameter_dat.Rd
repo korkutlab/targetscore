@@ -2,7 +2,7 @@
 % Please edit documentation in R/optimize_parameter_dat.R
 \name{optimize_parameter_dat}
 \alias{optimize_parameter_dat}
-\title{Choose the optimal regulization parameter for only data-driven network.}
+\title{Choose the optimal regularization parameter for only data-driven network.}
 \usage{
 optimize_parameter_dat(data, rho = 10^seq(-2, 0, 0.02))
 }
@@ -13,12 +13,12 @@ With colnames as gene tags and rownames as sample tags.}
 \item{rho}{positive tuning parameter for elastic net penalty. Default at 10^seq(-2, 0, 0.02).}
 }
 \value{
-Parameter of regulization BIC error calculated.
+Parameter of regularization BIC error calculated.
 \item{rho}{penalty parameter optimized.}
 \item{bic}{BIC error calculated for penalty parameters.}
 }
 \description{
-Choose the optimal regulization parameter for only data-driven network.
+Choose the optimal regularization parameter for only data-driven network.
 }
 \examples{
 # read proteomic response file

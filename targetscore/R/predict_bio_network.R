@@ -223,6 +223,8 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
   # }
 
   # only concentration and act. phospho nodes are included in up & downregulation
+  # NOTE: Lack of interactions between nodes may trigger match_genes_to_edgelist 
+  #   errors generating data.frame when cur_annot_edgelist has a nrow = 0
   if(verbose) { message("DEBUG: Processing upregulates-expression\n") }
   upexp_gene <-  match_genes_to_edgelist(
     genes1 = tmp_genes_ac, genes2 = tmp_genes_c, annot_edgelist = upexp,

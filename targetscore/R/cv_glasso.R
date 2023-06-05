@@ -1,4 +1,4 @@
-#' Run k-fold cross validation for data.(reference from CVglasso)
+#' Run k-fold cross validation for data.
 #'
 #' @param data option to provide a nxp data matrix. Each row corresponds to a 
 #' single observation and each column contains n observations of a single
@@ -28,15 +28,16 @@
 #' (\code{data_driven},or \code{hybrid_driven}).
 #'
 #' @return returns list of returns which includes:
-#' {lam} optimized penalty parameter through traing data.
+#' {lam} optimized penalty parameter through training data.
 #' {avg_error} average cross validation error across all folds.
 #' {cv_error} cross validation errors.
+#' 
+#' @seealso This code modifies code from the CVglasso R package: https://github.com/MGallow/CVglasso/blob/master/R/CV.R
 #'
 #' @importFrom glasso glasso
 #'
 #' @concept targetscore
 #' @export
-
 cv_glasso <- function(data = NULL,
                       s_matrix = NULL,
                       prior = NULL,
@@ -52,80 +53,88 @@ cv_glasso <- function(data = NULL,
                       algorithm = c("data_driven", "hybrid_driven")) {
 
   # Data input requirement
-  if (is.null(data)) {
-    stop("Must provided data or s_matrix in cross validation process.")
+  if(is.null(data) && is.null(s_matrix)) {
+    stop("Must provide either data or s_matrix")
   }
-  # match values
+  
+  # Compute sample covariance matrix, if necessary
+  # if (is.null(s_matrix)) {
+  #   s_matrix <- (nrow(data) - 1)/nrow(data) * cov(data)
+  # }
+  
+  # Match values
   crit_cv <- match.arg(crit_cv)
   algorithm <- match.arg(algorithm)
   start <- match.arg(start)
 
-  # initialize
-  initmaxit <- maxit
+  # Initialize
+  init_maxit <- maxit
   s_train <- s_matrix
   s_valid <- s_matrix
   crossvalid_errors <- array(0, k_fold)
 
-  # no need to create folds if k_fold <- 1
-  if (k_fold == 1) {
+  # No need to create folds if k_fold <- 1
+  if(k_fold == 1) {
 
-    # set sample size
-    n <- nrow(s_matrix)
+    # Set sample size
+    n <- nrow(s_train)
   } else {
 
-    # designate folds and shuffle -- ensures randomized folds
+    # Designate folds and shuffle -- ensures randomized folds
     n <- nrow(data)
     ind <- sample(n)
   }
 
-  # parse data into folds and perform CV
-  for (k in 1:k_fold) {
-    if (k_fold > 1) {
+  # Parse data into folds and perform CV
+  for(k in 1:k_fold) {
+    if(k_fold > 1) {
 
-      # training set
+      # Training set
       leave_out <- ind[(1 + floor((k - 1) * n / k_fold)):floor(k *
         n / k_fold)]
       data_train <- data[-leave_out, , drop = FALSE]
       data_bar <- apply(data_train, 2, mean)
       data_train <- scale(data_train, center = data_bar, scale = FALSE)
 
-      # validation set
+      # Validation set
       data_valid <- data[leave_out, , drop = FALSE]
       data_valid <- scale(data_valid, center = data_bar, scale = FALSE)
       n <- nrow(data_valid)
 
-      # sample covariances
+      # Sample covariance matrix of the columns of data_train
       s_train <- crossprod(data_train) / (dim(data_train)[1])
       s_valid <- crossprod(data_valid) / (dim(data_valid)[1])
     }
 
-    # re-initialize values for each fold
-    maxit <- initmaxit
+    # Re-initialize values for each fold
+    maxit <- init_maxit
     init <- s_train
     init_omega <- diag(ncol(s_train))
 
-    # for tuning parameters
-    # choosing optimal parameter tuning parameter for training data
-    if (algorithm == "data_driven") {
+    # For tuning parameters
+    # Choosing optimal parameter tuning parameter for training data
+    if(algorithm == "data_driven") {
       optimize_param <- targetscore::optimize_parameter_dat(
         data = data_train,
         rho = rho
       )
-      lam_ <- optimize_param$rho
+      
+      lam <- optimize_param$rho
     }
 
-    if (algorithm == "hybrid_driven") {
+    if(algorithm == "hybrid_driven") {
       optimize_param <- targetscore::optimize_parameter_hybrid(
         data = data_train,
         rho = rho,
         kappa = kappa,
         prior = prior
       )
-      lam_ <- optimize_param$rho_m
+      
+      lam <- optimize_param$rho_m
     }
 
-    # initial sigma
-    if (!diagonal) {
+    # Initial sigma
+    if(!diagonal) {
 
       # provide estimate that is pd and dual feasible
       s_minus <- s_train
@@ -135,45 +144,47 @@ cv_glasso <- function(data = NULL,
       diag(init) <- diag(s_train)
     }
 
-    # update diagonal elements of init, if necessary
-    if (diagonal) {
-      diag(init) <- diag(s_train) + lam_
+    # Update diagonal elements of init, if necessary
+    if(diagonal) {
+      diag(init) <- diag(s_train) + lam
     }
 
-    # compute the penalized likelihood precision matrix
-    # estimator
+    # Compute the penalized likelihood precision matrix; precision matrix 
+    # also known as inverse covariance matrix
+    
+    # Estimator
     glasso_result <- glasso::glasso(
-      s = s_train, rho = lam_, thr = tol,
+      s = s_train, rho = lam, thr = tol,
       maxit = maxit, penalize.diagonal = diagonal,
       start = "warm", w.init = init, wi.init = init_omega
     )
 
-    if (start == "warm") {
+    if(start == "warm") {
 
-      # option to save initial values for warm starts
+      # Option to save initial values for warm starts
       init <- glasso_result$w
       init_omega <- glasso_result$wi
       maxit <- adjmaxit
     }
 
-    # compute the observed negative validation loglikelihood
-    # (close enoug)
+    # Compute the observed negative validation log-likelihood
+    # (close enough)
     crossvalid_errors[k] <- (nrow(data) / 2) * (sum(glasso_result$wi *
       s_valid) - determinant(glasso_result$wi, logarithm = TRUE)$modulus[1])
 
-    # update for crit_cv, if necessary
-    if (crit_cv == "AIC") {
+    # Update for crit_cv, if necessary
+    if(crit_cv == "AIC") {
       crossvalid_errors[k] <- crossvalid_errors[k] + sum(glasso_result$wi != 0)
     }
-    if (crit_cv == "BIC") {
+    
+    if(crit_cv == "BIC") {
       crossvalid_errors[k] <- crossvalid_errors[k] + sum(glasso_result$wi != 0) * log(nrow(data)) / 2
     }
   }
 
-  # determine optimal tuning parameters
+  # Determine optimal tuning parameters
   avg_error <- mean(crossvalid_errors)
 
-
-  # return best lam and alpha values
-  return(list(lam = lam_, avg_error = avg_error, cv_error = crossvalid_errors))
+  # Return best lam and alpha values
+  return(list(lam = lam, avg_error = avg_error, cv_error = crossvalid_errors))
 }
