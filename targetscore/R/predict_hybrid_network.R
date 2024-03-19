@@ -105,24 +105,26 @@ predict_hybrid_network <- function(data, prior = NULL, cut_off = 0.1,
   }
   prior2 <- ifelse(prior2 != 0, 1, 0)
 
+  # FIXME: FIG 3B BIC MATRIX 
   # getting the best tuning parameter from BIC minimization
   covmatrix <- (nrow(data) - 1) / nrow(data) * stats::cov(data)
   bic <- matrix(NA, length(rho), length(kappa))
   rho_m <- NULL
   g_result <- NULL
   u <- matrix(1, nrow(prior2), ncol(prior2))
-  p_off_d <- NULL
+  p_off_d <- NULL # FIXME: DIAGONAL ELEMENTS
   for (i in seq_len(length(rho))) {
     for (j in seq_len(i)) {
       rho_m <- rho[i] * u - kappa[j] * prior2
       g_result <- glasso::glasso(covmatrix, rho_m, nobs = nrow(covmatrix))
       p_off_d <- sum(g_result$wi != 0 & col(covmatrix) < row(covmatrix))
-      bic[i, j] <- -2 * (g_result$loglik) + p_off_d * log(nrow(data))
+      bic[i, j] <- -2 * (g_result$loglik) + p_off_d * log(nrow(data)) # FIXME: BIC ERROR?; see: https://www.stata.com/meeting/us21/slides/US21_Dallakyan.pdf
       bic <- as.data.frame(bic)
       rownames(bic) <- rho
       colnames(bic) <- kappa
     }
   }
+  
   pos <- which(bic == min(bic, na.rm = TRUE), arr.ind = TRUE)
   rho <- rho[pos[1]]
   kappa <- kappa[pos[2]]

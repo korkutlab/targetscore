@@ -72,7 +72,7 @@ max_dist <- 1 # changing this value requires additional work to compute product(
 ```
 
 ### Read Antibody File 
-The Antibody file is the Gene Name list database which provided the onsite AnitobodyLabel of local upload files with the Gene_Symbol used within the database/package. While Antibody file also provided the information of phosphorylation activation/deactivation.
+The Antibody file is the Gene Name list database which provided the onsite AntibodyLabel of local upload files with the Gene_Symbol used within the database/package. While Antibody file also provided the information of phosphorylation activation/deactivation.
 
 #### Columns
 * AntibodyLabel: Antibody label from local data. The AnitibodyLabel will serve as the label alongside all calculation.

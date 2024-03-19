@@ -10,7 +10,8 @@ optimize_parameter_hybrid(
   rho = 10^seq(-2, 0, 0.02),
   kappa = 10^seq(-2, 0, 0.02),
   antibody_map_file = system.file("target_score_data", "antibody_map_08092019.csv",
-    package = "targetscore")
+    package = "targetscore"),
+  verbose = FALSE
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ With colnames and rownames as gene tags. Can be inferred from Public data source
 AntibodyLabel (a unique for antibody), Source (supplier), NodeName (a label for entry for visualization), 
 Gene_Symbol (approved gene symbol) Sites (affected sites divided by vertical bar, |), 
 Effect (effect of phosphorylation: c: constitutively expressed, a: activating, i: inhibiting)}
+
+\item{verbose}{whether to show debugging information}
 }
 \value{
 Parameter list of regularization parameter decided by the prior information and the algorithm lowest BIC.

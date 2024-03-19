@@ -26,6 +26,7 @@
 #' @param start specify \code{warm} or \code{cold} start for cross validation. Default is \code{warm}.
 #' @param algorithm Flexible toolbox implementing network estimating algorithms for robustness test.
 #' (\code{data_driven},or \code{hybrid_driven}).
+#' @param verbose whether to show debugging information
 #'
 #' @return returns list of returns which includes:
 #' {lam} optimized penalty parameter through training data.
@@ -50,7 +51,8 @@ cv_glasso <- function(data = NULL,
                       k_fold = 5,
                       crit_cv = c("loglik", "AIC", "BIC"),
                       start = c("warm", "cold"),
-                      algorithm = c("data_driven", "hybrid_driven")) {
+                      algorithm = c("data_driven", "hybrid_driven"),
+                      verbose = FALSE) {
 
   # Data input requirement
   if(is.null(data) && is.null(s_matrix)) {
@@ -87,6 +89,8 @@ cv_glasso <- function(data = NULL,
 
   # Parse data into folds and perform CV
   for(k in 1:k_fold) {
+    if(verbose) { message("DEBUG: FOLD: ", k, "\n") }
+    
     if(k_fold > 1) {
 
       # Training set
@@ -116,7 +120,8 @@ cv_glasso <- function(data = NULL,
     if(algorithm == "data_driven") {
       optimize_param <- targetscore::optimize_parameter_dat(
         data = data_train,
-        rho = rho
+        rho = rho,
+        verbose = verbose
       )
       
       lam <- optimize_param$rho
@@ -127,7 +132,8 @@ cv_glasso <- function(data = NULL,
         data = data_train,
         rho = rho,
         kappa = kappa,
-        prior = prior
+        prior = prior,
+        verbose = verbose
       )
       
       lam <- optimize_param$rho_m

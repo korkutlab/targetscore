@@ -17,7 +17,8 @@ cv_glasso(
   k_fold = 5,
   crit_cv = c("loglik", "AIC", "BIC"),
   start = c("warm", "cold"),
-  algorithm = c("data_driven", "hybrid_driven")
+  algorithm = c("data_driven", "hybrid_driven"),
+  verbose = FALSE
 )
 }
 \arguments{
@@ -59,6 +60,8 @@ allows the user to adjust the maximum number of iterations after the first "lam"
 
 \item{algorithm}{Flexible toolbox implementing network estimating algorithms for robustness test.
 (\code{data_driven},or \code{hybrid_driven}).}
+
+\item{verbose}{whether to show debugging information}
 }
 \value{
 returns list of returns which includes:
