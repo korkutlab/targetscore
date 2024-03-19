@@ -110,6 +110,7 @@ get_target_score <- function(wk, wks, dist_ind, edgelist, n_dose, n_prot, proteo
   wk <- results$wk
   tsd <- results$tsd
   wks <- results$wks
+  debug_ts <- results$debug
 
   # Random TS for each node over n permutations
   rand_ts <- matrix(NA, nrow = n_prot, ncol = n_perm)
@@ -156,9 +157,15 @@ get_target_score <- function(wk, wks, dist_ind, edgelist, n_dose, n_prot, proteo
     zval <- (ts[i] - mean) / (stdev)
     pts[i] <- 2 * pnorm(-abs(zval)) # pnorm(ts[i], mean = mean(rand_ts[i, 1:n_perm]), sd = sd(rand_ts[i, 1:n_perm]))
 
-    if (verbose) {
-      print(pts[i])
-    }
+    # if (verbose) {
+    #   tmp <- pts[i]
+    #   message("MSG: Current TS p-value: ", tmp, "\n")
+    # }
+  }
+  
+  if (verbose) {
+    tmp <- paste(head(pts), collapse=", ")
+    message("MSG: TS p-values (head): ", tmp, "\n")
   }
 
   # q and pts can be named vectors; ts must be a data.frame for multiple entries
@@ -212,7 +219,8 @@ get_target_score <- function(wk, wks, dist_ind, edgelist, n_dose, n_prot, proteo
   # RETURN RESULTS ----
   results <- list(wk=wk, wks=wks, 
                   ts=ts, tsd=tsd, rand_ts=rand_ts,
-                  pts=pts, q=q, ts_sig_df=ts_sig_df)
+                  pts=pts, q=q, ts_sig_df=ts_sig_df,
+                  debug_ts=debug_ts)
   
   return(results)
 }

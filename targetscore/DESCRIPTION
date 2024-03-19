@@ -1,8 +1,8 @@
 Package: targetscore
 Type: Package
 Title: Targeting Adaptation to Cancer Treatment by Drug Combination Prediction
-Version: 0.99.25
-Date: 2022-10-18
+Version: 0.99.30
+Date: 2024-03-18
 Author: Augustin Luna, Anil Korkut
 Maintainer: Augustin Luna <lunaa@cbio.mskcc.org>
 Description: A statistical pathway analysis method that 1) reveals pathways involved in drug activity and adaptive resistance and 2) nominates combination therapies to down regulate the resistance pathways. 
@@ -28,7 +28,7 @@ Suggests:
     markdown
 URL: https://github.com/korkutlab/targetscore
 VignetteBuilder: knitr
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Encoding: UTF-8
 biocViews: CellBasedAssays, Proteomics, GeneExpression,
     Pharmacogenomics, Pharmacogenetics, Visualization,

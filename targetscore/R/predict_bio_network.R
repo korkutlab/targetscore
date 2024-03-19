@@ -56,9 +56,7 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
                                 dist_file = NULL, 
                                 network_file=system.file("extdata", "filteredSignedPc_20191113.txt", package = "targetscore"),
                                 verbose = FALSE) {
-  if (verbose) {
-    print(mab_to_genes)
-  }
+  #if (verbose) { print(mab_to_genes) }
 
   # Pathway distance matrix
   ####################### FIXME##########################
@@ -237,9 +235,7 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
     wk[upexp_gene[i, 1], upexp_gene[i, 2]] <- 1
     wks[upexp_gene[i, 1], upexp_gene[i, 2]] <- 1
 
-    if (verbose) {
-      message(upexp_gene[i, 1], "\n")
-    }
+    # if(verbose) { message("MSG: CUR_UPEXP_GENE:", upexp_gene[i, 1], "\n") }
   }
 
   # downregulation expression, wk=-1
@@ -297,11 +293,9 @@ predict_bio_network <- function(n_prot, proteomic_responses, max_dist,
     }
   }
 
-  inter <- (which(wk != 0, arr.ind = TRUE))
+  inter <- which(wk != 0, arr.ind = TRUE)
 
-  if (verbose) {
-    print(inter)
-  }
+  if (verbose) { message("DEBUG: INTER NROW: ", nrow(inter), "\n") }
 
   for (i in 1:n_prot) {
     for (j in 1:n_prot) {

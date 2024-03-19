@@ -36,9 +36,11 @@
 #' @export
 calc_target_score <- function(wk, wks, dist_ind, edgelist, n_dose, n_prot, proteomic_responses, fs_dat,
                               verbose = TRUE, ts_pathway_scale = 1, dist_file = NULL) {
-  if (verbose) {
-    print(fs_dat)
+  if(verbose) {
+    tmp <- paste(capture.output(head(fs_dat, 3)), collapse = "\n")
+    message("MSG: Functional score data (head):\n", tmp, "\n")
   }
+  
   fs <- fs_dat
 
   # Calculate TS for each dose
@@ -99,15 +101,30 @@ calc_target_score <- function(wk, wks, dist_ind, edgelist, n_dose, n_prot, prote
     message("MSG: IDs not present in network: ", tmp, "\n")
   }
   
+  if(verbose) {
+    debug <- data.frame(i=numeric(0), j=numeric(0), fs=numeric(0), self=numeric(0), network=numeric(0))
+  } else {
+    debug <- NULL
+  }
+  
   for (i in 1:n_dose) {
     for (j in 1:n_prot) {
       tsd[i, j] <- fs[j, 2] * (proteomic_responses[i, j] + sum(tsp[i, 1:n_prot, j]))
+      
+      if(verbose) {
+        fs_tmp <- fs[j, 2]
+        self_tmp <- proteomic_responses[i, j]
+        network_tmp <- sum(tsp[i, 1:n_prot, j])
+        
+        tmp <- data.frame(i=i, j=j, fs=fs_tmp, self=self_tmp, network=network_tmp)
+        debug <- rbind(debug, tmp)
+      }
     }
   }
 
   ts <- colSums(tsd)
   # colnames(ts) <- colnames(proteomic_responses) rownames(ts) <- rownames(proteomic_responses)
   
-  results <- list(wk = wk, wks = wks, ts = ts, tsd = tsd)
+  results <- list(wk = wk, wks = wks, ts = ts, tsd = tsd, debug=debug)
   return(results)
 }

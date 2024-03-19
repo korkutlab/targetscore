@@ -129,6 +129,7 @@ run_cross_validation <- function(data,
 
   # Bootstrap Loop
   for (r in seq_len(boot_time)) {
+    if(verbose) { message("DEBUG: BOOTSTRAP: ", r, "\n") }
 
     # Randomized data
     randomized_data <- as.data.frame(t(apply(data, 1, function(x) {
