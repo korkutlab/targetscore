@@ -22,3 +22,4 @@ ignore_rsconnect.R
 targetscore.Rcheck
 targetscore_0.99.15.tar.gz
 /targetscore/inst/test_data/decide_move\?
+targetscore/inst/shiny/shiny_results_example.rds
