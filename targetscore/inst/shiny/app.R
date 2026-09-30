@@ -170,6 +170,19 @@ ui <- navbarPage(
 server <- function(input, output, session) {
   results <- eventReactive(input$submit, {
     cat("DEBUG\n")
+
+    if (!is.null(input$drug_data_file) && !is.null(input$ts_result_file)) {
+      message <- paste(
+        "Upload either a Perturbation Response File or a TargetScore Result",
+        "File, not both. Both selections have been cleared."
+      )
+      session$sendCustomMessage(
+        type = "resetFileInputs",
+        list(ids = c("drug_data_file", "ts_result_file"))
+      )
+      showNotification(message, type = "error", duration = 8)
+      validate(need(FALSE, message))
+    }
     
     #Result Load in or Calculate start
     if(!is.null(input$ts_result_file)){
@@ -330,7 +343,7 @@ server <- function(input, output, session) {
             wk = wk,
             wks = wks,
             dist_ind = dist_ind,
-            inter = inter,
+            edgelist = network$edgelist,
             n_dose = 1,
             n_prot = n_prot,
             proteomic_responses = proteomic_responses[i, ],
@@ -338,9 +351,9 @@ server <- function(input, output, session) {
             verbose = FALSE,
             fs_dat = fs_dat
           )
-          ts[i, ] <- results$ts
-          ts_p[i, ] <- results$pts
-          ts_q[i, ] <- results$q
+          ts[i, ] <- as.numeric(unlist(results$ts, use.names = FALSE))
+          ts_p[i, ] <- as.numeric(results$pts)
+          ts_q[i, ] <- as.numeric(results$q)
         }
         colnames(ts) <- colnames(proteomic_responses)
         rownames(ts) <- rownames(proteomic_responses)
@@ -373,7 +386,7 @@ server <- function(input, output, session) {
           wk = wk,
           wks = wks,
           dist_ind = dist_ind,
-          inter = inter,
+          edgelist = network$edgelist,
           n_dose = nrow(proteomic_responses),
           n_prot = n_prot,
           proteomic_responses = proteomic_responses,
@@ -417,7 +430,9 @@ server <- function(input, output, session) {
   # Start showing loading marker
   observeEvent(input$submit, {
     cat("SUBMITTED\n")
-    session$sendCustomMessage(type = "showLoading", list(show = TRUE))
+    if (is.null(input$drug_data_file) || is.null(input$ts_result_file)) {
+      session$sendCustomMessage(type = "showLoading", list(show = TRUE))
+    }
   })
 
   # Observe reactive variable and send message to Javascript code
@@ -537,12 +552,43 @@ server <- function(input, output, session) {
       ts = ts, q_value = ts_q, filename = rownames(ts_r)[condition_number], path = "",
       include_labels = FALSE, save_output = FALSE
     )
-    
+
+    label_data <- data.frame(
+      ts = as.numeric(ts),
+      neglog_q = -log10(as.numeric(ts_q)),
+      label = colnames(results$ts_r$ts),
+      stringsAsFactors = FALSE
+    )
+    label_data <- label_data[
+      is.finite(label_data$ts) &
+        is.finite(label_data$neglog_q) &
+        label_data$neglog_q > -log10(0.4) &
+        abs(label_data$ts) > 0.5,
+    ]
+
     # Add title
-    p1 <- p1 + ggtitle(rownames(results$ts_r$ts)[condition_number])
-    
+    p1 <- p1 +
+      ggtitle(rownames(results$ts_r$ts)[condition_number]) +
+      ggplot2::aes(text = label_name)
+
     # g1 <- ggplotly(p1, width=plotWidth, height=plotHeight, tooltip=tooltipCol) # need tooltip
-    g1 <- plotly::ggplotly(p1)
+    g1 <- plotly::ggplotly(
+      p1,
+      tooltip = c("colour", "y", "x", "text")
+    )
+    if (nrow(label_data) > 0) {
+      g1 <- plotly::add_text(
+        g1,
+        data = label_data,
+        x = ~ts,
+        y = ~neglog_q,
+        text = ~label,
+        textposition = "top center",
+        hoverinfo = "skip",
+        showlegend = FALSE,
+        inherit = FALSE
+      )
+    }
     # g1 <- layout(g1, margin=list(t = 75))
     g2 <- plotly::config(
       p = g1, cloud = FALSE, displaylogo = FALSE,
