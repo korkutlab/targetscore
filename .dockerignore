@@ -1,0 +1,12 @@
+.git
+.gitignore
+.Rhistory
+.Rproj.user
+.DS_Store
+**/.env
+**/.Renviron
+**/*.key
+**/*.pem
+**/rsconnect/
+output
+targetscore/inst/test_data/cross_validation
